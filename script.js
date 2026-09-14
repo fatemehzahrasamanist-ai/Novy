@@ -1,9 +1,6 @@
-javascript
 // ==================== Novy Theme System ====================
 
 const themes = {
-
-    // ==================== Navy ====================
 
     navy: {
         "--bg-main": "#061426",
@@ -23,9 +20,6 @@ const themes = {
         "--border-soft": "#163452"
     },
 
-
-    // ==================== Black ====================
-
     black: {
         "--bg-main": "#050505",
         "--bg-section": "#0a0a0a",
@@ -43,9 +37,6 @@ const themes = {
         "--border": "#292929",
         "--border-soft": "#202020"
     },
-
-
-    // ==================== Ice Blue ====================
 
     ice: {
         "--bg-main": "#eaf9ff",
@@ -68,69 +59,50 @@ const themes = {
 };
 
 
-// ==================== Change Theme ====================
+// ==================== Theme Function ====================
 
 function setTheme(themeName) {
 
     const theme = themes[themeName];
 
-    if (!theme) {
-        return;
-    }
+    if (!theme) return;
 
-    Object.entries(theme).forEach(([variable, value]) => {
+    for (const variable in theme) {
 
         document.documentElement.style.setProperty(
             variable,
-            value
+            theme[variable]
         );
 
-    });
+    }
 
-    localStorage.setItem(
-        "novy-theme",
-        themeName
-    );
+    localStorage.setItem("novy-theme", themeName);
 }
 
 
-// ==================== Load Saved Theme ====================
+// ==================== Load Theme ====================
 
 const savedTheme = localStorage.getItem("novy-theme");
 
 if (savedTheme && themes[savedTheme]) {
-
     setTheme(savedTheme);
-
 } else {
-
     setTheme("navy");
-
 }
 
 
-// ==================== Theme Panel Elements ====================
+// ==================== Elements ====================
 
-const themeButton =
-    document.getElementById("themeButton");
-
-const themePanel =
-    document.getElementById("themePanel");
-
-const closeThemePanel =
-    document.getElementById("closeThemePanel");
-
-const themeOptions =
-    document.querySelectorAll(".theme-option");
+const themeButton = document.getElementById("themeButton");
+const themePanel = document.getElementById("themePanel");
+const closeThemePanel = document.getElementById("closeThemePanel");
 
 
-// ==================== Open / Close Panel ====================
+// ==================== Open Panel ====================
 
 if (themeButton && themePanel) {
 
-    themeButton.addEventListener("click", function (event) {
-
-        event.stopPropagation();
+    themeButton.addEventListener("click", function () {
 
         if (themePanel.style.display === "block") {
 
@@ -147,7 +119,7 @@ if (themeButton && themePanel) {
 }
 
 
-// ==================== Close Button ====================
+// ==================== Close Panel ====================
 
 if (closeThemePanel && themePanel) {
 
@@ -160,22 +132,20 @@ if (closeThemePanel && themePanel) {
 }
 
 
-// ==================== Theme Options ====================
+// ==================== Theme Buttons ====================
+
+const themeOptions =
+    document.querySelectorAll(".theme-option");
 
 themeOptions.forEach(function (button) {
 
     button.addEventListener("click", function () {
 
         const selectedTheme =
-            button.dataset.theme;
-
-        if (!selectedTheme) {
-            return;
-        }
+            button.getAttribute("data-theme");
 
         setTheme(selectedTheme);
 
-        // Close panel after selecting a theme
         if (themePanel) {
             themePanel.style.display = "none";
         }
@@ -185,37 +155,19 @@ themeOptions.forEach(function (button) {
 });
 
 
-// ==================== Close Panel When Clicking Outside ====================
+// ==================== Close Outside ====================
 
 document.addEventListener("click", function (event) {
 
-    if (!themePanel || !themeButton) {
-        return;
-    }
+    if (!themePanel || !themeButton) return;
 
-    const clickedInsidePanel =
-        themePanel.contains(event.target);
-
-    const clickedThemeButton =
-        themeButton.contains(event.target);
-
-    if (!clickedInsidePanel && !clickedThemeButton) {
+    if (
+        !themePanel.contains(event.target) &&
+        !themeButton.contains(event.target)
+    ) {
 
         themePanel.style.display = "none";
 
     }
 
 });
-
-
-// ==================== Prevent Panel Click From Closing ====================
-
-if (themePanel) {
-
-    themePanel.addEventListener("click", function (event) {
-
-        event.stopPropagation();
-
-    });
-
-}
