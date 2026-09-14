@@ -82,3 +82,16 @@ if (savedTheme && themes[savedTheme]) {
 } else {
     setTheme("navy");
 }
+// ==================== Theme Panel ====================
+
+const themeButton = document.getElementById("themeButton");
+const themePanel = document.getElementById("themePanel");
+const closeThemePanel = document.getElementById("closeThemePanel");
+
+themeButton.addEventListener("click", () => {
+    themePanel.style.display = "block";
+});
+
+closeThemePanel.addEventListener("click", () => {
+    themePanel.style.display = "none";
+});
