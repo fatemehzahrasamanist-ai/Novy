@@ -1,34 +1,79 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>نووی | همراه دانش‌آموزان</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <!-- ==================== Navbar ==================== -->
+
     <header class="navbar">
-        <a href="#" class="logo">نووی</a>
+
+        <a href="#home" class="logo">NOVY</a>
 
         <nav class="menu">
+
             <a href="#home">خانه</a>
-            <a href="#learning">یادگیری</a>
-            <a href="#planning">برنامه‌ریزی</a>
-            <a href="#calm">آرامش</a>
+
+            <a href="#learning">
+                یادگیری
+            </a>
+
+            <a href="#planning">
+                برنامه‌ریزی
+            </a>
+
+            <a href="#calm">
+                آرامش
+            </a>
+
         </nav>
 
-        <button class="chat-button">شروع گفتگو</button>
+        <div class="navbar-actions">
+
+            <button
+                class="settings-button"
+                id="themeButton"
+                aria-label="تنظیمات تم"
+            >
+                ⚙️
+            </button>
+
+            <button class="login-button">
+                ورود
+            </button>
+
+            <button class="chat-button">
+                شروع گفتگو
+            </button>
+
+        </div>
+
     </header>
 
+
     <main>
+
+        <!-- ==================== Hero ==================== -->
 
         <section class="hero" id="home">
 
             <div class="hero-content">
 
-                <p class="eyebrow">✦ همراه دانش‌آموزان</p>
+                <p class="eyebrow">
+                    ✦ همراه دانش‌آموزان
+                </p>
 
                 <h1>
                     یادگیری،
@@ -43,110 +88,200 @@
                 </p>
 
                 <div class="hero-buttons">
-                    <button class="primary-button">🚀 شروع کنیم</button>
-                    <button class="secondary-button">بیشتر درباره نووی</button>
+
+                    <button class="primary-button">
+                        🚀 شروع کنیم
+                    </button>
+
+                    <button class="secondary-button">
+                        بیشتر درباره نووی
+                    </button>
+
                 </div>
 
             </div>
+
+
+            <!-- ==================== Novy Chat Preview ==================== -->
 
             <div class="novy-card">
 
                 <div class="card-header">
 
-                    <div class="novy-avatar">✦</div>
-
-                    <div>
-                        <h3>نووی</h3>
-                        <p>همراه دانش‌آموزان</p>
+                    <div class="novy-avatar">
+                        ✦
                     </div>
 
-                    <span class="online">●</span>
+                    <div>
+
+                        <h3>
+                            نووی
+                        </h3>
+
+                        <p>
+                            همراه دانش‌آموزان
+                        </p>
+
+                    </div>
+
+                    <span class="online">
+                        ●
+                    </span>
 
                 </div>
+
 
                 <div class="chat-preview">
 
                     <div class="message novy-message">
-                        سلام! 👋<br>
+
+                        سلام! 👋
+                        <br>
+
                         امروز دوست داری روی چی کار کنیم؟
+
                     </div>
+
 
                     <div class="message user-message">
+
                         می‌خوام برای امتحان علوم آماده بشم.
+
                     </div>
 
+
                     <div class="message novy-message">
-                        عالیه! 🧠<br>
+
+                        عالیه! 🧠
+                        <br>
+
                         اول ببینیم چقدر وقت داریم و
                         بعد یه برنامه‌ی جمع‌وجور می‌چینیم.
+
                     </div>
 
                 </div>
 
+
                 <div class="fake-input">
-                    <span>پیامت رو بنویس...</span>
-                    <button>➤</button>
+
+                    <span>
+                        پیامت رو بنویس...
+                    </span>
+
+                    <button>
+                        ➤
+                    </button>
+
                 </div>
 
             </div>
 
         </section>
 
+
+        <!-- ==================== Features ==================== -->
+
         <section class="features">
 
             <div class="section-title">
-                <p>نووی چه کارهایی بلده؟</p>
+
+                <p>
+                    نووی چه کارهایی بلده؟
+                </p>
 
                 <h2>
+
                     سه راه برای اینکه
-                    <span>بهتر پیش بری.</span>
+                    <span>
+                        بهتر پیش بری.
+                    </span>
+
                 </h2>
+
             </div>
+
 
             <div class="feature-grid">
 
-                <article class="feature-card" id="learning">
 
-                    <div class="feature-icon">📚</div>
+                <!-- Learning -->
 
-                    <h3>درس و یادگیری</h3>
+                <article
+                    class="feature-card"
+                    id="learning"
+                >
+
+                    <div class="feature-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        درس و یادگیری
+                    </h3>
 
                     <p>
                         توضیح ساده‌ی درس‌ها، حل مسئله،
                         ساخت تست، مرور و پیدا کردن نقاط ضعف.
                     </p>
 
-                    <button>شروع یادگیری ←</button>
+                    <button>
+                        شروع یادگیری ←
+                    </button>
 
                 </article>
 
-                <article class="feature-card" id="planning">
 
-                    <div class="feature-icon">📅</div>
+                <!-- Planning -->
 
-                    <h3>برنامه‌ریزی</h3>
+                <article
+                    class="feature-card"
+                    id="planning"
+                >
+
+                    <div class="feature-icon">
+                        📅
+                    </div>
+
+                    <h3>
+                        برنامه‌ریزی
+                    </h3>
 
                     <p>
                         برنامه‌ای واقعی و منعطف بر اساس
                         زمان، درس‌ها، امتحان‌ها و انرژی تو.
                     </p>
 
-                    <button>برنامه‌ریزی کنیم ←</button>
+                    <button>
+                        برنامه‌ریزی کنیم ←
+                    </button>
 
                 </article>
 
-                <article class="feature-card" id="calm">
 
-                    <div class="feature-icon">🌱</div>
+                <!-- Calm -->
 
-                    <h3>آرامش و انگیزه</h3>
+                <article
+                    class="feature-card"
+                    id="calm"
+                >
+
+                    <div class="feature-icon">
+                        🌱
+                    </div>
+
+                    <h3>
+                        آرامش و انگیزه
+                    </h3>
 
                     <p>
                         وقتی خسته‌ای، استرس داری یا
                         شروع کردن سخته، نووی کنارت می‌مونه.
                     </p>
 
-                    <button>با نووی حرف بزن ←</button>
+                    <button>
+                        با نووی حرف بزن ←
+                    </button>
 
                 </article>
 
@@ -154,34 +289,56 @@
 
         </section>
 
+
+        <!-- ==================== Final Section ==================== -->
+
         <section class="final-section">
 
-            <p>لازم نیست همه‌چیز رو یک‌دفعه انجام بدی.</p>
+            <p>
+                لازم نیست همه‌چیز رو یک‌دفعه انجام بدی.
+            </p>
 
             <h2>
+
                 فقط یک قدم.
-                <span>همین الان.</span>
+                <span>
+                    همین الان.
+                </span>
+
             </h2>
 
             <button class="primary-button">
+
                 صحبت با نووی ✦
+
             </button>
 
         </section>
 
     </main>
 
+
+    <!-- ==================== Footer ==================== -->
+
     <footer>
 
-        <div class="footer-logo">نووی</div>
+        <div class="footer-logo">
+            NOVY
+        </div>
 
-        <p>همراه دانش‌آموزان 🌱</p>
+        <p>
+            همراه دانش‌آموزان 🌱
+        </p>
 
-        <p class="copyright">© 2026 Novy</p>
+        <p class="copyright">
+            © 2026 Novy
+        </p>
 
     </footer>
+
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
