@@ -215,6 +215,146 @@ button {
 }
 
 
+/* ==================== Theme Panel ==================== */
+
+.theme-panel {
+    position: fixed;
+
+    top: 86px;
+    right: 7%;
+
+    width: 280px;
+
+    padding: 20px;
+
+    background: var(--bg-card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4);
+
+    z-index: 1000;
+
+    display: none;
+}
+
+.theme-panel-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+}
+
+.theme-panel-header h3 {
+    color: var(--text-main);
+
+    font-size: 18px;
+}
+
+.close-theme-panel {
+    width: 32px;
+    height: 32px;
+
+    display: grid;
+    place-items: center;
+
+    background: transparent;
+
+    color: var(--text-soft);
+
+    border-radius: 9px;
+
+    font-size: 22px;
+
+    transition: 0.2s;
+}
+
+.close-theme-panel:hover {
+    background: var(--bg-message);
+
+    color: var(--accent);
+}
+
+.theme-panel-description {
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+    margin-bottom: 16px;
+}
+
+.theme-options {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+.theme-option {
+    width: 100%;
+
+    padding: 11px 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    background: var(--bg-message);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    color: var(--text-main);
+
+    font-size: 14px;
+
+    text-align: right;
+
+    transition: 0.2s;
+}
+
+.theme-option:hover {
+    border-color: var(--accent);
+
+    color: var(--accent);
+
+    transform: translateX(-2px);
+}
+
+.theme-preview {
+    width: 25px;
+    height: 25px;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    border: 1px solid var(--border);
+}
+
+.black-preview {
+    background: #050505;
+}
+
+.navy-preview {
+    background: #061426;
+}
+
+.ice-preview {
+    background: #eaf9ff;
+}
+
+
 /* ==================== Main Buttons ==================== */
 
 .chat-button,
@@ -623,146 +763,22 @@ footer p {
     color: var(--text-muted);
 }
 
+.footer-logo {
+    color: var(--text-main);
+
+    font-size: 22px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 5px;
+}
+
 .copyright {
     font-size: 13px;
 
     margin-top: 10px;
-}
-
-
-/* ==================== Theme Panel ==================== */
-
-.theme-panel {
-    position: fixed;
-
-    top: 88px;
-    right: 7%;
-
-    width: 310px;
-
-    padding: 22px;
-
-    display: none;
-
-    background: var(--bg-card);
-
-    border: 1px solid var(--border);
-
-    border-radius: 22px;
-
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.4);
-
-    z-index: 1000;
-}
-
-.theme-panel-header {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 10px;
-}
-
-.theme-panel-header h3 {
-    color: var(--text-main);
-
-    font-size: 18px;
-}
-
-.close-theme-panel {
-    width: 34px;
-    height: 34px;
-
-    display: grid;
-    place-items: center;
-
-    background: var(--bg-message);
-
-    border: 1px solid var(--border);
-
-    border-radius: 10px;
-
-    color: var(--text-soft);
-
-    font-size: 21px;
-
-    transition: 0.2s;
-}
-
-.close-theme-panel:hover {
-    color: var(--accent);
-
-    border-color: var(--accent);
-}
-
-.theme-panel-description {
-    color: var(--text-muted);
-
-    font-size: 13px;
-
-    margin: 10px 0 20px;
-}
-
-.theme-options {
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 10px;
-}
-
-.theme-option {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 9px;
-
-    padding: 13px 8px;
-
-    background: var(--bg-message);
-
-    border: 1px solid var(--border);
-
-    border-radius: 15px;
-
-    color: var(--text-main);
-
-    font-size: 13px;
-
-    transition: 0.25s;
-}
-
-.theme-option:hover {
-    border-color: var(--accent);
-
-    transform: translateY(-2px);
-}
-
-.theme-preview {
-    width: 52px;
-    height: 34px;
-
-    border-radius: 10px;
-
-    border: 1px solid var(--border);
-}
-
-.black-preview {
-    background: #050505;
-}
-
-.navy-preview {
-    background: #061426;
-}
-
-.ice-preview {
-    background: #eaf9ff;
 }
 
 
@@ -834,9 +850,11 @@ footer p {
     }
 
     .theme-panel {
+        top: 76px;
+
         right: 5%;
 
-        width: 90%;
+        width: 270px;
     }
 }
 
@@ -873,22 +891,10 @@ footer p {
     }
 
     .theme-panel {
-        top: 78px;
-
         right: 4%;
-        left: 4%;
 
-        width: auto;
+        width: 92%;
 
-        padding: 18px;
-    }
-
-    .theme-option {
-        padding: 11px 5px;
-    }
-
-    .theme-preview {
-        width: 45px;
-        height: 30px;
+        max-width: 280px;
     }
 }
