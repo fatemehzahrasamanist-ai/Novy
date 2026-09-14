@@ -1,6 +1,8 @@
+```javascript
 // ==================== Novy Theme System ====================
 
 const themes = {
+
     navy: {
         "--bg-main": "#061426",
         "--bg-section": "#081b30",
@@ -66,32 +68,99 @@ function setTheme(themeName) {
     if (!theme) return;
 
     Object.entries(theme).forEach(([variable, value]) => {
-        document.documentElement.style.setProperty(variable, value);
+
+        document.documentElement.style.setProperty(
+            variable,
+            value
+        );
+
     });
 
-    localStorage.setItem("novy-theme", themeName);
+    localStorage.setItem(
+        "novy-theme",
+        themeName
+    );
 }
 
 
 // ==================== Load Saved Theme ====================
 
-const savedTheme = localStorage.getItem("novy-theme");
+const savedTheme =
+    localStorage.getItem("novy-theme");
 
 if (savedTheme && themes[savedTheme]) {
+
     setTheme(savedTheme);
+
 } else {
+
     setTheme("navy");
+
 }
+
+
 // ==================== Theme Panel ====================
 
-const themeButton = document.getElementById("themeButton");
-const themePanel = document.getElementById("themePanel");
-const closeThemePanel = document.getElementById("closeThemePanel");
+const themeButton =
+    document.getElementById("themeButton");
 
-themeButton.addEventListener("click", () => {
-    themePanel.style.display = "block";
-});
+const themePanel =
+    document.getElementById("themePanel");
 
-closeThemePanel.addEventListener("click", () => {
-    themePanel.style.display = "none";
+const closeThemePanel =
+    document.getElementById("closeThemePanel");
+
+
+// ==================== Open Panel ====================
+
+if (themeButton && themePanel) {
+
+    themeButton.addEventListener(
+        "click",
+        () => {
+
+            themePanel.style.display = "block";
+
+        }
+    );
+
+}
+
+
+// ==================== Close Panel ====================
+
+if (closeThemePanel && themePanel) {
+
+    closeThemePanel.addEventListener(
+        "click",
+        () => {
+
+            themePanel.style.display = "none";
+
+        }
+    );
+
+}
+
+
+// ==================== Theme Options ====================
+
+const themeOptions =
+    document.querySelectorAll(".theme-option");
+
+themeOptions.forEach((button) => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            const selectedTheme =
+                button.dataset.theme;
+
+            setTheme(selectedTheme);
+
+        }
+    );
+
 });
+```
