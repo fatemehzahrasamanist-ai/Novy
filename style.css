@@ -1,3 +1,4 @@
+```css
 /* ==================== Theme System ==================== */
 
 :root {
@@ -52,17 +53,14 @@ body {
 
     align-items: center;
 
-    background: rgba(6, 20, 38, 0.82);
+    background: var(--bg-main);
 
-    border-bottom: 1px solid rgba(142, 231, 255, 0.08);
+    border-bottom: 1px solid var(--border-soft);
 
     position: sticky;
     top: 0;
 
     z-index: 100;
-
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
 }
 
 
@@ -72,10 +70,9 @@ body {
     justify-self: start;
 
     font-size: 30px;
-
     font-weight: 900;
 
-    color: #e9f9ff;
+    color: var(--text-main);
 
     text-decoration: none;
 
@@ -86,9 +83,6 @@ body {
 
 .logo:hover {
     color: var(--accent);
-
-    text-shadow:
-        0 0 22px rgba(142, 231, 255, 0.25);
 }
 
 
@@ -96,9 +90,7 @@ body {
 
 .menu {
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     gap: 34px;
@@ -112,7 +104,6 @@ body {
     text-decoration: none;
 
     font-size: 14px;
-
     font-weight: 600;
 
     padding: 7px 2px;
@@ -139,7 +130,7 @@ body {
 }
 
 .menu a:hover {
-    color: #e8faff;
+    color: var(--text-main);
 }
 
 .menu a:hover::after {
@@ -153,22 +144,19 @@ body {
     justify-self: end;
 
     display: flex;
-
     align-items: center;
 
-    gap: 9px;
+    gap: 10px;
 }
 
 button {
     font-family: inherit;
-
     border: none;
-
     cursor: pointer;
 }
 
 
-/* ==================== Settings Button ==================== */
+/* ==================== Settings ==================== */
 
 .settings-button {
     width: 42px;
@@ -177,72 +165,58 @@ button {
     display: grid;
     place-items: center;
 
-    background: rgba(142, 231, 255, 0.04);
+    background: var(--bg-card);
 
-    border: 1px solid rgba(142, 231, 255, 0.16);
+    border: 1px solid var(--border);
 
-    color: #b9d9e7;
+    color: var(--text-soft);
 
     border-radius: 12px;
 
     font-size: 17px;
 
-    transition:
-        background 0.25s,
-        border-color 0.25s,
-        color 0.25s,
-        transform 0.25s;
+    transition: 0.25s;
 }
 
 .settings-button:hover {
-    background: rgba(142, 231, 255, 0.09);
-
-    border-color: rgba(142, 231, 255, 0.45);
-
+    border-color: var(--accent);
     color: var(--accent);
 
-    transform: rotate(12deg);
+    background: var(--bg-message);
 }
 
 
-/* ==================== Login Button ==================== */
+/* ==================== Login ==================== */
 
 .login-button {
-    min-width: 68px;
-
-    background: rgba(255, 255, 255, 0.025);
-
-    border: 1px solid rgba(142, 231, 255, 0.18);
-
-    color: #dceff6;
+    min-width: 70px;
 
     padding: 9px 17px;
+
+    background: var(--bg-card);
+
+    border: 1px solid var(--border);
+
+    color: var(--text-main);
 
     border-radius: 12px;
 
     font-size: 14px;
-
     font-weight: 700;
 
-    transition:
-        background 0.25s,
-        border-color 0.25s,
-        color 0.25s,
-        transform 0.25s;
+    transition: 0.25s;
 }
 
 .login-button:hover {
-    background: rgba(142, 231, 255, 0.07);
-
-    border-color: rgba(142, 231, 255, 0.45);
+    border-color: var(--accent);
 
     color: var(--accent);
 
-    transform: translateY(-1px);
+    background: var(--bg-message);
 }
 
 
-/* ==================== Main Button ==================== */
+/* ==================== Main Buttons ==================== */
 
 .chat-button,
 .primary-button {
@@ -255,15 +229,9 @@ button {
     border-radius: 12px;
 
     font-size: 14px;
-
     font-weight: 800;
 
-    box-shadow:
-        0 5px 20px rgba(80, 207, 255, 0.08);
-
-    transition:
-        transform 0.25s,
-        box-shadow 0.25s;
+    transition: 0.25s;
 }
 
 .chat-button:hover,
@@ -344,9 +312,9 @@ button {
 .secondary-button {
     background: transparent;
 
-    border: 1px solid #31516b;
+    border: 1px solid var(--border);
 
-    color: #dff6ff;
+    color: var(--text-main);
 
     padding: 12px 22px;
 
@@ -369,13 +337,13 @@ button {
 .novy-card {
     background: var(--bg-chat);
 
-    border: 1px solid #214563;
+    border: 1px solid var(--border);
 
     border-radius: 30px;
 
     padding: 25px;
 
-    color: white;
+    color: var(--text-main);
 
     box-shadow:
         0 25px 70px rgba(0, 0, 0, 0.35),
@@ -399,7 +367,7 @@ button {
 
     padding-bottom: 20px;
 
-    border-bottom: 1px solid #1b3a55;
+    border-bottom: 1px solid var(--border-soft);
 }
 
 .novy-avatar {
@@ -418,9 +386,6 @@ button {
     font-size: 22px;
 
     font-weight: bold;
-
-    box-shadow:
-        0 0 25px rgba(142, 231, 255, 0.2);
 }
 
 .card-header h3 {
@@ -428,7 +393,7 @@ button {
 }
 
 .card-header p {
-    color: #86a8bd;
+    color: var(--text-muted);
 
     font-size: 13px;
 }
@@ -464,7 +429,7 @@ button {
 .novy-message {
     background: var(--bg-message);
 
-    color: #e6f7ff;
+    color: var(--text-main);
 
     align-self: flex-start;
 }
@@ -478,9 +443,9 @@ button {
 }
 
 .fake-input {
-    background: #071a2e;
+    background: var(--bg-main);
 
-    border: 1px solid #1b3a55;
+    border: 1px solid var(--border);
 
     border-radius: 15px;
 
@@ -492,7 +457,7 @@ button {
 
     justify-content: space-between;
 
-    color: #6f91a8;
+    color: var(--text-muted);
 }
 
 .fake-input button {
@@ -560,11 +525,10 @@ button {
 .feature-card:hover {
     transform: translateY(-8px);
 
-    border-color: #3b91b7;
+    border-color: var(--accent);
 
     box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.3),
-        0 0 30px rgba(71, 193, 237, 0.06);
+        0 18px 40px rgba(0, 0, 0, 0.3);
 }
 
 .feature-icon {
@@ -575,9 +539,9 @@ button {
 
     place-items: center;
 
-    background: #123b59;
+    background: var(--bg-message);
 
-    border: 1px solid #28617f;
+    border: 1px solid var(--border);
 
     border-radius: 16px;
 
@@ -628,11 +592,11 @@ button {
         ),
         var(--bg-card);
 
-    border: 1px solid #1f4967;
+    border: 1px solid var(--border);
 }
 
 .final-section p {
-    color: #9bb8c9;
+    color: var(--text-muted);
 
     margin-bottom: 10px;
 }
@@ -651,13 +615,13 @@ footer {
 
     text-align: center;
 
-    background: #040e1b;
+    background: var(--bg-main);
 
     border-top: 1px solid var(--border-soft);
 }
 
 footer p {
-    color: #7594a8;
+    color: var(--text-muted);
 }
 
 .copyright {
@@ -767,3 +731,4 @@ footer p {
         font-size: 11px;
     }
 }
+```
