@@ -216,9 +216,15 @@ button {
 }
 
 
+/* ==================== Hide Header Chat Button ==================== */
+
+.chat-button {
+    display: none;
+}
+
+
 /* ==================== Main Buttons ==================== */
 
-.chat-button,
 .primary-button {
     background: var(--accent);
 
@@ -234,7 +240,6 @@ button {
     transition: 0.25s;
 }
 
-.chat-button:hover,
 .primary-button:hover {
     transform: translateY(-2px);
 
@@ -674,12 +679,6 @@ footer p {
         font-size: 13px;
     }
 
-    .chat-button {
-        padding: 9px 12px;
-
-        font-size: 12px;
-    }
-
     .hero {
         grid-template-columns: 1fr;
 
@@ -723,12 +722,6 @@ footer p {
 
     .login-button {
         padding: 7px 10px;
-    }
-
-    .chat-button {
-        padding: 8px 10px;
-
-        font-size: 11px;
     }
 }
 ```
