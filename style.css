@@ -1,3 +1,4 @@
+```css
 /* ==================== Theme System ==================== */
 
 :root {
@@ -630,6 +631,142 @@ footer p {
 }
 
 
+/* ==================== Theme Panel ==================== */
+
+.theme-panel {
+    position: fixed;
+
+    top: 88px;
+    right: 7%;
+
+    width: 310px;
+
+    padding: 22px;
+
+    display: none;
+
+    background: var(--bg-card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4);
+
+    z-index: 1000;
+}
+
+.theme-panel-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.theme-panel-header h3 {
+    color: var(--text-main);
+
+    font-size: 18px;
+}
+
+.close-theme-panel {
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--bg-message);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    color: var(--text-soft);
+
+    font-size: 21px;
+
+    transition: 0.2s;
+}
+
+.close-theme-panel:hover {
+    color: var(--accent);
+
+    border-color: var(--accent);
+}
+
+.theme-panel-description {
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+    margin: 10px 0 20px;
+}
+
+.theme-options {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+}
+
+.theme-option {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 13px 8px;
+
+    background: var(--bg-message);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    color: var(--text-main);
+
+    font-size: 13px;
+
+    transition: 0.25s;
+}
+
+.theme-option:hover {
+    border-color: var(--accent);
+
+    transform: translateY(-2px);
+}
+
+.theme-preview {
+    width: 52px;
+    height: 34px;
+
+    border-radius: 10px;
+
+    border: 1px solid var(--border);
+}
+
+.black-preview {
+    background: #050505;
+}
+
+.navy-preview {
+    background: #061426;
+}
+
+.ice-preview {
+    background: #eaf9ff;
+}
+
+
 /* ==================== Mobile ==================== */
 
 @media (max-width: 850px) {
@@ -696,6 +833,12 @@ footer p {
     .final-section h2 {
         font-size: 32px;
     }
+
+    .theme-panel {
+        right: 5%;
+
+        width: 90%;
+    }
 }
 
 
@@ -729,4 +872,25 @@ footer p {
 
         font-size: 11px;
     }
+
+    .theme-panel {
+        top: 78px;
+
+        right: 4%;
+        left: 4%;
+
+        width: auto;
+
+        padding: 18px;
+    }
+
+    .theme-option {
+        padding: 11px 5px;
+    }
+
+    .theme-preview {
+        width: 45px;
+        height: 30px;
+    }
 }
+```
