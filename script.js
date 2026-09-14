@@ -1,3 +1,4 @@
+javascript
 // ==================== Novy Theme System ====================
 
 const themes = {
@@ -59,50 +60,64 @@ const themes = {
 };
 
 
-// ==================== Theme Function ====================
+// ==================== Set Theme ====================
 
 function setTheme(themeName) {
 
     const theme = themes[themeName];
 
-    if (!theme) return;
+    if (!theme) {
+        return;
+    }
 
-    for (const variable in theme) {
+    Object.entries(theme).forEach(function ([variable, value]) {
 
         document.documentElement.style.setProperty(
             variable,
-            theme[variable]
+            value
         );
 
-    }
+    });
 
     localStorage.setItem("novy-theme", themeName);
 }
 
 
-// ==================== Load Theme ====================
+// ==================== Load Saved Theme ====================
 
 const savedTheme = localStorage.getItem("novy-theme");
 
 if (savedTheme && themes[savedTheme]) {
+
     setTheme(savedTheme);
+
 } else {
+
     setTheme("navy");
+
 }
 
 
-// ==================== Elements ====================
+// ==================== Get Elements ====================
 
 const themeButton = document.getElementById("themeButton");
+
 const themePanel = document.getElementById("themePanel");
-const closeThemePanel = document.getElementById("closeThemePanel");
+
+const closeThemePanel =
+    document.getElementById("closeThemePanel");
+
+const themeOptions =
+    document.querySelectorAll(".theme-option");
 
 
-// ==================== Open Panel ====================
+// ==================== Open Theme Panel ====================
 
 if (themeButton && themePanel) {
 
-    themeButton.addEventListener("click", function () {
+    themeButton.addEventListener("click", function (event) {
+
+        event.stopPropagation();
 
         if (themePanel.style.display === "block") {
 
@@ -119,7 +134,7 @@ if (themeButton && themePanel) {
 }
 
 
-// ==================== Close Panel ====================
+// ==================== Close Theme Panel ====================
 
 if (closeThemePanel && themePanel) {
 
@@ -132,10 +147,7 @@ if (closeThemePanel && themePanel) {
 }
 
 
-// ==================== Theme Buttons ====================
-
-const themeOptions =
-    document.querySelectorAll(".theme-option");
+// ==================== Select Theme ====================
 
 themeOptions.forEach(function (button) {
 
@@ -144,10 +156,16 @@ themeOptions.forEach(function (button) {
         const selectedTheme =
             button.getAttribute("data-theme");
 
+        if (!selectedTheme) {
+            return;
+        }
+
         setTheme(selectedTheme);
 
         if (themePanel) {
+
             themePanel.style.display = "none";
+
         }
 
     });
@@ -155,16 +173,21 @@ themeOptions.forEach(function (button) {
 });
 
 
-// ==================== Close Outside ====================
+// ==================== Close When Clicking Outside ====================
 
 document.addEventListener("click", function (event) {
 
-    if (!themePanel || !themeButton) return;
+    if (!themePanel || !themeButton) {
+        return;
+    }
 
-    if (
-        !themePanel.contains(event.target) &&
-        !themeButton.contains(event.target)
-    ) {
+    const clickedPanel =
+        themePanel.contains(event.target);
+
+    const clickedButton =
+        themeButton.contains(event.target);
+
+    if (!clickedPanel && !clickedButton) {
 
         themePanel.style.display = "none";
 
