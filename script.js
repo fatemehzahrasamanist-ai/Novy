@@ -129,6 +129,7 @@ languageOptions.forEach(function (button) {
         if (!selectedLanguage) {
             return;
         }
+        applyLanguage(selectedLanguage);
 
         localStorage.setItem(
             "novy-language",
@@ -168,3 +169,23 @@ const translations = {
         language: "اللغة"
     }
 };
+function applyLanguage(language) {
+
+    const elements =
+        document.querySelectorAll("[data-i18n]");
+
+    elements.forEach(function (element) {
+
+        const key =
+            element.getAttribute("data-i18n");
+
+        if (translations[language][key]) {
+
+            element.textContent =
+                translations[language][key];
+
+        }
+
+    });
+
+}
