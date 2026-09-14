@@ -1,4 +1,4 @@
-```javascript
+javascript
 // ==================== Novy Theme System ====================
 
 const themes = {
@@ -219,4 +219,3 @@ if (themePanel) {
     });
 
 }
-```
