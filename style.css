@@ -156,7 +156,7 @@ button {
 }
 
 
-/* ==================== Settings ==================== */
+/* ==================== Settings Button ==================== */
 
 .settings-button {
     width: 42px;
@@ -180,6 +180,7 @@ button {
 
 .settings-button:hover {
     border-color: var(--accent);
+
     color: var(--accent);
 
     background: var(--bg-message);
@@ -213,38 +214,6 @@ button {
     color: var(--accent);
 
     background: var(--bg-message);
-}
-
-
-/* ==================== Hide Header Chat Button ==================== */
-
-.chat-button {
-    display: none;
-}
-
-
-/* ==================== Main Buttons ==================== */
-
-.primary-button {
-    background: var(--accent);
-
-    color: var(--accent-dark);
-
-    padding: 10px 19px;
-
-    border-radius: 12px;
-
-    font-size: 14px;
-    font-weight: 800;
-
-    transition: 0.25s;
-}
-
-.primary-button:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 28px rgba(80, 207, 255, 0.22);
 }
 
 
@@ -636,99 +605,10 @@ footer p {
 }
 
 
-/* ==================== Mobile ==================== */
-
-@media (max-width: 850px) {
-
-    .navbar {
-        min-height: 68px;
-
-        padding: 12px 5%;
-
-        display: flex;
-
-        gap: 12px;
-    }
-
-    .logo {
-        font-size: 23px;
-
-        margin-right: auto;
-    }
-
-    .menu {
-        display: none;
-    }
-
-    .navbar-actions {
-        gap: 6px;
-    }
-
-    .settings-button {
-        width: 38px;
-        height: 38px;
-
-        font-size: 16px;
-    }
-
-    .login-button {
-        min-width: auto;
-
-        padding: 8px 12px;
-
-        font-size: 13px;
-    }
-
-    .hero {
-        grid-template-columns: 1fr;
-
-        padding-top: 60px;
-    }
-
-    .feature-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .hero h1 {
-        font-size: 45px;
-    }
-
-    .final-section h2 {
-        font-size: 32px;
-    }
-}
-
-
-/* ==================== Small Mobile ==================== */
-
-@media (max-width: 500px) {
-
-    .navbar {
-        padding: 11px 4%;
-    }
-
-    .logo {
-        font-size: 21px;
-    }
-
-    .navbar-actions {
-        gap: 5px;
-    }
-
-    .settings-button {
-        width: 36px;
-        height: 36px;
-    }
-
-    .login-button {
-        padding: 7px 10px;
-    }
-}
-```
 /* ==================== Theme Panel ==================== */
 
 .theme-panel {
-    position: fixed;
+    position: fixed !important;
 
     top: 88px;
     right: 7%;
@@ -746,7 +626,7 @@ footer p {
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.35);
 
-    z-index: 1000;
+    z-index: 9999;
 
     display: none;
 }
@@ -856,9 +736,66 @@ footer p {
 }
 
 
-/* ==================== Mobile Theme Panel ==================== */
+/* ==================== Mobile ==================== */
 
-@media (max-width: 500px) {
+@media (max-width: 850px) {
+
+    .navbar {
+        min-height: 68px;
+
+        padding: 12px 5%;
+
+        display: flex;
+
+        gap: 12px;
+    }
+
+    .logo {
+        font-size: 23px;
+
+        margin-right: auto;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .navbar-actions {
+        gap: 6px;
+    }
+
+    .settings-button {
+        width: 38px;
+        height: 38px;
+
+        font-size: 16px;
+    }
+
+    .login-button {
+        min-width: auto;
+
+        padding: 8px 12px;
+
+        font-size: 13px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+
+        padding-top: 60px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .final-section h2 {
+        font-size: 32px;
+    }
 
     .theme-panel {
         top: 78px;
@@ -867,3 +804,31 @@ footer p {
         width: 260px;
     }
 }
+
+
+/* ==================== Small Mobile ==================== */
+
+@media (max-width: 500px) {
+
+    .navbar {
+        padding: 11px 4%;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .navbar-actions {
+        gap: 5px;
+    }
+
+    .settings-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .login-button {
+        padding: 7px 10px;
+    }
+}
+```
