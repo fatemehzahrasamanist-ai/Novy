@@ -1,4 +1,3 @@
-javascript
 // ==================== Novy Theme System ====================
 
 const themes = {
