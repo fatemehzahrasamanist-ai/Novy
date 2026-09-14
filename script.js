@@ -114,3 +114,44 @@ document.addEventListener("click", function (event) {
         themePanel.style.display = "none";
     }
 });
+// ==================== Language System ====================
+
+const languageOptions =
+    document.querySelectorAll(".language-option");
+
+languageOptions.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+        const selectedLanguage =
+            button.getAttribute("data-lang");
+
+        if (!selectedLanguage) {
+            return;
+        }
+
+        localStorage.setItem(
+            "novy-language",
+            selectedLanguage
+        );
+
+        document.documentElement.lang =
+            selectedLanguage;
+
+        if (selectedLanguage === "en") {
+
+            document.documentElement.dir = "ltr";
+
+        } else {
+
+            document.documentElement.dir = "rtl";
+
+        }
+
+        if (themePanel) {
+            themePanel.style.display = "none";
+        }
+
+    });
+
+});
