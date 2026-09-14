@@ -197,3 +197,34 @@ document.addEventListener("click", function (event) {
 
 const languageOptions =
     document.querySelectorAll(".language-option");
+
+languageOptions.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+        const selectedLanguage =
+            button.getAttribute("data-lang");
+
+        if (!selectedLanguage) {
+            return;
+        }
+
+        localStorage.setItem(
+            "novy-language",
+            selectedLanguage
+        );
+
+        document.documentElement.lang =
+            selectedLanguage;
+
+        if (selectedLanguage === "ar") {
+            document.documentElement.dir = "rtl";
+        } else if (selectedLanguage === "fa") {
+            document.documentElement.dir = "rtl";
+        } else {
+            document.documentElement.dir = "ltr";
+        }
+
+    });
+
+});
