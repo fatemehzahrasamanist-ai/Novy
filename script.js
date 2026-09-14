@@ -155,3 +155,16 @@ languageOptions.forEach(function (button) {
     });
 
 });
+const translations = {
+    fa: {
+        language: "زبان"
+    },
+
+    en: {
+        language: "Language"
+    },
+
+    ar: {
+        language: "اللغة"
+    }
+};
