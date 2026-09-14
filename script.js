@@ -116,46 +116,6 @@ document.addEventListener("click", function (event) {
 });
 // ==================== Language System ====================
 
-const languageOptions =
-    document.querySelectorAll(".language-option");
-
-languageOptions.forEach(function (button) {
-
-    button.addEventListener("click", function () {
-
-        const selectedLanguage =
-            button.getAttribute("data-lang");
-
-        if (!selectedLanguage) {
-            return;
-        }
-        applyLanguage(selectedLanguage);
-
-        localStorage.setItem(
-            "novy-language",
-            selectedLanguage
-        );
-
-        document.documentElement.lang =
-            selectedLanguage;
-
-        if (selectedLanguage === "en") {
-
-            document.documentElement.dir = "ltr";
-
-        } else {
-
-            document.documentElement.dir = "rtl";
-
-        }
-
-        if (themePanel) {
-            themePanel.style.display = "none";
-        }
-
-    });
-
-});
 const translations = {
     fa: {
         language: "زبان"
@@ -169,6 +129,8 @@ const translations = {
         language: "اللغة"
     }
 };
+
+
 function applyLanguage(language) {
 
     const elements =
@@ -179,7 +141,10 @@ function applyLanguage(language) {
         const key =
             element.getAttribute("data-i18n");
 
-        if (translations[language][key]) {
+        if (
+            translations[language] &&
+            translations[language][key]
+        ) {
 
             element.textContent =
                 translations[language][key];
@@ -188,4 +153,47 @@ function applyLanguage(language) {
 
     });
 
+    document.documentElement.lang =
+        language;
+
+    if (language === "en") {
+
+        document.documentElement.dir = "ltr";
+
+    } else {
+
+        document.documentElement.dir = "rtl";
+
+    }
+
+    localStorage.setItem(
+        "novy-language",
+        language
+    );
 }
+
+
+const languageOptions =
+    document.querySelectorAll(".language-option");
+
+
+languageOptions.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+        const selectedLanguage =
+            button.getAttribute("data-lang");
+
+        if (!selectedLanguage) {
+            return;
+        }
+
+        applyLanguage(selectedLanguage);
+
+        if (themePanel) {
+            themePanel.style.display = "none";
+        }
+
+    });
+
+});
