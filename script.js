@@ -3,6 +3,8 @@
 
 const themes = {
 
+    // ==================== Navy ====================
+
     navy: {
         "--bg-main": "#061426",
         "--bg-section": "#081b30",
@@ -20,6 +22,9 @@ const themes = {
         "--border": "#1d405d",
         "--border-soft": "#163452"
     },
+
+
+    // ==================== Black ====================
 
     black: {
         "--bg-main": "#050505",
@@ -39,6 +44,9 @@ const themes = {
         "--border-soft": "#202020"
     },
 
+
+    // ==================== Ice Blue ====================
+
     ice: {
         "--bg-main": "#eaf9ff",
         "--bg-section": "#dff5fc",
@@ -56,6 +64,7 @@ const themes = {
         "--border": "#b9e4f2",
         "--border-soft": "#c9eaf4"
     }
+
 };
 
 
@@ -65,7 +74,9 @@ function setTheme(themeName) {
 
     const theme = themes[themeName];
 
-    if (!theme) return;
+    if (!theme) {
+        return;
+    }
 
     Object.entries(theme).forEach(([variable, value]) => {
 
@@ -85,8 +96,7 @@ function setTheme(themeName) {
 
 // ==================== Load Saved Theme ====================
 
-const savedTheme =
-    localStorage.getItem("novy-theme");
+const savedTheme = localStorage.getItem("novy-theme");
 
 if (savedTheme && themes[savedTheme]) {
 
@@ -99,7 +109,7 @@ if (savedTheme && themes[savedTheme]) {
 }
 
 
-// ==================== Theme Panel ====================
+// ==================== Theme Panel Elements ====================
 
 const themeButton =
     document.getElementById("themeButton");
@@ -110,57 +120,103 @@ const themePanel =
 const closeThemePanel =
     document.getElementById("closeThemePanel");
 
+const themeOptions =
+    document.querySelectorAll(".theme-option");
 
-// ==================== Open Panel ====================
+
+// ==================== Open / Close Panel ====================
 
 if (themeButton && themePanel) {
 
-    themeButton.addEventListener(
-        "click",
-        () => {
+    themeButton.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        if (themePanel.style.display === "block") {
+
+            themePanel.style.display = "none";
+
+        } else {
 
             themePanel.style.display = "block";
 
         }
-    );
+
+    });
 
 }
 
 
-// ==================== Close Panel ====================
+// ==================== Close Button ====================
 
 if (closeThemePanel && themePanel) {
 
-    closeThemePanel.addEventListener(
-        "click",
-        () => {
+    closeThemePanel.addEventListener("click", function () {
 
-            themePanel.style.display = "none";
+        themePanel.style.display = "none";
 
-        }
-    );
+    });
 
 }
 
 
 // ==================== Theme Options ====================
 
-const themeOptions =
-    document.querySelectorAll(".theme-option");
+themeOptions.forEach(function (button) {
 
-themeOptions.forEach((button) => {
+    button.addEventListener("click", function () {
 
-    button.addEventListener(
-        "click",
-        () => {
+        const selectedTheme =
+            button.dataset.theme;
 
-            const selectedTheme =
-                button.dataset.theme;
-
-            setTheme(selectedTheme);
-
+        if (!selectedTheme) {
+            return;
         }
-    );
+
+        setTheme(selectedTheme);
+
+        // Close panel after selecting a theme
+        if (themePanel) {
+            themePanel.style.display = "none";
+        }
+
+    });
 
 });
+
+
+// ==================== Close Panel When Clicking Outside ====================
+
+document.addEventListener("click", function (event) {
+
+    if (!themePanel || !themeButton) {
+        return;
+    }
+
+    const clickedInsidePanel =
+        themePanel.contains(event.target);
+
+    const clickedThemeButton =
+        themeButton.contains(event.target);
+
+    if (!clickedInsidePanel && !clickedThemeButton) {
+
+        themePanel.style.display = "none";
+
+    }
+
+});
+
+
+// ==================== Prevent Panel Click From Closing ====================
+
+if (themePanel) {
+
+    themePanel.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+    });
+
+}
 ```
