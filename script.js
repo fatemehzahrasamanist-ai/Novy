@@ -194,3 +194,6 @@ document.addEventListener("click", function (event) {
     }
 
 });
+
+const languageOptions =
+    document.querySelectorAll(".language-option");
