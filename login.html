@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* ==================== Login Page Fix ==================== */
+
+        /* ==================== صفحه ورود ==================== */
 
         html,
         body {
@@ -36,44 +37,56 @@
 
         .login-page-box {
             position: relative;
+
             width: min(430px, 100%);
+
             box-sizing: border-box;
 
             background: #0b233d !important;
+
             color: #f4fbff !important;
+
             border-color: #1d405d !important;
         }
 
 
-        /* ==================== Login Inputs ==================== */
+        /* ==================== ورودی‌ها ==================== */
 
         .login-step input {
             width: 100%;
+
             box-sizing: border-box;
 
             padding: 14px 16px;
 
             border: 1px solid #1d405d !important;
+
             border-radius: 14px;
 
             outline: none;
 
             background: #0a2038 !important;
+
             color: #f4fbff !important;
 
             font-family: Arial, sans-serif;
+
             font-size: 15px;
 
             transition: 0.2s;
         }
 
+
         .login-step input::placeholder {
             color: #91b0c2 !important;
+
             opacity: 1;
         }
 
+
         .login-step input:focus {
             background: #102e4a !important;
+
             color: #f4fbff !important;
 
             border-color: #8ee7ff !important;
@@ -88,6 +101,7 @@
         .login-step input:-webkit-autofill,
         .login-step input:-webkit-autofill:hover,
         .login-step input:-webkit-autofill:focus {
+
             -webkit-text-fill-color: #f4fbff !important;
 
             -webkit-box-shadow:
@@ -101,25 +115,36 @@
         }
 
 
-        /* ==================== Verification Code ==================== */
+        /* ==================== کد تأیید ==================== */
 
         .verification-inputs {
+
             display: flex;
+
             direction: ltr;
+
             justify-content: center;
+
             gap: 8px;
+
             width: 100%;
+
             margin: 8px 0 10px;
         }
 
+
         .verification-digit {
+
             width: 48px !important;
+
             height: 54px;
 
             padding: 0 !important;
 
             text-align: center;
+
             font-size: 20px !important;
+
             font-weight: 600;
 
             border-radius: 12px !important;
@@ -136,7 +161,8 @@
 
         <div class="login-page-box">
 
-            <!-- برگشت -->
+
+            <!-- ==================== برگشت ==================== -->
 
             <a
                 href="index.html"
@@ -146,14 +172,14 @@
             </a>
 
 
-            <!-- لوگو -->
+            <!-- ==================== لوگو ==================== -->
 
             <div class="login-page-logo">
                 NOVY
             </div>
 
 
-            <!-- عنوان -->
+            <!-- ==================== عنوان ==================== -->
 
             <h1 id="loginTitle">
                 ورود به نووی
@@ -171,15 +197,18 @@
                     اطلاعاتت رو وارد کن تا پروفایلت رو بسازیم.
                 </p>
 
+
                 <label for="loginContact">
                     ایمیل یا شماره تلفن
                 </label>
+
 
                 <input
                     type="text"
                     id="loginContact"
                     placeholder="ایمیل یا شماره تلفن"
                 >
+
 
                 <button
                     class="login-page-submit"
@@ -204,18 +233,14 @@
                     کد تأیید برایت ارسال شد.
                 </p>
 
+
                 <label>
                     کد تأیید
                 </label>
 
+
                 <div class="verification-inputs">
 
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
 
                     <input
                         type="text"
@@ -224,12 +249,6 @@
                         class="verification-digit"
                     >
 
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
 
                     <input
                         type="text"
@@ -238,12 +257,30 @@
                         class="verification-digit"
                     >
 
+
                     <input
                         type="text"
                         maxlength="1"
                         inputmode="numeric"
                         class="verification-digit"
                     >
+
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
 
                     <input
                         type="text"
@@ -253,6 +290,7 @@
                     >
 
                 </div>
+
 
                 <button
                     class="login-page-submit"
@@ -277,11 +315,13 @@
                     نام کاربری
                 </label>
 
+
                 <input
                     type="text"
                     id="loginUsername"
                     placeholder="مثلاً novy_user"
                 >
+
 
                 <button
                     class="login-page-submit"
@@ -306,11 +346,13 @@
                     نام
                 </label>
 
+
                 <input
                     type="text"
                     id="loginName"
                     placeholder="مثلاً میوا"
                 >
+
 
                 <button
                     class="login-page-submit"
@@ -335,13 +377,16 @@
                     ✓
                 </div>
 
+
                 <h2>
                     پروفایلت آماده‌ست!
                 </h2>
 
+
                 <p class="login-page-description">
                     حالا می‌تونی وارد نووی بشی و شروع کنی.
                 </p>
+
 
                 <button
                     class="login-page-submit"
@@ -353,6 +398,7 @@
 
             </div>
 
+
         </div>
 
     </main>
@@ -361,6 +407,9 @@
     <!-- ==================== JavaScript ==================== -->
 
     <script>
+
+
+        /* ==================== عناصر مراحل ==================== */
 
         const step1 =
             document.getElementById("step1");
@@ -378,6 +427,8 @@
             document.getElementById("step4");
 
 
+        /* ==================== دکمه‌ها ==================== */
+
         const step1Button =
             document.getElementById("step1Button");
 
@@ -390,6 +441,8 @@
         const step3Button =
             document.getElementById("step3Button");
 
+
+        /* ==================== ورودی‌ها ==================== */
 
         const loginContact =
             document.getElementById("loginContact");
@@ -409,14 +462,20 @@
 
                 event.preventDefault();
 
+
                 if (
                     loginContact.value.trim() === ""
                 ) {
+
                     loginContact.focus();
+
                     return;
                 }
 
-                step1.style.display = "none";
+
+                step1.style.display =
+                    "none";
+
 
                 verificationStep.style.display =
                     "flex";
@@ -433,8 +492,10 @@
 
                 event.preventDefault();
 
+
                 verificationStep.style.display =
                     "none";
+
 
                 step2.style.display =
                     "flex";
@@ -451,15 +512,20 @@
 
                 event.preventDefault();
 
+
                 if (
                     loginUsername.value.trim() === ""
                 ) {
+
                     loginUsername.focus();
+
                     return;
                 }
 
+
                 step2.style.display =
                     "none";
+
 
                 step3.style.display =
                     "flex";
@@ -476,15 +542,20 @@
 
                 event.preventDefault();
 
+
                 if (
                     loginName.value.trim() === ""
                 ) {
+
                     loginName.focus();
+
                     return;
                 }
 
+
                 step3.style.display =
                     "none";
+
 
                 step4.style.display =
                     "flex";
@@ -493,7 +564,7 @@
         );
 
 
-        /* ==================== ورود به پروفایل ==================== */
+        /* ==================== ذخیره اطلاعات حساب ==================== */
 
         document
             .getElementById("loginSubmit")
@@ -502,6 +573,47 @@
                 function (event) {
 
                     event.preventDefault();
+
+
+                    const contact =
+                        loginContact.value.trim();
+
+
+                    const username =
+                        loginUsername.value.trim();
+
+
+                    const name =
+                        loginName.value.trim();
+
+
+                    /*
+                     * اطلاعات حساب فعلاً
+                     * روی همین مرورگر ذخیره می‌شوند.
+                     *
+                     * بعداً با ساخت بک‌اند واقعی،
+                     * سیستم حساب کاربری امن جایگزین می‌شود.
+                     */
+
+                    localStorage.setItem(
+                        "novyContact",
+                        contact
+                    );
+
+
+                    localStorage.setItem(
+                        "novyUsername",
+                        username
+                    );
+
+
+                    localStorage.setItem(
+                        "novyName",
+                        name
+                    );
+
+
+                    /* رفتن به پروفایل */
 
                     window.location.href =
                         "profile.html";
@@ -517,8 +629,10 @@
                 ".verification-digit"
             );
 
+
         verificationInputs.forEach(
             function (input, index) {
+
 
                 input.addEventListener(
                     "input",
