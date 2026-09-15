@@ -502,6 +502,90 @@
         }
 
         /* =========================
+           SETTINGS PANEL
+        ========================= */
+
+        .settings-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.48);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .settings-overlay.active {
+            display: flex;
+        }
+
+        .settings-panel {
+            width: min(430px, 100%);
+            max-height: 85vh;
+            overflow-y: auto;
+            background: #081b30;
+            border: 1px solid #1d405d;
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+        }
+
+        .settings-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .settings-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .close-settings {
+            width: 34px;
+            height: 34px;
+            border: 1px solid #1d405d;
+            border-radius: 10px;
+            background: #0b233d;
+            color: #8ee7ff;
+            cursor: pointer;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-settings:hover {
+            background: #102e4a;
+        }
+
+        .settings-section {
+            margin-bottom: 24px;
+        }
+
+        .settings-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .settings-section h3 {
+            margin: 0 0 12px;
+            color: #a8c7d9;
+            font-size: 14px;
+        }
+
+        .settings-placeholder {
+            padding: 16px;
+            border: 1px solid #163452;
+            border-radius: 14px;
+            background: #0b233d;
+            color: #91b0c2;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* =========================
            MOBILE
         ========================= */
 
@@ -630,6 +714,11 @@
 
             .welcome p {
                 font-size: 13px;
+            }
+
+            .settings-panel {
+                padding: 20px;
+                border-radius: 20px;
             }
         }
     </style>
@@ -789,6 +878,58 @@
         </div>
 
     </main>
+
+</div>
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<div class="settings-overlay" id="settingsOverlay">
+
+    <div class="settings-panel">
+
+        <div class="settings-header">
+
+            <h2>
+                ⚙️ تنظیمات
+            </h2>
+
+            <button
+                class="close-settings"
+                id="closeSettings"
+                aria-label="بستن تنظیمات"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="settings-section">
+
+            <h3>
+                ظاهر
+            </h3>
+
+            <div class="settings-placeholder">
+                تنظیمات ظاهر نووی به‌زودی اینجا قرار می‌گیره 🎨
+            </div>
+
+        </div>
+
+        <div class="settings-section">
+
+            <h3>
+                زبان
+            </h3>
+
+            <div class="settings-placeholder">
+                تنظیمات زبان نووی به‌زودی اینجا قرار می‌گیره 🌐
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -1010,6 +1151,12 @@
     const sidebarTools =
         document.querySelectorAll(".sidebar-tool");
 
+    const settingsOverlay =
+        document.getElementById("settingsOverlay");
+
+    const closeSettings =
+        document.getElementById("closeSettings");
+
     sidebarTools.forEach(function(tool) {
 
         tool.addEventListener(
@@ -1023,9 +1170,7 @@
 
                 if (name === "تنظیمات") {
 
-                    alert(
-                        "تنظیمات نووی به‌زودی اینجا قرار می‌گیره ⚙️"
-                    );
+                    settingsOverlay.classList.add("active");
 
                 } else {
 
@@ -1040,6 +1185,32 @@
         );
 
     });
+
+    /* =========================
+       CLOSE SETTINGS
+    ========================= */
+
+    closeSettings.addEventListener(
+        "click",
+        function() {
+
+            settingsOverlay.classList.remove("active");
+
+        }
+    );
+
+    settingsOverlay.addEventListener(
+        "click",
+        function(event) {
+
+            if (event.target === settingsOverlay) {
+
+                settingsOverlay.classList.remove("active");
+
+            }
+
+        }
+    );
 
 </script>
 
