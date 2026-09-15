@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
+
         html,
         body {
             color: var(--text-main) !important;
@@ -17,6 +18,7 @@
 
         .login-page {
             min-height: 100vh;
+
             background:
                 radial-gradient(
                     circle at top,
@@ -28,15 +30,19 @@
 
         .login-page-box {
             position: relative;
+
             width: min(430px, 100%);
+
             box-sizing: border-box;
+
             background: var(--bg-card) !important;
             color: var(--text-main) !important;
+
             border-color: var(--border) !important;
         }
 
 
-        /* ==================== دکمه‌ها ==================== */
+        /* ==================== Buttons ==================== */
 
         .login-page-submit {
             background: var(--accent) !important;
@@ -47,6 +53,7 @@
             -webkit-text-fill-color: #061426 !important;
 
             font-weight: 800;
+
             cursor: pointer;
 
             transition:
@@ -64,6 +71,7 @@
 
         .login-page-submit:hover {
             opacity: 0.9;
+
             transform: translateY(-1px);
 
             box-shadow:
@@ -71,15 +79,17 @@
         }
 
 
-        /* ==================== ورودی‌ها ==================== */
+        /* ==================== Inputs ==================== */
 
         .login-step input {
             width: 100%;
+
             box-sizing: border-box;
 
             padding: 14px 16px;
 
             border: 1px solid var(--border) !important;
+
             border-radius: 14px;
 
             outline: none;
@@ -124,7 +134,7 @@
         }
 
 
-        /* ==================== پیام وضعیت ==================== */
+        /* ==================== Status ==================== */
 
         .login-status {
             display: none;
@@ -142,7 +152,7 @@
         }
 
 
-        /* ==================== خطای رمز ==================== */
+        /* ==================== Password Error ==================== */
 
         .password-error {
             display: none;
@@ -159,12 +169,14 @@
         }
 
 
-        /* ==================== دکمه در حال پردازش ==================== */
+        /* ==================== Loading ==================== */
 
         .login-page-submit.loading {
             opacity: 0.65;
+
             pointer-events: none;
         }
+
     </style>
 
 </head>
@@ -177,7 +189,7 @@
         <div class="login-page-box">
 
 
-            <!-- برگشت -->
+            <!-- Back -->
 
             <a
                 href="index.html"
@@ -188,14 +200,14 @@
             </a>
 
 
-            <!-- لوگو -->
+            <!-- Logo -->
 
             <div class="login-page-logo">
                 NOVY
             </div>
 
 
-            <!-- عنوان -->
+            <!-- Title -->
 
             <h1
                 id="loginTitle"
@@ -205,7 +217,7 @@
             </h1>
 
 
-            <!-- ==================== مرحله ۱ ==================== -->
+            <!-- ==================== STEP 1 ==================== -->
 
             <div
                 class="login-step"
@@ -255,7 +267,7 @@
             </div>
 
 
-            <!-- ==================== مرحله تأیید ایمیل ==================== -->
+            <!-- ==================== EMAIL VERIFICATION ==================== -->
 
             <div
                 class="login-step"
@@ -289,7 +301,7 @@
             </div>
 
 
-            <!-- ==================== مرحله ساخت رمز ==================== -->
+            <!-- ==================== CREATE PASSWORD ==================== -->
 
             <div
                 class="login-step"
@@ -360,7 +372,7 @@
             </div>
 
 
-            <!-- ==================== مرحله ۲ ==================== -->
+            <!-- ==================== USERNAME ==================== -->
 
             <div
                 class="login-step"
@@ -397,7 +409,7 @@
             </div>
 
 
-            <!-- ==================== مرحله ۳ ==================== -->
+            <!-- ==================== NAME ==================== -->
 
             <div
                 class="login-step"
@@ -433,7 +445,7 @@
             </div>
 
 
-            <!-- ==================== مرحله موفقیت ==================== -->
+            <!-- ==================== SUCCESS ==================== -->
 
             <div
                 class="login-step"
@@ -476,14 +488,16 @@
     </main>
 
 
-    <!-- ==================== Supabase ==================== -->
+    <!-- ==================== SUPABASE ==================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
     <script>
 
-        /* ==================== Supabase ==================== */
+        /* =========================================================
+           SUPABASE
+        ========================================================= */
 
         const SUPABASE_URL =
             "https://yeqwwxmbgeojjbuzppsm.supabase.co";
@@ -498,7 +512,9 @@
             );
 
 
-        /* ==================== ترجمه‌ها ==================== */
+        /* =========================================================
+           TRANSLATIONS
+        ========================================================= */
 
         const translations = {
 
@@ -517,170 +533,250 @@
                 verificationEmail:
                     "ایمیل ارسال شد.",
                 checkLogin: "بررسی ورود",
+
                 loginNotComplete:
-                    "هنوز ورود تأیید نشده. اول روی لینک داخل ایمیلت بزن.",
+                    "هنوز وارد نشدی. اول روی لینک داخل ایمیلت بزن.",
 
                 passwordDescription:
                     "یک رمز عبور برای حسابت بساز.",
-                passwordLabel: "رمز عبور",
+                passwordLabel:
+                    "رمز عبور",
                 passwordPlaceholder:
                     "رمز عبور خودت را بساز",
                 confirmPasswordLabel:
                     "تکرار رمز عبور",
                 confirmPasswordPlaceholder:
                     "رمز عبور را دوباره وارد کن",
+
                 passwordMismatch:
                     "رمزهای عبور یکسان نیستند.",
+
                 passwordRequired:
                     "لطفاً رمز عبور را وارد کن.",
+
                 passwordTooShort:
                     "رمز عبور باید حداقل ۶ کاراکتر باشد.",
 
-                usernameLabel: "نام کاربری",
+                usernameLabel:
+                    "نام کاربری",
+
                 usernamePlaceholder:
                     "مثلاً novy_user",
 
-                nameLabel: "نام",
+                nameLabel:
+                    "نام",
+
                 namePlaceholder:
                     "مثلاً میوا",
 
                 profileReady:
                     "پروفایلت آماده‌ست!",
+
                 readyDescription:
                     "حالا می‌تونی وارد نووی بشی و شروع کنی.",
+
                 enterNovy:
                     "ورود به نووی",
 
                 invalidEmail:
                     "لطفاً یک ایمیل معتبر وارد کن.",
+
                 emailError:
                     "ارسال لینک ورود انجام نشد. دوباره امتحان کن.",
+
                 authError:
                     "احراز هویت انجام نشد. دوباره امتحان کن.",
+
                 passwordError:
                     "ساخت رمز عبور انجام نشد.",
+
                 profileError:
                     "ذخیره اطلاعات پروفایل انجام نشد."
             },
+
 
             en: {
                 pageTitle: "Login to Novy",
                 back: "← Back to Novy",
                 loginTitle: "Login to Novy",
+
                 loginDescription:
                     "Enter your email to receive a login link.",
-                contactLabel: "Email",
-                contactPlaceholder: "Email",
-                continue: "Continue",
+
+                contactLabel:
+                    "Email",
+
+                contactPlaceholder:
+                    "Email",
+
+                continue:
+                    "Continue",
 
                 verificationDescription:
                     "The login link was sent. Check your email and click the link.",
+
                 verificationEmail:
                     "Email sent.",
-                checkLogin: "Check login",
+
+                checkLogin:
+                    "Check login",
+
                 loginNotComplete:
                     "You are not signed in yet. Click the link in your email first.",
 
                 passwordDescription:
                     "Create a password for your account.",
-                passwordLabel: "Password",
+
+                passwordLabel:
+                    "Password",
+
                 passwordPlaceholder:
                     "Create your password",
+
                 confirmPasswordLabel:
                     "Confirm password",
+
                 confirmPasswordPlaceholder:
                     "Enter your password again",
+
                 passwordMismatch:
                     "Passwords do not match.",
+
                 passwordRequired:
                     "Please enter a password.",
+
                 passwordTooShort:
                     "Password must be at least 6 characters.",
 
-                usernameLabel: "Username",
+                usernameLabel:
+                    "Username",
+
                 usernamePlaceholder:
                     "e.g. novy_user",
 
-                nameLabel: "Name",
+                nameLabel:
+                    "Name",
+
                 namePlaceholder:
                     "e.g. Miwa",
 
                 profileReady:
                     "Your profile is ready!",
+
                 readyDescription:
                     "Now you can enter Novy and get started.",
+
                 enterNovy:
                     "Enter Novy",
 
                 invalidEmail:
                     "Please enter a valid email.",
+
                 emailError:
                     "The login link could not be sent. Please try again.",
+
                 authError:
                     "Authentication failed. Please try again.",
+
                 passwordError:
                     "The password could not be created.",
+
                 profileError:
                     "Your profile information could not be saved."
             },
 
+
             ar: {
-                pageTitle: "تسجيل الدخول إلى نوفي",
-                back: "← العودة إلى نوفي",
-                loginTitle: "تسجيل الدخول إلى نوفي",
+                pageTitle:
+                    "تسجيل الدخول إلى نوفي",
+
+                back:
+                    "← العودة إلى نوفي",
+
+                loginTitle:
+                    "تسجيل الدخول إلى نوفي",
+
                 loginDescription:
                     "أدخل بريدك الإلكتروني لتلقي رابط تسجيل الدخول.",
-                contactLabel: "البريد الإلكتروني",
-                contactPlaceholder: "البريد الإلكتروني",
-                continue: "متابعة",
+
+                contactLabel:
+                    "البريد الإلكتروني",
+
+                contactPlaceholder:
+                    "البريد الإلكتروني",
+
+                continue:
+                    "متابعة",
 
                 verificationDescription:
                     "تم إرسال رابط تسجيل الدخول. تحقق من بريدك واضغط على الرابط.",
+
                 verificationEmail:
                     "تم إرسال البريد الإلكتروني.",
-                checkLogin: "تحقق من تسجيل الدخول",
+
+                checkLogin:
+                    "تحقق من تسجيل الدخول",
+
                 loginNotComplete:
                     "لم يتم تسجيل الدخول بعد. اضغط على الرابط الموجود في بريدك أولاً.",
 
                 passwordDescription:
                     "أنشئ كلمة مرور لحسابك.",
-                passwordLabel: "كلمة المرور",
+
+                passwordLabel:
+                    "كلمة المرور",
+
                 passwordPlaceholder:
                     "أنشئ كلمة المرور",
+
                 confirmPasswordLabel:
                     "تأكيد كلمة المرور",
+
                 confirmPasswordPlaceholder:
                     "أدخل كلمة المرور مرة أخرى",
+
                 passwordMismatch:
                     "كلمتا المرور غير متطابقتين.",
+
                 passwordRequired:
                     "يرجى إدخال كلمة المرور.",
+
                 passwordTooShort:
                     "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.",
 
-                usernameLabel: "اسم المستخدم",
+                usernameLabel:
+                    "اسم المستخدم",
+
                 usernamePlaceholder:
                     "مثلاً novy_user",
 
-                nameLabel: "الاسم",
+                nameLabel:
+                    "الاسم",
+
                 namePlaceholder:
                     "مثلاً Miwa",
 
                 profileReady:
                     "ملفك الشخصي جاهز!",
+
                 readyDescription:
                     "يمكنك الآن الدخول إلى نوفي والبدء.",
+
                 enterNovy:
                     "الدخول إلى نوفي",
 
                 invalidEmail:
                     "يرجى إدخال بريد إلكتروني صالح.",
+
                 emailError:
                     "تعذر إرسال رابط تسجيل الدخول. حاول مرة أخرى.",
+
                 authError:
                     "فشلت المصادقة. حاول مرة أخرى.",
+
                 passwordError:
                     "تعذر إنشاء كلمة المرور.",
+
                 profileError:
                     "تعذر حفظ معلومات ملفك الشخصي."
             }
@@ -688,7 +784,9 @@
         };
 
 
-        /* ==================== تم‌ها ==================== */
+        /* =========================================================
+           THEMES
+        ========================================================= */
 
         const themes = {
 
@@ -728,8 +826,6 @@
         };
 
 
-        /* ==================== اعمال تم ==================== */
-
         function setTheme(themeName) {
 
             const theme =
@@ -739,7 +835,10 @@
                 ([property, value]) => {
 
                     document.documentElement.style
-                        .setProperty(property, value);
+                        .setProperty(
+                            property,
+                            value
+                        );
 
                 }
             );
@@ -748,16 +847,18 @@
                 "novy-theme",
                 themeName
             );
-
         }
 
 
-        /* ==================== اعمال زبان ==================== */
+        /* =========================================================
+           LANGUAGE
+        ========================================================= */
 
         function applyLanguage(lang) {
 
             const translation =
-                translations[lang] || translations.fa;
+                translations[lang] ||
+                translations.fa;
 
 
             document
@@ -778,7 +879,8 @@
 
                             span.textContent = "←";
 
-                            element.childNodes[0].nodeValue =
+                            element.childNodes[0]
+                                .nodeValue =
                                 translation[key] + " ";
 
                         } else {
@@ -794,7 +896,9 @@
 
 
             document
-                .querySelectorAll("[data-i18n-placeholder]")
+                .querySelectorAll(
+                    "[data-i18n-placeholder]"
+                )
                 .forEach(element => {
 
                     const key =
@@ -823,6 +927,7 @@
             document.title =
                 translation.pageTitle;
 
+
             localStorage.setItem(
                 "novy-language",
                 lang
@@ -830,8 +935,6 @@
 
         }
 
-
-        /* ==================== تنظیمات ذخیره‌شده ==================== */
 
         const savedTheme =
             localStorage.getItem("novy-theme")
@@ -846,16 +949,22 @@
         applyLanguage(savedLanguage);
 
 
-        /* ==================== مراحل ==================== */
+        /* =========================================================
+           STEPS
+        ========================================================= */
 
         const step1 =
             document.getElementById("step1");
 
         const verificationStep =
-            document.getElementById("verificationStep");
+            document.getElementById(
+                "verificationStep"
+            );
 
         const passwordStep =
-            document.getElementById("passwordStep");
+            document.getElementById(
+                "passwordStep"
+            );
 
         const step2 =
             document.getElementById("step2");
@@ -867,84 +976,120 @@
             document.getElementById("step4");
 
 
-        /* ==================== دکمه‌ها ==================== */
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
 
         const step1Button =
-            document.getElementById("step1Button");
+            document.getElementById(
+                "step1Button"
+            );
 
         const verificationButton =
-            document.getElementById("verificationButton");
+            document.getElementById(
+                "verificationButton"
+            );
 
         const passwordButton =
-            document.getElementById("passwordButton");
+            document.getElementById(
+                "passwordButton"
+            );
 
         const step2Button =
-            document.getElementById("step2Button");
+            document.getElementById(
+                "step2Button"
+            );
 
         const step3Button =
-            document.getElementById("step3Button");
+            document.getElementById(
+                "step3Button"
+            );
 
         const loginSubmit =
-            document.getElementById("loginSubmit");
+            document.getElementById(
+                "loginSubmit"
+            );
 
 
-        /* ==================== ورودی‌ها ==================== */
+        /* =========================================================
+           INPUTS
+        ========================================================= */
 
         const loginContact =
-            document.getElementById("loginContact");
+            document.getElementById(
+                "loginContact"
+            );
 
         const loginPassword =
-            document.getElementById("loginPassword");
+            document.getElementById(
+                "loginPassword"
+            );
 
         const loginPasswordConfirm =
-            document.getElementById("loginPasswordConfirm");
+            document.getElementById(
+                "loginPasswordConfirm"
+            );
 
         const loginUsername =
-            document.getElementById("loginUsername");
+            document.getElementById(
+                "loginUsername"
+            );
 
         const loginName =
-            document.getElementById("loginName");
+            document.getElementById(
+                "loginName"
+            );
 
         const passwordError =
-            document.getElementById("passwordError");
+            document.getElementById(
+                "passwordError"
+            );
 
         const contactError =
-            document.getElementById("contactError");
+            document.getElementById(
+                "contactError"
+            );
 
         const verificationEmail =
-            document.getElementById("verificationEmail");
+            document.getElementById(
+                "verificationEmail"
+            );
 
 
-        /* ==================== ابزارهای کمکی ==================== */
-
-        function getCurrentLanguage() {
-
-            return localStorage.getItem("novy-language")
-                || "fa";
-
-        }
-
+        /* =========================================================
+           HELPERS
+        ========================================================= */
 
         function t(key) {
 
             const lang =
-                getCurrentLanguage();
+                localStorage.getItem(
+                    "novy-language"
+                ) || "fa";
+
 
             return (
                 translations[lang]?.[key]
-                || translations.fa[key]
-                || key
+                ||
+                translations.fa[key]
+                ||
+                key
             );
 
         }
 
 
-        function showError(element, message) {
+        function showError(
+            element,
+            message
+        ) {
 
             element.textContent =
                 message;
 
-            element.classList.add("show");
+            element.classList.add(
+                "show"
+            );
 
         }
 
@@ -953,16 +1098,24 @@
 
             element.textContent = "";
 
-            element.classList.remove("show");
+            element.classList.remove(
+                "show"
+            );
 
         }
 
 
-        function setLoading(button, loading) {
+        function setLoading(
+            button,
+            loading
+        ) {
 
             if (loading) {
 
-                button.classList.add("loading");
+                button.classList.add(
+                    "loading"
+                );
+
                 button.dataset.originalText =
                     button.innerHTML;
 
@@ -971,7 +1124,9 @@
 
             } else {
 
-                button.classList.remove("loading");
+                button.classList.remove(
+                    "loading"
+                );
 
                 if (
                     button.dataset.originalText
@@ -1016,7 +1171,118 @@
         }
 
 
-        /* ==================== مرحله ۱ ==================== */
+        /* =========================================================
+           CHECK PROFILE COMPLETION
+        ========================================================= */
+
+        function isProfileComplete(user) {
+
+            if (!user) {
+                return false;
+            }
+
+
+            const metadata =
+                user.user_metadata || {};
+
+
+            const username =
+                metadata.username;
+
+
+            const name =
+                metadata.name;
+
+
+            return Boolean(
+                username &&
+                username.trim() &&
+                name &&
+                name.trim()
+            );
+
+        }
+
+
+        /* =========================================================
+           HANDLE EXISTING SESSION
+        ========================================================= */
+
+        async function handleExistingSession() {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth
+                    .getSession();
+
+
+            if (error) {
+
+                console.error(
+                    "Session check error:",
+                    error
+                );
+
+                return;
+
+            }
+
+
+            const session =
+                data?.session;
+
+
+            if (!session) {
+                return;
+            }
+
+
+            const user =
+                session.user;
+
+
+            /*
+             * اگر کاربر قبلاً Username و Name
+             * داشته باشد، یعنی ثبت‌نامش کامل شده.
+             *
+             * پس نباید دوباره مرحله ساخت رمز
+             * نمایش داده شود.
+             */
+
+            if (
+                isProfileComplete(user)
+            ) {
+
+                localStorage.setItem(
+                    "novyLoggedIn",
+                    "true"
+                );
+
+                window.location.href =
+                    "profile.html";
+
+                return;
+
+            }
+
+
+            /*
+             * اگر Session هست ولی پروفایل کامل نیست،
+             * یعنی کاربر تازه ثبت‌نام کرده.
+             */
+
+            showStep(
+                passwordStep
+            );
+
+        }
+
+
+        /* =========================================================
+           STEP 1
+        ========================================================= */
 
         step1Button.addEventListener(
             "click",
@@ -1024,14 +1290,20 @@
 
                 event.preventDefault();
 
-                hideError(contactError);
+                hideError(
+                    contactError
+                );
+
 
                 const email =
-                    loginContact.value.trim()
+                    loginContact.value
+                        .trim()
                         .toLowerCase();
 
 
-                if (!isValidEmail(email)) {
+                if (
+                    !isValidEmail(email)
+                ) {
 
                     showError(
                         contactError,
@@ -1050,14 +1322,6 @@
                     true
                 );
 
-
-                /*
-                 * Supabase برای این حالت Magic Link
-                 * ارسال می‌کند.
-                 *
-                 * لینک کاربر را به همین صفحه
-                 * برمی‌گرداند.
-                 */
 
                 const redirectUrl =
                     window.location.origin +
@@ -1094,7 +1358,7 @@
                 if (error) {
 
                     console.error(
-                        "Supabase signInWithOtp error:",
+                        "signInWithOtp error:",
                         error
                     );
 
@@ -1126,13 +1390,16 @@
         );
 
 
-        /* ==================== بررسی ورود ==================== */
+        /* =========================================================
+           EMAIL VERIFICATION
+        ========================================================= */
 
         verificationButton.addEventListener(
             "click",
             async function (event) {
 
                 event.preventDefault();
+
 
                 setLoading(
                     verificationButton,
@@ -1157,7 +1424,6 @@
                 if (error) {
 
                     console.error(
-                        "Supabase session error:",
                         error
                     );
 
@@ -1170,31 +1436,63 @@
                 }
 
 
-                if (
-                    data &&
-                    data.session
-                ) {
+                const session =
+                    data?.session;
 
-                    showStep(
-                        passwordStep
+
+                if (!session) {
+
+                    alert(
+                        t("loginNotComplete")
                     );
-
-                    loginPassword.focus();
 
                     return;
 
                 }
 
 
-                alert(
-                    t("loginNotComplete")
+                /*
+                 * اگر بعد از تأیید ایمیل مشخص شد
+                 * کاربر قبلاً ثبت‌نام کرده،
+                 * مستقیم پروفایل.
+                 */
+
+                if (
+                    isProfileComplete(
+                        session.user
+                    )
+                ) {
+
+                    localStorage.setItem(
+                        "novyLoggedIn",
+                        "true"
+                    );
+
+                    window.location.href =
+                        "profile.html";
+
+                    return;
+
+                }
+
+
+                /*
+                 * کاربر جدید است.
+                 */
+
+                showStep(
+                    passwordStep
                 );
+
+                loginPassword.focus();
 
             }
         );
 
 
-        /* ==================== ساخت رمز ==================== */
+        /* =========================================================
+           PASSWORD
+        ========================================================= */
 
         passwordButton.addEventListener(
             "click",
@@ -1202,7 +1500,9 @@
 
                 event.preventDefault();
 
-                hideError(passwordError);
+                hideError(
+                    passwordError
+                );
 
 
                 const password =
@@ -1210,6 +1510,20 @@
 
                 const confirmPassword =
                     loginPasswordConfirm.value;
+
+
+                if (!password) {
+
+                    showError(
+                        passwordError,
+                        t("passwordRequired")
+                    );
+
+                    loginPassword.focus();
+
+                    return;
+
+                }
 
 
                 if (
@@ -1271,7 +1585,7 @@
                 if (error) {
 
                     console.error(
-                        "Supabase password error:",
+                        "Password error:",
                         error
                     );
 
@@ -1286,11 +1600,8 @@
 
 
                 /*
-                 * مهم:
-                 * رمز عبور دیگر در localStorage
-                 * ذخیره نمی‌شود.
+                 * رمز عبور ذخیره نمی‌شود.
                  */
-
 
                 showStep(
                     step2
@@ -1326,7 +1637,9 @@
         );
 
 
-        /* ==================== نام کاربری ==================== */
+        /* =========================================================
+           USERNAME
+        ========================================================= */
 
         step2Button.addEventListener(
             "click",
@@ -1339,9 +1652,7 @@
                     loginUsername.value.trim();
 
 
-                if (
-                    username === ""
-                ) {
+                if (!username) {
 
                     loginUsername.focus();
 
@@ -1381,7 +1692,7 @@
                 if (error) {
 
                     console.error(
-                        "Supabase username error:",
+                        "Username error:",
                         error
                     );
 
@@ -1404,7 +1715,9 @@
         );
 
 
-        /* ==================== نام ==================== */
+        /* =========================================================
+           NAME
+        ========================================================= */
 
         step3Button.addEventListener(
             "click",
@@ -1417,9 +1730,7 @@
                     loginName.value.trim();
 
 
-                if (
-                    name === ""
-                ) {
+                if (!name) {
 
                     loginName.focus();
 
@@ -1459,7 +1770,7 @@
                 if (error) {
 
                     console.error(
-                        "Supabase name error:",
+                        "Name error:",
                         error
                     );
 
@@ -1480,7 +1791,9 @@
         );
 
 
-        /* ==================== ورود نهایی ==================== */
+        /* =========================================================
+           FINAL LOGIN
+        ========================================================= */
 
         loginSubmit.addEventListener(
             "click",
@@ -1499,8 +1812,7 @@
 
                 if (
                     error ||
-                    !data ||
-                    !data.session
+                    !data?.session
                 ) {
 
                     alert(
@@ -1512,26 +1824,30 @@
                 }
 
 
+                const user =
+                    data.session.user;
+
+                const metadata =
+                    user.user_metadata || {};
+
+
                 /*
-                 * اطلاعات غیرحساس را برای استفاده
-                 * ساده‌تر در بخش‌های فعلی سایت نگه می‌داریم.
-                 *
-                 * رمز عبور هرگز ذخیره نمی‌شود.
+                 * اطلاعات غیرحساس
                  */
 
                 localStorage.setItem(
                     "novyContact",
-                    loginContact.value.trim()
+                    user.email || ""
                 );
 
                 localStorage.setItem(
                     "novyUsername",
-                    loginUsername.value.trim()
+                    metadata.username || ""
                 );
 
                 localStorage.setItem(
                     "novyName",
-                    loginName.value.trim()
+                    metadata.name || ""
                 );
 
                 localStorage.setItem(
@@ -1547,105 +1863,100 @@
         );
 
 
-        /* ==================== تشخیص خودکار ورود ==================== */
+        /* =========================================================
+           AUTH STATE
+        ========================================================= */
 
         supabaseClient.auth.onAuthStateChange(
             function (event, session) {
 
+                if (
+                    event !== "SIGNED_IN" ||
+                    !session
+                ) {
+                    return;
+                }
+
+
                 /*
-                 * وقتی کاربر روی Magic Link کلیک می‌کند،
-                 * Supabase جلسه را ایجاد می‌کند.
+                 * صبر کوتاه برای اینکه metadata
+                 * و Session کاملاً آماده شوند.
                  */
 
-                if (
-                    event === "SIGNED_IN" &&
-                    session
-                ) {
+                setTimeout(
+                    async function () {
 
-                    const currentStep =
-                        [
-                            step1,
-                            verificationStep,
-                            passwordStep,
-                            step2,
-                            step3,
-                            step4
-                        ].find(
-                            step =>
-                                step.style.display !== "none"
-                        );
+                        const {
+                            data
+                        } =
+                            await supabaseClient.auth
+                                .getUser();
 
 
-                    /*
-                     * اگر کاربر از لینک ایمیل برگشته،
-                     * مستقیماً وارد مرحله ساخت رمز می‌شود.
-                     */
+                        const user =
+                            data?.user;
 
-                    if (
-                        currentStep ===
-                        verificationStep
-                    ) {
 
-                        showStep(
-                            passwordStep
-                        );
+                        if (!user) {
+                            return;
+                        }
 
-                        loginPassword.focus();
 
-                    }
+                        /*
+                         * کاربر قبلی
+                         */
 
-                }
+                        if (
+                            isProfileComplete(
+                                user
+                            )
+                        ) {
+
+                            localStorage.setItem(
+                                "novyLoggedIn",
+                                "true"
+                            );
+
+                            window.location.href =
+                                "profile.html";
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * کاربر جدید
+                         */
+
+                        if (
+                            verificationStep.style.display
+                            !== "none"
+                        ) {
+
+                            showStep(
+                                passwordStep
+                            );
+
+                            loginPassword.focus();
+
+                        }
+
+                    },
+                    250
+                );
 
             }
         );
 
 
-        /* ==================== بررسی جلسه هنگام باز شدن صفحه ==================== */
-
-        async function checkExistingSession() {
-
-            const {
-                data
-            } =
-                await supabaseClient.auth
-                    .getSession();
-
-
-            if (
-                data &&
-                data.session
-            ) {
-
-                /*
-                 * اگر کاربر از Magic Link برگشته
-                 * و هنوز اطلاعات پروفایل را کامل نکرده،
-                 * مرحله رمز نمایش داده می‌شود.
-                 */
-
-                if (
-                    !loginUsername.value.trim()
-                ) {
-
-                    showStep(
-                        passwordStep
-                    );
-
-                }
-
-            }
-
-        }
-
-
-        /*
-         * اجرای بررسی جلسه با کمی تأخیر تا
-         * Supabase زمان کافی برای تشخیص لینک
-         * موجود در URL داشته باشد.
-         */
+        /* =========================================================
+           INITIAL SESSION CHECK
+        ========================================================= */
 
         setTimeout(
-            checkExistingSession,
-            300
+            handleExistingSession,
+            400
         );
 
     </script>
