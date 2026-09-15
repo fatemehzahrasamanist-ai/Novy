@@ -45,6 +45,39 @@
         }
 
 
+        /* ==================== دکمه‌های ورود ==================== */
+
+        .login-page-submit {
+            background: var(--accent) !important;
+
+            color: var(--bg-main) !important;
+
+            border-color: var(--accent) !important;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .login-page-submit span {
+            color: var(--bg-main) !important;
+        }
+
+        .login-page-submit:hover {
+            opacity: 0.9;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 6px 18px rgba(0, 0, 0, 0.18);
+        }
+
+
         /* ==================== ورودی‌ها ==================== */
 
         .login-step input {
@@ -247,12 +280,47 @@
 
                 <div class="verification-inputs">
 
-                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
-                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
-                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
-                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
-                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
-                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
 
                 </div>
 
@@ -552,11 +620,8 @@
 
                             span.textContent = "←";
 
-                            const text =
-                                translation[key];
-
                             element.childNodes[0].nodeValue =
-                                text + " ";
+                                translation[key] + " ";
 
                         } else {
 
