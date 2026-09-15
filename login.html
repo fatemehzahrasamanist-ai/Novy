@@ -1,1966 +1,1095 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ورود به نووی</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-
-        html,
-        body {
-            color: var(--text-main) !important;
-        }
-
-        .login-page {
-            min-height: 100vh;
-
-            background:
-                radial-gradient(
-                    circle at top,
-                    rgba(142, 231, 255, 0.10),
-                    transparent 45%
-                ),
-                var(--bg-main) !important;
-        }
-
-        .login-page-box {
-            position: relative;
-
-            width: min(430px, 100%);
-
-            box-sizing: border-box;
-
-            background: var(--bg-card) !important;
-            color: var(--text-main) !important;
-
-            border-color: var(--border) !important;
-        }
-
-
-        /* ==================== Buttons ==================== */
-
-        .login-page-submit {
-            background: var(--accent) !important;
-            border: 1px solid var(--accent) !important;
-
-            color: #061426 !important;
-
-            -webkit-text-fill-color: #061426 !important;
-
-            font-weight: 800;
-
-            cursor: pointer;
-
-            transition:
-                transform 0.2s ease,
-                opacity 0.2s ease,
-                box-shadow 0.2s ease;
-        }
-
-        .login-page-submit,
-        .login-page-submit *,
-        .login-page-submit span {
-            color: #061426 !important;
-            -webkit-text-fill-color: #061426 !important;
-        }
-
-        .login-page-submit:hover {
-            opacity: 0.9;
-
-            transform: translateY(-1px);
-
-            box-shadow:
-                0 6px 18px rgba(0, 0, 0, 0.18);
-        }
-
-
-        /* ==================== Inputs ==================== */
-
-        .login-step input {
-            width: 100%;
-
-            box-sizing: border-box;
-
-            padding: 14px 16px;
-
-            border: 1px solid var(--border) !important;
-
-            border-radius: 14px;
-
-            outline: none;
-
-            background: var(--bg-message) !important;
-            color: var(--text-main) !important;
-
-            font-family: inherit;
-            font-size: 15px;
-
-            transition: 0.2s;
-        }
-
-        .login-step input::placeholder {
-            color: var(--text-muted) !important;
-            opacity: 1;
-        }
-
-        .login-step input:focus {
-            background: var(--bg-message) !important;
-            color: var(--text-main) !important;
-
-            border-color: var(--accent) !important;
-
-            box-shadow:
-                0 0 0 3px rgba(142, 231, 255, 0.10);
-        }
-
-        .login-step input:-webkit-autofill,
-        .login-step input:-webkit-autofill:hover,
-        .login-step input:-webkit-autofill:focus {
-            -webkit-text-fill-color: var(--text-main) !important;
-
-            -webkit-box-shadow:
-                0 0 0 1000px var(--bg-message) inset !important;
-
-            box-shadow:
-                0 0 0 1000px var(--bg-message) inset !important;
-
-            transition:
-                background-color 5000s ease-in-out 0s;
-        }
-
-
-        /* ==================== Status ==================== */
-
-        .login-status {
-            display: none;
-
-            margin-top: 10px;
-
-            color: var(--text-muted);
-
-            font-size: 13px;
-            line-height: 1.8;
-        }
-
-        .login-status.show {
-            display: block;
-        }
-
-
-        /* ==================== Password Error ==================== */
-
-        .password-error {
-            display: none;
-
-            margin-top: 8px;
-
-            color: #ff7b7b;
-
-            font-size: 13px;
-        }
-
-        .password-error.show {
-            display: block;
-        }
-
-
-        /* ==================== Loading ==================== */
-
-        .login-page-submit.loading {
-            opacity: 0.65;
-
-            pointer-events: none;
-        }
-
-    </style>
-
-</head>
-
-
-<body>
-
-    <main class="login-page">
-
-        <div class="login-page-box">
-
-
-            <!-- Back -->
-
-            <a
-                href="index.html"
-                class="login-back"
-                data-i18n="back"
-            >
-                ← برگشت به نووی
-            </a>
-
-
-            <!-- Logo -->
-
-            <div class="login-page-logo">
-                NOVY
-            </div>
-
-
-            <!-- Title -->
-
-            <h1
-                id="loginTitle"
-                data-i18n="loginTitle"
-            >
-                ورود به نووی
-            </h1>
-
-
-            <!-- ==================== STEP 1 ==================== -->
-
-            <div
-                class="login-step"
-                id="step1"
-            >
-
-                <p
-                    class="login-page-description"
-                    data-i18n="loginDescription"
-                >
-                    ایمیلت رو وارد کن تا لینک ورود برات ارسال بشه.
-                </p>
-
-
-                <label
-                    for="loginContact"
-                    data-i18n="contactLabel"
-                >
-                    ایمیل
-                </label>
-
-
-                <input
-                    type="email"
-                    id="loginContact"
-                    autocomplete="email"
-                    data-i18n-placeholder="contactPlaceholder"
-                    placeholder="ایمیل"
-                >
-
-
-                <p
-                    class="login-status"
-                    id="contactError"
-                ></p>
-
-
-                <button
-                    class="login-page-submit"
-                    id="step1Button"
-                    data-i18n="continue"
-                >
-                    ادامه
-                    <span>←</span>
-                </button>
-
-            </div>
-
-
-            <!-- ==================== EMAIL VERIFICATION ==================== -->
-
-            <div
-                class="login-step"
-                id="verificationStep"
-                style="display: none;"
-            >
-
-                <p
-                    class="login-page-description"
-                    data-i18n="verificationDescription"
-                >
-                    لینک ورود برایت ارسال شد. ایمیلت رو بررسی کن و روی لینک بزن.
-                </p>
-
-
-                <p
-                    class="login-status show"
-                    id="verificationEmail"
-                ></p>
-
-
-                <button
-                    class="login-page-submit"
-                    id="verificationButton"
-                    data-i18n="checkLogin"
-                >
-                    بررسی ورود
-                    <span>←</span>
-                </button>
-
-            </div>
-
-
-            <!-- ==================== CREATE PASSWORD ==================== -->
-
-            <div
-                class="login-step"
-                id="passwordStep"
-                style="display: none;"
-            >
-
-                <p
-                    class="login-page-description"
-                    data-i18n="passwordDescription"
-                >
-                    یک رمز عبور برای حسابت بساز.
-                </p>
-
-
-                <label
-                    for="loginPassword"
-                    data-i18n="passwordLabel"
-                >
-                    رمز عبور
-                </label>
-
-
-                <input
-                    type="password"
-                    id="loginPassword"
-                    autocomplete="new-password"
-                    data-i18n-placeholder="passwordPlaceholder"
-                    placeholder="رمز عبور خودت را بساز"
-                >
-
-
-                <br><br>
-
-
-                <label
-                    for="loginPasswordConfirm"
-                    data-i18n="confirmPasswordLabel"
-                >
-                    تکرار رمز عبور
-                </label>
-
-
-                <input
-                    type="password"
-                    id="loginPasswordConfirm"
-                    autocomplete="new-password"
-                    data-i18n-placeholder="confirmPasswordPlaceholder"
-                    placeholder="رمز عبور را دوباره وارد کن"
-                >
-
-
-                <p
-                    class="password-error"
-                    id="passwordError"
-                ></p>
-
-
-                <button
-                    class="login-page-submit"
-                    id="passwordButton"
-                    data-i18n="continue"
-                >
-                    ادامه
-                    <span>←</span>
-                </button>
-
-            </div>
-
-
-            <!-- ==================== USERNAME ==================== -->
-
-            <div
-                class="login-step"
-                id="step2"
-                style="display: none;"
-            >
-
-                <label
-                    for="loginUsername"
-                    data-i18n="usernameLabel"
-                >
-                    نام کاربری
-                </label>
-
-
-                <input
-                    type="text"
-                    id="loginUsername"
-                    autocomplete="username"
-                    data-i18n-placeholder="usernamePlaceholder"
-                    placeholder="مثلاً novy_user"
-                >
-
-
-                <button
-                    class="login-page-submit"
-                    id="step2Button"
-                    data-i18n="continue"
-                >
-                    ادامه
-                    <span>←</span>
-                </button>
-
-            </div>
-
-
-            <!-- ==================== NAME ==================== -->
-
-            <div
-                class="login-step"
-                id="step3"
-                style="display: none;"
-            >
-
-                <label
-                    for="loginName"
-                    data-i18n="nameLabel"
-                >
-                    نام
-                </label>
-
-
-                <input
-                    type="text"
-                    id="loginName"
-                    data-i18n-placeholder="namePlaceholder"
-                    placeholder="مثلاً میوا"
-                >
-
-
-                <button
-                    class="login-page-submit"
-                    id="step3Button"
-                    data-i18n="continue"
-                >
-                    ادامه
-                    <span>←</span>
-                </button>
-
-            </div>
-
-
-            <!-- ==================== SUCCESS ==================== -->
-
-            <div
-                class="login-step"
-                id="step4"
-                style="display: none;"
-            >
-
-                <div class="login-success-icon">
-                    ✓
-                </div>
-
-
-                <h2 data-i18n="profileReady">
-                    پروفایلت آماده‌ست!
-                </h2>
-
-
-                <p
-                    class="login-page-description"
-                    data-i18n="readyDescription"
-                >
-                    حالا می‌تونی وارد نووی بشی و شروع کنی.
-                </p>
-
-
-                <button
-                    class="login-page-submit"
-                    id="loginSubmit"
-                    data-i18n="enterNovy"
-                >
-                    ورود به نووی
-                    <span>←</span>
-                </button>
-
-            </div>
-
-
-        </div>
-
-    </main>
-
-
-    <!-- ==================== SUPABASE ==================== -->
+    <title>NOVY | Login</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
-    <script>
-
-        /* =========================================================
-           SUPABASE
-        ========================================================= */
-
-        const SUPABASE_URL =
-            "https://yeqwwxmbgeojjbuzppsm.supabase.co";
-
-        const SUPABASE_PUBLISHABLE_KEY =
-            "sb_publishable_OS5skv6tIdXNzCqHcRlUug_Qmtuzlmh";
-
-        const supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_PUBLISHABLE_KEY
-            );
-
-
-        /* =========================================================
-           TRANSLATIONS
-        ========================================================= */
-
-        const translations = {
-
-            fa: {
-                pageTitle: "ورود به نووی",
-                back: "← برگشت به نووی",
-                loginTitle: "ورود به نووی",
-                loginDescription:
-                    "ایمیلت رو وارد کن تا لینک ورود برات ارسال بشه.",
-                contactLabel: "ایمیل",
-                contactPlaceholder: "ایمیل",
-                continue: "ادامه",
-
-                verificationDescription:
-                    "لینک ورود برایت ارسال شد. ایمیلت رو بررسی کن و روی لینک بزن.",
-                verificationEmail:
-                    "ایمیل ارسال شد.",
-                checkLogin: "بررسی ورود",
-
-                loginNotComplete:
-                    "هنوز وارد نشدی. اول روی لینک داخل ایمیلت بزن.",
-
-                passwordDescription:
-                    "یک رمز عبور برای حسابت بساز.",
-                passwordLabel:
-                    "رمز عبور",
-                passwordPlaceholder:
-                    "رمز عبور خودت را بساز",
-                confirmPasswordLabel:
-                    "تکرار رمز عبور",
-                confirmPasswordPlaceholder:
-                    "رمز عبور را دوباره وارد کن",
-
-                passwordMismatch:
-                    "رمزهای عبور یکسان نیستند.",
-
-                passwordRequired:
-                    "لطفاً رمز عبور را وارد کن.",
-
-                passwordTooShort:
-                    "رمز عبور باید حداقل ۶ کاراکتر باشد.",
-
-                usernameLabel:
-                    "نام کاربری",
-
-                usernamePlaceholder:
-                    "مثلاً novy_user",
-
-                nameLabel:
-                    "نام",
-
-                namePlaceholder:
-                    "مثلاً میوا",
-
-                profileReady:
-                    "پروفایلت آماده‌ست!",
-
-                readyDescription:
-                    "حالا می‌تونی وارد نووی بشی و شروع کنی.",
-
-                enterNovy:
-                    "ورود به نووی",
-
-                invalidEmail:
-                    "لطفاً یک ایمیل معتبر وارد کن.",
-
-                emailError:
-                    "ارسال لینک ورود انجام نشد. دوباره امتحان کن.",
-
-                authError:
-                    "احراز هویت انجام نشد. دوباره امتحان کن.",
-
-                passwordError:
-                    "ساخت رمز عبور انجام نشد.",
-
-                profileError:
-                    "ذخیره اطلاعات پروفایل انجام نشد."
-            },
-
-
-            en: {
-                pageTitle: "Login to Novy",
-                back: "← Back to Novy",
-                loginTitle: "Login to Novy",
-
-                loginDescription:
-                    "Enter your email to receive a login link.",
-
-                contactLabel:
-                    "Email",
-
-                contactPlaceholder:
-                    "Email",
-
-                continue:
-                    "Continue",
-
-                verificationDescription:
-                    "The login link was sent. Check your email and click the link.",
-
-                verificationEmail:
-                    "Email sent.",
-
-                checkLogin:
-                    "Check login",
-
-                loginNotComplete:
-                    "You are not signed in yet. Click the link in your email first.",
-
-                passwordDescription:
-                    "Create a password for your account.",
-
-                passwordLabel:
-                    "Password",
-
-                passwordPlaceholder:
-                    "Create your password",
-
-                confirmPasswordLabel:
-                    "Confirm password",
-
-                confirmPasswordPlaceholder:
-                    "Enter your password again",
-
-                passwordMismatch:
-                    "Passwords do not match.",
-
-                passwordRequired:
-                    "Please enter a password.",
-
-                passwordTooShort:
-                    "Password must be at least 6 characters.",
-
-                usernameLabel:
-                    "Username",
-
-                usernamePlaceholder:
-                    "e.g. novy_user",
-
-                nameLabel:
-                    "Name",
-
-                namePlaceholder:
-                    "e.g. Miwa",
-
-                profileReady:
-                    "Your profile is ready!",
-
-                readyDescription:
-                    "Now you can enter Novy and get started.",
-
-                enterNovy:
-                    "Enter Novy",
-
-                invalidEmail:
-                    "Please enter a valid email.",
-
-                emailError:
-                    "The login link could not be sent. Please try again.",
-
-                authError:
-                    "Authentication failed. Please try again.",
-
-                passwordError:
-                    "The password could not be created.",
-
-                profileError:
-                    "Your profile information could not be saved."
-            },
-
-
-            ar: {
-                pageTitle:
-                    "تسجيل الدخول إلى نوفي",
-
-                back:
-                    "← العودة إلى نوفي",
-
-                loginTitle:
-                    "تسجيل الدخول إلى نوفي",
-
-                loginDescription:
-                    "أدخل بريدك الإلكتروني لتلقي رابط تسجيل الدخول.",
-
-                contactLabel:
-                    "البريد الإلكتروني",
-
-                contactPlaceholder:
-                    "البريد الإلكتروني",
-
-                continue:
-                    "متابعة",
-
-                verificationDescription:
-                    "تم إرسال رابط تسجيل الدخول. تحقق من بريدك واضغط على الرابط.",
-
-                verificationEmail:
-                    "تم إرسال البريد الإلكتروني.",
-
-                checkLogin:
-                    "تحقق من تسجيل الدخول",
-
-                loginNotComplete:
-                    "لم يتم تسجيل الدخول بعد. اضغط على الرابط الموجود في بريدك أولاً.",
-
-                passwordDescription:
-                    "أنشئ كلمة مرور لحسابك.",
-
-                passwordLabel:
-                    "كلمة المرور",
-
-                passwordPlaceholder:
-                    "أنشئ كلمة المرور",
-
-                confirmPasswordLabel:
-                    "تأكيد كلمة المرور",
-
-                confirmPasswordPlaceholder:
-                    "أدخل كلمة المرور مرة أخرى",
-
-                passwordMismatch:
-                    "كلمتا المرور غير متطابقتين.",
-
-                passwordRequired:
-                    "يرجى إدخال كلمة المرور.",
-
-                passwordTooShort:
-                    "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.",
-
-                usernameLabel:
-                    "اسم المستخدم",
-
-                usernamePlaceholder:
-                    "مثلاً novy_user",
-
-                nameLabel:
-                    "الاسم",
-
-                namePlaceholder:
-                    "مثلاً Miwa",
-
-                profileReady:
-                    "ملفك الشخصي جاهز!",
-
-                readyDescription:
-                    "يمكنك الآن الدخول إلى نوفي والبدء.",
-
-                enterNovy:
-                    "الدخول إلى نوفي",
-
-                invalidEmail:
-                    "يرجى إدخال بريد إلكتروني صالح.",
-
-                emailError:
-                    "تعذر إرسال رابط تسجيل الدخول. حاول مرة أخرى.",
-
-                authError:
-                    "فشلت المصادقة. حاول مرة أخرى.",
-
-                passwordError:
-                    "تعذر إنشاء كلمة المرور.",
-
-                profileError:
-                    "تعذر حفظ معلومات ملفك الشخصي."
+    <style>
+        :root {
+            --bg-main: #07111f;
+            --bg-card: #0c1b2e;
+            --bg-input: #101f33;
+            --bg-message: #12243a;
+            --border: #1d3854;
+            --text-main: #eef7ff;
+            --text-muted: #91a8bd;
+            --accent: #8ee7ff;
+            --accent-strong: #55d6f7;
+            --danger: #ff7d8f;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family:
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 22px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 25px;
+        }
+
+        .subtitle {
+            margin: 0 0 24px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        input {
+            width: 100%;
+            height: 48px;
+            border-radius: 13px;
+            border: 1px solid var(--border);
+            background: var(--bg-input);
+            color: var(--text-main);
+            padding: 0 14px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+            margin-bottom: 15px;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(142, 231, 255, 0.1);
+        }
+
+        button {
+            width: 100%;
+            min-height: 48px;
+            border: 0;
+            border-radius: 13px;
+            background: var(--accent);
+            color: #06111d;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: var(--accent-strong);
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .secondary {
+            margin-top: 10px;
+            background: var(--bg-message);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .secondary:hover {
+            background: var(--bg-message);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .message {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: var(--bg-message);
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            color: var(--danger);
+            border: 1px solid rgba(255, 125, 143, 0.25);
+        }
+
+        .success {
+            text-align: center;
+            padding: 12px 0;
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(142, 231, 255, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            margin: 0 auto 18px;
+        }
+
+        .success p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .back {
+            margin-top: 15px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .back:hover {
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">NOVY</div>
+
+    <div class="card">
+
+        <!-- STEP 1 -->
+        <section class="step active" id="stepEmail">
+            <h1 data-i18n="loginTitle">ورود به نووی</h1>
+
+            <p class="subtitle" data-i18n="loginSubtitle">
+                ایمیلت رو وارد کن تا کد ورود برات ارسال بشه.
+            </p>
+
+            <label for="email" data-i18n="emailLabel">ایمیل</label>
+
+            <input
+                type="email"
+                id="email"
+                autocomplete="email"
+                placeholder="example@email.com"
+            >
+
+            <button id="sendCodeBtn" onclick="sendCode()" data-i18n="sendCode">
+                ارسال کد ورود
+            </button>
+
+            <div id="emailMessage" class="message"></div>
+        </section>
+
+
+        <!-- STEP 2 -->
+        <section class="step" id="stepVerify">
+
+            <h1 data-i18n="verifyTitle">تأیید ایمیل</h1>
+
+            <p class="subtitle" id="verifySubtitle">
+                کد ارسال‌شده به ایمیلت رو وارد کن.
+            </p>
+
+            <label for="otp" data-i18n="otpLabel">
+                کد تأیید
+            </label>
+
+            <input
+                type="text"
+                id="otp"
+                inputmode="numeric"
+                maxlength="6"
+                autocomplete="one-time-code"
+                placeholder="123456"
+            >
+
+            <button onclick="verifyCode()" data-i18n="verify">
+                تأیید
+            </button>
+
+            <button
+                class="secondary"
+                onclick="sendCode()"
+                data-i18n="resend"
+            >
+                ارسال دوباره
+            </button>
+
+            <div id="verifyMessage" class="message"></div>
+
+            <div
+                class="back"
+                onclick="showStep('stepEmail')"
+                data-i18n="changeEmail"
+            >
+                تغییر ایمیل
+            </div>
+        </section>
+
+
+        <!-- STEP 3 -->
+        <section class="step" id="stepPassword">
+
+            <h1 data-i18n="passwordTitle">
+                ساخت رمز عبور
+            </h1>
+
+            <p class="subtitle" data-i18n="passwordSubtitle">
+                برای حساب نووی یک رمز عبور بساز.
+            </p>
+
+            <label for="loginPassword" data-i18n="passwordLabel">
+                رمز عبور
+            </label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                autocomplete="new-password"
+            >
+
+            <label
+                for="loginPasswordConfirm"
+                data-i18n="passwordConfirmLabel"
+            >
+                تکرار رمز عبور
+            </label>
+
+            <input
+                type="password"
+                id="loginPasswordConfirm"
+                autocomplete="new-password"
+            >
+
+            <button
+                onclick="savePassword()"
+                data-i18n="continue"
+            >
+                ادامه ←
+            </button>
+
+            <div id="passwordMessage" class="message"></div>
+        </section>
+
+
+        <!-- STEP 4 -->
+        <section class="step" id="stepUsername">
+
+            <h1 data-i18n="usernameTitle">
+                نام کاربری
+            </h1>
+
+            <p class="subtitle" data-i18n="usernameSubtitle">
+                یک نام کاربری برای خودت انتخاب کن.
+            </p>
+
+            <label for="username" data-i18n="usernameLabel">
+                نام کاربری
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                autocomplete="username"
+            >
+
+            <button
+                onclick="saveUsername()"
+                data-i18n="continue"
+            >
+                ادامه ←
+            </button>
+
+            <div id="usernameMessage" class="message"></div>
+        </section>
+
+
+        <!-- STEP 5 -->
+        <section class="step" id="stepName">
+
+            <h1 data-i18n="nameTitle">
+                اسمت چیه؟
+            </h1>
+
+            <p class="subtitle" data-i18n="nameSubtitle">
+                این اسم در پروفایل نووی نمایش داده میشه.
+            </p>
+
+            <label for="name" data-i18n="nameLabel">
+                نام
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                autocomplete="name"
+            >
+
+            <button
+                onclick="saveName()"
+                data-i18n="finish"
+            >
+                تمام ←
+            </button>
+
+            <div id="nameMessage" class="message"></div>
+        </section>
+
+
+        <!-- STEP 6 -->
+        <section class="step" id="stepSuccess">
+
+            <div class="success">
+
+                <div class="success-icon">✓</div>
+
+                <h1 data-i18n="successTitle">
+                    پروفایلت آماده‌ست!
+                </h1>
+
+                <p data-i18n="successText">
+                    حالا می‌تونی وارد نووی بشی و شروع کنی.
+                </p>
+
+                <button
+                    onclick="goToProfile()"
+                    data-i18n="enterNovy"
+                >
+                    ورود به نووی ←
+                </button>
+
+            </div>
+        </section>
+
+    </div>
+</div>
+
+
+<script>
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+    "https://yeqwwxmbgeojjbuzppsm.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_OS5skv6tIdXNzCqHcRlUug_Qmtuzlmh";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================
+   THEMES
+========================= */
+
+const themes = {
+
+    navy: {
+        "--bg-main": "#07111f",
+        "--bg-card": "#0c1b2e",
+        "--bg-input": "#101f33",
+        "--bg-message": "#12243a",
+        "--border": "#1d3854",
+        "--text-main": "#eef7ff",
+        "--text-muted": "#91a8bd",
+        "--accent": "#8ee7ff",
+        "--accent-strong": "#55d6f7",
+        "--danger": "#ff7d8f"
+    },
+
+    black: {
+        "--bg-main": "#050505",
+        "--bg-card": "#0d0d0d",
+        "--bg-input": "#141414",
+        "--bg-message": "#181818",
+        "--border": "#292929",
+        "--text-main": "#f5f5f5",
+        "--text-muted": "#999999",
+        "--accent": "#8ee7ff",
+        "--accent-strong": "#55d6f7",
+        "--danger": "#ff7d8f"
+    },
+
+    ice: {
+        "--bg-main": "#eaf7fc",
+        "--bg-card": "#ffffff",
+        "--bg-input": "#f4fbfe",
+        "--bg-message": "#e5f4fa",
+        "--border": "#c4e3ee",
+        "--text-main": "#10202b",
+        "--text-muted": "#5c7180",
+        "--accent": "#179dcc",
+        "--accent-strong": "#087da8",
+        "--danger": "#d94c63"
+    }
+};
+
+
+function setTheme(themeName) {
+
+    const theme =
+        themes[themeName] || themes.navy;
+
+    Object.entries(theme).forEach(
+        ([key, value]) => {
+            document.documentElement.style
+                .setProperty(key, value);
+        }
+    );
+
+    localStorage.setItem(
+        "novy-theme",
+        themeName
+    );
+}
+
+
+/* =========================
+   TRANSLATIONS
+========================= */
+
+const translations = {
+
+    fa: {
+        loginTitle: "ورود به نووی",
+        loginSubtitle: "ایمیلت رو وارد کن تا کد ورود برات ارسال بشه.",
+        emailLabel: "ایمیل",
+        sendCode: "ارسال کد ورود",
+        verifyTitle: "تأیید ایمیل",
+        otpLabel: "کد تأیید",
+        verify: "تأیید",
+        resend: "ارسال دوباره",
+        changeEmail: "تغییر ایمیل",
+        passwordTitle: "ساخت رمز عبور",
+        passwordSubtitle: "برای حساب نووی یک رمز عبور بساز.",
+        passwordLabel: "رمز عبور",
+        passwordConfirmLabel: "تکرار رمز عبور",
+        continue: "ادامه ←",
+        usernameTitle: "نام کاربری",
+        usernameSubtitle: "یک نام کاربری برای خودت انتخاب کن.",
+        usernameLabel: "نام کاربری",
+        nameTitle: "اسمت چیه؟",
+        nameSubtitle: "این اسم در پروفایل نووی نمایش داده میشه.",
+        nameLabel: "نام",
+        finish: "تمام ←",
+        successTitle: "پروفایلت آماده‌ست!",
+        successText: "حالا می‌تونی وارد نووی بشی و شروع کنی.",
+        enterNovy: "ورود به نووی ←"
+    },
+
+    en: {
+        loginTitle: "Login to Novy",
+        loginSubtitle: "Enter your email and we'll send you a login code.",
+        emailLabel: "Email",
+        sendCode: "Send login code",
+        verifyTitle: "Verify your email",
+        otpLabel: "Verification code",
+        verify: "Verify",
+        resend: "Resend code",
+        changeEmail: "Change email",
+        passwordTitle: "Create a password",
+        passwordSubtitle: "Create a password for your Novy account.",
+        passwordLabel: "Password",
+        passwordConfirmLabel: "Confirm password",
+        continue: "Continue →",
+        usernameTitle: "Username",
+        usernameSubtitle: "Choose a username for your account.",
+        usernameLabel: "Username",
+        nameTitle: "What's your name?",
+        nameSubtitle: "This name will appear on your Novy profile.",
+        nameLabel: "Name",
+        finish: "Finish →",
+        successTitle: "Your profile is ready!",
+        successText: "Now you can enter Novy and get started.",
+        enterNovy: "Enter Novy →"
+    },
+
+    ar: {
+        loginTitle: "تسجيل الدخول إلى نوفي",
+        loginSubtitle: "أدخل بريدك الإلكتروني وسنرسل لك رمز الدخول.",
+        emailLabel: "البريد الإلكتروني",
+        sendCode: "إرسال رمز الدخول",
+        verifyTitle: "تأكيد البريد الإلكتروني",
+        otpLabel: "رمز التأكيد",
+        verify: "تأكيد",
+        resend: "إعادة الإرسال",
+        changeEmail: "تغيير البريد الإلكتروني",
+        passwordTitle: "إنشاء كلمة مرور",
+        passwordSubtitle: "أنشئ كلمة مرور لحساب نوفي.",
+        passwordLabel: "كلمة المرور",
+        passwordConfirmLabel: "تأكيد كلمة المرور",
+        continue: "متابعة ←",
+        usernameTitle: "اسم المستخدم",
+        usernameSubtitle: "اختر اسم مستخدم لحسابك.",
+        usernameLabel: "اسم المستخدم",
+        nameTitle: "ما اسمك؟",
+        nameSubtitle: "سيظهر هذا الاسم في ملفك الشخصي.",
+        nameLabel: "الاسم",
+        finish: "إنهاء ←",
+        successTitle: "ملفك الشخصي جاهز!",
+        successText: "يمكنك الآن الدخول إلى نوفي والبدء.",
+        enterNovy: "الدخول إلى نوفي ←"
+    }
+};
+
+
+function applyLanguage(lang) {
+
+    const data =
+        translations[lang] ||
+        translations.fa;
+
+    document.documentElement.lang = lang;
+
+    document.documentElement.dir =
+        lang === "en" ? "ltr" : "rtl";
+
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach(element => {
+
+            const key =
+                element.getAttribute("data-i18n");
+
+            if (data[key]) {
+                element.textContent = data[key];
             }
+        });
 
-        };
+    localStorage.setItem(
+        "novy-language",
+        lang
+    );
+}
 
 
-        /* =========================================================
-           THEMES
-        ========================================================= */
+/* =========================
+   STEPS
+========================= */
 
-        const themes = {
+function showStep(stepId) {
 
-            navy: {
-                "--bg-main": "#061426",
-                "--bg-card": "#0b233d",
-                "--bg-message": "#0a2038",
-                "--text-main": "#f4fbff",
-                "--text-muted": "#91b0c2",
-                "--accent": "#8ee7ff",
-                "--button-text": "#061426",
-                "--border": "#1d405d"
-            },
+    document
+        .querySelectorAll(".step")
+        .forEach(step => {
+            step.classList.remove("active");
+        });
 
-            black: {
-                "--bg-main": "#050505",
-                "--bg-card": "#111111",
-                "--bg-message": "#181818",
-                "--text-main": "#f5f5f5",
-                "--text-muted": "#999999",
-                "--accent": "#ffffff",
-                "--button-text": "#061426",
-                "--border": "#303030"
-            },
+    document
+        .getElementById(stepId)
+        .classList.add("active");
+}
 
-            ice: {
-                "--bg-main": "#eafaff",
-                "--bg-card": "#ffffff",
-                "--bg-message": "#eefaff",
-                "--text-main": "#123044",
-                "--text-muted": "#658092",
-                "--accent": "#159ac2",
-                "--button-text": "#061426",
-                "--border": "#b9dce8"
+
+/* =========================
+   MESSAGES
+========================= */
+
+function showMessage(
+    elementId,
+    text,
+    error = false
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    element.textContent = text;
+
+    element.classList.add("show");
+
+    element.classList.toggle(
+        "error",
+        error
+    );
+}
+
+
+/* =========================
+   PROFILE CHECK
+========================= */
+
+function isProfileComplete(user) {
+
+    if (!user) {
+        return false;
+    }
+
+    const metadata =
+        user.user_metadata || {};
+
+    return Boolean(
+        metadata.username &&
+        metadata.name
+    );
+}
+
+
+/* =========================
+   EXISTING SESSION
+========================= */
+
+async function handleExistingSession() {
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabaseClient.auth.getSession();
+
+    if (!session || !session.user) {
+        return;
+    }
+
+    if (isProfileComplete(session.user)) {
+
+        localStorage.setItem(
+            "novyLoggedIn",
+            "true"
+        );
+
+        window.location.href =
+            "profile.html";
+
+        return;
+    }
+
+    showStep("stepPassword");
+}
+
+
+/* =========================
+   SEND OTP
+========================= */
+
+async function sendCode() {
+
+    const email =
+        document
+            .getElementById("email")
+            .value
+            .trim();
+
+    if (!email) {
+
+        showMessage(
+            "emailMessage",
+            "ایمیل رو وارد کن.",
+            true
+        );
+
+        return;
+    }
+
+    const button =
+        document.getElementById(
+            "sendCodeBtn"
+        );
+
+    button.disabled = true;
+
+    const {
+        error
+    } =
+        await supabaseClient.auth.signInWithOtp({
+
+            email,
+
+            options: {
+                shouldCreateUser: true,
+
+                emailRedirectTo:
+                    "https://fatemehzahrasamanist-ai.github.io/Novy/login.html"
             }
+        });
 
-        };
+    button.disabled = false;
+
+    if (error) {
+
+        showMessage(
+            "emailMessage",
+            error.message,
+            true
+        );
+
+        return;
+    }
+
+    document.getElementById(
+        "verifySubtitle"
+    ).textContent =
+        `کد ارسال‌شده به ${email} رو وارد کن.`;
+
+    showStep("stepVerify");
+}
 
 
-        function setTheme(themeName) {
+/* =========================
+   VERIFY OTP
+========================= */
 
-            const theme =
-                themes[themeName] || themes.navy;
+async function verifyCode() {
 
-            Object.entries(theme).forEach(
-                ([property, value]) => {
+    const email =
+        document
+            .getElementById("email")
+            .value
+            .trim();
 
-                    document.documentElement.style
-                        .setProperty(
-                            property,
-                            value
-                        );
+    const token =
+        document
+            .getElementById("otp")
+            .value
+            .trim();
 
-                }
-            );
+    if (!token) {
 
-            localStorage.setItem(
-                "novy-theme",
-                themeName
-            );
+        showMessage(
+            "verifyMessage",
+            "کد رو وارد کن.",
+            true
+        );
+
+        return;
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.verifyOtp({
+
+            email,
+            token,
+            type: "email"
+        });
+
+    if (error) {
+
+        showMessage(
+            "verifyMessage",
+            error.message,
+            true
+        );
+
+        return;
+    }
+
+    if (!data.session) {
+
+        showMessage(
+            "verifyMessage",
+            "ورود انجام نشد. دوباره امتحان کن.",
+            true
+        );
+
+        return;
+    }
+
+    const user =
+        data.session.user;
+
+    if (isProfileComplete(user)) {
+
+        localStorage.setItem(
+            "novyLoggedIn",
+            "true"
+        );
+
+        window.location.href =
+            "profile.html";
+
+        return;
+    }
+
+    showStep("stepPassword");
+}
+
+
+/* =========================
+   SAVE PASSWORD
+========================= */
+
+async function savePassword() {
+
+    const password =
+        document
+            .getElementById("loginPassword")
+            .value;
+
+    const confirm =
+        document
+            .getElementById("loginPasswordConfirm")
+            .value;
+
+    if (password.length < 6) {
+
+        showMessage(
+            "passwordMessage",
+            "رمز عبور باید حداقل ۶ کاراکتر باشه.",
+            true
+        );
+
+        return;
+    }
+
+    if (password !== confirm) {
+
+        showMessage(
+            "passwordMessage",
+            "دو رمز عبور یکسان نیستن.",
+            true
+        );
+
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient.auth.updateUser({
+            password: password
+        });
+
+    if (error) {
+
+        showMessage(
+            "passwordMessage",
+            error.message,
+            true
+        );
+
+        return;
+    }
+
+    showStep("stepUsername");
+}
+
+
+/* =========================
+   SAVE USERNAME
+========================= */
+
+async function saveUsername() {
+
+    const username =
+        document
+            .getElementById("username")
+            .value
+            .trim();
+
+    if (!username) {
+
+        showMessage(
+            "usernameMessage",
+            "یک نام کاربری وارد کن.",
+            true
+        );
+
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient.auth.updateUser({
+
+            data: {
+                username: username
+            }
+        });
+
+    if (error) {
+
+        showMessage(
+            "usernameMessage",
+            error.message,
+            true
+        );
+
+        return;
+    }
+
+    showStep("stepName");
+}
+
+
+/* =========================
+   SAVE NAME
+========================= */
+
+async function saveName() {
+
+    const name =
+        document
+            .getElementById("name")
+            .value
+            .trim();
+
+    if (!name) {
+
+        showMessage(
+            "nameMessage",
+            "اسمت رو وارد کن.",
+            true
+        );
+
+        return;
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient.auth.updateUser({
+
+            data: {
+                name: name
+            }
+        });
+
+    if (error) {
+
+        showMessage(
+            "nameMessage",
+            error.message,
+            true
+        );
+
+        return;
+    }
+
+    localStorage.setItem(
+        "novyLoggedIn",
+        "true"
+    );
+
+    showStep("stepSuccess");
+}
+
+
+/* =========================
+   GO PROFILE
+========================= */
+
+function goToProfile() {
+
+    window.location.href =
+        "profile.html";
+}
+
+
+/* =========================
+   AUTH STATE
+========================= */
+
+supabaseClient.auth.onAuthStateChange(
+    async (event, session) => {
+
+        if (!session || !session.user) {
+            return;
         }
 
-
-        /* =========================================================
-           LANGUAGE
-        ========================================================= */
-
-        function applyLanguage(lang) {
-
-            const translation =
-                translations[lang] ||
-                translations.fa;
-
-
-            document
-                .querySelectorAll("[data-i18n]")
-                .forEach(element => {
-
-                    const key =
-                        element.dataset.i18n;
-
-                    if (
-                        translation[key] !== undefined
-                    ) {
-
-                        const span =
-                            element.querySelector("span");
-
-                        if (span) {
-
-                            span.textContent = "←";
-
-                            element.childNodes[0]
-                                .nodeValue =
-                                translation[key] + " ";
-
-                        } else {
-
-                            element.textContent =
-                                translation[key];
-
-                        }
-
-                    }
-
-                });
-
-
-            document
-                .querySelectorAll(
-                    "[data-i18n-placeholder]"
-                )
-                .forEach(element => {
-
-                    const key =
-                        element.dataset.i18nPlaceholder;
-
-                    if (
-                        translation[key] !== undefined
-                    ) {
-
-                        element.placeholder =
-                            translation[key];
-
-                    }
-
-                });
-
-
-            document.documentElement.lang =
-                lang;
-
-            document.documentElement.dir =
-                lang === "en"
-                    ? "ltr"
-                    : "rtl";
-
-            document.title =
-                translation.pageTitle;
-
-
-            localStorage.setItem(
-                "novy-language",
-                lang
-            );
-
-        }
-
-
-        const savedTheme =
-            localStorage.getItem("novy-theme")
-            || "navy";
-
-        const savedLanguage =
-            localStorage.getItem("novy-language")
-            || "fa";
-
-
-        setTheme(savedTheme);
-        applyLanguage(savedLanguage);
-
-
-        /* =========================================================
-           STEPS
-        ========================================================= */
-
-        const step1 =
-            document.getElementById("step1");
-
-        const verificationStep =
-            document.getElementById(
-                "verificationStep"
-            );
-
-        const passwordStep =
-            document.getElementById(
-                "passwordStep"
-            );
-
-        const step2 =
-            document.getElementById("step2");
-
-        const step3 =
-            document.getElementById("step3");
-
-        const step4 =
-            document.getElementById("step4");
-
-
-        /* =========================================================
-           BUTTONS
-        ========================================================= */
-
-        const step1Button =
-            document.getElementById(
-                "step1Button"
-            );
-
-        const verificationButton =
-            document.getElementById(
-                "verificationButton"
-            );
-
-        const passwordButton =
-            document.getElementById(
-                "passwordButton"
-            );
-
-        const step2Button =
-            document.getElementById(
-                "step2Button"
-            );
-
-        const step3Button =
-            document.getElementById(
-                "step3Button"
-            );
-
-        const loginSubmit =
-            document.getElementById(
-                "loginSubmit"
-            );
-
-
-        /* =========================================================
-           INPUTS
-        ========================================================= */
-
-        const loginContact =
-            document.getElementById(
-                "loginContact"
-            );
-
-        const loginPassword =
-            document.getElementById(
-                "loginPassword"
-            );
-
-        const loginPasswordConfirm =
-            document.getElementById(
-                "loginPasswordConfirm"
-            );
-
-        const loginUsername =
-            document.getElementById(
-                "loginUsername"
-            );
-
-        const loginName =
-            document.getElementById(
-                "loginName"
-            );
-
-        const passwordError =
-            document.getElementById(
-                "passwordError"
-            );
-
-        const contactError =
-            document.getElementById(
-                "contactError"
-            );
-
-        const verificationEmail =
-            document.getElementById(
-                "verificationEmail"
-            );
-
-
-        /* =========================================================
-           HELPERS
-        ========================================================= */
-
-        function t(key) {
-
-            const lang =
-                localStorage.getItem(
-                    "novy-language"
-                ) || "fa";
-
-
-            return (
-                translations[lang]?.[key]
-                ||
-                translations.fa[key]
-                ||
-                key
-            );
-
-        }
-
-
-        function showError(
-            element,
-            message
+        if (
+            event === "SIGNED_IN" ||
+            event === "TOKEN_REFRESHED"
         ) {
 
-            element.textContent =
-                message;
-
-            element.classList.add(
-                "show"
-            );
-
-        }
-
-
-        function hideError(element) {
-
-            element.textContent = "";
-
-            element.classList.remove(
-                "show"
-            );
-
-        }
-
-
-        function setLoading(
-            button,
-            loading
-        ) {
-
-            if (loading) {
-
-                button.classList.add(
-                    "loading"
-                );
-
-                button.dataset.originalText =
-                    button.innerHTML;
-
-                button.innerHTML =
-                    "...";
-
-            } else {
-
-                button.classList.remove(
-                    "loading"
-                );
-
-                if (
-                    button.dataset.originalText
-                ) {
-
-                    button.innerHTML =
-                        button.dataset.originalText;
-
-                }
-
-            }
-
-        }
-
-
-        function isValidEmail(email) {
-
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                .test(email);
-
-        }
-
-
-        function showStep(stepToShow) {
-
-            [
-                step1,
-                verificationStep,
-                passwordStep,
-                step2,
-                step3,
-                step4
-            ].forEach(step => {
-
-                step.style.display =
-                    step === stepToShow
-                        ? "flex"
-                        : "none";
-
-            });
-
-        }
-
-
-        /* =========================================================
-           CHECK PROFILE COMPLETION
-        ========================================================= */
-
-        function isProfileComplete(user) {
-
-            if (!user) {
-                return false;
-            }
-
-
-            const metadata =
-                user.user_metadata || {};
-
-
-            const username =
-                metadata.username;
-
-
-            const name =
-                metadata.name;
-
-
-            return Boolean(
-                username &&
-                username.trim() &&
-                name &&
-                name.trim()
-            );
-
-        }
-
-
-        /* =========================================================
-           HANDLE EXISTING SESSION
-        ========================================================= */
-
-        async function handleExistingSession() {
-
-            const {
-                data,
-                error
-            } =
-                await supabaseClient.auth
-                    .getSession();
-
-
-            if (error) {
-
-                console.error(
-                    "Session check error:",
-                    error
-                );
-
-                return;
-
-            }
-
-
-            const session =
-                data?.session;
-
-
-            if (!session) {
-                return;
-            }
-
-
-            const user =
-                session.user;
-
-
-            /*
-             * اگر کاربر قبلاً Username و Name
-             * داشته باشد، یعنی ثبت‌نامش کامل شده.
-             *
-             * پس نباید دوباره مرحله ساخت رمز
-             * نمایش داده شود.
-             */
-
-            if (
-                isProfileComplete(user)
-            ) {
+            if (isProfileComplete(session.user)) {
 
                 localStorage.setItem(
                     "novyLoggedIn",
                     "true"
                 );
-
-                window.location.href =
-                    "profile.html";
-
-                return;
-
             }
-
-
-            /*
-             * اگر Session هست ولی پروفایل کامل نیست،
-             * یعنی کاربر تازه ثبت‌نام کرده.
-             */
-
-            showStep(
-                passwordStep
-            );
-
         }
+    }
+);
 
 
-        /* =========================================================
-           STEP 1
-        ========================================================= */
+/* =========================
+   INITIAL SETTINGS
+========================= */
 
-        step1Button.addEventListener(
-            "click",
-            async function (event) {
+const savedTheme =
+    localStorage.getItem("novy-theme") ||
+    "navy";
 
-                event.preventDefault();
+const savedLanguage =
+    localStorage.getItem("novy-language") ||
+    "fa";
 
-                hideError(
-                    contactError
-                );
+setTheme(savedTheme);
+applyLanguage(savedLanguage);
 
+handleExistingSession();
 
-                const email =
-                    loginContact.value
-                        .trim()
-                        .toLowerCase();
-
-
-                if (
-                    !isValidEmail(email)
-                ) {
-
-                    showError(
-                        contactError,
-                        t("invalidEmail")
-                    );
-
-                    loginContact.focus();
-
-                    return;
-
-                }
-
-
-                setLoading(
-                    step1Button,
-                    true
-                );
-
-
-                const redirectUrl =
-                    window.location.origin +
-                    window.location.pathname;
-
-
-                const {
-                    error
-                } =
-                    await supabaseClient.auth
-                        .signInWithOtp({
-
-                            email: email,
-
-                            options: {
-
-                                shouldCreateUser:
-                                    true,
-
-                                emailRedirectTo:
-                                    redirectUrl
-
-                            }
-
-                        });
-
-
-                setLoading(
-                    step1Button,
-                    false
-                );
-
-
-                if (error) {
-
-                    console.error(
-                        "signInWithOtp error:",
-                        error
-                    );
-
-                    showError(
-                        contactError,
-                        t("emailError")
-                    );
-
-                    return;
-
-                }
-
-
-                localStorage.setItem(
-                    "novyContact",
-                    email
-                );
-
-
-                verificationEmail.textContent =
-                    email;
-
-
-                showStep(
-                    verificationStep
-                );
-
-            }
-        );
-
-
-        /* =========================================================
-           EMAIL VERIFICATION
-        ========================================================= */
-
-        verificationButton.addEventListener(
-            "click",
-            async function (event) {
-
-                event.preventDefault();
-
-
-                setLoading(
-                    verificationButton,
-                    true
-                );
-
-
-                const {
-                    data,
-                    error
-                } =
-                    await supabaseClient.auth
-                        .getSession();
-
-
-                setLoading(
-                    verificationButton,
-                    false
-                );
-
-
-                if (error) {
-
-                    console.error(
-                        error
-                    );
-
-                    alert(
-                        t("authError")
-                    );
-
-                    return;
-
-                }
-
-
-                const session =
-                    data?.session;
-
-
-                if (!session) {
-
-                    alert(
-                        t("loginNotComplete")
-                    );
-
-                    return;
-
-                }
-
-
-                /*
-                 * اگر بعد از تأیید ایمیل مشخص شد
-                 * کاربر قبلاً ثبت‌نام کرده،
-                 * مستقیم پروفایل.
-                 */
-
-                if (
-                    isProfileComplete(
-                        session.user
-                    )
-                ) {
-
-                    localStorage.setItem(
-                        "novyLoggedIn",
-                        "true"
-                    );
-
-                    window.location.href =
-                        "profile.html";
-
-                    return;
-
-                }
-
-
-                /*
-                 * کاربر جدید است.
-                 */
-
-                showStep(
-                    passwordStep
-                );
-
-                loginPassword.focus();
-
-            }
-        );
-
-
-        /* =========================================================
-           PASSWORD
-        ========================================================= */
-
-        passwordButton.addEventListener(
-            "click",
-            async function (event) {
-
-                event.preventDefault();
-
-                hideError(
-                    passwordError
-                );
-
-
-                const password =
-                    loginPassword.value;
-
-                const confirmPassword =
-                    loginPasswordConfirm.value;
-
-
-                if (!password) {
-
-                    showError(
-                        passwordError,
-                        t("passwordRequired")
-                    );
-
-                    loginPassword.focus();
-
-                    return;
-
-                }
-
-
-                if (
-                    password.length < 6
-                ) {
-
-                    showError(
-                        passwordError,
-                        t("passwordTooShort")
-                    );
-
-                    loginPassword.focus();
-
-                    return;
-
-                }
-
-
-                if (
-                    password !== confirmPassword
-                ) {
-
-                    showError(
-                        passwordError,
-                        t("passwordMismatch")
-                    );
-
-                    loginPasswordConfirm.focus();
-
-                    return;
-
-                }
-
-
-                setLoading(
-                    passwordButton,
-                    true
-                );
-
-
-                const {
-                    error
-                } =
-                    await supabaseClient.auth
-                        .updateUser({
-
-                            password:
-                                password
-
-                        });
-
-
-                setLoading(
-                    passwordButton,
-                    false
-                );
-
-
-                if (error) {
-
-                    console.error(
-                        "Password error:",
-                        error
-                    );
-
-                    showError(
-                        passwordError,
-                        t("passwordError")
-                    );
-
-                    return;
-
-                }
-
-
-                /*
-                 * رمز عبور ذخیره نمی‌شود.
-                 */
-
-                showStep(
-                    step2
-                );
-
-                loginUsername.focus();
-
-            }
-        );
-
-
-        loginPassword.addEventListener(
-            "input",
-            function () {
-
-                hideError(
-                    passwordError
-                );
-
-            }
-        );
-
-
-        loginPasswordConfirm.addEventListener(
-            "input",
-            function () {
-
-                hideError(
-                    passwordError
-                );
-
-            }
-        );
-
-
-        /* =========================================================
-           USERNAME
-        ========================================================= */
-
-        step2Button.addEventListener(
-            "click",
-            async function (event) {
-
-                event.preventDefault();
-
-
-                const username =
-                    loginUsername.value.trim();
-
-
-                if (!username) {
-
-                    loginUsername.focus();
-
-                    return;
-
-                }
-
-
-                setLoading(
-                    step2Button,
-                    true
-                );
-
-
-                const {
-                    error
-                } =
-                    await supabaseClient.auth
-                        .updateUser({
-
-                            data: {
-
-                                username:
-                                    username
-
-                            }
-
-                        });
-
-
-                setLoading(
-                    step2Button,
-                    false
-                );
-
-
-                if (error) {
-
-                    console.error(
-                        "Username error:",
-                        error
-                    );
-
-                    alert(
-                        t("profileError")
-                    );
-
-                    return;
-
-                }
-
-
-                showStep(
-                    step3
-                );
-
-                loginName.focus();
-
-            }
-        );
-
-
-        /* =========================================================
-           NAME
-        ========================================================= */
-
-        step3Button.addEventListener(
-            "click",
-            async function (event) {
-
-                event.preventDefault();
-
-
-                const name =
-                    loginName.value.trim();
-
-
-                if (!name) {
-
-                    loginName.focus();
-
-                    return;
-
-                }
-
-
-                setLoading(
-                    step3Button,
-                    true
-                );
-
-
-                const {
-                    error
-                } =
-                    await supabaseClient.auth
-                        .updateUser({
-
-                            data: {
-
-                                name:
-                                    name
-
-                            }
-
-                        });
-
-
-                setLoading(
-                    step3Button,
-                    false
-                );
-
-
-                if (error) {
-
-                    console.error(
-                        "Name error:",
-                        error
-                    );
-
-                    alert(
-                        t("profileError")
-                    );
-
-                    return;
-
-                }
-
-
-                showStep(
-                    step4
-                );
-
-            }
-        );
-
-
-        /* =========================================================
-           FINAL LOGIN
-        ========================================================= */
-
-        loginSubmit.addEventListener(
-            "click",
-            async function (event) {
-
-                event.preventDefault();
-
-
-                const {
-                    data,
-                    error
-                } =
-                    await supabaseClient.auth
-                        .getSession();
-
-
-                if (
-                    error ||
-                    !data?.session
-                ) {
-
-                    alert(
-                        t("authError")
-                    );
-
-                    return;
-
-                }
-
-
-                const user =
-                    data.session.user;
-
-                const metadata =
-                    user.user_metadata || {};
-
-
-                /*
-                 * اطلاعات غیرحساس
-                 */
-
-                localStorage.setItem(
-                    "novyContact",
-                    user.email || ""
-                );
-
-                localStorage.setItem(
-                    "novyUsername",
-                    metadata.username || ""
-                );
-
-                localStorage.setItem(
-                    "novyName",
-                    metadata.name || ""
-                );
-
-                localStorage.setItem(
-                    "novyLoggedIn",
-                    "true"
-                );
-
-
-                window.location.href =
-                    "profile.html";
-
-            }
-        );
-
-
-        /* =========================================================
-           AUTH STATE
-        ========================================================= */
-
-        supabaseClient.auth.onAuthStateChange(
-            function (event, session) {
-
-                if (
-                    event !== "SIGNED_IN" ||
-                    !session
-                ) {
-                    return;
-                }
-
-
-                /*
-                 * صبر کوتاه برای اینکه metadata
-                 * و Session کاملاً آماده شوند.
-                 */
-
-                setTimeout(
-                    async function () {
-
-                        const {
-                            data
-                        } =
-                            await supabaseClient.auth
-                                .getUser();
-
-
-                        const user =
-                            data?.user;
-
-
-                        if (!user) {
-                            return;
-                        }
-
-
-                        /*
-                         * کاربر قبلی
-                         */
-
-                        if (
-                            isProfileComplete(
-                                user
-                            )
-                        ) {
-
-                            localStorage.setItem(
-                                "novyLoggedIn",
-                                "true"
-                            );
-
-                            window.location.href =
-                                "profile.html";
-
-                            return;
-
-                        }
-
-
-                        /*
-                         * کاربر جدید
-                         */
-
-                        if (
-                            verificationStep.style.display
-                            !== "none"
-                        ) {
-
-                            showStep(
-                                passwordStep
-                            );
-
-                            loginPassword.focus();
-
-                        }
-
-                    },
-                    250
-                );
-
-            }
-        );
-
-
-        /* =========================================================
-           INITIAL SESSION CHECK
-        ========================================================= */
-
-        setTimeout(
-            handleExistingSession,
-            400
-        );
-
-    </script>
+</script>
 
 </body>
-
 </html>
