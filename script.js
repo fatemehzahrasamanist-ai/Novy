@@ -376,12 +376,6 @@ if (
 
 }
 
-} else {
-
-    applyLanguage("fa");
-
-}
-
 
 // ==================== Login Panel ====================
 
@@ -399,7 +393,9 @@ if (loginButton && loginPanel) {
 
     loginButton.addEventListener(
         "click",
-        function () {
+        function (event) {
+
+            event.stopPropagation();
 
             loginPanel.style.display = "flex";
 
@@ -416,6 +412,26 @@ if (closeLogin && loginPanel) {
         function () {
 
             loginPanel.style.display = "none";
+
+        }
+    );
+
+}
+
+
+// ==================== Close Login When Clicking Outside ====================
+
+if (loginPanel) {
+
+    loginPanel.addEventListener(
+        "click",
+        function (event) {
+
+            if (event.target === loginPanel) {
+
+                loginPanel.style.display = "none";
+
+            }
 
         }
     );
