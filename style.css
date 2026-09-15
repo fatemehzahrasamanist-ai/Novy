@@ -1,3 +1,4 @@
+```css
 /* ==================== Theme System ==================== */
 
 :root {
@@ -998,7 +999,10 @@ footer p {
 }
 
 
-.login-form {
+/* ==================== Login Steps ==================== */
+
+.login-form,
+.login-step {
     display: flex;
 
     flex-direction: column;
@@ -1009,7 +1013,8 @@ footer p {
 }
 
 
-.login-form label {
+.login-form label,
+.login-step label {
     color: var(--text-main);
 
     font-size: 14px;
@@ -1018,7 +1023,10 @@ footer p {
 }
 
 
-.login-form input {
+/* ==================== Login Inputs ==================== */
+
+.login-form input,
+.login-step input {
     width: 100%;
 
     box-sizing: border-box;
@@ -1043,12 +1051,14 @@ footer p {
 }
 
 
-.login-form input::placeholder {
+.login-form input::placeholder,
+.login-step input::placeholder {
     color: var(--text-muted);
 }
 
 
-.login-form input:focus {
+.login-form input:focus,
+.login-step input:focus {
     border-color: var(--accent);
 
     background: var(--bg-message);
@@ -1057,6 +1067,8 @@ footer p {
         0 0 0 3px rgba(142, 231, 255, 0.10);
 }
 
+
+/* ==================== Login Submit Button ==================== */
 
 .login-page-submit {
     width: 100%;
@@ -1130,3 +1142,27 @@ footer p {
 
     font-size: 23px;
 }
+
+
+/* ==================== Login Mobile ==================== */
+
+@media (max-width: 500px) {
+
+    .login-page {
+        padding: 20px;
+    }
+
+    .login-page-box {
+        padding: 38px 22px;
+    }
+
+    .login-page-logo {
+        font-size: 25px;
+    }
+
+    .login-page-box h1 {
+        font-size: 26px;
+    }
+
+}
+```
