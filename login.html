@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* ==================== صفحه ورود ==================== */
-
         html,
         body {
             color: var(--text-main) !important;
@@ -19,7 +17,6 @@
 
         .login-page {
             min-height: 100vh;
-
             background:
                 radial-gradient(
                     circle at top,
@@ -31,30 +28,27 @@
 
         .login-page-box {
             position: relative;
-
             width: min(430px, 100%);
-
             box-sizing: border-box;
-
             background: var(--bg-card) !important;
-
             color: var(--text-main) !important;
-
             border-color: var(--border) !important;
         }
 
 
-        /* ==================== دکمه‌های ورود ==================== */
+        /* ==================== دکمه‌ها ==================== */
 
         .login-page-submit {
             background: var(--accent) !important;
-
             border: 1px solid var(--accent) !important;
 
-            color: var(--button-text) !important;
+            /* متن همه‌ی تم‌ها مشکی */
+            color: #061426 !important;
+
+            /* Chrome */
+            -webkit-text-fill-color: #061426 !important;
 
             font-weight: 800;
-
             cursor: pointer;
 
             transition:
@@ -66,12 +60,12 @@
         .login-page-submit,
         .login-page-submit *,
         .login-page-submit span {
-            color: var(--button-text) !important;
+            color: #061426 !important;
+            -webkit-text-fill-color: #061426 !important;
         }
 
         .login-page-submit:hover {
             opacity: 0.9;
-
             transform: translateY(-1px);
 
             box-shadow:
@@ -83,23 +77,19 @@
 
         .login-step input {
             width: 100%;
-
             box-sizing: border-box;
 
             padding: 14px 16px;
 
             border: 1px solid var(--border) !important;
-
             border-radius: 14px;
 
             outline: none;
 
             background: var(--bg-message) !important;
-
             color: var(--text-main) !important;
 
             font-family: inherit;
-
             font-size: 15px;
 
             transition: 0.2s;
@@ -107,13 +97,11 @@
 
         .login-step input::placeholder {
             color: var(--text-muted) !important;
-
             opacity: 1;
         }
 
         .login-step input:focus {
             background: var(--bg-message) !important;
-
             color: var(--text-main) !important;
 
             border-color: var(--accent) !important;
@@ -122,13 +110,9 @@
                 0 0 0 3px rgba(142, 231, 255, 0.10);
         }
 
-
-        /* جلوگیری از سفید شدن خودکار input توسط Chrome */
-
         .login-step input:-webkit-autofill,
         .login-step input:-webkit-autofill:hover,
         .login-step input:-webkit-autofill:focus {
-
             -webkit-text-fill-color: var(--text-main) !important;
 
             -webkit-box-shadow:
@@ -146,21 +130,17 @@
 
         .verification-inputs {
             display: flex;
-
             direction: ltr;
-
             justify-content: center;
 
             gap: 8px;
 
             width: 100%;
-
             margin: 8px 0 10px;
         }
 
         .verification-digit {
             width: 48px !important;
-
             height: 54px;
 
             padding: 0 !important;
@@ -168,7 +148,6 @@
             text-align: center;
 
             font-size: 20px !important;
-
             font-weight: 600;
 
             border-radius: 12px !important;
@@ -185,7 +164,7 @@
         <div class="login-page-box">
 
 
-            <!-- ==================== برگشت ==================== -->
+            <!-- برگشت -->
 
             <a
                 href="index.html"
@@ -196,14 +175,14 @@
             </a>
 
 
-            <!-- ==================== لوگو ==================== -->
+            <!-- لوگو -->
 
             <div class="login-page-logo">
                 NOVY
             </div>
 
 
-            <!-- ==================== عنوان ==================== -->
+            <!-- عنوان -->
 
             <h1
                 id="loginTitle"
@@ -453,9 +432,7 @@
 
     <script>
 
-        /* =====================================================
-           ترجمه‌ها
-        ===================================================== */
+        /* ==================== ترجمه‌ها ==================== */
 
         const translations = {
 
@@ -522,9 +499,7 @@
         };
 
 
-        /* =====================================================
-           تم‌ها
-        ===================================================== */
+        /* ==================== تم‌ها ==================== */
 
         const themes = {
 
@@ -536,7 +511,7 @@
                 "--text-muted": "#91b0c2",
                 "--accent": "#8ee7ff",
 
-                /* سرمه‌ای → متن مشکی */
+                /* متن دکمه: همیشه مشکی */
                 "--button-text": "#061426",
 
                 "--border": "#1d405d"
@@ -550,8 +525,8 @@
                 "--text-muted": "#999999",
                 "--accent": "#ffffff",
 
-                /* مشکی → متن سفید */
-                "--button-text": "#ffffff",
+                /* متن دکمه: همیشه مشکی */
+                "--button-text": "#061426",
 
                 "--border": "#303030"
             },
@@ -564,7 +539,7 @@
                 "--text-muted": "#658092",
                 "--accent": "#159ac2",
 
-                /* یخی → متن مشکی */
+                /* متن دکمه: همیشه مشکی */
                 "--button-text": "#061426",
 
                 "--border": "#b9dce8"
@@ -573,15 +548,12 @@
         };
 
 
-        /* =====================================================
-           اعمال تم
-        ===================================================== */
+        /* ==================== اعمال تم ==================== */
 
         function setTheme(themeName) {
 
             const theme =
                 themes[themeName] || themes.navy;
-
 
             Object.entries(theme).forEach(
                 ([property, value]) => {
@@ -592,7 +564,6 @@
                 }
             );
 
-
             localStorage.setItem(
                 "novy-theme",
                 themeName
@@ -601,9 +572,7 @@
         }
 
 
-        /* =====================================================
-           اعمال زبان
-        ===================================================== */
+        /* ==================== اعمال زبان ==================== */
 
         function applyLanguage(lang) {
 
@@ -618,14 +587,12 @@
                     const key =
                         element.dataset.i18n;
 
-
                     if (
                         translation[key] !== undefined
                     ) {
 
                         const span =
                             element.querySelector("span");
-
 
                         if (span) {
 
@@ -653,7 +620,6 @@
                     const key =
                         element.dataset.i18nPlaceholder;
 
-
                     if (
                         translation[key] !== undefined
                     ) {
@@ -669,16 +635,13 @@
             document.documentElement.lang =
                 lang;
 
-
             document.documentElement.dir =
                 lang === "en"
                     ? "ltr"
                     : "rtl";
 
-
             document.title =
                 translation.pageTitle;
-
 
             localStorage.setItem(
                 "novy-language",
@@ -688,14 +651,11 @@
         }
 
 
-        /* =====================================================
-           بارگذاری تنظیمات ذخیره‌شده
-        ===================================================== */
+        /* ==================== تنظیمات ذخیره‌شده ==================== */
 
         const savedTheme =
             localStorage.getItem("novy-theme")
             || "navy";
-
 
         const savedLanguage =
             localStorage.getItem("novy-language")
@@ -703,13 +663,10 @@
 
 
         setTheme(savedTheme);
-
         applyLanguage(savedLanguage);
 
 
-        /* =====================================================
-           عناصر مراحل
-        ===================================================== */
+        /* ==================== مراحل ==================== */
 
         const step1 =
             document.getElementById("step1");
@@ -727,9 +684,7 @@
             document.getElementById("step4");
 
 
-        /* =====================================================
-           دکمه‌ها
-        ===================================================== */
+        /* ==================== دکمه‌ها ==================== */
 
         const step1Button =
             document.getElementById("step1Button");
@@ -744,9 +699,7 @@
             document.getElementById("step3Button");
 
 
-        /* =====================================================
-           ورودی‌ها
-        ===================================================== */
+        /* ==================== ورودی‌ها ==================== */
 
         const loginContact =
             document.getElementById("loginContact");
@@ -758,9 +711,7 @@
             document.getElementById("loginName");
 
 
-        /* =====================================================
-           مرحله ۱
-        ===================================================== */
+        /* ==================== مرحله ۱ ==================== */
 
         step1Button.addEventListener(
             "click",
@@ -768,21 +719,16 @@
 
                 event.preventDefault();
 
-
                 if (
                     loginContact.value.trim() === ""
                 ) {
 
                     loginContact.focus();
-
                     return;
 
                 }
 
-
-                step1.style.display =
-                    "none";
-
+                step1.style.display = "none";
 
                 verificationStep.style.display =
                     "flex";
@@ -791,9 +737,7 @@
         );
 
 
-        /* =====================================================
-           کد تأیید
-        ===================================================== */
+        /* ==================== کد تأیید ==================== */
 
         verificationButton.addEventListener(
             "click",
@@ -801,10 +745,8 @@
 
                 event.preventDefault();
 
-
                 verificationStep.style.display =
                     "none";
-
 
                 step2.style.display =
                     "flex";
@@ -813,9 +755,7 @@
         );
 
 
-        /* =====================================================
-           نام کاربری
-        ===================================================== */
+        /* ==================== نام کاربری ==================== */
 
         step2Button.addEventListener(
             "click",
@@ -823,21 +763,17 @@
 
                 event.preventDefault();
 
-
                 if (
                     loginUsername.value.trim() === ""
                 ) {
 
                     loginUsername.focus();
-
                     return;
 
                 }
 
-
                 step2.style.display =
                     "none";
-
 
                 step3.style.display =
                     "flex";
@@ -846,9 +782,7 @@
         );
 
 
-        /* =====================================================
-           نام
-        ===================================================== */
+        /* ==================== نام ==================== */
 
         step3Button.addEventListener(
             "click",
@@ -856,21 +790,17 @@
 
                 event.preventDefault();
 
-
                 if (
                     loginName.value.trim() === ""
                 ) {
 
                     loginName.focus();
-
                     return;
 
                 }
 
-
                 step3.style.display =
                     "none";
-
 
                 step4.style.display =
                     "flex";
@@ -879,9 +809,7 @@
         );
 
 
-        /* =====================================================
-           ذخیره اطلاعات حساب
-        ===================================================== */
+        /* ==================== ورود نهایی ==================== */
 
         document
             .getElementById("loginSubmit")
@@ -891,14 +819,11 @@
 
                     event.preventDefault();
 
-
                     const contact =
                         loginContact.value.trim();
 
-
                     const username =
                         loginUsername.value.trim();
-
 
                     const name =
                         loginName.value.trim();
@@ -909,18 +834,15 @@
                         contact
                     );
 
-
                     localStorage.setItem(
                         "novyUsername",
                         username
                     );
 
-
                     localStorage.setItem(
                         "novyName",
                         name
                     );
-
 
                     localStorage.setItem(
                         "novyLoggedIn",
@@ -935,9 +857,7 @@
             );
 
 
-        /* =====================================================
-           حرکت بین کادرهای کد
-        ===================================================== */
+        /* ==================== حرکت کد تأیید ==================== */
 
         const verificationInputs =
             document.querySelectorAll(
