@@ -1,6 +1,7 @@
 // ==================== Novy Theme System ====================
 
 const themes = {
+
     navy: {
         "--bg-main": "#061426",
         "--bg-section": "#081b30",
@@ -45,6 +46,7 @@ const themes = {
         "--border": "#b9e4f2",
         "--border-soft": "#c9eaf4"
     }
+
 };
 
 
@@ -69,6 +71,7 @@ function setTheme(themeName) {
         "novy-theme",
         themeName
     );
+
 }
 
 
@@ -77,7 +80,10 @@ function setTheme(themeName) {
 const savedTheme =
     localStorage.getItem("novy-theme");
 
-if (savedTheme && themes[savedTheme]) {
+if (
+    savedTheme &&
+    themes[savedTheme]
+) {
 
     setTheme(savedTheme);
 
@@ -88,7 +94,7 @@ if (savedTheme && themes[savedTheme]) {
 }
 
 
-// ==================== Get Elements ====================
+// ==================== Theme Elements ====================
 
 const themeButton =
     document.getElementById("themeButton");
@@ -103,7 +109,7 @@ const themeOptions =
     document.querySelectorAll(".theme-option");
 
 
-// ==================== Open Theme Panel ====================
+// ==================== Open / Close Theme Panel ====================
 
 if (themeButton && themePanel) {
 
@@ -130,8 +136,6 @@ if (themeButton && themePanel) {
 
 }
 
-
-// ==================== Close Theme Panel ====================
 
 if (closeThemePanel && themePanel) {
 
@@ -174,7 +178,7 @@ themeOptions.forEach(function (button) {
 });
 
 
-// ==================== Close When Clicking Outside ====================
+// ==================== Close Theme Panel Outside ====================
 
 document.addEventListener(
     "click",
@@ -190,7 +194,10 @@ document.addEventListener(
         const clickedButton =
             themeButton.contains(event.target);
 
-        if (!clickedPanel && !clickedButton) {
+        if (
+            !clickedPanel &&
+            !clickedButton
+        ) {
 
             themePanel.style.display = "none";
 
@@ -205,33 +212,257 @@ document.addEventListener(
 const translations = {
 
     fa: {
-        language: "زبان",
+
+        pageTitle: "نووی | همراه دانش‌آموزان",
+
+        home: "خانه",
+        learning: "یادگیری",
+        planning: "برنامه‌ریزی",
+        calm: "آرامش",
+        login: "ورود",
+
+        themeSettings: "تنظیمات تم",
+        close: "بستن",
+
         novyAppearance: "ظاهر نووی",
         chooseTheme: "تم مورد علاقه‌ات رو انتخاب کن.",
+
+        language: "زبان",
+
         black: "مشکی",
         navy: "سرمه‌ای",
         ice: "یخی",
-        close: "بستن"
+
+        eyebrow: "✦ همراه دانش‌آموزان",
+
+        heroTitle:
+            "یادگیری، <span>با نووی</span> ساده‌تر میشه.",
+
+        heroDescription:
+            "نووی یک همراه هوشمنده برای درس خواندن، برنامه‌ریزی، تمرکز و روزهایی که فقط یک همراه خوب لازم داری.",
+
+        start: "🚀 شروع کنیم",
+        aboutNovy: "بیشتر درباره نووی",
+
+        novy: "نووی",
+        studentCompanion: "همراه دانش‌آموزان",
+
+        chatHello: "سلام! 👋",
+        chatQuestion: "امروز دوست داری روی چی کار کنیم؟",
+        chatUser: "می‌خوام برای امتحان علوم آماده بشم.",
+        chatGreat: "عالیه! 🧠",
+        chatPlan:
+            "اول ببینیم چقدر وقت داریم و بعد یه برنامه‌ی جمع‌وجور می‌چینیم.",
+
+        fakeInput: "پیامت رو بنویس...",
+
+        whatNovyDoes: "نووی چه کارهایی بلده؟",
+
+        threeWays:
+            "سه راه برای اینکه <span>بهتر پیش بری.</span>",
+
+        learningTitle: "درس و یادگیری",
+
+        learningDescription:
+            "توضیح ساده‌ی درس‌ها، حل مسئله، ساخت تست، مرور و پیدا کردن نقاط ضعف.",
+
+        learningButton: "شروع یادگیری ←",
+
+        planningTitle: "برنامه‌ریزی",
+
+        planningDescription:
+            "برنامه‌ای واقعی و منعطف بر اساس زمان، درس‌ها، امتحان‌ها و انرژی تو.",
+
+        planningButton: "برنامه‌ریزی کنیم ←",
+
+        calmTitle: "آرامش و انگیزه",
+
+        calmDescription:
+            "وقتی خسته‌ای، استرس داری یا شروع کردن سخته، نووی کنارت می‌مونه.",
+
+        calmButton: "با نووی حرف بزن ←",
+
+        finalDescription:
+            "لازم نیست همه‌چیز رو یک‌دفعه انجام بدی.",
+
+        finalTitle:
+            "فقط یک قدم. <span>همین الان.</span>",
+
+        talkToNovy: "صحبت با نووی ✦",
+
+        footerCompanion:
+            "همراه دانش‌آموزان 🌱"
+
     },
 
+
     en: {
-        language: "Language",
+
+        pageTitle: "Novy | Your Student Companion",
+
+        home: "Home",
+        learning: "Learning",
+        planning: "Planning",
+        calm: "Calm",
+        login: "Log in",
+
+        themeSettings: "Theme settings",
+        close: "Close",
+
         novyAppearance: "Novy Appearance",
         chooseTheme: "Choose your favorite theme.",
+
+        language: "Language",
+
         black: "Black",
         navy: "Navy",
         ice: "Ice",
-        close: "Close"
+
+        eyebrow: "✦ Your Student Companion",
+
+        heroTitle:
+            "Learning is <span>easier with Novy.</span>",
+
+        heroDescription:
+            "Novy is a smart companion for studying, planning, staying focused, and those days when you just need someone by your side.",
+
+        start: "🚀 Get Started",
+        aboutNovy: "Learn More About Novy",
+
+        novy: "Novy",
+        studentCompanion: "Your Student Companion",
+
+        chatHello: "Hi! 👋",
+        chatQuestion: "What would you like to work on today?",
+        chatUser: "I want to prepare for my science exam.",
+        chatGreat: "Great! 🧠",
+        chatPlan:
+            "Let's see how much time we have, then we'll make a simple plan.",
+
+        fakeInput: "Write your message...",
+
+        whatNovyDoes: "What can Novy do?",
+
+        threeWays:
+            "Three ways to <span>move forward better.</span>",
+
+        learningTitle: "Study & Learning",
+
+        learningDescription:
+            "Simple explanations, problem solving, practice tests, review, and finding your weak points.",
+
+        learningButton: "Start Learning →",
+
+        planningTitle: "Planning",
+
+        planningDescription:
+            "A realistic and flexible plan based on your time, subjects, exams, and energy.",
+
+        planningButton: "Let's Plan →",
+
+        calmTitle: "Calm & Motivation",
+
+        calmDescription:
+            "When you're tired, stressed, or having trouble starting, Novy stays by your side.",
+
+        calmButton: "Talk to Novy →",
+
+        finalDescription:
+            "You don't have to do everything at once.",
+
+        finalTitle:
+            "Just one step. <span>Right now.</span>",
+
+        talkToNovy: "Talk to Novy ✦",
+
+        footerCompanion:
+            "Your Student Companion 🌱"
+
     },
 
+
     ar: {
-        language: "اللغة",
+
+        pageTitle: "نووي | رفيق الطلاب",
+
+        home: "الرئيسية",
+        learning: "التعلم",
+        planning: "التخطيط",
+        calm: "الهدوء",
+        login: "تسجيل الدخول",
+
+        themeSettings: "إعدادات المظهر",
+        close: "إغلاق",
+
         novyAppearance: "مظهر نووي",
         chooseTheme: "اختر المظهر المفضل لديك.",
+
+        language: "اللغة",
+
         black: "أسود",
         navy: "كحلي",
         ice: "ثلجي",
-        close: "إغلاق"
+
+        eyebrow: "✦ رفيق الطلاب",
+
+        heroTitle:
+            "التعلم أصبح <span>أسهل مع نووي.</span>",
+
+        heroDescription:
+            "نووي هو رفيق ذكي للدراسة والتخطيط والتركيز، وللأيام التي تحتاج فيها فقط إلى رفيق جيد.",
+
+        start: "🚀 لنبدأ",
+        aboutNovy: "المزيد عن نووي",
+
+        novy: "نووي",
+        studentCompanion: "رفيق الطلاب",
+
+        chatHello: "مرحباً! 👋",
+        chatQuestion: "ماذا تريد أن نعمل عليه اليوم؟",
+        chatUser: "أريد الاستعداد لامتحان العلوم.",
+        chatGreat: "رائع! 🧠",
+        chatPlan:
+            "لنرَ كم من الوقت لدينا، ثم نضع خطة بسيطة.",
+
+        fakeInput: "اكتب رسالتك...",
+
+        whatNovyDoes: "ماذا يستطيع نووي أن يفعل؟",
+
+        threeWays:
+            "ثلاث طرق لتتقدم <span>بشكل أفضل.</span>",
+
+        learningTitle: "الدراسة والتعلم",
+
+        learningDescription:
+            "شرح مبسط للدروس، حل المسائل، إنشاء اختبارات، المراجعة واكتشاف نقاط الضعف.",
+
+        learningButton: "ابدأ التعلم ←",
+
+        planningTitle: "التخطيط",
+
+        planningDescription:
+            "خطة واقعية ومرنة بناءً على وقتك ودروسك وامتحاناتك وطاقتك.",
+
+        planningButton: "لنخطط معاً ←",
+
+        calmTitle: "الهدوء والتحفيز",
+
+        calmDescription:
+            "عندما تكون متعباً أو متوتراً أو تجد صعوبة في البدء، يبقى نووي بجانبك.",
+
+        calmButton: "تحدث مع نووي ←",
+
+        finalDescription:
+            "ليس عليك أن تفعل كل شيء دفعة واحدة.",
+
+        finalTitle:
+            "خطوة واحدة فقط. <span>الآن.</span>",
+
+        talkToNovy: "تحدث مع نووي ✦",
+
+        footerCompanion:
+            "رفيق الطلاب 🌱"
+
     }
 
 };
@@ -240,6 +471,38 @@ const translations = {
 // ==================== Apply Language ====================
 
 function applyLanguage(language) {
+
+    if (!translations[language]) {
+        language = "fa";
+    }
+
+    const currentTranslations =
+        translations[language];
+
+
+    // ---------- Normal Text ----------
+
+    const elements =
+        document.querySelectorAll("[data-i18n]");
+
+    elements.forEach(function (element) {
+
+        const key =
+            element.getAttribute("data-i18n");
+
+        if (
+            currentTranslations[key] !== undefined
+        ) {
+
+            element.innerHTML =
+                currentTranslations[key];
+
+        }
+
+    });
+
+
+    // ---------- ARIA Labels ----------
 
     const ariaElements =
         document.querySelectorAll(
@@ -254,13 +517,12 @@ function applyLanguage(language) {
             );
 
         if (
-            translations[language] &&
-            translations[language][key]
+            currentTranslations[key] !== undefined
         ) {
 
             element.setAttribute(
                 "aria-label",
-                translations[language][key]
+                currentTranslations[key]
             );
 
         }
@@ -268,47 +530,27 @@ function applyLanguage(language) {
     });
 
 
-    const elements =
-        document.querySelectorAll(
-            "[data-i18n]"
-        );
-
-    elements.forEach(function (element) {
-
-        const key =
-            element.getAttribute(
-                "data-i18n"
-            );
-
-        if (
-            translations[language] &&
-            translations[language][key]
-        ) {
-
-            element.textContent =
-                translations[language][key];
-
-        }
-
-    });
-
+    // ---------- HTML Language ----------
 
     document.documentElement.lang =
         language;
 
 
-    if (language === "en") {
+    // ---------- Text Direction ----------
 
-        document.documentElement.dir =
-            "ltr";
+    document.documentElement.dir =
+        language === "en"
+            ? "ltr"
+            : "rtl";
 
-    } else {
 
-        document.documentElement.dir =
-            "rtl";
+    // ---------- Page Title ----------
 
-    }
+    document.title =
+        currentTranslations.pageTitle;
 
+
+    // ---------- Save Language ----------
 
     localStorage.setItem(
         "novy-language",
@@ -333,9 +575,7 @@ languageOptions.forEach(function (button) {
         function () {
 
             const selectedLanguage =
-                button.getAttribute(
-                    "data-lang"
-                );
+                button.getAttribute("data-lang");
 
             if (!selectedLanguage) {
                 return;
@@ -373,67 +613,5 @@ if (
 } else {
 
     applyLanguage("fa");
-
-}
-
-
-// ==================== Login Panel ====================
-
-const loginButton =
-    document.getElementById("loginButton");
-
-const loginPanel =
-    document.getElementById("loginPanel");
-
-const closeLogin =
-    document.getElementById("closeLogin");
-
-
-if (loginButton && loginPanel) {
-
-    loginButton.addEventListener(
-        "click",
-        function (event) {
-
-            event.stopPropagation();
-
-            loginPanel.style.display = "flex";
-
-        }
-    );
-
-}
-
-
-if (closeLogin && loginPanel) {
-
-    closeLogin.addEventListener(
-        "click",
-        function () {
-
-            loginPanel.style.display = "none";
-
-        }
-    );
-
-}
-
-
-// ==================== Close Login When Clicking Outside ====================
-
-if (loginPanel) {
-
-    loginPanel.addEventListener(
-        "click",
-        function (event) {
-
-            if (event.target === loginPanel) {
-
-                loginPanel.style.display = "none";
-
-            }
-
-        }
-    );
 
 }
