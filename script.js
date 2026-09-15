@@ -148,8 +148,30 @@ const translations = {
     close: "إغلاق"
 }
 
-
 function applyLanguage(language) {
+
+    const ariaElements =
+        document.querySelectorAll("[data-i18n-aria]");
+
+    ariaElements.forEach(function (element) {
+
+        const key =
+            element.getAttribute("data-i18n-aria");
+
+        if (
+            translations[language] &&
+            translations[language][key]
+        ) {
+
+            element.setAttribute(
+                "aria-label",
+                translations[language][key]
+            );
+
+        }
+
+    });
+
 
     const elements =
         document.querySelectorAll("[data-i18n]");
@@ -169,6 +191,27 @@ function applyLanguage(language) {
 
         }
 
+    });
+
+
+    document.documentElement.lang =
+        language;
+
+    if (language === "en") {
+
+        document.documentElement.dir = "ltr";
+
+    } else {
+
+        document.documentElement.dir = "rtl";
+
+    }
+
+    localStorage.setItem(
+        "novy-language",
+        language
+    );
+}
     });
 
     document.documentElement.lang =
