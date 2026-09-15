@@ -287,6 +287,34 @@
             border-color: var(--text-muted);
         }
 
+        .delete-account {
+            background: transparent;
+
+            color: var(--danger);
+
+            border: 1px solid rgba(
+                255,
+                125,
+                143,
+                0.35
+            );
+        }
+
+        .delete-account:hover {
+            background: rgba(
+                255,
+                125,
+                143,
+                0.08
+            );
+
+            color: var(--danger);
+
+            border-color: var(--danger);
+
+            transform: translateY(-1px);
+        }
+
         .message {
             display: none;
 
@@ -504,6 +532,15 @@
                 خروج از حساب
             </button>
 
+
+            <button
+                class="delete-account"
+                onclick="deleteAccount()"
+                data-i18n="deleteAccount"
+            >
+                حذف حساب
+            </button>
+
         </div>
 
     </div>
@@ -636,8 +673,17 @@ const translations = {
         logout:
             "خروج از حساب",
 
+        deleteAccount:
+            "حذف حساب",
+
         deletePhoto:
             "حذف عکس",
+
+        confirmLogout:
+            "مطمئنی می‌خوای از حسابت خارج بشی؟",
+
+        confirmDeleteAccount:
+            "مطمئنی می‌خوای حسابت رو برای همیشه حذف کنی؟ این کار قابل بازگشت نیست.",
 
         confirmDeletePhoto:
             "مطمئنی می‌خوای عکس پروفایلت رو حذف کنی؟",
@@ -648,11 +694,23 @@ const translations = {
         deleting:
             "در حال حذف عکس...",
 
+        loggingOut:
+            "در حال خروج از حساب...",
+
+        deletingAccount:
+            "در حال حذف حساب...",
+
         uploadSuccess:
             "عکس پروفایل با موفقیت تغییر کرد. ✓",
 
         deleteSuccess:
             "عکس پروفایل حذف شد. ✓",
+
+        logoutSuccess:
+            "با موفقیت از حساب خارج شد.",
+
+        accountDeleted:
+            "حساب شما با موفقیت حذف شد.",
 
         invalidType:
             "فقط JPG، PNG یا WEBP مجازه.",
@@ -671,6 +729,12 @@ const translations = {
 
         metadataError:
             "عکس آپلود شد ولی ذخیره پروفایل انجام نشد.",
+
+        logoutError:
+            "خروج از حساب انجام نشد.",
+
+        accountDeleteError:
+            "حذف حساب انجام نشد. دوباره تلاش کن.",
 
         profileAlt:
             "عکس پروفایل",
@@ -716,8 +780,17 @@ const translations = {
         logout:
             "Log out",
 
+        deleteAccount:
+            "Delete account",
+
         deletePhoto:
             "Delete photo",
+
+        confirmLogout:
+            "Are you sure you want to log out?",
+
+        confirmDeleteAccount:
+            "Are you sure you want to permanently delete your account? This action cannot be undone.",
 
         confirmDeletePhoto:
             "Are you sure you want to delete your profile photo?",
@@ -728,11 +801,23 @@ const translations = {
         deleting:
             "Deleting photo...",
 
+        loggingOut:
+            "Logging out...",
+
+        deletingAccount:
+            "Deleting account...",
+
         uploadSuccess:
             "Profile photo updated successfully. ✓",
 
         deleteSuccess:
             "Profile photo deleted. ✓",
+
+        logoutSuccess:
+            "You have been logged out successfully.",
+
+        accountDeleted:
+            "Your account has been permanently deleted.",
 
         invalidType:
             "Only JPG, PNG, or WEBP images are allowed.",
@@ -751,6 +836,12 @@ const translations = {
 
         metadataError:
             "The photo was uploaded, but the profile could not be updated.",
+
+        logoutError:
+            "Could not log out.",
+
+        accountDeleteError:
+            "Could not delete the account. Please try again.",
 
         profileAlt:
             "Profile photo",
@@ -796,8 +887,17 @@ const translations = {
         logout:
             "تسجيل الخروج",
 
+        deleteAccount:
+            "حذف الحساب",
+
         deletePhoto:
             "حذف الصورة",
+
+        confirmLogout:
+            "هل أنت متأكد من تسجيل الخروج؟",
+
+        confirmDeleteAccount:
+            "هل أنت متأكد من حذف حسابك نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.",
 
         confirmDeletePhoto:
             "هل أنت متأكد من حذف صورة ملفك الشخصي؟",
@@ -808,11 +908,23 @@ const translations = {
         deleting:
             "جارٍ حذف الصورة...",
 
+        loggingOut:
+            "جارٍ تسجيل الخروج...",
+
+        deletingAccount:
+            "جارٍ حذف الحساب...",
+
         uploadSuccess:
             "تم تغيير صورة الملف الشخصي بنجاح. ✓",
 
         deleteSuccess:
             "تم حذف صورة الملف الشخصي. ✓",
+
+        logoutSuccess:
+            "تم تسجيل خروجك بنجاح.",
+
+        accountDeleted:
+            "تم حذف حسابك نهائيًا بنجاح.",
 
         invalidType:
             "يُسمح فقط بصور JPG أو PNG أو WEBP.",
@@ -831,6 +943,12 @@ const translations = {
 
         metadataError:
             "تم رفع الصورة، ولكن تعذر تحديث الملف الشخصي.",
+
+        logoutError:
+            "تعذر تسجيل الخروج.",
+
+        accountDeleteError:
+            "تعذر حذف الحساب. يرجى المحاولة مرة أخرى.",
 
         profileAlt:
             "صورة الملف الشخصي",
@@ -1149,8 +1267,6 @@ async function loadProfile() {
     updateWelcome();
 
 
-    /* Existing avatar */
-
     if (
         metadata.avatar_url
     ) {
@@ -1381,8 +1497,6 @@ document
             );
 
 
-            /* Remove old formats first */
-
             const oldPaths = [
 
                 `${user.id}/avatar.jpg`,
@@ -1427,8 +1541,6 @@ document
 
             }
 
-
-            /* Upload */
 
             const {
                 error: uploadError
@@ -1477,8 +1589,6 @@ document
             }
 
 
-            /* Public URL */
-
             const {
                 data: publicData
             } =
@@ -1493,8 +1603,6 @@ document
             const avatarUrl =
                 publicData.publicUrl;
 
-
-            /* Save URL in user metadata */
 
             const {
                 error:
@@ -1538,8 +1646,6 @@ document
 
             }
 
-
-            /* Cache bust */
 
             const finalUrl =
                 `${avatarUrl}?t=${Date.now()}`;
@@ -1656,8 +1762,6 @@ async function deleteAvatar() {
     }
 
 
-    /* Remove avatar URL from metadata */
-
     const {
         error: metadataError
     } =
@@ -1689,8 +1793,6 @@ async function deleteAvatar() {
         return;
     }
 
-
-    /* Return to initial avatar */
 
     setAvatarInitial(
         user.user_metadata?.name ||
@@ -1727,9 +1829,51 @@ function enterNovy() {
 
 async function logout() {
 
-    await supabaseClient
-        .auth
-        .signOut();
+    const confirmed =
+        window.confirm(
+            getText(
+                "confirmLogout"
+            )
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    showMessage(
+        getText(
+            "loggingOut"
+        )
+    );
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .auth
+            .signOut();
+
+
+    if (error) {
+
+        console.error(
+            error
+        );
+
+
+        showMessage(
+            getText(
+                "logoutError"
+            ),
+            true
+        );
+
+        return;
+
+    }
 
 
     localStorage.removeItem(
@@ -1738,13 +1882,147 @@ async function logout() {
 
 
     /*
-        Theme and language are
-        intentionally preserved.
+        Theme and language
+        are intentionally preserved.
     */
 
 
     window.location.href =
         "login.html";
+
+}
+
+
+/* =========================
+   DELETE ACCOUNT
+========================= */
+
+async function deleteAccount() {
+
+    const confirmed =
+        window.confirm(
+            getText(
+                "confirmDeleteAccount"
+            )
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+
+    if (
+        !session ||
+        !session.user
+    ) {
+
+        showMessage(
+            getText(
+                "loginRequired"
+            ),
+            true
+        );
+
+        return;
+
+    }
+
+
+    showMessage(
+        getText(
+            "deletingAccount"
+        )
+    );
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .functions
+            .invoke(
+                "delete-account",
+                {
+                    body: {}
+                }
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Delete account error:",
+            error
+        );
+
+
+        showMessage(
+            getText(
+                "accountDeleteError"
+            ),
+            true
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !data ||
+        data.success !== true
+    ) {
+
+        console.error(
+            "Delete account response:",
+            data
+        );
+
+
+        showMessage(
+            getText(
+                "accountDeleteError"
+            ),
+            true
+        );
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "novyLoggedIn"
+    );
+
+
+    /*
+        Theme and language
+        are intentionally preserved.
+    */
+
+
+    /*
+        The account has already been
+        permanently deleted by the
+        Edge Function.
+    */
+
+
+    window.location.href =
+        "index.html";
 
 }
 
