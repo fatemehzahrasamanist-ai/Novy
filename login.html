@@ -35,6 +35,10 @@
         }
 
         .login-page-box {
+            position: relative;
+            width: min(430px, 100%);
+            box-sizing: border-box;
+
             background: #0b233d !important;
             color: #f4fbff !important;
             border-color: #1d405d !important;
@@ -70,7 +74,6 @@
 
         .login-step input:focus {
             background: #102e4a !important;
-
             color: #f4fbff !important;
 
             border-color: #8ee7ff !important;
@@ -100,38 +103,49 @@
 
 </head>
 
+
 <body>
 
     <main class="login-page">
 
         <div class="login-page-box">
 
-            <a href="index.html" class="login-back">
+            <!-- برگشت -->
+            <a
+                href="index.html"
+                class="login-back"
+            >
                 ← برگشت به نووی
             </a>
 
+
+            <!-- لوگو -->
             <div class="login-page-logo">
                 NOVY
             </div>
 
+
+            <!-- عنوان -->
             <h1 id="loginTitle">
                 ورود به نووی
             </h1>
 
 
-            <!-- مرحله ۱ -->
-       <div
-                   class="login-step"
-                   id="step1"
-       > 
- 
-       <p class="login-page-description">
-                 اطلاعاتت رو وارد کن تا پروفایلت رو بسازیم.
-       </p>
+            <!-- ==================== مرحله ۱ ==================== -->
 
-       <label for="loginContact">
-                ایمیل یا شماره تلفن
-      </label>
+            <div
+                class="login-step"
+                id="step1"
+            >
+
+                <p class="login-page-description">
+                    اطلاعاتت رو وارد کن تا پروفایلت رو بسازیم.
+                </p>
+
+                <label for="loginContact">
+                    ایمیل یا شماره تلفن
+                </label>
+
                 <input
                     type="text"
                     id="loginContact"
@@ -147,41 +161,45 @@
                 </button>
 
             </div>
-            
-            <!-- مرحله کد تأیید -->
-       <div
-                   class="login-step"
-                   id="verificationStep"
-                  style="display: none;"
-      >
- 
-      <p class="login-page-description">
-                کد تأیید برایت ارسال شد.
-      </p>
 
-      <label for="verificationCode">
-                       کد تأیید
-      </label>
 
-      <input
-             type="text"
-             id="verificationCode"
-             placeholder="کد ۶ رقمی"
-             maxlength="6"
-             inputmode="numeric"
-      >
+            <!-- ==================== مرحله کد تأیید ==================== -->
 
-     <button
-             class="login-page-submit"
-             id="verificationButton"
-     >
-                    تأیید 
-    <span>←</span>
-    </button>
+            <div
+                class="login-step"
+                id="verificationStep"
+                style="display: none;"
+            >
 
-</div>
+                <p class="login-page-description">
+                    کد تأیید برایت ارسال شد.
+                </p>
 
-            <!-- مرحله ۲ -->
+                <label for="verificationCode">
+                    کد تأیید
+                </label>
+
+                <input
+                    type="text"
+                    id="verificationCode"
+                    placeholder="کد ۶ رقمی"
+                    maxlength="6"
+                    inputmode="numeric"
+                >
+
+                <button
+                    class="login-page-submit"
+                    id="verificationButton"
+                >
+                    تأیید
+                    <span>←</span>
+                </button>
+
+            </div>
+
+
+            <!-- ==================== مرحله ۲ ==================== -->
+
             <div
                 class="login-step"
                 id="step2"
@@ -209,7 +227,8 @@
             </div>
 
 
-            <!-- مرحله ۳ -->
+            <!-- ==================== مرحله ۳ ==================== -->
+
             <div
                 class="login-step"
                 id="step3"
@@ -237,7 +256,8 @@
             </div>
 
 
-            <!-- مرحله ۴ -->
+            <!-- ==================== مرحله ۴ ==================== -->
+
             <div
                 class="login-step"
                 id="step4"
@@ -271,18 +291,35 @@
     </main>
 
 
+    <!-- ==================== JavaScript ==================== -->
+
     <script>
 
-        const step1 = document.getElementById("step1");
-        const step2 = document.getElementById("step2");
-        const step3 = document.getElementById("step3");
-        const step4 = document.getElementById("step4");
+        /* ==================== عناصر مراحل ==================== */
+
+        const step1 =
+            document.getElementById("step1");
 
         const verificationStep =
-    document.getElementById("verificationStep");
-        
+            document.getElementById("verificationStep");
+
+        const step2 =
+            document.getElementById("step2");
+
+        const step3 =
+            document.getElementById("step3");
+
+        const step4 =
+            document.getElementById("step4");
+
+
+        /* ==================== دکمه‌ها ==================== */
+
         const step1Button =
             document.getElementById("step1Button");
+
+        const verificationButton =
+            document.getElementById("verificationButton");
 
         const step2Button =
             document.getElementById("step2Button");
@@ -290,92 +327,130 @@
         const step3Button =
             document.getElementById("step3Button");
 
+
+        /* ==================== ورودی‌ها ==================== */
+
         const loginContact =
             document.getElementById("loginContact");
+
+        const verificationCode =
+            document.getElementById("verificationCode");
 
         const loginUsername =
             document.getElementById("loginUsername");
 
         const loginName =
             document.getElementById("loginName");
-    
-        const loginDescription =
-            document.getElementById("loginDescription");
 
-        const verificationButton =
-            document.getElementById("verificationButton");
 
-        const verificationCode =
-            document.getElementById("verificationCode");
-       
-        verificationButton.addEventListener("click", function () {
+        /* ==================== مرحله ۱ ==================== */
 
-    if (verificationCode.value.trim() === "") {
-        verificationCode.focus();
-        return;
-    }
+        step1Button.addEventListener(
+            "click",
+            function () {
 
-    verificationStep.style.display = "none";
-    step2.style.display = "block";
+                if (
+                    loginContact.value.trim() === ""
+                ) {
+                    loginContact.focus();
+                    return;
+                }
 
-});
-        /* مرحله ۱ */
+                step1.style.display = "none";
 
-        step1Button.addEventListener("click", function () {
+                verificationStep.style.display =
+                    "block";
 
-            if (loginContact.value.trim() === "") {
-                loginContact.focus();
-                return;
             }
-
-            step1.style.display = "none";
-            verificationStep.style.display = "block";
- 
-        });
+        );
 
 
-        /* مرحله ۲ */
+        /* ==================== مرحله کد تأیید ==================== */
 
-        step2Button.addEventListener("click", function () {
+        verificationButton.addEventListener(
+            "click",
+            function (event) {
 
-            if (loginUsername.value.trim() === "") {
-                loginUsername.focus();
-                return;
+                event.preventDefault();
+
+                /*
+                    فعلاً کد واقعی بررسی نمی‌شود.
+                    هر کدی وارد شود، مرحله بعد باز می‌شود.
+                */
+
+                verificationStep.style.display =
+                    "none";
+
+                step2.style.display =
+                    "block";
+
             }
-
-            step2.style.display = "none";
-            step3.style.display = "block";
-
-        });
+        );
 
 
-        /* مرحله ۳ */
+        /* ==================== مرحله ۲ ==================== */
 
-        step3Button.addEventListener("click", function () {
+        step2Button.addEventListener(
+            "click",
+            function () {
 
-            if (loginName.value.trim() === "") {
-                loginName.focus();
-                return;
+                if (
+                    loginUsername.value.trim() === ""
+                ) {
+                    loginUsername.focus();
+                    return;
+                }
+
+                step2.style.display =
+                    "none";
+
+                step3.style.display =
+                    "block";
+
             }
-
-            step3.style.display = "none";
-            step4.style.display = "block";
-        
-        });
+        );
 
 
-        /* ورود به نووی */
+        /* ==================== مرحله ۳ ==================== */
+
+        step3Button.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    loginName.value.trim() === ""
+                ) {
+                    loginName.focus();
+                    return;
+                }
+
+                step3.style.display =
+                    "none";
+
+                step4.style.display =
+                    "block";
+
+            }
+        );
+
+
+        /* ==================== ورود نهایی ==================== */
 
         document
             .getElementById("loginSubmit")
-            .addEventListener("click", function () {
+            .addEventListener(
+                "click",
+                function () {
 
-                window.location.href = "index.html";
+                    window.location.href =
+                        "index.html";
 
-            });
+                }
+            );
 
     </script>
 
 </body>
 
 </html>
+
