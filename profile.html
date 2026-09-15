@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>پروفایل | نووی</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: #061426;
+            color: #f4fbff;
+        }
+
+        .profile-page {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+            box-sizing: border-box;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(142, 231, 255, 0.10),
+                    transparent 45%
+                ),
+                #061426;
+        }
+
+        .profile-box {
+            width: min(500px, 100%);
+            box-sizing: border-box;
+
+            padding: 40px 32px;
+
+            background: #0b233d;
+
+            border: 1px solid #1d405d;
+            border-radius: 24px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.30);
+        }
+
+        .profile-logo {
+            color: #8ee7ff;
+
+            font-size: 22px;
+            font-weight: 700;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 25px;
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #102e4a;
+
+            border: 2px solid #8ee7ff;
+
+            color: #8ee7ff;
+
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .profile-box h1 {
+            margin: 0 0 10px;
+
+            color: #f4fbff;
+
+            font-size: 25px;
+        }
+
+        .profile-description {
+            margin: 0 0 28px;
+
+            color: #a8c7d9;
+
+            font-size: 14px;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            margin-bottom: 25px;
+        }
+
+        .profile-item {
+            padding: 15px;
+
+            background: #0a2038;
+
+            border: 1px solid #163452;
+
+            border-radius: 14px;
+
+            text-align: right;
+        }
+
+        .profile-item-title {
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #91b0c2;
+
+            font-size: 12px;
+        }
+
+        .profile-item-value {
+            color: #f4fbff;
+
+            font-size: 15px;
+        }
+
+        .profile-button {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 14px;
+
+            background: #8ee7ff;
+            color: #061426;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .profile-button:hover {
+            filter: brightness(1.05);
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main class="profile-page">
+
+        <div class="profile-box">
+
+            <div class="profile-logo">
+                NOVY
+            </div>
+
+
+            <div class="profile-avatar">
+                N
+            </div>
+
+
+            <h1>
+                خوش اومدی به نووی 👋
+            </h1>
+
+
+            <p class="profile-description">
+                اینجا پروفایل شخصی توئه.
+            </p>
+
+
+            <div class="profile-info">
+
+                <div class="profile-item">
+
+                    <span class="profile-item-title">
+                        نام
+                    </span>
+
+                    <span class="profile-item-value">
+                        میوا
+                    </span>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span class="profile-item-title">
+                        نام کاربری
+                    </span>
+
+                    <span class="profile-item-value">
+                        novy_user
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="profile-button"
+                onclick="window.location.href='index.html'"
+            >
+                رفتن به نووی
+                ←
+            </button>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
