@@ -15,7 +15,34 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* ==================== Login Input Fix ==================== */
+        /* ==================== Login Page Fix ==================== */
+
+        html,
+        body {
+            background: #061426 !important;
+            color: #f4fbff !important;
+        }
+
+        .login-page {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(142, 231, 255, 0.10),
+                    transparent 45%
+                ),
+                #061426 !important;
+        }
+
+        .login-page-box {
+            background: #0b233d !important;
+            color: #f4fbff !important;
+            border-color: #1d405d !important;
+        }
+
+
+        /* ==================== Login Inputs ==================== */
 
         .login-step input {
             width: 100%;
@@ -23,12 +50,12 @@
 
             padding: 14px 16px;
 
-            border: 1px solid #1d405d;
+            border: 1px solid #1d405d !important;
             border-radius: 14px;
 
             outline: none;
 
-            background-color: #0a2038 !important;
+            background: #0a2038 !important;
             color: #f4fbff !important;
 
             font-family: Arial, sans-serif;
@@ -43,13 +70,18 @@
         }
 
         .login-step input:focus {
-            background-color: #102e4a !important;
+            background: #102e4a !important;
 
-            border-color: #8ee7ff;
+            color: #f4fbff !important;
+
+            border-color: #8ee7ff !important;
 
             box-shadow:
                 0 0 0 3px rgba(142, 231, 255, 0.10);
         }
+
+
+        /* جلوگیری از سفید شدن خودکار input توسط Chrome */
 
         .login-step input:-webkit-autofill,
         .login-step input:-webkit-autofill:hover,
@@ -62,9 +94,11 @@
             box-shadow:
                 0 0 0 1000px #0a2038 inset !important;
 
-            transition: background-color 5000s ease-in-out 0s;
+            transition:
+                background-color 5000s ease-in-out 0s;
         }
     </style>
+
 </head>
 
 <body>
@@ -217,14 +251,26 @@
         const step3 = document.getElementById("step3");
         const step4 = document.getElementById("step4");
 
-        const step1Button = document.getElementById("step1Button");
-        const step2Button = document.getElementById("step2Button");
-        const step3Button = document.getElementById("step3Button");
+        const step1Button =
+            document.getElementById("step1Button");
 
-        const loginContact = document.getElementById("loginContact");
-        const loginUsername = document.getElementById("loginUsername");
-        const loginName = document.getElementById("loginName");
+        const step2Button =
+            document.getElementById("step2Button");
 
+        const step3Button =
+            document.getElementById("step3Button");
+
+        const loginContact =
+            document.getElementById("loginContact");
+
+        const loginUsername =
+            document.getElementById("loginUsername");
+
+        const loginName =
+            document.getElementById("loginName");
+
+
+        /* مرحله ۱ */
 
         step1Button.addEventListener("click", function () {
 
@@ -239,6 +285,8 @@
         });
 
 
+        /* مرحله ۲ */
+
         step2Button.addEventListener("click", function () {
 
             if (loginUsername.value.trim() === "") {
@@ -252,6 +300,8 @@
         });
 
 
+        /* مرحله ۳ */
+
         step3Button.addEventListener("click", function () {
 
             if (loginName.value.trim() === "") {
@@ -264,6 +314,8 @@
 
         });
 
+
+        /* ورود به نووی */
 
         document
             .getElementById("loginSubmit")
