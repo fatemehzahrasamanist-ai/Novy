@@ -117,17 +117,28 @@ document.addEventListener("click", function (event) {
 // ==================== Language System ====================
 
 const translations = {
+
     fa: {
-        language: "زبان"
+        language: "زبان",
+        novyAppearance: "ظاهر نووی",
+        chooseTheme: "تم مورد علاقه‌ات رو انتخاب کن.",
+        black: "مشکی"
     },
 
     en: {
-        language: "Language"
+        language: "Language",
+        novyAppearance: "Novy Appearance",
+        chooseTheme: "Choose your favorite theme.",
+        black: "Black"
     },
 
     ar: {
-        language: "اللغة"
+        language: "اللغة",
+        novyAppearance: "مظهر نووی",
+        chooseTheme: "اختر المظهر المفضل لديك.",
+        black: "أسود"
     }
+
 };
 
 
