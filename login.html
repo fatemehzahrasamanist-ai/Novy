@@ -1,6 +1,6 @@
-```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,247 +10,44 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* ==================== Login Page ==================== */
+        html,
+        body {
+            color: var(--text-main) !important;
+        }
 
         .login-page {
             min-height: 100vh;
-            background: var(--bg-main);
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            box-sizing: border-box;
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(142, 231, 255, 0.10),
+                    transparent 45%
+                ),
+                var(--bg-main) !important;
         }
 
         .login-page-box {
-            width: 100%;
-            max-width: 430px;
-
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-
-            padding: 32px;
-
+            position: relative;
+            width: min(430px, 100%);
             box-sizing: border-box;
-
-            box-shadow:
-                0 20px 60px rgba(0, 0, 0, 0.25);
+            background: var(--bg-card) !important;
+            color: var(--text-main) !important;
+            border-color: var(--border) !important;
         }
 
-        .login-page-top {
-            display: flex;
-            justify-content: flex-start;
-            margin-bottom: 18px;
-        }
 
-        .login-back {
-            background: transparent;
-            border: none;
-
-            color: var(--text-muted);
-
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: 700;
-
-            cursor: pointer;
-
-            padding: 6px 0;
-
-            transition:
-                color 0.2s ease,
-                transform 0.2s ease;
-        }
-
-        .login-back:hover {
-            color: var(--accent);
-            transform: translateX(3px);
-        }
-
-        .login-page-logo {
-            text-align: center;
-            margin-bottom: 26px;
-        }
-
-        .login-page-logo-mark {
-            width: 58px;
-            height: 58px;
-
-            margin: 0 auto 14px;
-
-            border-radius: 18px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: var(--accent);
-            color: #061426;
-
-            font-size: 24px;
-            font-weight: 900;
-        }
-
-        .login-page-logo h1 {
-            margin: 0 0 8px;
-
-            color: var(--text-main);
-
-            font-size: 24px;
-            font-weight: 900;
-        }
-
-        .login-page-logo p {
-            margin: 0;
-
-            color: var(--text-muted);
-
-            font-size: 14px;
-            line-height: 1.8;
-        }
-
-        .login-step {
-            display: none;
-        }
-
-        .login-step.active {
-            display: block;
-        }
-
-        .login-step label {
-            display: block;
-
-            margin-bottom: 8px;
-
-            color: var(--text-main);
-
-            font-size: 14px;
-            font-weight: 800;
-        }
-
-        .login-step input {
-            width: 100%;
-
-            padding: 13px 14px;
-
-            box-sizing: border-box;
-
-            background: var(--bg-message);
-
-            border: 1px solid var(--border);
-            border-radius: 12px;
-
-            color: var(--text-main);
-
-            font-family: inherit;
-            font-size: 14px;
-
-            outline: none;
-
-            transition:
-                border-color 0.2s ease,
-                box-shadow 0.2s ease;
-        }
-
-        .login-step input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .login-step input:focus {
-            border-color: var(--accent);
-
-            box-shadow:
-                0 0 0 2px rgba(142, 231, 255, 0.10);
-        }
-
-        .login-input-group {
-            margin-bottom: 16px;
-        }
-
-        /* ==================== Verification ==================== */
-
-        .verification-description {
-            color: var(--text-muted);
-
-            font-size: 14px;
-            line-height: 1.8;
-
-            margin: 0 0 18px;
-        }
-
-        .verification-inputs {
-            display: flex;
-
-            direction: ltr;
-
-            gap: 8px;
-
-            margin-bottom: 20px;
-        }
-
-        .verification-digit {
-            width: 100%;
-            height: 52px;
-
-            padding: 0 !important;
-
-            text-align: center;
-
-            font-size: 20px !important;
-            font-weight: 800;
-        }
-
-        /* ==================== Password ==================== */
-
-        .password-description {
-            color: var(--text-muted);
-
-            font-size: 14px;
-            line-height: 1.8;
-
-            margin: 0 0 18px;
-        }
-
-        .password-error {
-            display: none;
-
-            margin-top: 8px;
-
-            color: #ff7b7b;
-
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .password-error.show {
-            display: block;
-        }
-
-        /* ==================== Button ==================== */
+        /* ==================== دکمه‌ها ==================== */
 
         .login-page-submit {
-            width: 100%;
-
-            min-height: 48px;
-
-            margin-top: 8px;
-
-            padding: 12px 16px;
-
             background: var(--accent) !important;
-
             border: 1px solid var(--accent) !important;
-            border-radius: 12px !important;
 
+            /* متن همه‌ی تم‌ها مشکی */
             color: #061426 !important;
+
             -webkit-text-fill-color: #061426 !important;
 
-            font-family: inherit;
-            font-size: 14px;
             font-weight: 800;
-
             cursor: pointer;
 
             transition:
@@ -267,882 +64,1100 @@
         }
 
         .login-page-submit:hover {
+            opacity: 0.9;
             transform: translateY(-1px);
 
             box-shadow:
-                0 8px 24px rgba(0, 0, 0, 0.18);
+                0 6px 18px rgba(0, 0, 0, 0.18);
         }
 
-        .login-page-submit:active {
-            transform: translateY(0);
+
+        /* ==================== ورودی‌ها ==================== */
+
+        .login-step input {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 14px 16px;
+
+            border: 1px solid var(--border) !important;
+            border-radius: 14px;
+
+            outline: none;
+
+            background: var(--bg-message) !important;
+            color: var(--text-main) !important;
+
+            font-family: inherit;
+            font-size: 15px;
+
+            transition: 0.2s;
         }
 
-        /* ==================== Mobile ==================== */
+        .login-step input::placeholder {
+            color: var(--text-muted) !important;
+            opacity: 1;
+        }
 
-        @media (max-width: 520px) {
-            .login-page {
-                padding: 16px;
-            }
+        .login-step input:focus {
+            background: var(--bg-message) !important;
+            color: var(--text-main) !important;
 
-            .login-page-box {
-                padding: 24px 20px;
-                border-radius: 20px;
-            }
+            border-color: var(--accent) !important;
 
-            .verification-inputs {
-                gap: 6px;
-            }
+            box-shadow:
+                0 0 0 3px rgba(142, 231, 255, 0.10);
+        }
 
-            .verification-digit {
-                height: 48px;
-            }
+        .login-step input:-webkit-autofill,
+        .login-step input:-webkit-autofill:hover,
+        .login-step input:-webkit-autofill:focus {
+            -webkit-text-fill-color: var(--text-main) !important;
+
+            -webkit-box-shadow:
+                0 0 0 1000px var(--bg-message) inset !important;
+
+            box-shadow:
+                0 0 0 1000px var(--bg-message) inset !important;
+
+            transition:
+                background-color 5000s ease-in-out 0s;
+        }
+
+
+        /* ==================== کد تأیید ==================== */
+
+        .verification-inputs {
+            display: flex;
+            direction: ltr;
+            justify-content: center;
+
+            gap: 8px;
+
+            width: 100%;
+            margin: 8px 0 10px;
+        }
+
+        .verification-digit {
+            width: 48px !important;
+            height: 54px;
+
+            padding: 0 !important;
+
+            text-align: center;
+
+            font-size: 20px !important;
+            font-weight: 600;
+
+            border-radius: 12px !important;
+        }
+
+
+        /* ==================== خطای رمز ==================== */
+
+        .password-error {
+            display: none;
+
+            margin-top: 8px;
+
+            color: #ff7b7b;
+
+            font-size: 13px;
+        }
+
+        .password-error.show {
+            display: block;
         }
     </style>
+
 </head>
+
 
 <body>
 
-<div class="login-page">
+    <main class="login-page">
 
-    <div class="login-page-box">
+        <div class="login-page-box">
 
-        <!-- Back -->
-        <div class="login-page-top">
-            <button
+
+            <!-- برگشت -->
+
+            <a
+                href="index.html"
                 class="login-back"
-                id="loginBack"
-                type="button"
-                data-i18n="back">
-                ← بازگشت
-            </button>
-        </div>
+                data-i18n="back"
+            >
+                ← برگشت به نووی
+            </a>
 
-        <!-- Logo -->
-        <div class="login-page-logo">
 
-            <div class="login-page-logo-mark">
-                ن
+            <!-- لوگو -->
+
+            <div class="login-page-logo">
+                NOVY
             </div>
 
-            <h1 data-i18n="loginTitle">
+
+            <!-- عنوان -->
+
+            <h1
+                id="loginTitle"
+                data-i18n="loginTitle"
+            >
                 ورود به نووی
             </h1>
 
-            <p data-i18n="loginDescription">
-                برای شروع، اطلاعاتت رو وارد کن.
-            </p>
 
-        </div>
+            <!-- ==================== مرحله ۱ ==================== -->
 
+            <div
+                class="login-step"
+                id="step1"
+            >
 
-        <!-- ==================== Step 1: Contact ==================== -->
+                <p
+                    class="login-page-description"
+                    data-i18n="loginDescription"
+                >
+                    اطلاعاتت رو وارد کن تا پروفایلت رو بسازیم.
+                </p>
 
-        <div class="login-step active" id="step1">
-
-            <div class="login-input-group">
 
                 <label
                     for="loginContact"
-                    data-i18n="contactLabel">
-                    ایمیل یا شماره موبایل
+                    data-i18n="contactLabel"
+                >
+                    ایمیل یا شماره تلفن
                 </label>
 
+
                 <input
-                    id="loginContact"
                     type="text"
-                    autocomplete="email"
+                    id="loginContact"
                     data-i18n-placeholder="contactPlaceholder"
-                    placeholder="ایمیل یا شماره موبایل">
+                    placeholder="ایمیل یا شماره تلفن"
+                >
+
+
+                <button
+                    class="login-page-submit"
+                    id="step1Button"
+                    data-i18n="continue"
+                >
+                    ادامه
+                    <span>←</span>
+                </button>
 
             </div>
 
-            <button
-                class="login-page-submit"
-                id="step1Button"
-                type="button"
-                data-i18n="continue">
-                ادامه
-            </button>
 
-        </div>
+            <!-- ==================== مرحله کد تأیید ==================== -->
+
+            <div
+                class="login-step"
+                id="verificationStep"
+                style="display: none;"
+            >
+
+                <p
+                    class="login-page-description"
+                    data-i18n="verificationDescription"
+                >
+                    کد تأیید برایت ارسال شد.
+                </p>
 
 
-        <!-- ==================== Step 2: Verification ==================== -->
-
-        <div class="login-step" id="verificationStep">
-
-            <p
-                class="verification-description"
-                data-i18n="verificationDescription">
-                کد تأیید ارسال‌شده را وارد کن.
-            </p>
-
-            <div class="login-input-group">
-
-                <label
-                    data-i18n="verificationLabel">
+                <label data-i18n="verificationLabel">
                     کد تأیید
                 </label>
+
 
                 <div class="verification-inputs">
 
                     <input
-                        class="verification-digit"
                         type="text"
-                        inputmode="numeric"
                         maxlength="1"
-                        autocomplete="one-time-code">
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
 
                     <input
-                        class="verification-digit"
                         type="text"
+                        maxlength="1"
                         inputmode="numeric"
-                        maxlength="1">
+                        class="verification-digit"
+                    >
 
                     <input
-                        class="verification-digit"
                         type="text"
+                        maxlength="1"
                         inputmode="numeric"
-                        maxlength="1">
+                        class="verification-digit"
+                    >
 
                     <input
-                        class="verification-digit"
                         type="text"
+                        maxlength="1"
                         inputmode="numeric"
-                        maxlength="1">
+                        class="verification-digit"
+                    >
 
                     <input
-                        class="verification-digit"
                         type="text"
+                        maxlength="1"
                         inputmode="numeric"
-                        maxlength="1">
+                        class="verification-digit"
+                    >
 
                     <input
-                        class="verification-digit"
                         type="text"
+                        maxlength="1"
                         inputmode="numeric"
-                        maxlength="1">
+                        class="verification-digit"
+                    >
 
                 </div>
 
+
+                <button
+                    class="login-page-submit"
+                    id="verificationButton"
+                    data-i18n="verify"
+                >
+                    تأیید
+                    <span>←</span>
+                </button>
+
             </div>
 
-            <button
-                class="login-page-submit"
-                id="verificationButton"
-                type="button"
-                data-i18n="verify">
-                تأیید
-            </button>
 
-        </div>
+            <!-- ==================== مرحله ساخت رمز ==================== -->
 
+            <div
+                class="login-step"
+                id="passwordStep"
+                style="display: none;"
+            >
 
-        <!-- ==================== Step 3: Create Password ==================== -->
+                <p
+                    class="login-page-description"
+                    data-i18n="passwordDescription"
+                >
+                    یک رمز عبور برای حسابت بساز.
+                </p>
 
-        <div class="login-step" id="passwordStep">
-
-            <p
-                class="password-description"
-                data-i18n="passwordDescription">
-                یک رمز عبور برای حساب نووی خودت بساز.
-            </p>
-
-            <div class="login-input-group">
 
                 <label
                     for="loginPassword"
-                    data-i18n="passwordLabel">
+                    data-i18n="passwordLabel"
+                >
                     رمز عبور
                 </label>
 
+
                 <input
-                    id="loginPassword"
                     type="password"
+                    id="loginPassword"
                     autocomplete="new-password"
                     data-i18n-placeholder="passwordPlaceholder"
-                    placeholder="رمز عبور خودت را بساز">
+                    placeholder="رمز عبور خودت را بساز"
+                >
 
-            </div>
 
-            <div class="login-input-group">
+                <br><br>
+
 
                 <label
                     for="loginPasswordConfirm"
-                    data-i18n="confirmPasswordLabel">
+                    data-i18n="confirmPasswordLabel"
+                >
                     تکرار رمز عبور
                 </label>
 
+
                 <input
-                    id="loginPasswordConfirm"
                     type="password"
+                    id="loginPasswordConfirm"
                     autocomplete="new-password"
                     data-i18n-placeholder="confirmPasswordPlaceholder"
-                    placeholder="رمز عبور را دوباره وارد کن">
+                    placeholder="رمز عبور را دوباره وارد کن"
+                >
+
 
                 <p
                     class="password-error"
                     id="passwordError"
-                    data-i18n="passwordMismatch">
+                    data-i18n="passwordMismatch"
+                >
                     رمزهای عبور یکسان نیستند.
                 </p>
 
+
+                <button
+                    class="login-page-submit"
+                    id="passwordButton"
+                    data-i18n="continue"
+                >
+                    ادامه
+                    <span>←</span>
+                </button>
+
             </div>
 
-            <button
-                class="login-page-submit"
-                id="passwordButton"
-                type="button"
-                data-i18n="continue">
-                ادامه
-            </button>
 
-        </div>
+            <!-- ==================== مرحله ۲ ==================== -->
 
-
-        <!-- ==================== Step 4: Username ==================== -->
-
-        <div class="login-step" id="step2">
-
-            <div class="login-input-group">
+            <div
+                class="login-step"
+                id="step2"
+                style="display: none;"
+            >
 
                 <label
                     for="loginUsername"
-                    data-i18n="usernameLabel">
+                    data-i18n="usernameLabel"
+                >
                     نام کاربری
                 </label>
 
+
                 <input
-                    id="loginUsername"
                     type="text"
-                    autocomplete="username"
+                    id="loginUsername"
                     data-i18n-placeholder="usernamePlaceholder"
-                    placeholder="یک نام کاربری انتخاب کن">
+                    placeholder="مثلاً novy_user"
+                >
+
+
+                <button
+                    class="login-page-submit"
+                    id="step2Button"
+                    data-i18n="continue"
+                >
+                    ادامه
+                    <span>←</span>
+                </button>
 
             </div>
 
-            <button
-                class="login-page-submit"
-                id="step2Button"
-                type="button"
-                data-i18n="continue">
-                ادامه
-            </button>
 
-        </div>
+            <!-- ==================== مرحله ۳ ==================== -->
 
-
-        <!-- ==================== Step 5: Name ==================== -->
-
-        <div class="login-step" id="step3">
-
-            <div class="login-input-group">
+            <div
+                class="login-step"
+                id="step3"
+                style="display: none;"
+            >
 
                 <label
                     for="loginName"
-                    data-i18n="nameLabel">
-                    اسم
+                    data-i18n="nameLabel"
+                >
+                    نام
                 </label>
 
+
                 <input
-                    id="loginName"
                     type="text"
-                    autocomplete="name"
+                    id="loginName"
                     data-i18n-placeholder="namePlaceholder"
-                    placeholder="اسمت رو وارد کن">
+                    placeholder="مثلاً میوا"
+                >
+
+
+                <button
+                    class="login-page-submit"
+                    id="step3Button"
+                    data-i18n="continue"
+                >
+                    ادامه
+                    <span>←</span>
+                </button>
 
             </div>
 
-            <button
-                class="login-page-submit"
-                id="step3Button"
-                type="button"
-                data-i18n="continue">
-                ادامه
-            </button>
 
-        </div>
+            <!-- ==================== مرحله موفقیت ==================== -->
 
+            <div
+                class="login-step"
+                id="step4"
+                style="display: none;"
+            >
 
-        <!-- ==================== Step 6: Ready ==================== -->
-
-        <div class="login-step" id="step4">
-
-            <div class="login-page-logo">
-
-                <div class="login-page-logo-mark">
+                <div class="login-success-icon">
                     ✓
                 </div>
 
-                <h1 data-i18n="profileReady">
-                    پروفایلت آماده‌ست!
-                </h1>
 
-                <p data-i18n="readyDescription">
-                    حالا می‌تونی وارد نووی بشی.
+                <h2 data-i18n="profileReady">
+                    پروفایلت آماده‌ست!
+                </h2>
+
+
+                <p
+                    class="login-page-description"
+                    data-i18n="readyDescription"
+                >
+                    حالا می‌تونی وارد نووی بشی و شروع کنی.
                 </p>
+
+
+                <button
+                    class="login-page-submit"
+                    id="loginSubmit"
+                    data-i18n="enterNovy"
+                >
+                    ورود به نووی
+                    <span>←</span>
+                </button>
 
             </div>
 
-            <button
-                class="login-page-submit"
-                id="loginSubmit"
-                type="button"
-                data-i18n="enterNovy">
-                ورود به نووی
-            </button>
 
         </div>
 
-    </div>
-
-</div>
+    </main>
 
 
-<script>
+    <script>
 
-    /* ==================== Translations ==================== */
+        /* ==================== ترجمه‌ها ==================== */
 
-    const translations = {
+        const translations = {
 
-        fa: {
-            pageTitle: "ورود به نووی",
-            back: "← بازگشت",
+            fa: {
+                pageTitle: "ورود به نووی",
+                back: "← برگشت به نووی",
+                loginTitle: "ورود به نووی",
+                loginDescription: "اطلاعاتت رو وارد کن تا پروفایلت رو بسازیم.",
+                contactLabel: "ایمیل یا شماره تلفن",
+                contactPlaceholder: "ایمیل یا شماره تلفن",
+                continue: "ادامه",
 
-            loginTitle: "ورود به نووی",
-            loginDescription: "برای شروع، اطلاعاتت رو وارد کن.",
+                verificationDescription: "کد تأیید برایت ارسال شد.",
+                verificationLabel: "کد تأیید",
+                verify: "تأیید",
 
-            contactLabel: "ایمیل یا شماره موبایل",
-            contactPlaceholder: "ایمیل یا شماره موبایل",
+                passwordDescription: "یک رمز عبور برای حسابت بساز.",
+                passwordLabel: "رمز عبور",
+                passwordPlaceholder: "رمز عبور خودت را بساز",
+                confirmPasswordLabel: "تکرار رمز عبور",
+                confirmPasswordPlaceholder: "رمز عبور را دوباره وارد کن",
+                passwordMismatch: "رمزهای عبور یکسان نیستند.",
+                passwordRequired: "لطفاً رمز عبور را وارد کن.",
 
-            continue: "ادامه",
+                usernameLabel: "نام کاربری",
+                usernamePlaceholder: "مثلاً novy_user",
 
-            verificationDescription: "کد تأیید ارسال‌شده را وارد کن.",
-            verificationLabel: "کد تأیید",
-            verify: "تأیید",
+                nameLabel: "نام",
+                namePlaceholder: "مثلاً میوا",
 
-            passwordDescription: "یک رمز عبور برای حساب نووی خودت بساز.",
-            passwordLabel: "رمز عبور",
-            passwordPlaceholder: "رمز عبور خودت را بساز",
-            confirmPasswordLabel: "تکرار رمز عبور",
-            confirmPasswordPlaceholder: "رمز عبور را دوباره وارد کن",
-            passwordMismatch: "رمزهای عبور یکسان نیستند.",
-            passwordRequired: "لطفاً رمز عبور را وارد کن.",
+                profileReady: "پروفایلت آماده‌ست!",
+                readyDescription: "حالا می‌تونی وارد نووی بشی و شروع کنی.",
+                enterNovy: "ورود به نووی"
+            },
 
-            usernameLabel: "نام کاربری",
-            usernamePlaceholder: "یک نام کاربری انتخاب کن",
+            en: {
+                pageTitle: "Login to Novy",
+                back: "← Back to Novy",
+                loginTitle: "Login to Novy",
+                loginDescription: "Enter your information to create your profile.",
+                contactLabel: "Email or phone number",
+                contactPlaceholder: "Email or phone number",
+                continue: "Continue",
 
-            nameLabel: "اسم",
-            namePlaceholder: "اسمت رو وارد کن",
+                verificationDescription: "A verification code was sent to you.",
+                verificationLabel: "Verification code",
+                verify: "Verify",
 
-            profileReady: "پروفایلت آماده‌ست!",
-            readyDescription: "حالا می‌تونی وارد نووی بشی.",
-            enterNovy: "ورود به نووی"
-        },
+                passwordDescription: "Create a password for your account.",
+                passwordLabel: "Password",
+                passwordPlaceholder: "Create your password",
+                confirmPasswordLabel: "Confirm password",
+                confirmPasswordPlaceholder: "Enter your password again",
+                passwordMismatch: "Passwords do not match.",
+                passwordRequired: "Please enter a password.",
 
-        en: {
-            pageTitle: "Login to Novy",
-            back: "← Back",
+                usernameLabel: "Username",
+                usernamePlaceholder: "e.g. novy_user",
 
-            loginTitle: "Login to Novy",
-            loginDescription: "Enter your information to get started.",
+                nameLabel: "Name",
+                namePlaceholder: "e.g. Miwa",
 
-            contactLabel: "Email or phone number",
-            contactPlaceholder: "Email or phone number",
+                profileReady: "Your profile is ready!",
+                readyDescription: "Now you can enter Novy and get started.",
+                enterNovy: "Enter Novy"
+            },
 
-            continue: "Continue",
+            ar: {
+                pageTitle: "تسجيل الدخول إلى نوفي",
+                back: "← العودة إلى نوفي",
+                loginTitle: "تسجيل الدخول إلى نوفي",
+                loginDescription: "أدخل معلوماتك لإنشاء ملفك الشخصي.",
+                contactLabel: "البريد الإلكتروني أو رقم الهاتف",
+                contactPlaceholder: "البريد الإلكتروني أو رقم الهاتف",
+                continue: "متابعة",
 
-            verificationDescription: "Enter the verification code.",
-            verificationLabel: "Verification code",
-            verify: "Verify",
+                verificationDescription: "تم إرسال رمز التحقق إليك.",
+                verificationLabel: "رمز التحقق",
+                verify: "تأكيد",
 
-            passwordDescription: "Create a password for your Novy account.",
-            passwordLabel: "Password",
-            passwordPlaceholder: "Create your password",
-            confirmPasswordLabel: "Confirm password",
-            confirmPasswordPlaceholder: "Enter your password again",
-            passwordMismatch: "Passwords do not match.",
-            passwordRequired: "Please enter a password.",
+                passwordDescription: "أنشئ كلمة مرور لحسابك.",
+                passwordLabel: "كلمة المرور",
+                passwordPlaceholder: "أنشئ كلمة المرور",
+                confirmPasswordLabel: "تأكيد كلمة المرور",
+                confirmPasswordPlaceholder: "أدخل كلمة المرور مرة أخرى",
+                passwordMismatch: "كلمتا المرور غير متطابقتين.",
+                passwordRequired: "يرجى إدخال كلمة المرور.",
 
-            usernameLabel: "Username",
-            usernamePlaceholder: "Choose a username",
+                usernameLabel: "اسم المستخدم",
+                usernamePlaceholder: "مثلاً novy_user",
 
-            nameLabel: "Name",
-            namePlaceholder: "Enter your name",
+                nameLabel: "الاسم",
+                namePlaceholder: "مثلاً Miwa",
 
-            profileReady: "Your profile is ready!",
-            readyDescription: "You can now enter Novy.",
-            enterNovy: "Enter Novy"
-        },
-
-        ar: {
-            pageTitle: "تسجيل الدخول إلى نوفي",
-            back: "← رجوع",
-
-            loginTitle: "تسجيل الدخول إلى نوفي",
-            loginDescription: "أدخل معلوماتك للبدء.",
-
-            contactLabel: "البريد الإلكتروني أو رقم الهاتف",
-            contactPlaceholder: "البريد الإلكتروني أو رقم الهاتف",
-
-            continue: "متابعة",
-
-            verificationDescription: "أدخل رمز التحقق.",
-            verificationLabel: "رمز التحقق",
-            verify: "تأكيد",
-
-            passwordDescription: "أنشئ كلمة مرور لحسابك في نوفي.",
-            passwordLabel: "كلمة المرور",
-            passwordPlaceholder: "أنشئ كلمة المرور",
-            confirmPasswordLabel: "تأكيد كلمة المرور",
-            confirmPasswordPlaceholder: "أدخل كلمة المرور مرة أخرى",
-            passwordMismatch: "كلمتا المرور غير متطابقتين.",
-            passwordRequired: "يرجى إدخال كلمة المرور.",
-
-            usernameLabel: "اسم المستخدم",
-            usernamePlaceholder: "اختر اسم مستخدم",
-
-            nameLabel: "الاسم",
-            namePlaceholder: "أدخل اسمك",
-
-            profileReady: "ملفك جاهز!",
-            readyDescription: "يمكنك الآن الدخول إلى نوفي.",
-            enterNovy: "الدخول إلى نوفي"
-        }
-
-    };
-
-
-    /* ==================== Themes ==================== */
-
-    const themes = {
-
-        navy: {
-            "--bg-main": "#061426",
-            "--bg-card": "#0b233d",
-            "--bg-message": "#0a2038",
-            "--text-main": "#f4fbff",
-            "--text-muted": "#91b0c2",
-            "--accent": "#8ee7ff",
-            "--button-text": "#061426",
-            "--border": "#1d405d"
-        },
-
-        black: {
-            "--bg-main": "#050505",
-            "--bg-card": "#111111",
-            "--bg-message": "#181818",
-            "--text-main": "#f5f5f5",
-            "--text-muted": "#999999",
-            "--accent": "#ffffff",
-            "--button-text": "#061426",
-            "--border": "#303030"
-        },
-
-        ice: {
-            "--bg-main": "#eafaff",
-            "--bg-card": "#ffffff",
-            "--bg-message": "#eefaff",
-            "--text-main": "#123044",
-            "--text-muted": "#658092",
-            "--accent": "#159ac2",
-            "--button-text": "#061426",
-            "--border": "#b9dce8"
-        }
-
-    };
-
-
-    /* ==================== Theme ==================== */
-
-    function setTheme(themeName) {
-
-        const theme = themes[themeName] || themes.navy;
-
-        Object.entries(theme).forEach(([key, value]) => {
-            document.documentElement.style.setProperty(key, value);
-        });
-
-        localStorage.setItem("novy-theme", themeName);
-    }
-
-
-    /* ==================== Language ==================== */
-
-    function applyLanguage(lang) {
-
-        const selectedLanguage =
-            translations[lang] ? lang : "fa";
-
-        const t = translations[selectedLanguage];
-
-        document.documentElement.lang = selectedLanguage;
-
-        document.documentElement.dir =
-            selectedLanguage === "en" ? "ltr" : "rtl";
-
-        document.title = t.pageTitle;
-
-        document.querySelectorAll("[data-i18n]").forEach(element => {
-
-            const key = element.getAttribute("data-i18n");
-
-            if (t[key]) {
-                element.textContent = t[key];
+                profileReady: "ملفك الشخصي جاهز!",
+                readyDescription: "يمكنك الآن الدخول إلى نوفي والبدء.",
+                enterNovy: "الدخول إلى نوفي"
             }
 
-        });
+        };
 
-        document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
 
-            const key =
-                element.getAttribute("data-i18n-placeholder");
+        /* ==================== تم‌ها ==================== */
 
-            if (t[key]) {
-                element.placeholder = t[key];
+        const themes = {
+
+            navy: {
+                "--bg-main": "#061426",
+                "--bg-card": "#0b233d",
+                "--bg-message": "#0a2038",
+                "--text-main": "#f4fbff",
+                "--text-muted": "#91b0c2",
+                "--accent": "#8ee7ff",
+                "--button-text": "#061426",
+                "--border": "#1d405d"
+            },
+
+            black: {
+                "--bg-main": "#050505",
+                "--bg-card": "#111111",
+                "--bg-message": "#181818",
+                "--text-main": "#f5f5f5",
+                "--text-muted": "#999999",
+                "--accent": "#ffffff",
+                "--button-text": "#061426",
+                "--border": "#303030"
+            },
+
+            ice: {
+                "--bg-main": "#eafaff",
+                "--bg-card": "#ffffff",
+                "--bg-message": "#eefaff",
+                "--text-main": "#123044",
+                "--text-muted": "#658092",
+                "--accent": "#159ac2",
+                "--button-text": "#061426",
+                "--border": "#b9dce8"
             }
 
-        });
-
-        localStorage.setItem(
-            "novy-language",
-            selectedLanguage
-        );
-    }
+        };
 
 
-    /* ==================== Load Saved Settings ==================== */
+        /* ==================== اعمال تم ==================== */
 
-    const savedTheme =
-        localStorage.getItem("novy-theme") || "navy";
+        function setTheme(themeName) {
 
-    const savedLanguage =
-        localStorage.getItem("novy-language") || "fa";
+            const theme =
+                themes[themeName] || themes.navy;
 
-    setTheme(savedTheme);
-    applyLanguage(savedLanguage);
+            Object.entries(theme).forEach(
+                ([property, value]) => {
 
+                    document.documentElement.style
+                        .setProperty(property, value);
 
-    /* ==================== Elements ==================== */
+                }
+            );
 
-    const step1 =
-        document.getElementById("step1");
+            localStorage.setItem(
+                "novy-theme",
+                themeName
+            );
 
-    const verificationStep =
-        document.getElementById("verificationStep");
-
-    const passwordStep =
-        document.getElementById("passwordStep");
-
-    const step2 =
-        document.getElementById("step2");
-
-    const step3 =
-        document.getElementById("step3");
-
-    const step4 =
-        document.getElementById("step4");
-
-
-    const step1Button =
-        document.getElementById("step1Button");
-
-    const verificationButton =
-        document.getElementById("verificationButton");
-
-    const passwordButton =
-        document.getElementById("passwordButton");
-
-    const step2Button =
-        document.getElementById("step2Button");
-
-    const step3Button =
-        document.getElementById("step3Button");
-
-
-    const loginContact =
-        document.getElementById("loginContact");
-
-    const loginPassword =
-        document.getElementById("loginPassword");
-
-    const loginPasswordConfirm =
-        document.getElementById("loginPasswordConfirm");
-
-    const loginUsername =
-        document.getElementById("loginUsername");
-
-    const loginName =
-        document.getElementById("loginName");
-
-    const passwordError =
-        document.getElementById("passwordError");
-
-
-    /* ==================== Step 1 ==================== */
-
-    step1Button.addEventListener("click", function() {
-
-        const contact =
-            loginContact.value.trim();
-
-        if (!contact) {
-
-            loginContact.focus();
-
-            return;
         }
 
-        step1.classList.remove("active");
 
-        verificationStep.classList.add("active");
+        /* ==================== اعمال زبان ==================== */
 
-        const firstDigit =
-            document.querySelector(".verification-digit");
+        function applyLanguage(lang) {
 
-        if (firstDigit) {
-            firstDigit.focus();
+            const translation =
+                translations[lang] || translations.fa;
+
+
+            document
+                .querySelectorAll("[data-i18n]")
+                .forEach(element => {
+
+                    const key =
+                        element.dataset.i18n;
+
+                    if (
+                        translation[key] !== undefined
+                    ) {
+
+                        const span =
+                            element.querySelector("span");
+
+                        if (span) {
+
+                            span.textContent = "←";
+
+                            element.childNodes[0].nodeValue =
+                                translation[key] + " ";
+
+                        } else {
+
+                            element.textContent =
+                                translation[key];
+
+                        }
+
+                    }
+
+                });
+
+
+            document
+                .querySelectorAll("[data-i18n-placeholder]")
+                .forEach(element => {
+
+                    const key =
+                        element.dataset.i18nPlaceholder;
+
+                    if (
+                        translation[key] !== undefined
+                    ) {
+
+                        element.placeholder =
+                            translation[key];
+
+                    }
+
+                });
+
+
+            document.documentElement.lang =
+                lang;
+
+            document.documentElement.dir =
+                lang === "en"
+                    ? "ltr"
+                    : "rtl";
+
+            document.title =
+                translation.pageTitle;
+
+            localStorage.setItem(
+                "novy-language",
+                lang
+            );
+
         }
 
-    });
+
+        /* ==================== تنظیمات ذخیره‌شده ==================== */
+
+        const savedTheme =
+            localStorage.getItem("novy-theme")
+            || "navy";
+
+        const savedLanguage =
+            localStorage.getItem("novy-language")
+            || "fa";
 
 
-    /* ==================== Verification ==================== */
-
-    const verificationInputs =
-        document.querySelectorAll(".verification-digit");
+        setTheme(savedTheme);
+        applyLanguage(savedLanguage);
 
 
-    verificationInputs.forEach((input, index) => {
+        /* ==================== مراحل ==================== */
 
-        input.addEventListener("input", function() {
+        const step1 =
+            document.getElementById("step1");
 
-            this.value =
-                this.value.replace(/\D/g, "").slice(0, 1);
+        const verificationStep =
+            document.getElementById("verificationStep");
 
-            if (
-                this.value &&
-                index < verificationInputs.length - 1
-            ) {
-                verificationInputs[index + 1].focus();
+        const passwordStep =
+            document.getElementById("passwordStep");
+
+        const step2 =
+            document.getElementById("step2");
+
+        const step3 =
+            document.getElementById("step3");
+
+        const step4 =
+            document.getElementById("step4");
+
+
+        /* ==================== دکمه‌ها ==================== */
+
+        const step1Button =
+            document.getElementById("step1Button");
+
+        const verificationButton =
+            document.getElementById("verificationButton");
+
+        const passwordButton =
+            document.getElementById("passwordButton");
+
+        const step2Button =
+            document.getElementById("step2Button");
+
+        const step3Button =
+            document.getElementById("step3Button");
+
+
+        /* ==================== ورودی‌ها ==================== */
+
+        const loginContact =
+            document.getElementById("loginContact");
+
+        const loginPassword =
+            document.getElementById("loginPassword");
+
+        const loginPasswordConfirm =
+            document.getElementById("loginPasswordConfirm");
+
+        const loginUsername =
+            document.getElementById("loginUsername");
+
+        const loginName =
+            document.getElementById("loginName");
+
+        const passwordError =
+            document.getElementById("passwordError");
+
+
+        /* ==================== مرحله ۱ ==================== */
+
+        step1Button.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                if (
+                    loginContact.value.trim() === ""
+                ) {
+
+                    loginContact.focus();
+                    return;
+
+                }
+
+                step1.style.display = "none";
+
+                verificationStep.style.display =
+                    "flex";
+
             }
-
-        });
-
-
-        input.addEventListener("keydown", function(event) {
-
-            if (
-                event.key === "Backspace" &&
-                !this.value &&
-                index > 0
-            ) {
-                verificationInputs[index - 1].focus();
-            }
-
-        });
-
-    });
-
-
-    verificationButton.addEventListener("click", function() {
-
-        verificationStep.classList.remove("active");
-
-        passwordStep.classList.add("active");
-
-        loginPassword.focus();
-
-    });
-
-
-    /* ==================== Password Creation ==================== */
-
-    passwordButton.addEventListener("click", function() {
-
-        const password =
-            loginPassword.value.trim();
-
-        const confirmPassword =
-            loginPasswordConfirm.value.trim();
-
-
-        if (!password) {
-
-            passwordError.textContent =
-                translations[
-                    localStorage.getItem("novy-language") || "fa"
-                ].passwordRequired;
-
-            passwordError.classList.add("show");
-
-            loginPassword.focus();
-
-            return;
-        }
-
-
-        if (password !== confirmPassword) {
-
-            const currentLanguage =
-                localStorage.getItem("novy-language") || "fa";
-
-            passwordError.textContent =
-                translations[currentLanguage].passwordMismatch;
-
-            passwordError.classList.add("show");
-
-            loginPasswordConfirm.focus();
-
-            return;
-        }
-
-
-        passwordError.classList.remove("show");
-
-
-        /*
-         * Demo only:
-         * The password is stored locally for this prototype.
-         * A real login system should NEVER store passwords
-         * as plain text in localStorage.
-         */
-
-        localStorage.setItem(
-            "novyPassword",
-            password
         );
 
 
-        passwordStep.classList.remove("active");
+        /* ==================== کد تأیید ==================== */
 
-        step2.classList.add("active");
+        verificationButton.addEventListener(
+            "click",
+            function (event) {
 
-        loginUsername.focus();
+                event.preventDefault();
 
-    });
+                verificationStep.style.display =
+                    "none";
 
+                passwordStep.style.display =
+                    "flex";
 
-    loginPassword.addEventListener("input", function() {
-        passwordError.classList.remove("show");
-    });
+                loginPassword.focus();
 
-    loginPasswordConfirm.addEventListener("input", function() {
-        passwordError.classList.remove("show");
-    });
-
-
-    /* ==================== Username ==================== */
-
-    step2Button.addEventListener("click", function() {
-
-        const username =
-            loginUsername.value.trim();
-
-        if (!username) {
-
-            loginUsername.focus();
-
-            return;
-        }
-
-        step2.classList.remove("active");
-
-        step3.classList.add("active");
-
-        loginName.focus();
-
-    });
+            }
+        );
 
 
-    /* ==================== Name ==================== */
+        /* ==================== ساخت رمز ==================== */
 
-    step3Button.addEventListener("click", function() {
+        passwordButton.addEventListener(
+            "click",
+            function (event) {
 
-        const name =
-            loginName.value.trim();
+                event.preventDefault();
 
-        if (!name) {
+                const password =
+                    loginPassword.value.trim();
 
-            loginName.focus();
-
-            return;
-        }
-
-        step3.classList.remove("active");
-
-        step4.classList.add("active");
-
-    });
+                const confirmPassword =
+                    loginPasswordConfirm.value.trim();
 
 
-    /* ==================== Final Login ==================== */
+                if (password === "") {
 
-    document
-        .getElementById("loginSubmit")
-        .addEventListener("click", function(event) {
+                    const currentLanguage =
+                        localStorage.getItem("novy-language")
+                        || "fa";
 
-            event.preventDefault();
+                    passwordError.textContent =
+                        translations[currentLanguage]
+                            .passwordRequired;
 
+                    passwordError.classList.add("show");
 
-            const contact =
-                loginContact.value.trim();
+                    loginPassword.focus();
 
-            const password =
-                loginPassword.value.trim();
+                    return;
 
-            const username =
-                loginUsername.value.trim();
-
-            const name =
-                loginName.value.trim();
+                }
 
 
-            localStorage.setItem(
-                "novyContact",
-                contact
+                if (
+                    password !== confirmPassword
+                ) {
+
+                    const currentLanguage =
+                        localStorage.getItem("novy-language")
+                        || "fa";
+
+                    passwordError.textContent =
+                        translations[currentLanguage]
+                            .passwordMismatch;
+
+                    passwordError.classList.add("show");
+
+                    loginPasswordConfirm.focus();
+
+                    return;
+
+                }
+
+
+                passwordError.classList.remove("show");
+
+
+                /*
+                 * فعلاً برای نسخه‌ی آزمایشی نووی:
+                 * رمز در localStorage ذخیره می‌شود.
+                 *
+                 * در سیستم واقعی نباید رمز عبور
+                 * به صورت متن ساده در localStorage ذخیره شود.
+                 */
+
+                localStorage.setItem(
+                    "novyPassword",
+                    password
+                );
+
+
+                passwordStep.style.display =
+                    "none";
+
+                step2.style.display =
+                    "flex";
+
+                loginUsername.focus();
+
+            }
+        );
+
+
+        loginPassword.addEventListener(
+            "input",
+            function () {
+
+                passwordError.classList.remove("show");
+
+            }
+        );
+
+
+        loginPasswordConfirm.addEventListener(
+            "input",
+            function () {
+
+                passwordError.classList.remove("show");
+
+            }
+        );
+
+
+        /* ==================== نام کاربری ==================== */
+
+        step2Button.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                if (
+                    loginUsername.value.trim() === ""
+                ) {
+
+                    loginUsername.focus();
+                    return;
+
+                }
+
+                step2.style.display =
+                    "none";
+
+                step3.style.display =
+                    "flex";
+
+            }
+        );
+
+
+        /* ==================== نام ==================== */
+
+        step3Button.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                if (
+                    loginName.value.trim() === ""
+                ) {
+
+                    loginName.focus();
+                    return;
+
+                }
+
+                step3.style.display =
+                    "none";
+
+                step4.style.display =
+                    "flex";
+
+            }
+        );
+
+
+        /* ==================== ورود نهایی ==================== */
+
+        document
+            .getElementById("loginSubmit")
+            .addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    const contact =
+                        loginContact.value.trim();
+
+                    const password =
+                        loginPassword.value.trim();
+
+                    const username =
+                        loginUsername.value.trim();
+
+                    const name =
+                        loginName.value.trim();
+
+
+                    localStorage.setItem(
+                        "novyContact",
+                        contact
+                    );
+
+                    localStorage.setItem(
+                        "novyPassword",
+                        password
+                    );
+
+                    localStorage.setItem(
+                        "novyUsername",
+                        username
+                    );
+
+                    localStorage.setItem(
+                        "novyName",
+                        name
+                    );
+
+                    localStorage.setItem(
+                        "novyLoggedIn",
+                        "true"
+                    );
+
+
+                    window.location.href =
+                        "profile.html";
+
+                }
             );
 
-            localStorage.setItem(
-                "novyPassword",
-                password
-            );
 
-            localStorage.setItem(
-                "novyUsername",
-                username
-            );
+        /* ==================== حرکت کد تأیید ==================== */
 
-            localStorage.setItem(
-                "novyName",
-                name
-            );
-
-            localStorage.setItem(
-                "novyLoggedIn",
-                "true"
+        const verificationInputs =
+            document.querySelectorAll(
+                ".verification-digit"
             );
 
 
-            window.location.href =
-                "profile.html";
+        verificationInputs.forEach(
+            function (input, index) {
 
-        });
+                input.addEventListener(
+                    "input",
+                    function () {
+
+                        if (
+                            input.value.length === 1 &&
+                            index <
+                            verificationInputs.length - 1
+                        ) {
+
+                            verificationInputs[
+                                index + 1
+                            ].focus();
+
+                        }
+
+                    }
+                );
 
 
-    /* ==================== Back Button ==================== */
+                input.addEventListener(
+                    "keydown",
+                    function (event) {
 
-    document
-        .getElementById("loginBack")
-        .addEventListener("click", function() {
+                        if (
+                            event.key === "Backspace" &&
+                            input.value === "" &&
+                            index > 0
+                        ) {
 
-            window.location.href =
-                "index.html";
+                            verificationInputs[
+                                index - 1
+                            ].focus();
 
-        });
+                        }
 
-</script>
+                    }
+                );
+
+            }
+        );
+
+    </script>
 
 </body>
+
 </html>
-```
