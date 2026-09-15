@@ -4,23 +4,18 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>ورود به نووی</title>
 
     <link rel="stylesheet" href="style.css">
 
     <style>
-
         /* ==================== صفحه ورود ==================== */
 
         html,
         body {
-            background: #061426 !important;
-            color: #f4fbff !important;
+            color: var(--text-main) !important;
         }
 
         .login-page {
@@ -32,7 +27,7 @@
                     rgba(142, 231, 255, 0.10),
                     transparent 45%
                 ),
-                #061426 !important;
+                var(--bg-main) !important;
         }
 
         .login-page-box {
@@ -42,11 +37,11 @@
 
             box-sizing: border-box;
 
-            background: #0b233d !important;
+            background: var(--bg-card) !important;
 
-            color: #f4fbff !important;
+            color: var(--text-main) !important;
 
-            border-color: #1d405d !important;
+            border-color: var(--border) !important;
         }
 
 
@@ -59,17 +54,17 @@
 
             padding: 14px 16px;
 
-            border: 1px solid #1d405d !important;
+            border: 1px solid var(--border) !important;
 
             border-radius: 14px;
 
             outline: none;
 
-            background: #0a2038 !important;
+            background: var(--bg-message) !important;
 
-            color: #f4fbff !important;
+            color: var(--text-main) !important;
 
-            font-family: Arial, sans-serif;
+            font-family: inherit;
 
             font-size: 15px;
 
@@ -78,18 +73,18 @@
 
 
         .login-step input::placeholder {
-            color: #91b0c2 !important;
+            color: var(--text-muted) !important;
 
             opacity: 1;
         }
 
 
         .login-step input:focus {
-            background: #102e4a !important;
+            background: var(--bg-message) !important;
 
-            color: #f4fbff !important;
+            color: var(--text-main) !important;
 
-            border-color: #8ee7ff !important;
+            border-color: var(--accent) !important;
 
             box-shadow:
                 0 0 0 3px rgba(142, 231, 255, 0.10);
@@ -102,13 +97,13 @@
         .login-step input:-webkit-autofill:hover,
         .login-step input:-webkit-autofill:focus {
 
-            -webkit-text-fill-color: #f4fbff !important;
+            -webkit-text-fill-color: var(--text-main) !important;
 
             -webkit-box-shadow:
-                0 0 0 1000px #0a2038 inset !important;
+                0 0 0 1000px var(--bg-message) inset !important;
 
             box-shadow:
-                0 0 0 1000px #0a2038 inset !important;
+                0 0 0 1000px var(--bg-message) inset !important;
 
             transition:
                 background-color 5000s ease-in-out 0s;
@@ -149,7 +144,6 @@
 
             border-radius: 12px !important;
         }
-
     </style>
 
 </head>
@@ -167,6 +161,7 @@
             <a
                 href="index.html"
                 class="login-back"
+                data-i18n="back"
             >
                 ← برگشت به نووی
             </a>
@@ -181,7 +176,7 @@
 
             <!-- ==================== عنوان ==================== -->
 
-            <h1 id="loginTitle">
+            <h1 id="loginTitle" data-i18n="loginTitle">
                 ورود به نووی
             </h1>
 
@@ -193,12 +188,18 @@
                 id="step1"
             >
 
-                <p class="login-page-description">
+                <p
+                    class="login-page-description"
+                    data-i18n="loginDescription"
+                >
                     اطلاعاتت رو وارد کن تا پروفایلت رو بسازیم.
                 </p>
 
 
-                <label for="loginContact">
+                <label
+                    for="loginContact"
+                    data-i18n="contactLabel"
+                >
                     ایمیل یا شماره تلفن
                 </label>
 
@@ -206,6 +207,7 @@
                 <input
                     type="text"
                     id="loginContact"
+                    data-i18n-placeholder="contactPlaceholder"
                     placeholder="ایمیل یا شماره تلفن"
                 >
 
@@ -213,6 +215,7 @@
                 <button
                     class="login-page-submit"
                     id="step1Button"
+                    data-i18n="continue"
                 >
                     ادامه
                     <span>←</span>
@@ -229,65 +232,27 @@
                 style="display: none;"
             >
 
-                <p class="login-page-description">
+                <p
+                    class="login-page-description"
+                    data-i18n="verificationDescription"
+                >
                     کد تأیید برایت ارسال شد.
                 </p>
 
 
-                <label>
+                <label data-i18n="verificationLabel">
                     کد تأیید
                 </label>
 
 
                 <div class="verification-inputs">
 
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
+                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
+                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
+                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
+                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
+                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
+                    <input type="text" maxlength="1" inputmode="numeric" class="verification-digit">
 
                 </div>
 
@@ -295,6 +260,7 @@
                 <button
                     class="login-page-submit"
                     id="verificationButton"
+                    data-i18n="verify"
                 >
                     تأیید
                     <span>←</span>
@@ -311,7 +277,10 @@
                 style="display: none;"
             >
 
-                <label for="loginUsername">
+                <label
+                    for="loginUsername"
+                    data-i18n="usernameLabel"
+                >
                     نام کاربری
                 </label>
 
@@ -319,6 +288,7 @@
                 <input
                     type="text"
                     id="loginUsername"
+                    data-i18n-placeholder="usernamePlaceholder"
                     placeholder="مثلاً novy_user"
                 >
 
@@ -326,6 +296,7 @@
                 <button
                     class="login-page-submit"
                     id="step2Button"
+                    data-i18n="continue"
                 >
                     ادامه
                     <span>←</span>
@@ -342,7 +313,10 @@
                 style="display: none;"
             >
 
-                <label for="loginName">
+                <label
+                    for="loginName"
+                    data-i18n="nameLabel"
+                >
                     نام
                 </label>
 
@@ -350,6 +324,7 @@
                 <input
                     type="text"
                     id="loginName"
+                    data-i18n-placeholder="namePlaceholder"
                     placeholder="مثلاً میوا"
                 >
 
@@ -357,6 +332,7 @@
                 <button
                     class="login-page-submit"
                     id="step3Button"
+                    data-i18n="continue"
                 >
                     ادامه
                     <span>←</span>
@@ -378,12 +354,15 @@
                 </div>
 
 
-                <h2>
+                <h2 data-i18n="profileReady">
                     پروفایلت آماده‌ست!
                 </h2>
 
 
-                <p class="login-page-description">
+                <p
+                    class="login-page-description"
+                    data-i18n="readyDescription"
+                >
                     حالا می‌تونی وارد نووی بشی و شروع کنی.
                 </p>
 
@@ -391,6 +370,7 @@
                 <button
                     class="login-page-submit"
                     id="loginSubmit"
+                    data-i18n="enterNovy"
                 >
                     ورود به نووی
                     <span>←</span>
@@ -404,12 +384,256 @@
     </main>
 
 
-    <!-- ==================== JavaScript ==================== -->
-
     <script>
 
+        /* =====================================================
+           ترجمه‌ها
+        ===================================================== */
 
-        /* ==================== عناصر مراحل ==================== */
+        const translations = {
+
+            fa: {
+                pageTitle: "ورود به نووی",
+                back: "← برگشت به نووی",
+                loginTitle: "ورود به نووی",
+                loginDescription: "اطلاعاتت رو وارد کن تا پروفایلت رو بسازیم.",
+                contactLabel: "ایمیل یا شماره تلفن",
+                contactPlaceholder: "ایمیل یا شماره تلفن",
+                continue: "ادامه",
+                verificationDescription: "کد تأیید برایت ارسال شد.",
+                verificationLabel: "کد تأیید",
+                verify: "تأیید",
+                usernameLabel: "نام کاربری",
+                usernamePlaceholder: "مثلاً novy_user",
+                nameLabel: "نام",
+                namePlaceholder: "مثلاً میوا",
+                profileReady: "پروفایلت آماده‌ست!",
+                readyDescription: "حالا می‌تونی وارد نووی بشی و شروع کنی.",
+                enterNovy: "ورود به نووی"
+            },
+
+            en: {
+                pageTitle: "Login to Novy",
+                back: "← Back to Novy",
+                loginTitle: "Login to Novy",
+                loginDescription: "Enter your information to create your profile.",
+                contactLabel: "Email or phone number",
+                contactPlaceholder: "Email or phone number",
+                continue: "Continue",
+                verificationDescription: "A verification code was sent to you.",
+                verificationLabel: "Verification code",
+                verify: "Verify",
+                usernameLabel: "Username",
+                usernamePlaceholder: "e.g. novy_user",
+                nameLabel: "Name",
+                namePlaceholder: "e.g. Miwa",
+                profileReady: "Your profile is ready!",
+                readyDescription: "Now you can enter Novy and get started.",
+                enterNovy: "Enter Novy"
+            },
+
+            ar: {
+                pageTitle: "تسجيل الدخول إلى نوفي",
+                back: "← العودة إلى نوفي",
+                loginTitle: "تسجيل الدخول إلى نوفي",
+                loginDescription: "أدخل معلوماتك لإنشاء ملفك الشخصي.",
+                contactLabel: "البريد الإلكتروني أو رقم الهاتف",
+                contactPlaceholder: "البريد الإلكتروني أو رقم الهاتف",
+                continue: "متابعة",
+                verificationDescription: "تم إرسال رمز التحقق إليك.",
+                verificationLabel: "رمز التحقق",
+                verify: "تأكيد",
+                usernameLabel: "اسم المستخدم",
+                usernamePlaceholder: "مثلاً novy_user",
+                nameLabel: "الاسم",
+                namePlaceholder: "مثلاً Miwa",
+                profileReady: "ملفك الشخصي جاهز!",
+                readyDescription: "يمكنك الآن الدخول إلى نوفي والبدء.",
+                enterNovy: "الدخول إلى نوفي"
+            }
+
+        };
+
+
+        /* =====================================================
+           تم‌ها
+        ===================================================== */
+
+        const themes = {
+
+            navy: {
+                "--bg-main": "#061426",
+                "--bg-card": "#0b233d",
+                "--bg-message": "#0a2038",
+                "--text-main": "#f4fbff",
+                "--text-muted": "#91b0c2",
+                "--accent": "#8ee7ff",
+                "--border": "#1d405d"
+            },
+
+            black: {
+                "--bg-main": "#050505",
+                "--bg-card": "#111111",
+                "--bg-message": "#181818",
+                "--text-main": "#f5f5f5",
+                "--text-muted": "#999999",
+                "--accent": "#ffffff",
+                "--border": "#303030"
+            },
+
+            ice: {
+                "--bg-main": "#eafaff",
+                "--bg-card": "#ffffff",
+                "--bg-message": "#eefaff",
+                "--text-main": "#123044",
+                "--text-muted": "#658092",
+                "--accent": "#159ac2",
+                "--border": "#b9dce8"
+            }
+
+        };
+
+
+        /* =====================================================
+           اعمال تم
+        ===================================================== */
+
+        function setTheme(themeName) {
+
+            const theme =
+                themes[themeName] || themes.navy;
+
+
+            Object.entries(theme).forEach(
+                ([property, value]) => {
+
+                    document.documentElement.style
+                        .setProperty(property, value);
+
+                }
+            );
+
+
+            localStorage.setItem(
+                "novy-theme",
+                themeName
+            );
+
+        }
+
+
+        /* =====================================================
+           اعمال زبان
+        ===================================================== */
+
+        function applyLanguage(lang) {
+
+            const translation =
+                translations[lang] || translations.fa;
+
+
+            document
+                .querySelectorAll("[data-i18n]")
+                .forEach(element => {
+
+                    const key =
+                        element.dataset.i18n;
+
+
+                    if (
+                        translation[key] !== undefined
+                    ) {
+
+                        const span =
+                            element.querySelector("span");
+
+
+                        if (span) {
+
+                            span.textContent = "←";
+
+                            const text =
+                                translation[key];
+
+                            element.childNodes[0].nodeValue =
+                                text + " ";
+
+                        } else {
+
+                            element.textContent =
+                                translation[key];
+
+                        }
+
+                    }
+
+                });
+
+
+            document
+                .querySelectorAll("[data-i18n-placeholder]")
+                .forEach(element => {
+
+                    const key =
+                        element.dataset.i18nPlaceholder;
+
+
+                    if (
+                        translation[key] !== undefined
+                    ) {
+
+                        element.placeholder =
+                            translation[key];
+
+                    }
+
+                });
+
+
+            document.documentElement.lang =
+                lang;
+
+
+            document.documentElement.dir =
+                lang === "en"
+                    ? "ltr"
+                    : "rtl";
+
+
+            document.title =
+                translation.pageTitle;
+
+
+            localStorage.setItem(
+                "novy-language",
+                lang
+            );
+
+        }
+
+
+        /* =====================================================
+           بارگذاری تنظیمات ذخیره‌شده
+        ===================================================== */
+
+        const savedTheme =
+            localStorage.getItem("novy-theme")
+            || "navy";
+
+
+        const savedLanguage =
+            localStorage.getItem("novy-language")
+            || "fa";
+
+
+        setTheme(savedTheme);
+
+        applyLanguage(savedLanguage);
+
+
+        /* =====================================================
+           عناصر مراحل
+        ===================================================== */
 
         const step1 =
             document.getElementById("step1");
@@ -427,7 +651,9 @@
             document.getElementById("step4");
 
 
-        /* ==================== دکمه‌ها ==================== */
+        /* =====================================================
+           دکمه‌ها
+        ===================================================== */
 
         const step1Button =
             document.getElementById("step1Button");
@@ -442,7 +668,9 @@
             document.getElementById("step3Button");
 
 
-        /* ==================== ورودی‌ها ==================== */
+        /* =====================================================
+           ورودی‌ها
+        ===================================================== */
 
         const loginContact =
             document.getElementById("loginContact");
@@ -454,7 +682,9 @@
             document.getElementById("loginName");
 
 
-        /* ==================== مرحله ۱ ==================== */
+        /* =====================================================
+           مرحله ۱
+        ===================================================== */
 
         step1Button.addEventListener(
             "click",
@@ -470,6 +700,7 @@
                     loginContact.focus();
 
                     return;
+
                 }
 
 
@@ -484,7 +715,9 @@
         );
 
 
-        /* ==================== کد تأیید ==================== */
+        /* =====================================================
+           کد تأیید
+        ===================================================== */
 
         verificationButton.addEventListener(
             "click",
@@ -504,7 +737,9 @@
         );
 
 
-        /* ==================== نام کاربری ==================== */
+        /* =====================================================
+           نام کاربری
+        ===================================================== */
 
         step2Button.addEventListener(
             "click",
@@ -520,6 +755,7 @@
                     loginUsername.focus();
 
                     return;
+
                 }
 
 
@@ -534,7 +770,9 @@
         );
 
 
-        /* ==================== نام ==================== */
+        /* =====================================================
+           نام
+        ===================================================== */
 
         step3Button.addEventListener(
             "click",
@@ -550,6 +788,7 @@
                     loginName.focus();
 
                     return;
+
                 }
 
 
@@ -564,7 +803,9 @@
         );
 
 
-        /* ==================== ذخیره اطلاعات حساب ==================== */
+        /* =====================================================
+           ذخیره اطلاعات حساب
+        ===================================================== */
 
         document
             .getElementById("loginSubmit")
@@ -587,14 +828,6 @@
                         loginName.value.trim();
 
 
-                    /*
-                     * اطلاعات حساب فعلاً
-                     * روی همین مرورگر ذخیره می‌شوند.
-                     *
-                     * بعداً با ساخت بک‌اند واقعی،
-                     * سیستم حساب کاربری امن جایگزین می‌شود.
-                     */
-
                     localStorage.setItem(
                         "novyContact",
                         contact
@@ -613,7 +846,11 @@
                     );
 
 
-                    /* رفتن به پروفایل */
+                    localStorage.setItem(
+                        "novyLoggedIn",
+                        "true"
+                    );
+
 
                     window.location.href =
                         "profile.html";
@@ -622,7 +859,9 @@
             );
 
 
-        /* ==================== حرکت بین کادرهای کد ==================== */
+        /* =====================================================
+           حرکت بین کادرهای کد
+        ===================================================== */
 
         const verificationInputs =
             document.querySelectorAll(
@@ -632,7 +871,6 @@
 
         verificationInputs.forEach(
             function (input, index) {
-
 
                 input.addEventListener(
                     "input",
