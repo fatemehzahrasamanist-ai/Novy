@@ -2,6 +2,7 @@
 <html lang="fa" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,109 +10,100 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>پروفایل | نووی</title>
-
-    <link rel="stylesheet" href="style.css">
+    <title>NOVY | Profile</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
 
+        :root {
+            --bg-main: #07111f;
+            --bg-card: #0c1b2e;
+            --bg-input: #101f33;
+            --bg-message: #12243a;
+            --border: #1d3854;
+            --text-main: #eef7ff;
+            --text-muted: #91a8bd;
+            --accent: #8ee7ff;
+            --accent-strong: #55d6f7;
+            --danger: #ff7d8f;
+        }
+
         * {
             box-sizing: border-box;
         }
 
-        :root {
-            --profile-bg: #061426;
-            --profile-box: #0b233d;
-            --profile-item: #0a2038;
-            --profile-avatar: #102e4a;
-            --profile-border: #1d405d;
-            --profile-item-border: #163452;
-            --profile-text: #f4fbff;
-            --profile-muted: #a8c7d9;
-            --profile-soft: #91b0c2;
-            --profile-accent: #8ee7ff;
-        }
-
-        html,
         body {
             margin: 0;
-            min-height: 100%;
-
-            background: var(--profile-bg);
-            color: var(--profile-text);
-
-            font-family: inherit;
-        }
-
-        body {
-            transition:
-                background 0.25s ease,
-                color 0.25s ease;
-        }
-
-        .profile-page {
             min-height: 100vh;
 
+            background: var(--bg-main);
+            color: var(--text-main);
+
+            font-family:
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
+
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
 
-            padding: 30px;
-
-            background:
-                radial-gradient(
-                    circle at top,
-                    rgba(142, 231, 255, 0.10),
-                    transparent 45%
-                ),
-                var(--profile-bg);
-
-            transition: background 0.25s ease;
+            padding: 24px;
         }
 
-        .profile-box {
-            width: min(500px, 100%);
+        .container {
+            width: 100%;
+            max-width: 470px;
+        }
 
-            padding: 40px 32px;
-
-            background: var(--profile-box);
-
-            border: 1px solid var(--profile-border);
-            border-radius: 24px;
-
+        .logo {
             text-align: center;
 
+            font-size: 28px;
+            font-weight: 900;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 24px;
+
+            padding: 28px;
+
             box-shadow:
-                0 25px 70px rgba(0, 0, 0, 0.30);
+                0 20px 50px rgba(0, 0, 0, 0.25);
         }
 
-        .profile-logo {
-            color: var(--profile-accent);
-
-            font-size: 22px;
-            font-weight: 700;
-
-            letter-spacing: 4px;
-
-            margin-bottom: 25px;
+        .profile-header {
+            text-align: center;
         }
-
-        /* ==================== Avatar ==================== */
 
         .avatar-wrapper {
             position: relative;
 
-            width: 104px;
-            height: 104px;
+            width: 120px;
+            height: 120px;
 
-            margin: 0 auto 20px;
+            margin: 0 auto 12px;
         }
 
-        .profile-avatar {
-            width: 104px;
-            height: 104px;
+        .avatar {
+            width: 120px;
+            height: 120px;
+
+            border-radius: 50%;
+
+            background: var(--bg-message);
+
+            border: 2px solid var(--border);
 
             display: flex;
             align-items: center;
@@ -119,217 +111,195 @@
 
             overflow: hidden;
 
-            border-radius: 50%;
+            color: var(--accent);
 
-            background: var(--profile-avatar);
-
-            border: 2px solid var(--profile-accent);
-
-            color: var(--profile-accent);
-
-            font-size: 34px;
-            font-weight: bold;
+            font-size: 42px;
+            font-weight: 900;
         }
 
-        .profile-avatar img {
+        .avatar img {
             width: 100%;
             height: 100%;
 
             object-fit: cover;
-
-            display: block;
         }
 
-        .avatar-upload-button {
+        .edit-photo {
             position: absolute;
 
-            right: -3px;
-            bottom: -3px;
+            bottom: 2px;
+            left: 2px;
 
             width: 34px;
             height: 34px;
+
+            border-radius: 50%;
+
+            border: 2px solid var(--bg-card);
+
+            background: var(--accent);
+            color: #06111d;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            border: 2px solid var(--profile-box);
-            border-radius: 50%;
-
-            background: var(--profile-accent);
-            color: var(--profile-bg);
-
-            font-size: 16px;
-            font-weight: 700;
-
             cursor: pointer;
 
-            transition:
-                transform 0.2s ease,
-                filter 0.2s ease;
+            font-size: 16px;
+            font-weight: 900;
         }
 
-        .avatar-upload-button:hover {
-            filter: brightness(1.06);
-            transform: scale(1.06);
+        .photo-hint {
+            margin-bottom: 22px;
+
+            color: var(--text-muted);
+
+            font-size: 12px;
         }
 
-        #avatarInput {
+        input[type="file"] {
             display: none;
         }
 
-        .avatar-hint {
-            margin: -8px 0 22px;
-
-            color: var(--profile-soft);
-
-            font-size: 12px;
-        }
-
-        .upload-status {
-            min-height: 18px;
-
-            margin: -12px 0 18px;
-
-            color: var(--profile-accent);
-
-            font-size: 12px;
-        }
-
-        /* ==================== Text ==================== */
-
-        .profile-box h1 {
-            margin: 0 0 10px;
-
-            color: var(--profile-text);
+        h1 {
+            margin: 0 0 8px;
 
             font-size: 25px;
         }
 
-        .profile-description {
-            margin: 0 0 28px;
+        .description {
+            margin: 0 0 24px;
 
-            color: var(--profile-muted);
+            color: var(--text-muted);
 
             font-size: 14px;
+
+            line-height: 1.7;
         }
 
-        /* ==================== Info ==================== */
-
-        .profile-info {
+        .info {
             display: flex;
             flex-direction: column;
-            gap: 12px;
 
-            margin-bottom: 25px;
+            gap: 10px;
+
+            margin-bottom: 22px;
         }
 
-        .profile-item {
-            padding: 15px;
+        .info-row {
+            background: var(--bg-message);
 
-            background: var(--profile-item);
+            border: 1px solid var(--border);
 
-            border: 1px solid var(--profile-item-border);
+            border-radius: 13px;
 
-            border-radius: 14px;
-
-            text-align: right;
+            padding: 13px 15px;
         }
 
-        .profile-item-title {
-            display: block;
+        .info-label {
+            color: var(--text-muted);
 
-            margin-bottom: 5px;
+            font-size: 11px;
 
-            color: var(--profile-soft);
-
-            font-size: 12px;
+            margin-bottom: 4px;
         }
 
-        .profile-item-value {
-            color: var(--profile-text);
+        .info-value {
+            color: var(--text-main);
 
-            font-size: 15px;
+            font-size: 14px;
+
+            font-weight: 700;
+
+            word-break: break-word;
         }
 
-        /* ==================== Buttons ==================== */
-
-        .profile-button {
+        button {
             width: 100%;
 
-            padding: 14px;
+            min-height: 48px;
 
-            border: none;
-            border-radius: 14px;
+            border: 0;
 
-            background: var(--profile-accent);
-            color: var(--profile-bg);
+            border-radius: 13px;
 
-            font-size: 15px;
-            font-weight: 700;
+            background: var(--accent);
+
+            color: #06111d;
+
+            font-size: 14px;
+
+            font-weight: 800;
 
             cursor: pointer;
 
-            transition:
-                transform 0.2s ease,
-                filter 0.2s ease;
+            transition: 0.2s;
+
+            margin-top: 10px;
         }
 
-        .profile-button:hover {
-            filter: brightness(1.05);
+        button:hover {
+            background: var(--accent-strong);
+
             transform: translateY(-1px);
         }
 
-        .profile-button:active {
-            transform: translateY(0);
+        .logout {
+            background: transparent;
+
+            color: var(--text-muted);
+
+            border: 1px solid var(--border);
         }
 
-        .logout-button {
-            width: 100%;
+        .logout:hover {
+            background: var(--bg-message);
 
-            margin-top: 10px;
+            color: var(--text-main);
 
-            padding: 12px;
+            border-color: var(--text-muted);
+        }
 
-            border: 1px solid var(--profile-item-border);
-            border-radius: 14px;
+        .message {
+            display: none;
 
-            background: transparent;
-            color: var(--profile-muted);
+            margin-top: 12px;
+
+            padding: 11px 13px;
+
+            border-radius: 12px;
+
+            background: var(--bg-message);
+
+            color: var(--text-muted);
 
             font-size: 13px;
-            font-weight: 600;
 
-            cursor: pointer;
-
-            transition:
-                background 0.2s ease,
-                color 0.2s ease,
-                border-color 0.2s ease;
+            line-height: 1.6;
         }
 
-        .logout-button:hover {
-            background: var(--profile-item);
-            border-color: var(--profile-accent);
-            color: var(--profile-accent);
+        .message.show {
+            display: block;
         }
 
-        /* ==================== Responsive ==================== */
+        .message.error {
+            color: var(--danger);
 
-        @media (max-width: 600px) {
+            border: 1px solid rgba(
+                255,
+                125,
+                143,
+                0.25
+            );
+        }
 
-            .profile-page {
-                padding: 18px;
-            }
+        .loading {
+            text-align: center;
 
-            .profile-box {
-                padding: 32px 22px;
-            }
+            color: var(--text-muted);
 
-            .profile-box h1 {
-                font-size: 22px;
-            }
-
+            padding: 30px;
         }
 
     </style>
@@ -339,625 +309,589 @@
 
 <body>
 
-    <main class="profile-page">
+<div class="container">
 
-        <div class="profile-box">
+    <div class="logo">
+        NOVY
+    </div>
 
-            <div class="profile-logo">
-                NOVY
-            </div>
+    <div class="card" id="profileCard">
 
+        <div class="loading" id="loading">
+            Loading...
+        </div>
 
-            <!-- Avatar -->
+        <div id="profileContent" style="display:none;">
 
-            <div class="avatar-wrapper">
+            <div class="profile-header">
 
-                <div
-                    class="profile-avatar"
-                    id="profileAvatar"
-                >
-                    N
+                <div class="avatar-wrapper">
+
+                    <div
+                        class="avatar"
+                        id="avatar"
+                    >
+                        F
+                    </div>
+
+                    <label
+                        for="avatarInput"
+                        class="edit-photo"
+                        title="Change photo"
+                    >
+                        ✎
+                    </label>
+
                 </div>
-
-                <label
-                    class="avatar-upload-button"
-                    for="avatarInput"
-                    id="avatarUploadLabel"
-                    title="تغییر عکس"
-                >
-                    ✎
-                </label>
 
                 <input
                     type="file"
                     id="avatarInput"
-                    accept="image/png,image/jpeg,image/webp"
+                    accept="image/jpeg,image/png,image/webp"
                 >
+
+                <div
+                    class="photo-hint"
+                    data-i18n="photoHint"
+                >
+                    برای تغییر عکس روی ✎ بزن
+                </div>
 
             </div>
 
 
+            <h1 id="welcome">
+                خوش اومدی 👋
+            </h1>
+
             <p
-                class="avatar-hint"
-                id="avatarHint"
+                class="description"
+                data-i18n="description"
             >
-                برای تغییر عکس روی ✎ بزن
+                این پروفایل شخصی تو در نووی است.
             </p>
+
+
+            <div class="info">
+
+                <div class="info-row">
+
+                    <div
+                        class="info-label"
+                        data-i18n="nameLabel"
+                    >
+                        نام
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="nameValue"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div
+                        class="info-label"
+                        data-i18n="usernameLabel"
+                    >
+                        نام کاربری
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="usernameValue"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div
+                        class="info-label"
+                        data-i18n="emailLabel"
+                    >
+                        ایمیل
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="emailValue"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+            </div>
 
 
             <div
-                class="upload-status"
-                id="uploadStatus"
+                id="photoMessage"
+                class="message"
             ></div>
 
 
-            <!-- Welcome -->
-
-            <h1 id="welcomeTitle">
-                خوش اومدی به نووی 👋
-            </h1>
-
-
-            <p
-                class="profile-description"
-                id="profileDescription"
-            >
-                اینجا پروفایل شخصی توئه.
-            </p>
-
-
-            <!-- Information -->
-
-            <div class="profile-info">
-
-                <div class="profile-item">
-
-                    <span
-                        class="profile-item-title"
-                        id="nameLabel"
-                    >
-                        نام
-                    </span>
-
-                    <span
-                        class="profile-item-value"
-                        id="profileName"
-                    >
-                        -
-                    </span>
-
-                </div>
-
-
-                <div class="profile-item">
-
-                    <span
-                        class="profile-item-title"
-                        id="usernameLabel"
-                    >
-                        نام کاربری
-                    </span>
-
-                    <span
-                        class="profile-item-value"
-                        id="profileUsername"
-                    >
-                        -
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- Enter Novy -->
-
             <button
-                class="profile-button"
-                id="enterNovy"
+                onclick="enterNovy()"
+                data-i18n="enterNovy"
             >
-                ورود به نووی
-                ←
+                ورود به نووی ←
             </button>
 
 
-            <!-- Logout -->
-
             <button
-                class="logout-button"
-                id="logoutButton"
+                class="logout"
+                onclick="logout()"
+                data-i18n="logout"
             >
                 خروج از حساب
             </button>
 
         </div>
 
-    </main>
-
-
-    <script>
-
-        /* =========================================================
-           SUPABASE
-        ========================================================= */
-
-        const SUPABASE_URL =
-            "https://yeqwwxmbgeojjbuzppsm.supabase.co";
-
-        const SUPABASE_PUBLISHABLE_KEY =
-            "sb_publishable_OS5skv6tIdXNzCqHcRlUug_Qmtuzlmh";
-
-        const supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_PUBLISHABLE_KEY
-            );
-
-
-        /* =========================================================
-           ELEMENTS
-        ========================================================= */
-
-        const profileAvatar =
-            document.getElementById("profileAvatar");
-
-        const avatarInput =
-            document.getElementById("avatarInput");
-
-        const uploadStatus =
-            document.getElementById("uploadStatus");
-
-        const welcomeTitle =
-            document.getElementById("welcomeTitle");
-
-        const profileDescription =
-            document.getElementById("profileDescription");
-
-        const profileName =
-            document.getElementById("profileName");
-
-        const profileUsername =
-            document.getElementById("profileUsername");
-
-        const nameLabel =
-            document.getElementById("nameLabel");
-
-        const usernameLabel =
-            document.getElementById("usernameLabel");
-
-        const avatarHint =
-            document.getElementById("avatarHint");
-
-        const avatarUploadLabel =
-            document.getElementById("avatarUploadLabel");
-
-        const enterNovy =
-            document.getElementById("enterNovy");
-
-        const logoutButton =
-            document.getElementById("logoutButton");
-
-
-        /* =========================================================
-           TRANSLATIONS
-        ========================================================= */
-
-        const translations = {
-
-            fa: {
-                title: "پروفایل | نووی",
-
-                welcome: "خوش اومدی {name} 👋",
-                welcomeDefault: "خوش اومدی به نووی 👋",
-
-                description:
-                    "اینجا پروفایل شخصی توئه.",
-
-                name:
-                    "نام",
-
-                username:
-                    "نام کاربری",
-
-                enter:
-                    "ورود به نووی",
-
-                logout:
-                    "خروج از حساب",
-
-                avatarHint:
-                    "برای تغییر عکس روی ✎ بزن",
-
-                changeAvatar:
-                    "تغییر عکس",
-
-                uploading:
-                    "در حال آپلود عکس...",
-
-                uploaded:
-                    "عکس پروفایل ذخیره شد ✓",
-
-                uploadError:
-                    "آپلود عکس انجام نشد.",
-
-                invalidImage:
-                    "فقط فایل تصویری JPG، PNG یا WebP انتخاب کن.",
-
-                tooLarge:
-                    "حجم عکس باید کمتر از 5 مگابایت باشد.",
-
-                notLoggedIn:
-                    "لطفاً ابتدا وارد حساب شو."
-            },
-
-
-            en: {
-                title: "Profile | Novy",
-
-                welcome: "Welcome {name} 👋",
-                welcomeDefault: "Welcome to Novy 👋",
-
-                description:
-                    "This is your personal profile.",
-
-                name:
-                    "Name",
-
-                username:
-                    "Username",
-
-                enter:
-                    "Enter Novy",
-
-                logout:
-                    "Log out",
-
-                avatarHint:
-                    "Click ✎ to change your photo",
-
-                changeAvatar:
-                    "Change photo",
-
-                uploading:
-                    "Uploading photo...",
-
-                uploaded:
-                    "Profile photo saved ✓",
-
-                uploadError:
-                    "Could not upload the photo.",
-
-                invalidImage:
-                    "Please choose a JPG, PNG, or WebP image.",
-
-                tooLarge:
-                    "The image must be smaller than 5 MB.",
-
-                notLoggedIn:
-                    "Please log in first."
-            },
-
-
-            ar: {
-                title: "الملف الشخصي | نووي",
-
-                welcome: "مرحباً {name} 👋",
-                welcomeDefault: "مرحباً بك في نووي 👋",
-
-                description:
-                    "هذا هو ملفك الشخصي.",
-
-                name:
-                    "الاسم",
-
-                username:
-                    "اسم المستخدم",
-
-                enter:
-                    "الدخول إلى نووي",
-
-                logout:
-                    "تسجيل الخروج",
-
-                avatarHint:
-                    "اضغط على ✎ لتغيير الصورة",
-
-                changeAvatar:
-                    "تغيير الصورة",
-
-                uploading:
-                    "جارٍ رفع الصورة...",
-
-                uploaded:
-                    "تم حفظ صورة الملف الشخصي ✓",
-
-                uploadError:
-                    "تعذر رفع الصورة.",
-
-                invalidImage:
-                    "اختر صورة بصيغة JPG أو PNG أو WebP.",
-
-                tooLarge:
-                    "يجب أن يكون حجم الصورة أقل من 5 ميجابايت.",
-
-                notLoggedIn:
-                    "يرجى تسجيل الدخول أولاً."
-            }
-
-        };
-
-
-        /* =========================================================
-           THEME
-        ========================================================= */
-
-        const themes = {
-
-            navy: {
-                bg: "#061426",
-                box: "#0b233d",
-                item: "#0a2038",
-                avatar: "#102e4a",
-                border: "#1d405d",
-                itemBorder: "#163452",
-                text: "#f4fbff",
-                muted: "#a8c7d9",
-                soft: "#91b0c2",
-                accent: "#8ee7ff"
-            },
-
-            black: {
-                bg: "#050505",
-                box: "#0d0d0d",
-                item: "#111111",
-                avatar: "#181818",
-                border: "#292929",
-                itemBorder: "#242424",
-                text: "#f5f5f5",
-                muted: "#b5b5b5",
-                soft: "#999999",
-                accent: "#8ee7ff"
-            },
-
-            ice: {
-                bg: "#eaf8ff",
-                box: "#ffffff",
-                item: "#f1fbff",
-                avatar: "#dff5ff",
-                border: "#b8e6f7",
-                itemBorder: "#c9eaf5",
-                text: "#123047",
-                muted: "#547086",
-                soft: "#6c8799",
-                accent: "#168db5"
-            }
-
-        };
-
-
-        function setTheme(themeName) {
-
-            const theme =
-                themes[themeName] || themes.navy;
-
-            const root =
-                document.documentElement;
-
-            root.style.setProperty(
-                "--profile-bg",
-                theme.bg
-            );
-
-            root.style.setProperty(
-                "--profile-box",
-                theme.box
-            );
-
-            root.style.setProperty(
-                "--profile-item",
-                theme.item
-            );
-
-            root.style.setProperty(
-                "--profile-avatar",
-                theme.avatar
-            );
-
-            root.style.setProperty(
-                "--profile-border",
-                theme.border
-            );
-
-            root.style.setProperty(
-                "--profile-item-border",
-                theme.itemBorder
-            );
-
-            root.style.setProperty(
-                "--profile-text",
-                theme.text
-            );
-
-            root.style.setProperty(
-                "--profile-muted",
-                theme.muted
-            );
-
-            root.style.setProperty(
-                "--profile-soft",
-                theme.soft
-            );
-
-            root.style.setProperty(
-                "--profile-accent",
-                theme.accent
-            );
-        }
-
-
-        /* =========================================================
-           LANGUAGE
-        ========================================================= */
-
-        let currentLanguage =
-            localStorage.getItem("novy-language") || "fa";
-
-
-        function applyLanguage(language) {
-
-            if (!translations[language]) {
-                language = "fa";
-            }
-
-            currentLanguage = language;
-
-            const t =
-                translations[language];
-
-            document.documentElement.lang =
-                language;
-
-            document.documentElement.dir =
-                language === "ar" || language === "fa"
-                    ? "rtl"
-                    : "ltr";
-
-            document.title =
-                t.title;
-
-            profileDescription.textContent =
-                t.description;
-
-            nameLabel.textContent =
-                t.name;
-
-            usernameLabel.textContent =
-                t.username;
-
-            enterNovy.textContent =
-                t.enter + " ←";
-
-            logoutButton.textContent =
-                t.logout;
-
-            avatarHint.textContent =
-                t.avatarHint;
-
-            avatarUploadLabel.title =
-                t.changeAvatar;
-
-            updateWelcome();
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+    "https://yeqwwxmbgeojjbuzppsm.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_OS5skv6tIdXNzCqHcRlUug_Qmtuzlmh";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================
+   THEMES
+========================= */
+
+const themes = {
+
+    navy: {
+        "--bg-main": "#07111f",
+        "--bg-card": "#0c1b2e",
+        "--bg-input": "#101f33",
+        "--bg-message": "#12243a",
+        "--border": "#1d3854",
+        "--text-main": "#eef7ff",
+        "--text-muted": "#91a8bd",
+        "--accent": "#8ee7ff",
+        "--accent-strong": "#55d6f7",
+        "--danger": "#ff7d8f"
+    },
+
+    black: {
+        "--bg-main": "#050505",
+        "--bg-card": "#0d0d0d",
+        "--bg-input": "#141414",
+        "--bg-message": "#181818",
+        "--border": "#292929",
+        "--text-main": "#f5f5f5",
+        "--text-muted": "#999999",
+        "--accent": "#8ee7ff",
+        "--accent-strong": "#55d6f7",
+        "--danger": "#ff7d8f"
+    },
+
+    ice: {
+        "--bg-main": "#eaf7fc",
+        "--bg-card": "#ffffff",
+        "--bg-input": "#f4fbfe",
+        "--bg-message": "#e5f4fa",
+        "--border": "#c4e3ee",
+        "--text-main": "#10202b",
+        "--text-muted": "#5c7180",
+        "--accent": "#179dcc",
+        "--accent-strong": "#087da8",
+        "--danger": "#d94c63"
+    }
+
+};
+
+
+function setTheme(themeName) {
+
+    const theme =
+        themes[themeName] || themes.navy;
+
+    Object.entries(theme).forEach(
+        ([key, value]) => {
+
+            document.documentElement.style
+                .setProperty(key, value);
 
         }
+    );
+
+    localStorage.setItem(
+        "novy-theme",
+        themeName
+    );
+}
 
 
-        function updateWelcome() {
+/* =========================
+   TRANSLATIONS
+========================= */
 
-            const t =
-                translations[currentLanguage];
+const translations = {
 
-            const name =
-                profileName.textContent.trim();
+    fa: {
+        photoHint: "برای تغییر عکس روی ✎ بزن",
+        description: "این پروفایل شخصی تو در نووی است.",
+        nameLabel: "نام",
+        usernameLabel: "نام کاربری",
+        emailLabel: "ایمیل",
+        enterNovy: "ورود به نووی ←",
+        logout: "خروج از حساب"
+    },
 
-            if (!name || name === "-") {
+    en: {
+        photoHint: "Click ✎ to change your photo",
+        description: "This is your personal Novy profile.",
+        nameLabel: "Name",
+        usernameLabel: "Username",
+        emailLabel: "Email",
+        enterNovy: "Enter Novy →",
+        logout: "Log out"
+    },
 
-                welcomeTitle.textContent =
-                    t.welcomeDefault;
+    ar: {
+        photoHint: "اضغط على ✎ لتغيير صورتك",
+        description: "هذا هو ملفك الشخصي في نوفي.",
+        nameLabel: "الاسم",
+        usernameLabel: "اسم المستخدم",
+        emailLabel: "البريد الإلكتروني",
+        enterNovy: "الدخول إلى نوفي ←",
+        logout: "تسجيل الخروج"
+    }
+
+};
+
+
+function applyLanguage(lang) {
+
+    const data =
+        translations[lang] ||
+        translations.fa;
+
+    document.documentElement.lang =
+        lang;
+
+    document.documentElement.dir =
+        lang === "en"
+            ? "ltr"
+            : "rtl";
+
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach(element => {
+
+            const key =
+                element.getAttribute("data-i18n");
+
+            if (data[key]) {
+                element.textContent =
+                    data[key];
+            }
+
+        });
+
+    localStorage.setItem(
+        "novy-language",
+        lang
+    );
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(
+    text,
+    error = false
+) {
+
+    const element =
+        document.getElementById(
+            "photoMessage"
+        );
+
+    element.textContent = text;
+
+    element.classList.add("show");
+
+    element.classList.toggle(
+        "error",
+        error
+    );
+}
+
+
+/* =========================
+   LOAD PROFILE
+========================= */
+
+async function loadProfile() {
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabaseClient.auth.getSession();
+
+    if (
+        !session ||
+        !session.user
+    ) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+    }
+
+    const user =
+        session.user;
+
+    const metadata =
+        user.user_metadata || {};
+
+    const name =
+        metadata.name ||
+        "";
+
+    const username =
+        metadata.username ||
+        "";
+
+    document.getElementById(
+        "nameValue"
+    ).textContent =
+        name || "-";
+
+    document.getElementById(
+        "usernameValue"
+    ).textContent =
+        username || "-";
+
+    document.getElementById(
+        "emailValue"
+    ).textContent =
+        user.email || "-";
+
+
+    const lang =
+        localStorage.getItem(
+            "novy-language"
+        ) || "fa";
+
+
+    const welcome =
+        document.getElementById(
+            "welcome"
+        );
+
+
+    if (lang === "en") {
+
+        welcome.textContent =
+            `Welcome ${name || username} 👋`;
+
+    }
+    else if (lang === "ar") {
+
+        welcome.textContent =
+            `مرحباً ${name || username} 👋`;
+
+    }
+    else {
+
+        welcome.textContent =
+            `خوش اومدی ${name || username} 👋`;
+
+    }
+
+
+    /* Existing avatar */
+
+    if (metadata.avatar_url) {
+
+        setAvatarImage(
+            metadata.avatar_url
+        );
+
+    }
+    else {
+
+        setAvatarInitial(
+            name ||
+            username ||
+            user.email ||
+            "N"
+        );
+
+    }
+
+
+    document.getElementById(
+        "loading"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "profileContent"
+    ).style.display =
+        "block";
+}
+
+
+/* =========================
+   AVATAR
+========================= */
+
+function setAvatarInitial(text) {
+
+    const avatar =
+        document.getElementById(
+            "avatar"
+        );
+
+    const letter =
+        text
+            .trim()
+            .charAt(0)
+            .toUpperCase() ||
+        "N";
+
+    avatar.innerHTML =
+        "";
+
+    avatar.textContent =
+        letter;
+}
+
+
+function setAvatarImage(url) {
+
+    const avatar =
+        document.getElementById(
+            "avatar"
+        );
+
+    avatar.innerHTML =
+        "";
+
+    const image =
+        document.createElement(
+            "img"
+        );
+
+    image.src = url;
+
+    image.alt = "Profile photo";
+
+    avatar.appendChild(
+        image
+    );
+}
+
+
+/* =========================
+   UPLOAD AVATAR
+========================= */
+
+document
+    .getElementById("avatarInput")
+    .addEventListener(
+        "change",
+        async function () {
+
+            const file =
+                this.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            const allowedTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ];
+
+            if (
+                !allowedTypes.includes(
+                    file.type
+                )
+            ) {
+
+                showMessage(
+                    "فقط JPG، PNG یا WEBP مجازه.",
+                    true
+                );
+
+                this.value = "";
 
                 return;
             }
 
-            welcomeTitle.textContent =
-                t.welcome.replace(
-                    "{name}",
-                    name
+
+            if (
+                file.size >
+                5 * 1024 * 1024
+            ) {
+
+                showMessage(
+                    "حجم عکس نباید بیشتر از ۵ مگابایت باشه.",
+                    true
                 );
-        }
 
+                this.value = "";
 
-        /* =========================================================
-           LOAD THEME + LANGUAGE
-        ========================================================= */
-
-        const savedTheme =
-            localStorage.getItem("novy-theme") || "navy";
-
-        setTheme(savedTheme);
-
-        applyLanguage(currentLanguage);
-
-
-        /* =========================================================
-           HELPERS
-        ========================================================= */
-
-        function getInitial(name) {
-
-            if (!name || !name.trim()) {
-                return "N";
+                return;
             }
 
-            return name
-                .trim()
-                .charAt(0)
-                .toUpperCase();
-        }
-
-
-        function showAvatarImage(url) {
-
-            profileAvatar.innerHTML = "";
-
-            const image =
-                document.createElement("img");
-
-            image.src = url;
-
-            image.alt = "Profile photo";
-
-            profileAvatar.appendChild(image);
-        }
-
-
-        function showAvatarInitial(name) {
-
-            profileAvatar.innerHTML = "";
-
-            profileAvatar.textContent =
-                getInitial(name);
-        }
-
-
-        function showUploadStatus(message) {
-
-            uploadStatus.textContent =
-                message;
-        }
-
-
-        /* =========================================================
-           LOAD PROFILE
-        ========================================================= */
-
-        async function loadProfile() {
 
             const {
                 data: {
                     session
-                },
-                error: sessionError
+                }
             } =
                 await supabaseClient.auth.getSession();
 
 
             if (
-                sessionError ||
                 !session ||
                 !session.user
             ) {
 
-                window.location.href =
-                    "login.html";
+                showMessage(
+                    "ابتدا وارد حساب شو.",
+                    true
+                );
 
                 return;
             }
@@ -966,384 +900,220 @@
             const user =
                 session.user;
 
-            const metadata =
-                user.user_metadata || {};
+
+            const extension =
+                file.type ===
+                "image/png"
+                    ? "png"
+                    : file.type ===
+                      "image/webp"
+                        ? "webp"
+                        : "jpg";
 
 
-            const name =
-                metadata.name ||
-                localStorage.getItem("novyName") ||
-                "";
+            const path =
+                `${user.id}/avatar.${extension}`;
 
 
-            const username =
-                metadata.username ||
-                localStorage.getItem("novyUsername") ||
-                "";
+            showMessage(
+                "در حال آپلود عکس..."
+            );
 
 
-            profileName.textContent =
-                name || "-";
+            /* Remove old formats first */
+
+            const oldPaths = [
+                `${user.id}/avatar.jpg`,
+                `${user.id}/avatar.png`,
+                `${user.id}/avatar.webp`
+            ];
 
 
-            profileUsername.textContent =
-                username || "-";
-
-
-            if (name) {
-
-                localStorage.setItem(
-                    "novyName",
-                    name
+            const pathsToRemove =
+                oldPaths.filter(
+                    oldPath =>
+                        oldPath !== path
                 );
+
+
+            if (
+                pathsToRemove.length
+            ) {
+
+                await supabaseClient
+                    .storage
+                    .from("avatars")
+                    .remove(
+                        pathsToRemove
+                    );
 
             }
 
 
-            if (username) {
+            /* Upload */
 
-                localStorage.setItem(
-                    "novyUsername",
-                    username
+            const {
+                error: uploadError
+            } =
+                await supabaseClient
+                    .storage
+                    .from("avatars")
+                    .upload(
+                        path,
+                        file,
+                        {
+                            cacheControl: "3600",
+                            upsert: true,
+                            contentType:
+                                file.type
+                        }
+                    );
+
+
+            if (uploadError) {
+
+                console.error(
+                    uploadError
                 );
 
+                showMessage(
+                    "Could not upload the photo.",
+                    true
+                );
+
+                return;
             }
 
 
-            updateWelcome();
+            /* Public URL */
 
+            const {
+                data: publicData
+            } =
+                supabaseClient
+                    .storage
+                    .from("avatars")
+                    .getPublicUrl(
+                        path
+                    );
 
-            /*
-             * avatar_url is stored inside
-             * Supabase user metadata.
-             */
 
             const avatarUrl =
-                metadata.avatar_url;
+                publicData.publicUrl;
 
 
-            if (avatarUrl) {
+            /* Save URL in user metadata */
 
-                showAvatarImage(
-                    avatarUrl
+            const {
+                error:
+                    metadataError
+            } =
+                await supabaseClient.auth
+                    .updateUser({
+
+                        data: {
+                            avatar_url:
+                                avatarUrl
+                        }
+
+                    });
+
+
+            if (metadataError) {
+
+                console.error(
+                    metadataError
                 );
 
-            } else {
-
-                showAvatarInitial(
-                    name
+                showMessage(
+                    "عکس آپلود شد ولی ذخیره پروفایل انجام نشد.",
+                    true
                 );
 
+                return;
             }
+
+
+            /* Cache bust */
+
+            const finalUrl =
+                `${avatarUrl}?t=${Date.now()}`;
+
+
+            setAvatarImage(
+                finalUrl
+            );
+
+
+            showMessage(
+                "عکس پروفایل با موفقیت تغییر کرد. ✓"
+            );
+
+
+            this.value = "";
 
         }
+    );
 
 
-        /* =========================================================
-           AVATAR UPLOAD
-        ========================================================= */
+/* =========================
+   ENTER NOVY
+========================= */
 
-        avatarInput.addEventListener(
-            "change",
-            async function () {
+function enterNovy() {
 
-                const file =
-                    avatarInput.files[0];
+    window.location.href =
+        "chat.html";
+}
 
 
-                if (!file) {
-                    return;
-                }
+/* =========================
+   LOGOUT
+========================= */
 
+async function logout() {
 
-                const t =
-                    translations[currentLanguage];
+    await supabaseClient.auth.signOut();
 
+    localStorage.removeItem(
+        "novyLoggedIn"
+    );
 
-                /* File type */
+    /*
+      Theme and language are intentionally
+      preserved.
+    */
 
-                const allowedTypes = [
-                    "image/jpeg",
-                    "image/png",
-                    "image/webp"
-                ];
+    window.location.href =
+        "login.html";
+}
 
 
-                if (
-                    !allowedTypes.includes(
-                        file.type
-                    )
-                ) {
+/* =========================
+   INITIAL SETTINGS
+========================= */
 
-                    showUploadStatus(
-                        t.invalidImage
-                    );
+const savedTheme =
+    localStorage.getItem(
+        "novy-theme"
+    ) || "navy";
 
-                    avatarInput.value = "";
+const savedLanguage =
+    localStorage.getItem(
+        "novy-language"
+    ) || "fa";
 
-                    return;
-                }
+setTheme(
+    savedTheme
+);
 
+applyLanguage(
+    savedLanguage
+);
 
-                /* File size */
+loadProfile();
 
-                if (
-                    file.size >
-                    5 * 1024 * 1024
-                ) {
-
-                    showUploadStatus(
-                        t.tooLarge
-                    );
-
-                    avatarInput.value = "";
-
-                    return;
-                }
-
-
-                showUploadStatus(
-                    t.uploading
-                );
-
-
-                try {
-
-                    const {
-                        data: {
-                            user
-                        },
-                        error: userError
-                    } =
-                        await supabaseClient.auth.getUser();
-
-
-                    if (
-                        userError ||
-                        !user
-                    ) {
-
-                        window.location.href =
-                            "login.html";
-
-                        return;
-                    }
-
-
-                    /*
-                     * Keep one avatar per user.
-                     * The file name stays the same,
-                     * so uploading a new one replaces
-                     * the previous avatar.
-                     */
-
-                    const extension =
-                        file.type === "image/png"
-                            ? "png"
-                            : file.type === "image/webp"
-                                ? "webp"
-                                : "jpg";
-
-
-                    const filePath =
-                        `${user.id}/avatar.${extension}`;
-
-
-                    /*
-                     * Remove possible old formats.
-                     */
-
-                    const oldFiles = [
-                        `${user.id}/avatar.jpg`,
-                        `${user.id}/avatar.png`,
-                        `${user.id}/avatar.webp`
-                    ];
-
-
-                    await supabaseClient
-                        .storage
-                        .from("avatars")
-                        .remove(oldFiles);
-
-
-                    /*
-                     * Upload new image.
-                     */
-
-                    const {
-                        error: uploadError
-                    } =
-                        await supabaseClient
-                            .storage
-                            .from("avatars")
-                            .upload(
-                                filePath,
-                                file,
-                                {
-                                    upsert: true,
-                                    cacheControl: "3600",
-                                    contentType: file.type
-                                }
-                            );
-
-
-                    if (uploadError) {
-
-                        console.error(
-                            uploadError
-                        );
-
-                        showUploadStatus(
-                            t.uploadError
-                        );
-
-                        return;
-                    }
-
-
-                    /*
-                     * Get public URL.
-                     */
-
-                    const {
-                        data: publicUrlData
-                    } =
-                        supabaseClient
-                            .storage
-                            .from("avatars")
-                            .getPublicUrl(
-                                filePath
-                            );
-
-
-                    const avatarUrl =
-                        publicUrlData.publicUrl +
-                        "?v=" +
-                        Date.now();
-
-
-                    /*
-                     * Save URL to user metadata.
-                     */
-
-                    const {
-                        error: updateError
-                    } =
-                        await supabaseClient.auth.updateUser(
-                            {
-                                data: {
-                                    avatar_url:
-                                        avatarUrl
-                                }
-                            }
-                        );
-
-
-                    if (updateError) {
-
-                        console.error(
-                            updateError
-                        );
-
-                        showUploadStatus(
-                            t.uploadError
-                        );
-
-                        return;
-                    }
-
-
-                    showAvatarImage(
-                        avatarUrl
-                    );
-
-
-                    showUploadStatus(
-                        t.uploaded
-                    );
-
-
-                } catch (error) {
-
-                    console.error(
-                        error
-                    );
-
-                    showUploadStatus(
-                        t.uploadError
-                    );
-
-                } finally {
-
-                    avatarInput.value = "";
-
-                }
-
-            }
-        );
-
-
-        /* =========================================================
-           ENTER NOVY
-        ========================================================= */
-
-        enterNovy.addEventListener(
-            "click",
-            function () {
-
-                window.location.href =
-                    "chat.html";
-
-            }
-        );
-
-
-        /* =========================================================
-           LOGOUT
-        ========================================================= */
-
-        logoutButton.addEventListener(
-            "click",
-            async function () {
-
-                await supabaseClient.auth.signOut();
-
-                localStorage.removeItem(
-                    "novyLoggedIn"
-                );
-
-                localStorage.removeItem(
-                    "novyContact"
-                );
-
-                localStorage.removeItem(
-                    "novyUsername"
-                );
-
-                localStorage.removeItem(
-                    "novyName"
-                );
-
-                /*
-                 * Theme and language are NOT removed.
-                 * This means user's preferences survive logout.
-                 */
-
-                window.location.href =
-                    "login.html";
-
-            }
-        );
-
-
-        /* =========================================================
-           START
-        ========================================================= */
-
-        loadProfile();
-
-    </script>
+</script>
 
 </body>
-
 </html>
