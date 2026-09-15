@@ -302,6 +302,23 @@
         const loginDescription =
             document.getElementById("loginDescription");
 
+        const verificationButton =
+            document.getElementById("verificationButton");
+
+        const verificationCode =
+            document.getElementById("verificationCode");
+       
+        verificationButton.addEventListener("click", function () {
+
+    if (verificationCode.value.trim() === "") {
+        verificationCode.focus();
+        return;
+    }
+
+    verificationStep.style.display = "none";
+    step2.style.display = "block";
+
+});
         /* مرحله ۱ */
 
         step1Button.addEventListener("click", function () {
