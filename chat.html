@@ -1,3430 +1,1442 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>نووی | همراه دانش‌آموزان</title>
 
 <style>
+*{box-sizing:border-box}
 
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-    box-sizing: border-box;
+:root{
+  --bg:#061426;
+  --section:#081b30;
+  --card:#0b233d;
+  --chat:#0a2038;
+  --message:#102e4a;
+  --text:#f4fbff;
+  --soft:#a8c7d9;
+  --muted:#91b0c2;
+  --accent:#8ee7ff;
+  --border:#1d405d;
+  --border-soft:#163452;
 }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
+body.theme-black{
+  --bg:#050505;--section:#0b0b0b;--card:#111;
+  --chat:#090909;--message:#181818;
+  --text:#f5f5f5;--soft:#c0c0c0;--muted:#929292;
+  --accent:#fff;--border:#292929;--border-soft:#202020;
 }
 
-body {
-    font-family:
-        Tahoma,
-        Arial,
-        sans-serif;
-
-    background: var(--bg);
-    color: var(--text);
-
-    transition:
-        background 0.25s ease,
-        color 0.25s ease;
+body.theme-ice{
+  --bg:#dff6ff;--section:#c9effc;--card:#eafaff;
+  --chat:#e5f8ff;--message:#cceffc;
+  --text:#102a3a;--soft:#42677a;--muted:#648596;
+  --accent:#008dcc;--border:#9ed8eb;--border-soft:#b9e5f2;
 }
 
-button,
-input,
-textarea {
-    font-family: inherit;
+html,body{
+  margin:0;
+  width:100%;
+  min-height:100%;
 }
 
-
-/* =========================================================
-   DEFAULT VARIABLES
-========================================================= */
-
-:root {
-
-    --bg: #061426;
-    --section: #081b30;
-    --card: #0b233d;
-    --chat: #0a2038;
-    --message: #102e4a;
-
-    --text: #f4fbff;
-    --soft: #a8c7d9;
-    --muted: #91b0c2;
-
-    --accent: #8ee7ff;
-
-    --border: #1d405d;
-    --border-soft: #163452;
-
-    --danger: #ff7185;
+body{
+  font-family:Tahoma,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:.25s;
 }
 
+button,input,textarea{font-family:inherit}
 
-/* =========================================================
-   NAVY THEME
-========================================================= */
-
-body.theme-navy {
-
-    --bg: #061426;
-    --section: #081b30;
-    --card: #0b233d;
-    --chat: #0a2038;
-    --message: #102e4a;
-
-    --text: #f4fbff;
-    --soft: #a8c7d9;
-    --muted: #91b0c2;
-
-    --accent: #8ee7ff;
-
-    --border: #1d405d;
-    --border-soft: #163452;
+.app{
+  min-height:100vh;
+  display:flex;
+  background:var(--bg);
 }
 
-
-/* =========================================================
-   BLACK THEME
-========================================================= */
-
-body.theme-black {
-
-    --bg: #050505;
-    --section: #0b0b0b;
-    --card: #111111;
-    --chat: #090909;
-    --message: #181818;
-
-    --text: #f5f5f5;
-    --soft: #c0c0c0;
-    --muted: #929292;
-
-    --accent: #ffffff;
-
-    --border: #292929;
-    --border-soft: #202020;
+/* SIDEBAR */
+.sidebar{
+  width:270px;
+  flex-shrink:0;
+  background:var(--section);
+  border-inline-end:1px solid var(--border);
+  padding:18px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  transition:.25s;
+  z-index:1000;
 }
 
-
-/* =========================================================
-   ICE THEME
-========================================================= */
-
-body.theme-ice {
-
-    --bg: #dff6ff;
-    --section: #c9effc;
-    --card: #eafaff;
-    --chat: #e5f8ff;
-    --message: #cceffc;
-
-    --text: #102a3a;
-    --soft: #42677a;
-    --muted: #648596;
-
-    --accent: #008dcc;
-
-    --border: #9ed8eb;
-    --border-soft: #b9e5f2;
-}
-
-
-/* =========================================================
-   APP
-========================================================= */
-
-.app {
-
-    min-height: 100vh;
-
-    display: flex;
-
-    background: var(--bg);
-}
-
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-.sidebar {
-
-    width: 270px;
-
-    flex-shrink: 0;
-
-    background: var(--section);
-
-    border-inline-end:
-        1px solid var(--border);
-
-    padding: 18px 14px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 12px;
-
-    transition:
-        width 0.25s ease,
-        transform 0.25s ease,
-        background 0.25s ease;
-
-    z-index: 1000;
-}
-
-
-.sidebar.collapsed {
-
-    width: 76px;
-}
-
+.sidebar.collapsed{width:76px}
 
 .sidebar.collapsed .logo-text,
 .sidebar.collapsed .tool-text,
-.sidebar.collapsed .recent-title,
-.sidebar.collapsed .recent-item,
-.sidebar.collapsed .profile-info {
-
-    display: none;
-}
-
-
-.sidebar.collapsed .logo {
-
-    justify-content: center;
-}
-
-
-.sidebar.collapsed .tool {
-
-    justify-content: center;
-}
-
-
-.sidebar.collapsed .profile {
-
-    justify-content: center;
-}
-
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.logo {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    padding:
-        8px 10px 18px;
-}
-
-
-.logo-icon {
-
-    width: 40px;
-    height: 40px;
-
-    border-radius: 13px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background: var(--card);
-
-    border:
-        1px solid var(--border);
-
-    font-size: 21px;
-
-    flex-shrink: 0;
-}
-
-
-.logo-text {
-
-    font-weight: 800;
-
-    font-size: 18px;
-
-    white-space: nowrap;
-}
-
-
-.logo-text small {
-
-    display: block;
-
-    color: var(--muted);
-
-    font-size: 10px;
-
-    font-weight: 400;
-
-    margin-top: 3px;
-}
-
-
-/* =========================================================
-   SIDEBAR TOOLS
-========================================================= */
-
-.tools {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 5px;
-}
-
-
-.tool {
-
-    border: 0;
-
-    background: transparent;
-
-    color: var(--soft);
-
-    min-height: 45px;
-
-    border-radius: 12px;
-
-    padding:
-        9px 11px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    cursor: pointer;
-
-    text-align: start;
-
-    transition:
-        background 0.18s ease,
-        color 0.18s ease;
-}
-
-
-.tool:hover {
-
-    background: var(--card);
-
-    color: var(--text);
-}
-
-
-.tool.active {
-
-    background: var(--card);
-
-    color: var(--accent);
-}
-
-
-.tool-icon {
-
-    width: 24px;
-
-    text-align: center;
-
-    font-size: 18px;
-
-    flex-shrink: 0;
-}
-
-
-.tool-text {
-
-    font-size: 14px;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   RECENT CHATS
-========================================================= */
-
-.recent {
-
-    display: none;
-
-    margin-top: 8px;
-
-    padding-top: 12px;
-
-    border-top:
-        1px solid var(--border-soft);
-
-    overflow: hidden;
-}
-
-
-.recent.has-items {
-
-    display: block;
-}
-
-
-.recent-title {
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    padding:
-        4px 10px 8px;
-}
-
-
-.recent-item {
-
-    border: 0;
-
-    background: transparent;
-
-    color: var(--soft);
-
-    width: 100%;
-
-    text-align: start;
-
-    border-radius: 9px;
-
-    padding:
-        8px 10px;
-
-    cursor: pointer;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-}
-
-
-.recent-item:hover {
-
-    background: var(--card);
-
-    color: var(--text);
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-.profile {
-
-    margin-top: auto;
-
-    border-top:
-        1px solid var(--border-soft);
-
-    padding-top: 13px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-}
-
-
-.profile-avatar {
-
-    width: 38px;
-    height: 38px;
-
-    border-radius: 50%;
-
-    background: var(--card);
-
-    border:
-        1px solid var(--border);
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-}
-
-
-.profile-name {
-
-    font-size: 13px;
-
-    font-weight: 700;
-}
-
-
-.profile-sub {
-
-    color: var(--muted);
-
-    font-size: 10px;
-
-    margin-top: 2px;
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.main {
-
-    flex: 1;
-
-    min-width: 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-    min-height: 100vh;
+.sidebar.collapsed .recent,
+.sidebar.collapsed .profile-info{
+  display:none;
 }
-
-
-/* =========================================================
-   TOPBAR
-========================================================= */
 
-.topbar {
-
-    height: 64px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    padding:
-        0 18px;
-
-    border-bottom:
-        1px solid var(--border);
-
-    background: var(--section);
+.sidebar.collapsed .logo,
+.sidebar.collapsed .tool,
+.sidebar.collapsed .profile{
+  justify-content:center;
 }
-
-
-.icon-button {
-
-    width: 40px;
-    height: 40px;
-
-    border-radius: 11px;
-
-    border:
-        1px solid var(--border);
-
-    background: var(--card);
-
-    color: var(--text);
-
-    cursor: pointer;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 18px;
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px 18px;
 }
-
 
-.icon-button:hover {
-
-    border-color: var(--accent);
-
-    color: var(--accent);
+.logo-icon{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--card);
+  border:1px solid var(--border);
+  font-size:20px;
+  flex-shrink:0;
 }
-
-
-.chat-title {
 
-    font-weight: 800;
-
-    font-size: 15px;
+.logo-text{
+  font-weight:800;
+  font-size:18px;
+  white-space:nowrap;
 }
-
-
-.chat-status {
-
-    color: var(--muted);
 
-    font-size: 10px;
-
-    margin-top: 3px;
+.logo-text small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:400;
+  margin-top:3px;
 }
-
-
-/* =========================================================
-   CHAT
-========================================================= */
-
-.chat {
 
-    flex: 1;
-
-    overflow-y: auto;
-
-    padding:
-        35px 18px 140px;
-
-    background: var(--chat);
+.tools{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
 }
-
 
-.chat-inner {
-
-    width:
-        min(850px, 100%);
-
-    margin: auto;
+.tool{
+  border:0;
+  background:transparent;
+  color:var(--soft);
+  min-height:45px;
+  border-radius:12px;
+  padding:9px 11px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
+  text-align:start;
 }
-
-
-.welcome {
 
-    text-align: center;
-
-    padding:
-        65px 15px 35px;
+.tool:hover,.tool.active{
+  background:var(--card);
+  color:var(--accent);
 }
-
-
-.welcome-icon {
-
-    width: 65px;
-    height: 65px;
-
-    margin:
-        0 auto 17px;
-
-    border-radius: 20px;
-
-    background: var(--card);
-
-    border:
-        1px solid var(--border);
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 31px;
+.tool-icon{
+  width:24px;
+  text-align:center;
+  font-size:18px;
+  flex-shrink:0;
 }
-
-
-.welcome h1 {
 
-    margin:
-        0 0 9px;
-
-    font-size: 27px;
+.tool-text{
+  font-size:14px;
+  white-space:nowrap;
 }
-
-
-.welcome p {
-
-    margin: 0;
-
-    color: var(--soft);
-
-    font-size: 14px;
+
+/* RECENT */
+.recent{
+  display:none;
+  margin-top:8px;
+  padding-top:12px;
+  border-top:1px solid var(--border-soft);
 }
-
-
-.messages {
+
+.recent.has-items{display:block}
 
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 15px;
+.recent-title{
+  color:var(--muted);
+  font-size:11px;
+  padding:4px 10px 8px;
 }
-
-
-.message {
 
-    max-width: 80%;
+.recent-item{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--soft);
+  text-align:start;
+  border-radius:9px;
+  padding:8px 10px;
+  cursor:pointer;
+}
 
-    padding:
-        12px 15px;
-
-    border-radius: 16px;
-
-    line-height: 1.8;
-
-    font-size: 14px;
-
-    white-space: pre-wrap;
+.recent-item:hover{
+  background:var(--card);
+  color:var(--text);
 }
-
-
-.message.user {
-
-    align-self: flex-start;
-
-    background: var(--accent);
 
-    color: #062033;
-
-    border-bottom-left-radius: 5px;
+/* PROFILE */
+.profile{
+  margin-top:auto;
+  border-top:1px solid var(--border-soft);
+  padding-top:13px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  border-radius:10px;
 }
-
-
-.message.novy {
-
-    align-self: flex-end;
-
-    background: var(--message);
-
-    border:
-        1px solid var(--border-soft);
-
-    border-bottom-right-radius: 5px;
+
+.profile:hover{
+  background:var(--card);
+}
+
+.profile-avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:var(--card);
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
 }
-
 
-/* =========================================================
-   INPUT
-========================================================= */
-
-.input-area {
-
-    position: fixed;
-
-    inset-inline-start: 270px;
-
-    inset-inline-end: 0;
-
-    bottom: 0;
-
-    padding:
-        14px 18px 18px;
-
-    background:
-        linear-gradient(
-            to top,
-            var(--chat) 75%,
-            transparent
-        );
-
-    transition:
-        inset-inline-start 0.25s ease;
-
-    z-index: 900;
+.profile-name{
+  font-size:13px;
+  font-weight:700;
 }
-
-
-.sidebar.collapsed ~ .main .input-area {
 
-    inset-inline-start: 76px;
+.profile-sub{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:2px;
 }
 
-
-.input-inner {
-
-    width:
-        min(850px, 100%);
-
-    margin: auto;
+/* MAIN */
+.main{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
 }
-
 
-.input-box {
-
-    display: flex;
-
-    align-items: flex-end;
-
-    gap: 8px;
-
-    background: var(--card);
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 17px;
-
-    padding: 8px;
-
-    box-shadow:
-        0 8px 30px rgba(0,0,0,0.15);
+.topbar{
+  height:64px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 18px;
+  border-bottom:1px solid var(--border);
+  background:var(--section);
 }
-
-
-.input-box textarea {
-
-    flex: 1;
-
-    min-height: 42px;
-
-    max-height: 130px;
-
-    resize: none;
-
-    border: 0;
-
-    outline: none;
 
-    background: transparent;
-
-    color: var(--text);
-
-    padding:
-        10px 8px;
-
-    font-size: 14px;
+.icon-button{
+  width:40px;
+  height:40px;
+  border-radius:11px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
 }
 
-
-.input-box textarea::placeholder {
-
-    color: var(--muted);
+.icon-button:hover{
+  border-color:var(--accent);
+  color:var(--accent);
 }
-
-
-.send-button {
 
-    width: 42px;
-    height: 42px;
+.chat-title{font-weight:800;font-size:15px}
 
-    flex-shrink: 0;
-
-    border: 0;
-
-    border-radius: 12px;
-
-    background: var(--accent);
-
-    color: #062033;
-
-    cursor: pointer;
-
-    font-size: 18px;
-
-    font-weight: 800;
+.chat-status{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
 }
-
 
-.send-button:hover {
-
-    filter: brightness(1.08);
+/* CHAT */
+.chat{
+  flex:1;
+  overflow-y:auto;
+  padding:35px 18px 140px;
+  background:var(--chat);
 }
-
-
-.note {
-
-    color: var(--muted);
 
-    font-size: 9px;
-
-    text-align: center;
-
-    margin-top: 7px;
+.chat-inner{
+  width:min(850px,100%);
+  margin:auto;
 }
-
-
-/* =========================================================
-   SETTINGS OVERLAY
-========================================================= */
-
-.overlay {
-
-    position: fixed;
-
-    inset: 0;
-
-    background:
-        rgba(0,0,0,0.48);
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    pointer-events: none;
-
-    transition:
-        opacity 0.2s ease,
-        visibility 0.2s ease;
 
-    z-index: 1500;
+.welcome{
+  text-align:center;
+  padding:65px 15px 35px;
 }
 
+.welcome-icon{
+  width:65px;
+  height:65px;
+  margin:0 auto 17px;
+  border-radius:20px;
+  background:var(--card);
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
 
-.overlay.show {
-
-    opacity: 1;
-
-    visibility: visible;
-
-    pointer-events: auto;
+.welcome h1{
+  margin:0 0 9px;
+  font-size:27px;
+}
+
+.welcome p{
+  margin:0;
+  color:var(--soft);
+  font-size:14px;
 }
-
-
-/* =========================================================
-   SETTINGS PANEL
-========================================================= */
-
-.settings-panel {
-
-    position: fixed;
-
-    top: 0;
-
-    right: 0;
-
-    width:
-        min(390px, 92vw);
-
-    height: 100vh;
-
-    background: var(--section);
-
-    border-left:
-        1px solid var(--border);
-
-    transform:
-        translateX(105%);
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease;
+
+.messages{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.message{
+  max-width:80%;
+  padding:12px 15px;
+  border-radius:16px;
+  line-height:1.8;
+  font-size:14px;
+  white-space:pre-wrap;
+}
 
-    z-index: 1600;
+.message.user{
+  align-self:flex-start;
+  background:var(--accent);
+  color:#062033;
+  border-bottom-left-radius:5px;
+}
+
+.message.novy{
+  align-self:flex-end;
+  background:var(--message);
+  border:1px solid var(--border-soft);
+  border-bottom-right-radius:5px;
+}
+
+/* INPUT */
+.input-area{
+  position:fixed;
+  inset-inline-start:270px;
+  inset-inline-end:0;
+  bottom:0;
+  padding:14px 18px 18px;
+  background:linear-gradient(to top,var(--chat) 75%,transparent);
+  transition:.25s;
+  z-index:900;
+}
+
+.sidebar.collapsed~.main .input-area{
+  inset-inline-start:76px;
+}
 
-    overflow-y: auto;
-
-    padding: 22px;
+.input-inner{
+  width:min(850px,100%);
+  margin:auto;
 }
-
-
-/* RTL */
-
-html[dir="rtl"] .settings-panel {
-
-    right: auto;
-
-    left: 0;
-
-    border-left: 0;
-
-    border-right:
-        1px solid var(--border);
 
-    transform:
-        translateX(-105%);
+.input-box{
+  display:flex;
+  align-items:flex-end;
+  gap:8px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:8px;
+  box-shadow:0 8px 30px rgba(0,0,0,.15);
 }
 
-
-/* OPEN */
-
-.settings-panel.open {
-
-    transform:
-        translateX(0);
+.input-box textarea{
+  flex:1;
+  min-height:42px;
+  max-height:130px;
+  resize:none;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--text);
+  padding:10px 8px;
+  font-size:14px;
 }
-
-
-/* =========================================================
-   SETTINGS HEADER
-========================================================= */
-
-.settings-header {
-
-    display: flex;
-
-    align-items: center;
 
-    justify-content: space-between;
+.input-box textarea::placeholder{color:var(--muted)}
 
-    margin-bottom: 25px;
+.send-button{
+  width:42px;
+  height:42px;
+  flex-shrink:0;
+  border:0;
+  border-radius:12px;
+  background:var(--accent);
+  color:#062033;
+  cursor:pointer;
+  font-size:18px;
 }
 
-
-.settings-header h2 {
-
-    margin: 0;
-
-    font-size: 19px;
+.note{
+  color:var(--muted);
+  font-size:9px;
+  text-align:center;
+  margin-top:7px;
 }
-
 
-/* =========================================================
-   SETTINGS SECTION
-========================================================= */
-
-.settings-section {
-
-    margin-bottom: 28px;
+/* OVERLAYS */
+.overlay,.mobile-overlay{
+  position:fixed;
+  inset:0;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  background:rgba(0,0,0,.48);
+  transition:.2s;
 }
-
-
-.settings-section h3 {
 
-    margin:
-        0 0 12px;
+.overlay{z-index:1500}
+.mobile-overlay{z-index:950}
 
-    font-size: 13px;
-
-    color: var(--soft);
+.overlay.show,.mobile-overlay.show{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
 }
-
-
-/* =========================================================
-   THEMES
-========================================================= */
-
-.theme-grid {
 
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 9px;
+/* SETTINGS + PROFILE PANELS */
+.side-panel{
+  position:fixed;
+  top:0;
+  bottom:0;
+  width:min(390px,92vw);
+  background:var(--section);
+  border-inline-start:1px solid var(--border);
+  padding:22px;
+  overflow-y:auto;
+  z-index:1700;
+  transition:transform .25s ease;
 }
-
-
-.theme-option {
 
-    border:
-        1px solid var(--border);
-
-    background: var(--card);
-
-    color: var(--text);
-
-    border-radius: 13px;
-
-    padding:
-        13px 10px;
-
-    cursor: pointer;
-
-    text-align: center;
-
-    transition:
-        border-color 0.18s ease,
-        box-shadow 0.18s ease;
+html[dir="rtl"] .side-panel{
+  left:0;
+  right:auto;
+  transform:translateX(-105%);
 }
-
 
-.theme-option:hover {
-
-    border-color:
-        var(--accent);
+html[dir="ltr"] .side-panel{
+  right:0;
+  left:auto;
+  transform:translateX(105%);
 }
-
-
-.theme-option.active {
-
-    border-color:
-        var(--accent);
 
-    box-shadow:
-        0 0 0 1px var(--accent);
+.side-panel.open{
+  transform:translateX(0);
 }
-
-
-.theme-preview {
-
-    height: 45px;
-
-    border-radius: 9px;
 
-    margin-bottom: 9px;
-
-    border:
-        1px solid rgba(255,255,255,0.12);
+.panel-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:25px;
 }
-
-
-.preview-navy {
 
-    background:
-        linear-gradient(
-            135deg,
-            #061426,
-            #102e4a
-        );
+.panel-header h2{
+  margin:0;
+  font-size:19px;
 }
 
+/* SETTINGS */
+.settings-section{margin-bottom:28px}
 
-.preview-black {
-
-    background:
-        linear-gradient(
-            135deg,
-            #050505,
-            #202020
-        );
+.settings-section h3{
+  margin:0 0 12px;
+  font-size:13px;
+  color:var(--soft);
 }
-
 
-.preview-ice {
-
-    background:
-        linear-gradient(
-            135deg,
-            #dff6ff,
-            #83cfe8
-        );
+.theme-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
 }
-
 
-.preview-custom {
-
-    background:
-        linear-gradient(
-            135deg,
-            #100b20,
-            #c995ff
-        );
+.theme-option{
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:13px;
+  padding:13px 10px;
+  cursor:pointer;
 }
-
-
-/* =========================================================
-   CUSTOMIZER
-========================================================= */
-
-.customizer {
-
-    display: none;
-
-    margin-top: 14px;
-
-    padding: 14px;
-
-    background: var(--card);
 
-    border:
-        1px solid var(--border);
-
-    border-radius: 15px;
+.theme-option.active{
+  border-color:var(--accent);
+  box-shadow:0 0 0 1px var(--accent);
 }
-
 
-.customizer.show {
-
-    display: block;
+.theme-preview{
+  height:45px;
+  border-radius:9px;
+  margin-bottom:9px;
 }
-
 
-.customizer-title {
+.preview-navy{background:linear-gradient(135deg,#061426,#102e4a)}
+.preview-black{background:linear-gradient(135deg,#050505,#202020)}
+.preview-ice{background:linear-gradient(135deg,#dff6ff,#83cfe8)}
+.preview-custom{background:linear-gradient(135deg,#100b20,#c995ff)}
 
-    font-size: 12px;
-
-    color: var(--soft);
-
-    margin-bottom: 13px;
+.customizer{
+  display:none;
+  margin-top:14px;
+  padding:14px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:15px;
 }
-
-
-.color-row {
 
-    display: flex;
+.customizer.show{display:block}
 
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 12px;
-
-    margin-bottom: 11px;
+.customizer-title{
+  font-size:12px;
+  color:var(--soft);
+  margin-bottom:13px;
 }
-
 
-.color-row:last-child {
-
-    margin-bottom: 0;
+.color-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:11px;
 }
-
 
-.color-row label {
+.color-row label{font-size:12px}
 
-    font-size: 12px;
-
-    color: var(--text);
+.color-picker{
+  width:45px;
+  height:32px;
+  padding:0;
+  border:1px solid var(--border);
+  border-radius:8px;
+  cursor:pointer;
 }
-
 
-.color-picker {
-
-    width: 45px;
-
-    height: 32px;
-
-    padding: 0;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 8px;
-
-    background: transparent;
-
-    cursor: pointer;
+.custom-actions{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
 }
 
-
-.custom-actions {
-
-    display: flex;
-
-    gap: 8px;
-
-    margin-top: 14px;
+.custom-action{
+  flex:1;
+  min-height:37px;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:var(--section);
+  color:var(--text);
+  cursor:pointer;
 }
-
-
-.custom-action {
-
-    flex: 1;
-
-    min-height: 37px;
 
-    border-radius: 9px;
-
-    border:
-        1px solid var(--border);
-
-    background: var(--section);
-
-    color: var(--text);
-
-    cursor: pointer;
-
-    font-size: 11px;
+.custom-action.primary{
+  background:var(--accent);
+  color:#062033;
 }
-
 
-.custom-action:hover {
-
-    border-color:
-        var(--accent);
+/* LANGUAGE */
+.language-grid{
+  display:grid;
+  gap:8px;
 }
-
 
-.custom-action.primary {
-
-    background:
-        var(--accent);
-
-    color: #062033;
-
-    border-color:
-        var(--accent);
+.language-option{
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:13px;
+  padding:12px;
+  cursor:pointer;
+  text-align:start;
 }
-
 
-/* =========================================================
-   LANGUAGE
-========================================================= */
-
-.language-grid {
-
-    display: grid;
-
-    gap: 8px;
+.language-option.active{
+  border-color:var(--accent);
+  box-shadow:0 0 0 1px var(--accent);
 }
-
 
-.language-option {
-
-    border:
-        1px solid var(--border);
-
-    background: var(--card);
-
-    color: var(--text);
-
-    border-radius: 13px;
-
-    padding: 12px;
-
-    cursor: pointer;
-
-    text-align: start;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
+/* PROFILE */
+.profile-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
 }
-
 
-.language-option:hover {
-
-    border-color:
-        var(--accent);
+.profile-big-avatar{
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  margin:0 auto 18px;
+  background:var(--section);
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
 }
-
-
-.language-option.active {
-
-    border-color:
-        var(--accent);
 
-    box-shadow:
-        0 0 0 1px var(--accent);
+.profile-field{
+  padding:13px 0;
+  border-bottom:1px solid var(--border-soft);
 }
 
+.profile-field:last-child{border-bottom:0}
 
-/* =========================================================
-   MOBILE OVERLAY
-========================================================= */
-
-.mobile-overlay {
-
-    display: none;
-
-    position: fixed;
-
-    inset: 0;
-
-    background:
-        rgba(0,0,0,0.45);
-
-    z-index: 950;
+.profile-label{
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:5px;
 }
-
-
-.mobile-overlay.show {
 
-    display: block;
+.profile-value{
+  font-size:14px;
+  font-weight:700;
+  word-break:break-word;
 }
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 760px) {
-
-    .sidebar {
-
-        position: fixed;
-
-        top: 0;
-        bottom: 0;
-
-        left: 0;
-
-        width: 270px;
 
-        transform:
-            translateX(-105%);
-    }
+/* MOBILE */
+@media(max-width:760px){
+  .sidebar{
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    width:270px;
+    transform:translateX(-105%);
+  }
 
+  html[dir="rtl"] .sidebar{
+    left:auto;
+    right:0;
+    transform:translateX(105%);
+  }
 
-    html[dir="rtl"] .sidebar {
+  .sidebar.mobile-open{transform:translateX(0)}
 
-        left: auto;
+  .sidebar.collapsed{width:270px}
 
-        right: 0;
+  .sidebar.collapsed .logo-text,
+  .sidebar.collapsed .tool-text,
+  .sidebar.collapsed .profile-info{
+    display:block;
+  }
 
-        transform:
-            translateX(105%);
-    }
+  .sidebar.collapsed .logo,
+  .sidebar.collapsed .tool,
+  .sidebar.collapsed .profile{
+    justify-content:flex-start;
+  }
 
+  .input-area{inset-inline-start:0!important}
 
-    .sidebar.mobile-open {
+  .message{max-width:90%}
 
-        transform:
-            translateX(0);
-    }
+  .welcome{padding-top:45px}
 
+  .welcome h1{font-size:23px}
 
-    .sidebar.collapsed {
-
-        width: 270px;
-    }
-
-
-    .sidebar.collapsed .logo-text,
-    .sidebar.collapsed .tool-text,
-    .sidebar.collapsed .recent-title,
-    .sidebar.collapsed .recent-item,
-    .sidebar.collapsed .profile-info {
-
-        display: block;
-    }
-
-
-    .sidebar.collapsed .logo {
-
-        justify-content:
-            flex-start;
-    }
-
-
-    .sidebar.collapsed .tool {
-
-        justify-content:
-            flex-start;
-    }
-
-
-    .sidebar.collapsed .profile {
-
-        justify-content:
-            flex-start;
-    }
-
-
-    .input-area {
-
-        inset-inline-start: 0 !important;
-    }
-
-
-    .message {
-
-        max-width: 90%;
-    }
-
-
-    .welcome {
-
-        padding-top: 45px;
-    }
-
-
-    .welcome h1 {
-
-        font-size: 23px;
-    }
-
-
-    .chat {
-
-        padding-inline: 12px;
-    }
-
-
-    .settings-panel {
-
-        width:
-            min(390px, 94vw);
-    }
+  .chat{padding-inline:12px}
 }
-
 </style>
 </head>
 
-
 <body class="theme-navy">
-
 
 <div class="app">
 
-
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
-
-    <aside
-        class="sidebar"
-        id="sidebar"
-    >
-
-        <div class="logo">
-
-            <div class="logo-icon">
-                🤖
-            </div>
-
-            <div class="logo-text">
-
-                نووی
-
-                <small>
-                    همراه دانش‌آموزان
-                </small>
-
-            </div>
-
-        </div>
-
-
-        <div class="tools">
-
-
-            <button
-                class="tool active"
-                id="newChatBtn"
-            >
-
-                <span class="tool-icon">
-                    ＋
-                </span>
-
-                <span
-                    class="tool-text"
-                    data-i18n="newChat"
-                >
-                    گفت‌وگوی جدید
-                </span>
-
-            </button>
-
-
-            <button
-                class="tool"
-                data-tool="images"
-            >
-
-                <span class="tool-icon">
-                    🖼️
-                </span>
-
-                <span
-                    class="tool-text"
-                    data-i18n="images"
-                >
-                    تصاویر
-                </span>
-
-            </button>
-
-
-            <button
-                class="tool"
-                data-tool="library"
-            >
-
-                <span class="tool-icon">
-                    📚
-                </span>
-
-                <span
-                    class="tool-text"
-                    data-i18n="library"
-                >
-                    کتابخانه
-                </span>
-
-            </button>
-
-
-            <button
-                class="tool"
-                data-tool="projects"
-            >
-
-                <span class="tool-icon">
-                    📁
-                </span>
-
-                <span
-                    class="tool-text"
-                    data-i18n="projects"
-                >
-                    پروژه‌ها
-                </span>
-
-            </button>
-
-
-            <button
-                class="tool"
-                data-tool="code"
-            >
-
-                <span class="tool-icon">
-                    💻
-                </span>
-
-                <span
-                    class="tool-text"
-                    data-i18n="code"
-                >
-                    کدنویسی
-                </span>
-
-            </button>
-
-
-            <button
-                class="tool"
-                id="settingsBtn"
-            >
-
-                <span class="tool-icon">
-                    ⚙️
-                </span>
-
-                <span
-                    class="tool-text"
-                    data-i18n="settings"
-                >
-                    تنظیمات
-                </span>
-
-            </button>
-
-
-        </div>
-
-
-        <!--
-            این قسمت عمداً خالی است.
-            وقتی واقعاً چتی ساخته شود،
-            می‌توانیم آن را وارد تاریخچه کنیم.
-        -->
-
-        <div
-            class="recent"
-            id="recentChats"
-        >
-
-            <div
-                class="recent-title"
-                data-i18n="recent"
-            >
-                گفت‌وگوهای اخیر
-            </div>
-
-            <div id="recentList"></div>
-
-        </div>
-
-
-        <div class="profile">
-
-            <div class="profile-avatar">
-                👤
-            </div>
-
-            <div class="profile-info">
-
-                <div
-                    class="profile-name"
-                    data-i18n="student"
-                >
-                    دانش‌آموز
-                </div>
-
-                <div
-                    class="profile-sub"
-                    data-i18n="online"
-                >
-                    آنلاین
-                </div>
-
-            </div>
-
-        </div>
-
-
-    </aside>
-
-
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
-
-    <main class="main">
-
-
-        <header class="topbar">
-
-            <button
-                class="icon-button"
-                id="menuBtn"
-            >
-                ☰
-            </button>
-
-
-            <div>
-
-                <div class="chat-title">
-                    نووی
-                </div>
-
-                <div
-                    class="chat-status"
-                    data-i18n="status"
-                >
-                    همراه دانش‌آموزان
-                </div>
-
-            </div>
-
-        </header>
-
-
-        <section
-            class="chat"
-            id="chat"
-        >
-
-            <div class="chat-inner">
-
-
-                <div
-                    class="welcome"
-                    id="welcome"
-                >
-
-                    <div class="welcome-icon">
-                        🤖
-                    </div>
-
-
-                    <h1 data-i18n="welcomeTitle">
-                        سلام! من نووی‌ام 👋
-                    </h1>
-
-
-                    <p data-i18n="welcomeText">
-                        همراهت برای یادگیری، برنامه‌ریزی و پیدا کردن جواب سؤال‌هات.
-                    </p>
-
-                </div>
-
-
-                <div
-                    class="messages"
-                    id="messages"
-                ></div>
-
-
-            </div>
-
-        </section>
-
-
-    </main>
-
-
-</div>
-
-
-<!-- =========================================================
-     INPUT
-========================================================= -->
-
-<div class="input-area">
-
-    <div class="input-inner">
-
-        <div class="input-box">
-
-            <textarea
-                id="messageInput"
-                rows="1"
-                data-i18n-placeholder="placeholder"
-                placeholder="پیامت رو بنویس..."
-            ></textarea>
-
-
-            <button
-                class="send-button"
-                id="sendBtn"
-            >
-                ➤
-            </button>
-
-        </div>
-
-
-        <div
-            class="note"
-            data-i18n="note"
-        >
-            نووی ممکن است اشتباه کند؛ اطلاعات مهم را بررسی کن.
-        </div>
-
+<aside class="sidebar" id="sidebar">
+
+  <div class="logo">
+    <div class="logo-icon">N</div>
+    <div class="logo-text">
+      نووی
+      <small data-i18n="tagline">همراه دانش‌آموزان</small>
+    </div>
+  </div>
+
+  <div class="tools">
+
+    <button class="tool active" id="newChatBtn">
+      <span class="tool-icon">＋</span>
+      <span class="tool-text" data-i18n="newChat">گفت‌وگوی جدید</span>
+    </button>
+
+    <button class="tool" data-tool="images">
+      <span class="tool-icon">🖼️</span>
+      <span class="tool-text" data-i18n="images">تصاویر</span>
+    </button>
+
+    <button class="tool" data-tool="library">
+      <span class="tool-icon">📚</span>
+      <span class="tool-text" data-i18n="library">کتابخانه</span>
+    </button>
+
+    <button class="tool" data-tool="projects">
+      <span class="tool-icon">📁</span>
+      <span class="tool-text" data-i18n="projects">پروژه‌ها</span>
+    </button>
+
+    <button class="tool" data-tool="code">
+      <span class="tool-icon">💻</span>
+      <span class="tool-text" data-i18n="code">کدنویسی</span>
+    </button>
+
+    <button class="tool" id="settingsBtn">
+      <span class="tool-icon">⚙️</span>
+      <span class="tool-text" data-i18n="settings">تنظیمات</span>
+    </button>
+
+  </div>
+
+  <div class="recent" id="recentChats">
+    <div class="recent-title" data-i18n="recent">گفت‌وگوهای اخیر</div>
+    <div id="recentList"></div>
+  </div>
+
+  <div class="profile" id="profileBtn">
+
+    <div class="profile-avatar">👤</div>
+
+    <div class="profile-info">
+      <div class="profile-name" id="sidebarName">میوا</div>
+      <div class="profile-sub" data-i18n="online">آنلاین</div>
     </div>
 
-</div>
-
-
-<!-- =========================================================
-     MOBILE OVERLAY
-========================================================= -->
-
-<div
-    class="mobile-overlay"
-    id="mobileOverlay"
-></div>
-
-
-<!-- =========================================================
-     SETTINGS OVERLAY
-========================================================= -->
-
-<div
-    class="overlay"
-    id="settingsOverlay"
-></div>
-
-
-<!-- =========================================================
-     SETTINGS PANEL
-========================================================= -->
-
-<aside
-    class="settings-panel"
-    id="settingsPanel"
->
-
-    <div class="settings-header">
-
-        <h2 data-i18n="settingsTitle">
-            تنظیمات
-        </h2>
-
-
-        <button
-            class="icon-button"
-            id="closeSettings"
-        >
-            ×
-        </button>
-
-    </div>
-
-
-    <!-- =====================================================
-         THEMES
-    ====================================================== -->
-
-    <section class="settings-section">
-
-        <h3 data-i18n="themeTitle">
-            ظاهر
-        </h3>
-
-
-        <div class="theme-grid">
-
-
-            <button
-                class="theme-option"
-                data-theme="navy"
-            >
-
-                <div
-                    class="theme-preview preview-navy"
-                ></div>
-
-                <span data-i18n="themeNavy">
-                    🌌 سرمه‌ای
-                </span>
-
-            </button>
-
-
-            <button
-                class="theme-option"
-                data-theme="black"
-            >
-
-                <div
-                    class="theme-preview preview-black"
-                ></div>
-
-                <span data-i18n="themeBlack">
-                    🖤 مشکی
-                </span>
-
-            </button>
-
-
-            <button
-                class="theme-option"
-                data-theme="ice"
-            >
-
-                <div
-                    class="theme-preview preview-ice"
-                ></div>
-
-                <span data-i18n="themeIce">
-                    🧊 آبی یخی
-                </span>
-
-            </button>
-
-
-            <button
-                class="theme-option"
-                data-theme="custom"
-            >
-
-                <div
-                    class="theme-preview preview-custom"
-                ></div>
-
-                <span data-i18n="themeCustom">
-                    🎨 سفارشی
-                </span>
-
-            </button>
-
-
-        </div>
-
-
-        <!-- =================================================
-             CUSTOMIZER
-        ================================================== -->
-
-        <div
-            class="customizer"
-            id="customizer"
-        >
-
-            <div
-                class="customizer-title"
-                data-i18n="customTitle"
-            >
-                🎨 شخصی‌سازی رنگ‌ها
-            </div>
-
-
-            <div class="color-row">
-
-                <label data-i18n="customBg">
-                    پس‌زمینه
-                </label>
-
-                <input
-                    type="color"
-                    class="color-picker"
-                    id="customBg"
-                    value="#061426"
-                >
-
-            </div>
-
-
-            <div class="color-row">
-
-                <label data-i18n="customSection">
-                    بخش‌ها
-                </label>
-
-                <input
-                    type="color"
-                    class="color-picker"
-                    id="customSection"
-                    value="#081b30"
-                >
-
-            </div>
-
-
-            <div class="color-row">
-
-                <label data-i18n="customCard">
-                    کارت‌ها
-                </label>
-
-                <input
-                    type="color"
-                    class="color-picker"
-                    id="customCard"
-                    value="#0b233d"
-                >
-
-            </div>
-
-
-            <div class="color-row">
-
-                <label data-i18n="customMessage">
-                    پیام‌ها
-                </label>
-
-                <input
-                    type="color"
-                    class="color-picker"
-                    id="customMessage"
-                    value="#102e4a"
-                >
-
-            </div>
-
-
-            <div class="color-row">
-
-                <label data-i18n="customText">
-                    نوشته‌ها
-                </label>
-
-                <input
-                    type="color"
-                    class="color-picker"
-                    id="customText"
-                    value="#f4fbff"
-                >
-
-            </div>
-
-
-            <div class="color-row">
-
-                <label data-i18n="customAccent">
-                    رنگ تأکیدی
-                </label>
-
-                <input
-                    type="color"
-                    class="color-picker"
-                    id="customAccent"
-                    value="#8ee7ff"
-                >
-
-            </div>
-
-
-            <div class="custom-actions">
-
-                <button
-                    class="custom-action"
-                    id="resetCustom"
-                    data-i18n="resetCustom"
-                >
-                    بازنشانی
-                </button>
-
-
-                <button
-                    class="custom-action primary"
-                    id="saveCustom"
-                    data-i18n="saveCustom"
-                >
-                    ذخیره تم
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         LANGUAGE
-    ====================================================== -->
-
-    <section class="settings-section">
-
-        <h3 data-i18n="languageTitle">
-            زبان
-        </h3>
-
-
-        <div class="language-grid">
-
-
-            <button
-                class="language-option"
-                data-language="fa"
-            >
-                🇮🇷 فارسی
-            </button>
-
-
-            <button
-                class="language-option"
-                data-language="en"
-            >
-                🇬🇧 English
-            </button>
-
-
-            <button
-                class="language-option"
-                data-language="ar"
-            >
-                🇸🇦 العربية
-            </button>
-
-
-        </div>
-
-    </section>
+  </div>
 
 </aside>
 
+<main class="main">
+
+  <header class="topbar">
+
+    <button class="icon-button" id="menuBtn">☰</button>
+
+    <div>
+      <div class="chat-title">نووی</div>
+      <div class="chat-status" data-i18n="tagline">همراه دانش‌آموزان</div>
+    </div>
+
+  </header>
+
+  <section class="chat" id="chat">
+
+    <div class="chat-inner">
+
+      <div class="welcome" id="welcome">
+
+        <div class="welcome-icon">N</div>
+
+        <h1 data-i18n="welcomeTitle">
+          سلام! من نووی‌ام 👋
+        </h1>
+
+        <p data-i18n="welcomeText">
+          همراهت برای یادگیری، برنامه‌ریزی و پیدا کردن جواب سؤال‌هات.
+        </p>
+
+      </div>
+
+      <div class="messages" id="messages"></div>
+
+    </div>
+
+  </section>
+
+</main>
+
+</div>
+
+<div class="input-area">
+  <div class="input-inner">
+
+    <div class="input-box">
+
+      <textarea
+        id="messageInput"
+        rows="1"
+        data-i18n-placeholder="placeholder"
+        placeholder="پیامت رو بنویس..."
+      ></textarea>
+
+      <button class="send-button" id="sendBtn">➤</button>
+
+    </div>
+
+    <div class="note" data-i18n="note">
+      نووی ممکن است اشتباه کند؛ اطلاعات مهم را بررسی کن.
+    </div>
+
+  </div>
+</div>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="overlay" id="settingsOverlay"></div>
+<div class="overlay" id="profileOverlay"></div>
+
+<!-- SETTINGS -->
+<aside class="side-panel" id="settingsPanel">
+
+  <div class="panel-header">
+    <h2 data-i18n="settingsTitle">تنظیمات</h2>
+    <button class="icon-button" id="closeSettings">×</button>
+  </div>
+
+  <section class="settings-section">
+
+    <h3 data-i18n="themeTitle">ظاهر</h3>
+
+    <div class="theme-grid">
+
+      <button class="theme-option" data-theme="navy">
+        <div class="theme-preview preview-navy"></div>
+        <span data-i18n="themeNavy">🌌 سرمه‌ای</span>
+      </button>
+
+      <button class="theme-option" data-theme="black">
+        <div class="theme-preview preview-black"></div>
+        <span data-i18n="themeBlack">🖤 مشکی</span>
+      </button>
+
+      <button class="theme-option" data-theme="ice">
+        <div class="theme-preview preview-ice"></div>
+        <span data-i18n="themeIce">🧊 آبی یخی</span>
+      </button>
+
+      <button class="theme-option" data-theme="custom">
+        <div class="theme-preview preview-custom"></div>
+        <span data-i18n="themeCustom">🎨 سفارشی</span>
+      </button>
+
+    </div>
+
+    <div class="customizer" id="customizer">
+
+      <div class="customizer-title" data-i18n="customTitle">
+        🎨 شخصی‌سازی رنگ‌ها
+      </div>
+
+      <div class="color-row">
+        <label data-i18n="customBg">پس‌زمینه</label>
+        <input class="color-picker" type="color" id="customBg">
+      </div>
+
+      <div class="color-row">
+        <label data-i18n="customSection">بخش‌ها</label>
+        <input class="color-picker" type="color" id="customSection">
+      </div>
+
+      <div class="color-row">
+        <label data-i18n="customCard">کارت‌ها</label>
+        <input class="color-picker" type="color" id="customCard">
+      </div>
+
+      <div class="color-row">
+        <label data-i18n="customMessage">پیام‌ها</label>
+        <input class="color-picker" type="color" id="customMessage">
+      </div>
+
+      <div class="color-row">
+        <label data-i18n="customText">نوشته‌ها</label>
+        <input class="color-picker" type="color" id="customText">
+      </div>
+
+      <div class="color-row">
+        <label data-i18n="customAccent">رنگ تأکیدی</label>
+        <input class="color-picker" type="color" id="customAccent">
+      </div>
+
+      <div class="custom-actions">
+        <button class="custom-action" id="resetCustom" data-i18n="resetCustom">
+          بازنشانی
+        </button>
+        <button class="custom-action primary" id="saveCustom" data-i18n="saveCustom">
+          ذخیره تم
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="settings-section">
+
+    <h3 data-i18n="languageTitle">زبان</h3>
+
+    <div class="language-grid">
+
+      <button class="language-option" data-language="fa">🇮🇷 فارسی</button>
+      <button class="language-option" data-language="en">🇬🇧 English</button>
+      <button class="language-option" data-language="ar">🇸🇦 العربية</button>
+
+    </div>
+
+  </section>
+
+</aside>
+
+<!-- PROFILE -->
+<aside class="side-panel" id="profilePanel">
+
+  <div class="panel-header">
+    <h2 data-i18n="profileTitle">پروفایل</h2>
+    <button class="icon-button" id="closeProfile">×</button>
+  </div>
+
+  <div class="profile-card">
+
+    <div class="profile-big-avatar">👤</div>
+
+    <div class="profile-field">
+      <div class="profile-label" data-i18n="nameLabel">نام</div>
+      <div class="profile-value">میوا</div>
+    </div>
+
+    <div class="profile-field">
+      <div class="profile-label" data-i18n="usernameLabel">نام کاربری</div>
+      <div class="profile-value">@miwa</div>
+    </div>
+
+    <div class="profile-field">
+      <div class="profile-label" data-i18n="emailLabel">ایمیل</div>
+      <div class="profile-value">miwa@example.com</div>
+    </div>
+
+  </div>
+
+</aside>
 
 <script>
+/* =========================
+   USER DATA
+========================= */
 
-/* =========================================================
+const user={
+  name:"میوا",
+  username:"@miwa",
+  email:"miwa@example.com"
+};
+
+/* =========================
    TRANSLATIONS
-========================================================= */
-
-const translations = {
-
-    fa: {
-
-        newChat: "گفت‌وگوی جدید",
-        images: "تصاویر",
-        library: "کتابخانه",
-        projects: "پروژه‌ها",
-        code: "کدنویسی",
-        settings: "تنظیمات",
-
-        recent: "گفت‌وگوهای اخیر",
-
-        student: "دانش‌آموز",
-        online: "آنلاین",
-
-        status:
-            "همراه دانش‌آموزان",
-
-        welcomeTitle:
-            "سلام! من نووی‌ام 👋",
-
-        welcomeText:
-            "همراهت برای یادگیری، برنامه‌ریزی و پیدا کردن جواب سؤال‌هات.",
-
-        placeholder:
-            "پیامت رو بنویس...",
-
-        note:
-            "نووی ممکن است اشتباه کند؛ اطلاعات مهم را بررسی کن.",
-
-        settingsTitle:
-            "تنظیمات",
-
-        themeTitle:
-            "ظاهر",
-
-        themeNavy:
-            "🌌 سرمه‌ای",
-
-        themeBlack:
-            "🖤 مشکی",
-
-        themeIce:
-            "🧊 آبی یخی",
-
-        themeCustom:
-            "🎨 سفارشی",
-
-        customTitle:
-            "🎨 شخصی‌سازی رنگ‌ها",
-
-        customBg:
-            "پس‌زمینه",
-
-        customSection:
-            "بخش‌ها",
-
-        customCard:
-            "کارت‌ها",
-
-        customMessage:
-            "پیام‌ها",
-
-        customText:
-            "نوشته‌ها",
-
-        customAccent:
-            "رنگ تأکیدی",
-
-        resetCustom:
-            "بازنشانی",
-
-        saveCustom:
-            "ذخیره تم",
-
-        languageTitle:
-            "زبان",
-
-        toolSoon:
-            "این بخش هنوز فعال نشده! 🚀",
-
-        fakeAnswer:
-            "سلام! من نووی‌ام 🤖\nفعلاً نسخه آزمایشی چت هستم، ولی آماده‌ام کمکت کنم!"
-    },
-
-
-    en: {
-
-        newChat: "New chat",
-        images: "Images",
-        library: "Library",
-        projects: "Projects",
-        code: "Code",
-        settings: "Settings",
-
-        recent: "Recent chats",
-
-        student: "Student",
-        online: "Online",
-
-        status:
-            "Your student companion",
-
-        welcomeTitle:
-            "Hi! I'm Novy 👋",
-
-        welcomeText:
-            "Your companion for learning, planning, and finding answers.",
-
-        placeholder:
-            "Write your message...",
-
-        note:
-            "Novy may make mistakes. Check important information.",
-
-        settingsTitle:
-            "Settings",
-
-        themeTitle:
-            "Appearance",
-
-        themeNavy:
-            "🌌 Navy",
-
-        themeBlack:
-            "🖤 Black",
-
-        themeIce:
-            "🧊 Ice Blue",
-
-        themeCustom:
-            "🎨 Custom",
-
-        customTitle:
-            "🎨 Customize colors",
-
-        customBg:
-            "Background",
-
-        customSection:
-            "Sections",
-
-        customCard:
-            "Cards",
-
-        customMessage:
-            "Messages",
-
-        customText:
-            "Text",
-
-        customAccent:
-            "Accent color",
-
-        resetCustom:
-            "Reset",
-
-        saveCustom:
-            "Save theme",
-
-        languageTitle:
-            "Language",
-
-        toolSoon:
-            "This section isn't available yet! 🚀",
-
-        fakeAnswer:
-            "Hi! I'm Novy 🤖\nI'm currently a test version of the chat, but I'm ready to help!"
-    },
-
-
-    ar: {
-
-        newChat: "محادثة جديدة",
-        images: "الصور",
-        library: "المكتبة",
-        projects: "المشاريع",
-        code: "البرمجة",
-        settings: "الإعدادات",
-
-        recent: "المحادثات الأخيرة",
-
-        student: "الطالب",
-        online: "متصل",
-
-        status:
-            "رفيقك الدراسي",
-
-        welcomeTitle:
-            "مرحباً! أنا نوفي 👋",
-
-        welcomeText:
-            "رفيقك للتعلم والتخطيط والعثور على إجابات أسئلتك.",
-
-        placeholder:
-            "اكتب رسالتك...",
-
-        note:
-            "قد يخطئ نوفي، لذا تحقق من المعلومات المهمة.",
-
-        settingsTitle:
-            "الإعدادات",
-
-        themeTitle:
-            "المظهر",
-
-        themeNavy:
-            "🌌 كحلي",
-
-        themeBlack:
-            "🖤 أسود",
-
-        themeIce:
-            "🧊 أزرق جليدي",
-
-        themeCustom:
-            "🎨 مخصص",
-
-        customTitle:
-            "🎨 تخصيص الألوان",
-
-        customBg:
-            "الخلفية",
-
-        customSection:
-            "الأقسام",
-
-        customCard:
-            "البطاقات",
-
-        customMessage:
-            "الرسائل",
-
-        customText:
-            "النص",
-
-        customAccent:
-            "اللون المميز",
-
-        resetCustom:
-            "إعادة ضبط",
-
-        saveCustom:
-            "حفظ المظهر",
-
-        languageTitle:
-            "اللغة",
-
-        toolSoon:
-            "هذا القسم غير متاح بعد! 🚀",
-
-        fakeAnswer:
-            "مرحباً! أنا نوفي 🤖\nأنا حالياً نسخة تجريبية من المحادثة، لكنني مستعد لمساعدتك!"
-    }
+========================= */
+
+const translations={
+
+fa:{
+ tagline:"همراه دانش‌آموزان",
+ newChat:"گفت‌وگوی جدید",
+ images:"تصاویر",
+ library:"کتابخانه",
+ projects:"پروژه‌ها",
+ code:"کدنویسی",
+ settings:"تنظیمات",
+ recent:"گفت‌وگوهای اخیر",
+ online:"آنلاین",
+ welcomeTitle:"سلام! من نووی‌ام 👋",
+ welcomeText:"همراهت برای یادگیری، برنامه‌ریزی و پیدا کردن جواب سؤال‌هات.",
+ placeholder:"پیامت رو بنویس...",
+ note:"نووی ممکن است اشتباه کند؛ اطلاعات مهم را بررسی کن.",
+ settingsTitle:"تنظیمات",
+ themeTitle:"ظاهر",
+ themeNavy:"🌌 سرمه‌ای",
+ themeBlack:"🖤 مشکی",
+ themeIce:"🧊 آبی یخی",
+ themeCustom:"🎨 سفارشی",
+ customTitle:"🎨 شخصی‌سازی رنگ‌ها",
+ customBg:"پس‌زمینه",
+ customSection:"بخش‌ها",
+ customCard:"کارت‌ها",
+ customMessage:"پیام‌ها",
+ customText:"نوشته‌ها",
+ customAccent:"رنگ تأکیدی",
+ resetCustom:"بازنشانی",
+ saveCustom:"ذخیره تم",
+ languageTitle:"زبان",
+ profileTitle:"پروفایل",
+ nameLabel:"نام",
+ usernameLabel:"نام کاربری",
+ emailLabel:"ایمیل",
+ toolSoon:"این بخش هنوز فعال نشده! 🚀",
+ answer:"سلام! 👋 من نووی‌ام. این نسخه هنوز آزمایشی است، ولی می‌تونم در یادگیری و برنامه‌ریزی کمکت کنم."
+},
+
+en:{
+ tagline:"Your student companion",
+ newChat:"New chat",
+ images:"Images",
+ library:"Library",
+ projects:"Projects",
+ code:"Code",
+ settings:"Settings",
+ recent:"Recent chats",
+ online:"Online",
+ welcomeTitle:"Hi! I'm Novy 👋",
+ welcomeText:"Your companion for learning, planning, and finding answers.",
+ placeholder:"Write your message...",
+ note:"Novy may make mistakes. Check important information.",
+ settingsTitle:"Settings",
+ themeTitle:"Appearance",
+ themeNavy:"🌌 Navy",
+ themeBlack:"🖤 Black",
+ themeIce:"🧊 Ice Blue",
+ themeCustom:"🎨 Custom",
+ customTitle:"🎨 Customize colors",
+ customBg:"Background",
+ customSection:"Sections",
+ customCard:"Cards",
+ customMessage:"Messages",
+ customText:"Text",
+ customAccent:"Accent color",
+ resetCustom:"Reset",
+ saveCustom:"Save theme",
+ languageTitle:"Language",
+ profileTitle:"Profile",
+ nameLabel:"Name",
+ usernameLabel:"Username",
+ emailLabel:"Email",
+ toolSoon:"This section isn't available yet! 🚀",
+ answer:"Hi! 👋 I'm Novy. This is still a test version, but I'm ready to help you learn and plan."
+},
+
+ar:{
+ tagline:"رفيقك الدراسي",
+ newChat:"محادثة جديدة",
+ images:"الصور",
+ library:"المكتبة",
+ projects:"المشاريع",
+ code:"البرمجة",
+ settings:"الإعدادات",
+ recent:"المحادثات الأخيرة",
+ online:"متصل",
+ welcomeTitle:"مرحباً! أنا نوفي 👋",
+ welcomeText:"رفيقك للتعلم والتخطيط والعثور على إجابات أسئلتك.",
+ placeholder:"اكتب رسالتك...",
+ note:"قد يخطئ نوفي، لذا تحقق من المعلومات المهمة.",
+ settingsTitle:"الإعدادات",
+ themeTitle:"المظهر",
+ themeNavy:"🌌 كحلي",
+ themeBlack:"🖤 أسود",
+ themeIce:"🧊 أزرق جليدي",
+ themeCustom:"🎨 مخصص",
+ customTitle:"🎨 تخصيص الألوان",
+ customBg:"الخلفية",
+ customSection:"الأقسام",
+ customCard:"البطاقات",
+ customMessage:"الرسائل",
+ customText:"النص",
+ customAccent:"اللون المميز",
+ resetCustom:"إعادة ضبط",
+ saveCustom:"حفظ المظهر",
+ languageTitle:"اللغة",
+ profileTitle:"الملف الشخصي",
+ nameLabel:"الاسم",
+ usernameLabel:"اسم المستخدم",
+ emailLabel:"البريد الإلكتروني",
+ toolSoon:"هذا القسم غير متاح بعد! 🚀",
+ answer:"مرحباً! 👋 أنا نوفي. هذه نسخة تجريبية حالياً، لكنني مستعد لمساعدتك في التعلم والتخطيط."
+}
 
 };
 
-
-/* =========================================================
+/* =========================
    ELEMENTS
-========================================================= */
+========================= */
 
-const body =
-    document.body;
+const $=id=>document.getElementById(id);
 
-const sidebar =
-    document.getElementById("sidebar");
+const body=document.body;
+const sidebar=$("sidebar");
+const menuBtn=$("menuBtn");
+const mobileOverlay=$("mobileOverlay");
 
-const menuBtn =
-    document.getElementById("menuBtn");
+const settingsBtn=$("settingsBtn");
+const settingsPanel=$("settingsPanel");
+const settingsOverlay=$("settingsOverlay");
+const closeSettings=$("closeSettings");
 
-const mobileOverlay =
-    document.getElementById("mobileOverlay");
+const profileBtn=$("profileBtn");
+const profilePanel=$("profilePanel");
+const profileOverlay=$("profileOverlay");
+const closeProfile=$("closeProfile");
 
+const messages=$("messages");
+const welcome=$("welcome");
+const input=$("messageInput");
+const sendBtn=$("sendBtn");
 
-const settingsBtn =
-    document.getElementById("settingsBtn");
+const customizer=$("customizer");
 
-const settingsPanel =
-    document.getElementById("settingsPanel");
+/* =========================
+   THEME
+========================= */
 
-const settingsOverlay =
-    document.getElementById("settingsOverlay");
-
-const closeSettings =
-    document.getElementById("closeSettings");
-
-
-const messageInput =
-    document.getElementById("messageInput");
-
-const sendBtn =
-    document.getElementById("sendBtn");
-
-const messages =
-    document.getElementById("messages");
-
-const welcome =
-    document.getElementById("welcome");
-
-
-const customizer =
-    document.getElementById("customizer");
-
-
-const customBg =
-    document.getElementById("customBg");
-
-const customSection =
-    document.getElementById("customSection");
-
-const customCard =
-    document.getElementById("customCard");
-
-const customMessage =
-    document.getElementById("customMessage");
-
-const customText =
-    document.getElementById("customText");
-
-const customAccent =
-    document.getElementById("customAccent");
-
-
-const recentChats =
-    document.getElementById("recentChats");
-
-const recentList =
-    document.getElementById("recentList");
-
-
-/* =========================================================
-   DEFAULT CUSTOM THEME
-========================================================= */
-
-const defaultCustom = {
-
-    bg: "#061426",
-
-    section: "#081b30",
-
-    card: "#0b233d",
-
-    message: "#102e4a",
-
-    text: "#f4fbff",
-
-    accent: "#8ee7ff"
-
+const defaultCustom={
+ bg:"#061426",
+ section:"#081b30",
+ card:"#0b233d",
+ message:"#102e4a",
+ text:"#f4fbff",
+ accent:"#8ee7ff"
 };
 
-
-/* =========================================================
-   APPLY THEME
-========================================================= */
-
-function applyTheme(theme) {
-
-    const validThemes = [
-        "navy",
-        "black",
-        "ice",
-        "custom"
-    ];
-
-
-    if (!validThemes.includes(theme)) {
-
-        theme = "navy";
-
-    }
-
-
-    body.classList.remove(
-        "theme-navy",
-        "theme-black",
-        "theme-ice"
-    );
-
-
-    body.style.removeProperty("--bg");
-    body.style.removeProperty("--section");
-    body.style.removeProperty("--card");
-    body.style.removeProperty("--chat");
-    body.style.removeProperty("--message");
-    body.style.removeProperty("--text");
-    body.style.removeProperty("--soft");
-    body.style.removeProperty("--muted");
-    body.style.removeProperty("--accent");
-    body.style.removeProperty("--border");
-    body.style.removeProperty("--border-soft");
-
-
-    if (theme === "custom") {
-
-        body.classList.add(
-            "theme-navy"
-        );
-
-
-        let custom;
-
-        try {
-
-            custom =
-                JSON.parse(
-                    localStorage.getItem(
-                        "novyCustomTheme"
-                    )
-                );
-
-        } catch {
-
-            custom = null;
-
-        }
-
-
-        if (!custom) {
-
-            custom = {
-                ...defaultCustom
-            };
-
-            localStorage.setItem(
-                "novyCustomTheme",
-                JSON.stringify(custom)
-            );
-
-        }
-
-
-        body.style.setProperty(
-            "--bg",
-            custom.bg
-        );
-
-        body.style.setProperty(
-            "--section",
-            custom.section
-        );
-
-        body.style.setProperty(
-            "--card",
-            custom.card
-        );
-
-        body.style.setProperty(
-            "--chat",
-            custom.bg
-        );
-
-        body.style.setProperty(
-            "--message",
-            custom.message
-        );
-
-        body.style.setProperty(
-            "--text",
-            custom.text
-        );
-
-        body.style.setProperty(
-            "--soft",
-            custom.text
-        );
-
-        body.style.setProperty(
-            "--muted",
-            custom.text
-        );
-
-        body.style.setProperty(
-            "--accent",
-            custom.accent
-        );
-
-        body.style.setProperty(
-            "--border",
-            custom.accent
-        );
-
-        body.style.setProperty(
-            "--border-soft",
-            custom.section
-        );
-
-
-        customBg.value =
-            custom.bg;
-
-        customSection.value =
-            custom.section;
-
-        customCard.value =
-            custom.card;
-
-        customMessage.value =
-            custom.message;
-
-        customText.value =
-            custom.text;
-
-        customAccent.value =
-            custom.accent;
-
-
-        customizer.classList.add(
-            "show"
-        );
-
-    }
-
-    else {
-
-        body.classList.add(
-            "theme-" + theme
-        );
-
-        customizer.classList.remove(
-            "show"
-        );
-
-    }
-
-
-    localStorage.setItem(
-        "novyTheme",
-        theme
-    );
-
-
-    updateThemeButtons(
-        theme
-    );
-
+function getCustom(){
+ try{
+   return JSON.parse(localStorage.getItem("novyCustomTheme"))||{...defaultCustom};
+ }catch{
+   return {...defaultCustom};
+ }
 }
 
-
-/* =========================================================
-   THEME BUTTON STATE
-========================================================= */
-
-function updateThemeButtons(theme) {
-
-    document
-        .querySelectorAll(
-            ".theme-option"
-        )
-        .forEach(button => {
-
-            button.classList.toggle(
-                "active",
-                button.dataset.theme === theme
-            );
-
-        });
-
+function applyCustom(c){
+ body.style.setProperty("--bg",c.bg);
+ body.style.setProperty("--section",c.section);
+ body.style.setProperty("--card",c.card);
+ body.style.setProperty("--chat",c.bg);
+ body.style.setProperty("--message",c.message);
+ body.style.setProperty("--text",c.text);
+ body.style.setProperty("--soft",c.text);
+ body.style.setProperty("--muted",c.text);
+ body.style.setProperty("--accent",c.accent);
+ body.style.setProperty("--border",c.accent);
+ body.style.setProperty("--border-soft",c.section);
 }
 
-
-/* =========================================================
-   SAVE CUSTOM THEME
-========================================================= */
-
-function saveCustomTheme() {
-
-    const custom = {
-
-        bg:
-            customBg.value,
-
-        section:
-            customSection.value,
-
-        card:
-            customCard.value,
-
-        message:
-            customMessage.value,
-
-        text:
-            customText.value,
-
-        accent:
-            customAccent.value
-
-    };
-
-
-    localStorage.setItem(
-        "novyCustomTheme",
-        JSON.stringify(custom)
-    );
-
-
-    applyTheme(
-        "custom"
-    );
-
+function clearCustom(){
+ [
+  "--bg","--section","--card","--chat","--message",
+  "--text","--soft","--muted","--accent","--border","--border-soft"
+ ].forEach(v=>body.style.removeProperty(v));
 }
 
-
-/* =========================================================
-   RESET CUSTOM THEME
-========================================================= */
-
-function resetCustomTheme() {
-
-    localStorage.setItem(
-        "novyCustomTheme",
-        JSON.stringify(
-            defaultCustom
-        )
-    );
-
-
-    customBg.value =
-        defaultCustom.bg;
-
-    customSection.value =
-        defaultCustom.section;
-
-    customCard.value =
-        defaultCustom.card;
-
-    customMessage.value =
-        defaultCustom.message;
-
-    customText.value =
-        defaultCustom.text;
-
-    customAccent.value =
-        defaultCustom.accent;
-
-
-    applyTheme(
-        "custom"
-    );
-
+function loadColorInputs(c){
+ $("customBg").value=c.bg;
+ $("customSection").value=c.section;
+ $("customCard").value=c.card;
+ $("customMessage").value=c.message;
+ $("customText").value=c.text;
+ $("customAccent").value=c.accent;
 }
 
+function applyTheme(theme){
+ if(!["navy","black","ice","custom"].includes(theme)) theme="navy";
 
-/* =========================================================
+ body.classList.remove("theme-black","theme-ice");
+ clearCustom();
+
+ if(theme==="black") body.classList.add("theme-black");
+ if(theme==="ice") body.classList.add("theme-ice");
+
+ if(theme==="custom"){
+   const c=getCustom();
+   applyCustom(c);
+   loadColorInputs(c);
+   customizer.classList.add("show");
+ }else{
+   customizer.classList.remove("show");
+ }
+
+ localStorage.setItem("novyTheme",theme);
+
+ document.querySelectorAll(".theme-option").forEach(b=>{
+   b.classList.toggle("active",b.dataset.theme===theme);
+ });
+}
+
+/* =========================
    LANGUAGE
-========================================================= */
+========================= */
 
-function applyLanguage(
-    language
-) {
+function applyLanguage(lang){
+ if(!translations[lang]) lang="fa";
 
-    if (!translations[language]) {
+ const t=translations[lang];
 
-        language = "fa";
+ document.documentElement.lang=lang;
+ document.documentElement.dir=lang==="en"?"ltr":"rtl";
 
-    }
+ document.querySelectorAll("[data-i18n]").forEach(el=>{
+   const key=el.dataset.i18n;
+   if(t[key]) el.textContent=t[key];
+ });
 
+ document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+   const key=el.dataset.i18nPlaceholder;
+   if(t[key]) el.placeholder=t[key];
+ });
 
-    const t =
-        translations[language];
+ document.querySelectorAll(".language-option").forEach(b=>{
+   b.classList.toggle("active",b.dataset.language===lang);
+ });
 
+ localStorage.setItem("novyLanguage",lang);
 
-    document.documentElement.lang =
-        language;
-
-
-    document.documentElement.dir =
-        language === "en"
-            ? "ltr"
-            : "rtl";
-
-
-    document
-        .querySelectorAll(
-            "[data-i18n]"
-        )
-        .forEach(element => {
-
-            const key =
-                element.dataset.i18n;
-
-
-            if (t[key]) {
-
-                element.textContent =
-                    t[key];
-
-            }
-
-        });
-
-
-    document
-        .querySelectorAll(
-            "[data-i18n-placeholder]"
-        )
-        .forEach(element => {
-
-            const key =
-                element.dataset
-                    .i18nPlaceholder;
-
-
-            if (t[key]) {
-
-                element.placeholder =
-                    t[key];
-
-            }
-
-        });
-
-
-    document
-        .querySelectorAll(
-            ".language-option"
-        )
-        .forEach(button => {
-
-            button.classList.toggle(
-                "active",
-                button.dataset.language === language
-            );
-
-        });
-
-
-    localStorage.setItem(
-        "novyLanguage",
-        language
-    );
-
-
-    /*
-       اگر تم سفارشی فعال باشد،
-       بعد از تغییر زبان دوباره موقعیت پنل
-       را درست نگه می‌داریم.
-    */
-
-    const currentTheme =
-        localStorage.getItem(
-            "novyTheme"
-        ) || "navy";
-
-
-    if (currentTheme === "custom") {
-
-        applyTheme(
-            "custom"
-        );
-
-    }
-
+ $("sidebarName").textContent=user.name;
 }
 
+/* =========================
+   PANELS
+========================= */
 
-/* =========================================================
-   OPEN SETTINGS
-========================================================= */
-
-function openSettings() {
-
-    settingsPanel.classList.add(
-        "open"
-    );
-
-    settingsOverlay.classList.add(
-        "show"
-    );
-
+function openSettings(){
+ closeProfilePanel();
+ settingsPanel.classList.add("open");
+ settingsOverlay.classList.add("show");
 }
 
-
-/* =========================================================
-   CLOSE SETTINGS
-========================================================= */
-
-function closeSettingsPanel() {
-
-    settingsPanel.classList.remove(
-        "open"
-    );
-
-    settingsOverlay.classList.remove(
-        "show"
-    );
-
+function closeSettingsPanel(){
+ settingsPanel.classList.remove("open");
+ settingsOverlay.classList.remove("show");
 }
 
+function openProfile(){
+ closeSettingsPanel();
+ profilePanel.classList.add("open");
+ profileOverlay.classList.add("show");
+}
 
-/* =========================================================
-   SETTINGS EVENTS
-========================================================= */
+function closeProfilePanel(){
+ profilePanel.classList.remove("open");
+ profileOverlay.classList.remove("show");
+}
 
-settingsBtn.addEventListener(
-    "click",
-    openSettings
-);
+settingsBtn.onclick=openSettings;
+closeSettings.onclick=closeSettingsPanel;
+settingsOverlay.onclick=closeSettingsPanel;
 
+profileBtn.onclick=openProfile;
+closeProfile.onclick=closeProfilePanel;
+profileOverlay.onclick=closeProfilePanel;
 
-closeSettings.addEventListener(
-    "click",
-    closeSettingsPanel
-);
+/* =========================
+   THEMES
+========================= */
 
-
-settingsOverlay.addEventListener(
-    "click",
-    closeSettingsPanel
-);
-
-
-/* =========================================================
-   THEME EVENTS
-========================================================= */
-
-document
-    .querySelectorAll(
-        ".theme-option"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                applyTheme(
-                    button.dataset.theme
-                );
-
-            }
-        );
-
-    });
-
-
-document
-    .getElementById(
-        "saveCustom"
-    )
-    .addEventListener(
-        "click",
-        saveCustomTheme
-    );
-
-
-document
-    .getElementById(
-        "resetCustom"
-    )
-    .addEventListener(
-        "click",
-        resetCustomTheme
-    );
-
-
-/* =========================================================
-   LIVE CUSTOM COLORS
-========================================================= */
-
-[
-    customBg,
-    customSection,
-    customCard,
-    customMessage,
-    customText,
-    customAccent
-].forEach(input => {
-
-    input.addEventListener(
-        "input",
-        () => {
-
-            if (
-                localStorage.getItem(
-                    "novyTheme"
-                ) !== "custom"
-            ) {
-
-                return;
-
-            }
-
-
-            const custom = {
-
-                bg:
-                    customBg.value,
-
-                section:
-                    customSection.value,
-
-                card:
-                    customCard.value,
-
-                message:
-                    customMessage.value,
-
-                text:
-                    customText.value,
-
-                accent:
-                    customAccent.value
-
-            };
-
-
-            body.style.setProperty(
-                "--bg",
-                custom.bg
-            );
-
-            body.style.setProperty(
-                "--section",
-                custom.section
-            );
-
-            body.style.setProperty(
-                "--card",
-                custom.card
-            );
-
-            body.style.setProperty(
-                "--chat",
-                custom.bg
-            );
-
-            body.style.setProperty(
-                "--message",
-                custom.message
-            );
-
-            body.style.setProperty(
-                "--text",
-                custom.text
-            );
-
-            body.style.setProperty(
-                "--soft",
-                custom.text
-            );
-
-            body.style.setProperty(
-                "--muted",
-                custom.text
-            );
-
-            body.style.setProperty(
-                "--accent",
-                custom.accent
-            );
-
-            body.style.setProperty(
-                "--border",
-                custom.accent
-            );
-
-            body.style.setProperty(
-                "--border-soft",
-                custom.section
-            );
-
-
-            localStorage.setItem(
-                "novyCustomTheme",
-                JSON.stringify(custom)
-            );
-
-        }
-    );
-
+document.querySelectorAll(".theme-option").forEach(button=>{
+ button.onclick=()=>applyTheme(button.dataset.theme);
 });
 
-
-/* =========================================================
-   LANGUAGE EVENTS
-========================================================= */
-
-document
-    .querySelectorAll(
-        ".language-option"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                applyLanguage(
-                    button.dataset.language
-                );
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
-   SIDEBAR / MOBILE
-========================================================= */
-
-menuBtn.addEventListener(
-    "click",
-    () => {
-
-        if (
-            window.innerWidth <= 760
-        ) {
-
-            sidebar.classList.toggle(
-                "mobile-open"
-            );
-
-            mobileOverlay.classList.toggle(
-                "show"
-            );
-
-        }
-
-        else {
-
-            sidebar.classList.toggle(
-                "collapsed"
-            );
-
-        }
-
-    }
-);
-
-
-mobileOverlay.addEventListener(
-    "click",
-    () => {
-
-        sidebar.classList.remove(
-            "mobile-open"
-        );
-
-        mobileOverlay.classList.remove(
-            "show"
-        );
-
-    }
-);
-
-
-/* =========================================================
-   SEND MESSAGE
-========================================================= */
-
-function sendMessage() {
-
-    const text =
-        messageInput.value.trim();
-
-
-    if (!text) {
-
-        return;
-
-    }
-
-
-    welcome.style.display =
-        "none";
-
-
-    const userMessage =
-        document.createElement(
-            "div"
-        );
-
-
-    userMessage.className =
-        "message user";
-
-
-    userMessage.textContent =
-        text;
-
-
-    messages.appendChild(
-        userMessage
-    );
-
-
-    messageInput.value = "";
-
-
-    messageInput.style.height =
-        "42px";
-
-
-    const language =
-        localStorage.getItem(
-            "novyLanguage"
-        ) || "fa";
-
-
-    setTimeout(
-        () => {
-
-            const botMessage =
-                document.createElement(
-                    "div"
-                );
-
-
-            botMessage.className =
-                "message novy";
-
-
-            botMessage.textContent =
-                translations[
-                    language
-                ].fakeAnswer;
-
-
-            messages.appendChild(
-                botMessage
-            );
-
-
-            const chat =
-                document.getElementById(
-                    "chat"
-                );
-
-
-            chat.scrollTo({
-
-                top:
-                    chat.scrollHeight,
-
-                behavior:
-                    "smooth"
-
-            });
-
-        },
-
-        500
-    );
-
+$("saveCustom").onclick=()=>{
+ const c={
+   bg:$("customBg").value,
+   section:$("customSection").value,
+   card:$("customCard").value,
+   message:$("customMessage").value,
+   text:$("customText").value,
+   accent:$("customAccent").value
+ };
+
+ localStorage.setItem("novyCustomTheme",JSON.stringify(c));
+ applyTheme("custom");
+};
+
+$("resetCustom").onclick=()=>{
+ localStorage.setItem("novyCustomTheme",JSON.stringify(defaultCustom));
+ applyTheme("custom");
+};
+
+[
+ "customBg","customSection","customCard",
+ "customMessage","customText","customAccent"
+].forEach(id=>{
+ $(id).oninput=()=>{
+   if(localStorage.getItem("novyTheme")!=="custom") return;
+
+   const c={
+     bg:$("customBg").value,
+     section:$("customSection").value,
+     card:$("customCard").value,
+     message:$("customMessage").value,
+     text:$("customText").value,
+     accent:$("customAccent").value
+   };
+
+   applyCustom(c);
+ };
+});
+
+/* =========================
+   LANGUAGE BUTTONS
+========================= */
+
+document.querySelectorAll(".language-option").forEach(button=>{
+ button.onclick=()=>applyLanguage(button.dataset.language);
+});
+
+/* =========================
+   SIDEBAR
+========================= */
+
+menuBtn.onclick=()=>{
+ if(window.innerWidth<=760){
+   sidebar.classList.toggle("mobile-open");
+   mobileOverlay.classList.toggle("show");
+ }else{
+   sidebar.classList.toggle("collapsed");
+ }
+};
+
+mobileOverlay.onclick=()=>{
+ sidebar.classList.remove("mobile-open");
+ mobileOverlay.classList.remove("show");
+};
+
+/* =========================
+   LANGUAGE DETECTION
+========================= */
+
+function detectLanguage(text){
+ const arabic=(text.match(/[\u0600-\u06FF]/g)||[]).length;
+ const latin=(text.match(/[A-Za-z]/g)||[]).length;
+
+ if(arabic>0){
+   if(/[پچژگ]/.test(text)) return "fa";
+   return "ar";
+ }
+
+ if(latin>0) return "en";
+
+ return localStorage.getItem("novyLanguage")||"fa";
 }
 
+/* =========================
+   CHAT
+========================= */
 
-sendBtn.addEventListener(
-    "click",
-    sendMessage
-);
+function addMessage(text,type){
+ const div=document.createElement("div");
+ div.className="message "+type;
+ div.textContent=text;
+ messages.appendChild(div);
 
+ const chat=$("chat");
+ requestAnimationFrame(()=>{
+   chat.scrollTo({
+     top:chat.scrollHeight,
+     behavior:"smooth"
+   });
+ });
+}
 
-/* =========================================================
-   ENTER TO SEND
-========================================================= */
+function sendMessage(){
 
-messageInput.addEventListener(
-    "keydown",
-    event => {
+ const text=input.value.trim();
+ if(!text) return;
 
-        if (
-            event.key === "Enter" &&
-            !event.shiftKey
-        ) {
+ welcome.style.display="none";
 
-            event.preventDefault();
+ addMessage(text,"user");
 
-            sendMessage();
+ input.value="";
+ input.style.height="42px";
 
-        }
+ const language=detectLanguage(text);
 
-    }
-);
+ setTimeout(()=>{
+   addMessage(
+     translations[language].answer,
+     "novy"
+   );
+ },450);
+}
 
+sendBtn.onclick=sendMessage;
 
-/* =========================================================
-   AUTO RESIZE
-========================================================= */
+input.addEventListener("keydown",e=>{
+ if(e.key==="Enter"&&!e.shiftKey){
+   e.preventDefault();
+   sendMessage();
+ }
+});
 
-messageInput.addEventListener(
-    "input",
-    () => {
+input.addEventListener("input",()=>{
+ input.style.height="auto";
+ input.style.height=Math.min(input.scrollHeight,130)+"px";
+});
 
-        messageInput.style.height =
-            "auto";
-
-
-        messageInput.style.height =
-            Math.min(
-                messageInput.scrollHeight,
-                130
-            ) + "px";
-
-    }
-);
-
-
-/* =========================================================
+/* =========================
    NEW CHAT
-========================================================= */
+========================= */
 
-document
-    .getElementById(
-        "newChatBtn"
-    )
-    .addEventListener(
-        "click",
-        () => {
+$("newChatBtn").onclick=()=>{
+ messages.innerHTML="";
+ welcome.style.display="";
+ input.value="";
+ input.style.height="42px";
 
-            messages.innerHTML =
-                "";
+ if(window.innerWidth<=760){
+   sidebar.classList.remove("mobile-open");
+   mobileOverlay.classList.remove("show");
+ }
+};
 
-            welcome.style.display =
-                "";
+/* =========================
+   OTHER TOOLS
+========================= */
 
+document.querySelectorAll(".tool[data-tool]").forEach(button=>{
+ button.onclick=()=>{
+   const lang=localStorage.getItem("novyLanguage")||"fa";
+   alert(translations[lang].toolSoon);
+ };
+});
 
-            messageInput.value =
-                "";
-
-
-            messageInput.style.height =
-                "42px";
-
-
-            if (
-                window.innerWidth <= 760
-            ) {
-
-                sidebar.classList.remove(
-                    "mobile-open"
-                );
-
-                mobileOverlay.classList.remove(
-                    "show"
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-   PLACEHOLDER TOOLS
-========================================================= */
-
-document
-    .querySelectorAll(
-        ".tool[data-tool]"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const language =
-                    localStorage.getItem(
-                        "novyLanguage"
-                    ) || "fa";
-
-
-                alert(
-                    translations[
-                        language
-                    ].toolSoon
-                );
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
+/* =========================
    INITIAL LOAD
-========================================================= */
+========================= */
 
-/*
-   نکته مهم:
-   تنظیمات هیچ‌وقت هنگام لود باز نمی‌شود.
-*/
+const savedLanguage=
+ localStorage.getItem("novyLanguage")||"fa";
 
-settingsPanel.classList.remove(
-    "open"
-);
+const savedTheme=
+ localStorage.getItem("novyTheme")||"navy";
 
-settingsOverlay.classList.remove(
-    "show"
-);
+applyLanguage(savedLanguage);
+applyTheme(savedTheme);
 
+settingsPanel.classList.remove("open");
+profilePanel.classList.remove("open");
+settingsOverlay.classList.remove("show");
+profileOverlay.classList.remove("show");
 
-const savedTheme =
-    localStorage.getItem(
-        "novyTheme"
-    ) || "navy";
-
-
-const savedLanguage =
-    localStorage.getItem(
-        "novyLanguage"
-    ) || "fa";
-
-
-applyLanguage(
-    savedLanguage
-);
-
-
-applyTheme(
-    savedTheme
-);
-
-
-/*
-   تاریخچه در شروع خالی است.
-*/
-
-recentList.innerHTML =
-    "";
-
-recentChats.classList.remove(
-    "has-items"
-);
+$("sidebarName").textContent=user.name;
 
 </script>
 
