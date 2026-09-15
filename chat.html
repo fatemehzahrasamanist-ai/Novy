@@ -102,8 +102,13 @@
             background: #102e4a;
         }
 
+        /* =========================
+           NEW CHAT
+        ========================= */
+
         .new-chat {
             width: 100%;
+            height: 44px;
             border: 1px solid #1d405d;
             background: #0b233d;
             color: #f4fbff;
@@ -115,11 +120,31 @@
             text-align: right;
             white-space: nowrap;
             overflow: hidden;
+            font-family: inherit;
+
+            display: flex;
+            align-items: center;
         }
 
         .new-chat:hover {
             background: #102e4a;
         }
+
+        .new-chat-icon {
+            width: 24px;
+            min-width: 24px;
+            text-align: center;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .new-chat-text {
+            margin-right: 4px;
+        }
+
+        /* =========================
+           SIDEBAR TOOLS
+        ========================= */
 
         .sidebar-tools {
             display: flex;
@@ -130,6 +155,7 @@
 
         .sidebar-tool {
             width: 100%;
+            height: 42px;
             border: none;
             background: transparent;
             color: #a8c7d9;
@@ -214,14 +240,16 @@
             color: #f4fbff;
         }
 
-        /* COLLAPSED */
+        /* =========================
+           COLLAPSED
+        ========================= */
 
         .sidebar.collapsed .logo span,
-        .sidebar.collapsed .new-chat span,
+        .sidebar.collapsed .new-chat-text,
         .sidebar.collapsed .sidebar-title,
         .sidebar.collapsed .sidebar-tool span:not(.tool-icon),
         .sidebar.collapsed .history-item,
-        .sidebar.collapsed .profile-button span {
+        .sidebar.collapsed .profile-button span:not(.tool-icon) {
             display: none;
         }
 
@@ -236,10 +264,23 @@
         }
 
         .sidebar.collapsed .new-chat {
+            width: 44px;
+            min-width: 44px;
+            height: 44px;
+            padding: 0;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .sidebar.collapsed .new-chat-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 0;
+            width: 100%;
+            min-width: 100%;
+            font-size: 22px;
         }
 
         .sidebar.collapsed .sidebar-tool,
@@ -497,11 +538,11 @@
             }
 
             .sidebar.collapsed .logo span,
-            .sidebar.collapsed .new-chat span,
+            .sidebar.collapsed .new-chat-text,
             .sidebar.collapsed .sidebar-title,
             .sidebar.collapsed .sidebar-tool span:not(.tool-icon),
             .sidebar.collapsed .history-item,
-            .sidebar.collapsed .profile-button span {
+            .sidebar.collapsed .profile-button span:not(.tool-icon) {
                 display: inline;
             }
 
@@ -514,8 +555,19 @@
             }
 
             .sidebar.collapsed .new-chat {
-                display: block;
+                width: 100%;
+                min-width: 0;
+                height: 44px;
                 padding: 12px;
+                margin-left: 0;
+                margin-right: 0;
+                justify-content: flex-start;
+            }
+
+            .sidebar.collapsed .new-chat-icon {
+                width: 24px;
+                min-width: 24px;
+                display: block;
             }
 
             .sidebar.collapsed .sidebar-tool,
@@ -607,11 +659,10 @@
 
         </div>
 
-
         <button class="new-chat" id="newChat">
-            <span>＋ گفتگوی جدید</span>
+            <span class="new-chat-icon">＋</span>
+            <span class="new-chat-text">گفتگوی جدید</span>
         </button>
-
 
         <div class="sidebar-tools">
 
@@ -642,7 +693,6 @@
 
         </div>
 
-
         <div class="sidebar-title">
             گفتگوهای اخیر
         </div>
@@ -655,7 +705,6 @@
 
         </div>
 
-
         <div class="sidebar-bottom">
 
             <a href="profile.html" class="profile-button">
@@ -667,9 +716,7 @@
 
     </aside>
 
-
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
 
     <!-- MAIN -->
     <main class="chat-main">
@@ -689,7 +736,6 @@
             </div>
 
         </header>
-
 
         <section class="messages" id="messages">
 
@@ -714,7 +760,6 @@
             </div>
 
         </section>
-
 
         <div class="input-area">
 
@@ -747,7 +792,6 @@
 
 </div>
 
-
 <script>
 
     const input = document.getElementById("messageInput");
@@ -759,7 +803,6 @@
     const collapseSidebar = document.getElementById("collapseSidebar");
     const mobileMenu = document.getElementById("mobileMenu");
     const sidebarOverlay = document.getElementById("sidebarOverlay");
-
 
     /* =========================
        SIDEBAR
@@ -784,7 +827,6 @@
 
     });
 
-
     mobileMenu.addEventListener("click", function () {
 
         sidebar.classList.add("mobile-open");
@@ -792,14 +834,12 @@
 
     });
 
-
     sidebarOverlay.addEventListener("click", function () {
 
         sidebar.classList.remove("mobile-open");
         sidebarOverlay.classList.remove("active");
 
     });
-
 
     /* =========================
        SEND MESSAGE
@@ -837,7 +877,6 @@
 
         messagesInner.appendChild(userMessage);
 
-
         const novyMessage =
             document.createElement("div");
 
@@ -863,7 +902,6 @@
         scrollToBottom();
     }
 
-
     function escapeHtml(text) {
 
         const div =
@@ -874,7 +912,6 @@
         return div.innerHTML;
     }
 
-
     function scrollToBottom() {
 
         const messages =
@@ -884,12 +921,10 @@
             messages.scrollHeight;
     }
 
-
     sendButton.addEventListener(
         "click",
         sendMessage
     );
-
 
     input.addEventListener(
         "keydown",
@@ -908,7 +943,6 @@
         }
     );
 
-
     input.addEventListener(
         "input",
         function() {
@@ -923,7 +957,6 @@
 
         }
     );
-
 
     /* =========================
        NEW CHAT
@@ -969,7 +1002,6 @@
 
         }
     );
-
 
     /* =========================
        SIDEBAR TOOLS
