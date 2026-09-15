@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>نووی | همراه دانش‌آموزان</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Tahoma, Arial, sans-serif;
+            background: #061426;
+            color: #f4fbff;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .chat-app {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 270px;
+            background: #081b30;
+            border-left: 1px solid #163452;
+            display: flex;
+            flex-direction: column;
+            padding: 18px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 22px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: #102e4a;
+            border: 1px solid #1d405d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8ee7ff;
+            font-weight: bold;
+        }
+
+        .new-chat {
+            width: 100%;
+            border: 1px solid #1d405d;
+            background: #0b233d;
+            color: #f4fbff;
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .new-chat:hover {
+            background: #102e4a;
+        }
+
+        .sidebar-title {
+            color: #91b0c2;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .chat-history {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            padding: 10px 12px;
+            border-radius: 10px;
+            color: #a8c7d9;
+            cursor: pointer;
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-item:hover,
+        .history-item.active {
+            background: #102e4a;
+            color: #f4fbff;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            border-top: 1px solid #163452;
+            padding-top: 14px;
+        }
+
+        .profile-button {
+            display: block;
+            text-decoration: none;
+            color: #a8c7d9;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+        }
+
+        .profile-button:hover {
+            background: #102e4a;
+            color: #f4fbff;
+        }
+
+        /* =========================
+           MAIN CHAT
+        ========================= */
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .chat-header {
+            height: 68px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            border-bottom: 1px solid #163452;
+            background: #061426;
+        }
+
+        .chat-title {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .chat-status {
+            color: #91b0c2;
+            font-size: 11px;
+            margin-right: 10px;
+        }
+
+        /* =========================
+           MESSAGES
+        ========================= */
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 35px 20px 120px;
+        }
+
+        .messages-inner {
+            width: min(850px, 100%);
+            margin: 0 auto;
+        }
+
+        .welcome {
+            min-height: 55vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .welcome-icon {
+            width: 68px;
+            height: 68px;
+            border-radius: 22px;
+            background: #0b233d;
+            border: 1px solid #1d405d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8ee7ff;
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .welcome h1 {
+            margin: 0 0 10px;
+            font-size: 28px;
+        }
+
+        .welcome p {
+            margin: 0;
+            color: #91b0c2;
+            font-size: 14px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 24px;
+            gap: 12px;
+        }
+
+        .message.user {
+            justify-content: flex-start;
+        }
+
+        .message.novy {
+            justify-content: flex-end;
+        }
+
+        .avatar {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .novy-avatar {
+            background: #102e4a;
+            border: 1px solid #1d405d;
+            color: #8ee7ff;
+        }
+
+        .user-avatar {
+            background: #163452;
+            color: #f4fbff;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 15px;
+            border-radius: 15px;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .user .message-content {
+            background: #102e4a;
+            border: 1px solid #1d405d;
+        }
+
+        .novy .message-content {
+            background: #0b233d;
+            border: 1px solid #163452;
+        }
+
+        /* =========================
+           INPUT
+        ========================= */
+
+        .input-area {
+            position: fixed;
+            bottom: 0;
+            right: 270px;
+            left: 0;
+            padding: 18px 20px 22px;
+            background: linear-gradient(
+                to top,
+                #061426 70%,
+                rgba(6, 20, 38, 0)
+            );
+        }
+
+        .input-wrapper {
+            width: min(850px, 100%);
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            background: #0b233d;
+            border: 1px solid #1d405d;
+            border-radius: 18px;
+            padding: 8px;
+        }
+
+        .message-input {
+            flex: 1;
+            min-height: 42px;
+            max-height: 130px;
+            resize: none;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #f4fbff;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .message-input::placeholder {
+            color: #91b0c2;
+        }
+
+        .send-button {
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 13px;
+            background: #8ee7ff;
+            color: #061426;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .send-button:hover {
+            opacity: 0.85;
+        }
+
+        .input-note {
+            text-align: center;
+            color: #5f7f92;
+            font-size: 10px;
+            margin-top: 7px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        .mobile-menu {
+            display: none;
+        }
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .chat-header {
+                padding: 0 16px;
+            }
+
+            .mobile-menu {
+                display: flex;
+                width: 38px;
+                height: 38px;
+                align-items: center;
+                justify-content: center;
+                margin-left: 10px;
+                border-radius: 10px;
+                background: #0b233d;
+                border: 1px solid #1d405d;
+                color: #8ee7ff;
+                cursor: pointer;
+            }
+
+            .input-area {
+                right: 0;
+            }
+
+            .messages {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .message-content {
+                max-width: 82%;
+            }
+
+            .welcome h1 {
+                font-size: 23px;
+            }
+
+            .welcome p {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="chat-app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">N</div>
+            <span>نووی</span>
+        </div>
+
+        <button class="new-chat" id="newChat">
+            ＋ گفتگوی جدید
+        </button>
+
+        <div class="sidebar-title">
+            گفتگوهای اخیر
+        </div>
+
+        <div class="chat-history" id="chatHistory">
+            <div class="history-item active">
+                گفتگوی جدید
+            </div>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="profile.html" class="profile-button">
+                👤 پروفایل
+            </a>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="chat-main">
+
+        <header class="chat-header">
+
+            <button class="mobile-menu" id="mobileMenu">
+                ☰
+            </button>
+
+            <div class="chat-title">
+                نووی
+            </div>
+
+            <div class="chat-status">
+                همراه دانش‌آموزان
+            </div>
+
+        </header>
+
+
+        <!-- MESSAGES -->
+        <section class="messages" id="messages">
+
+            <div class="messages-inner" id="messagesInner">
+
+                <div class="welcome" id="welcome">
+
+                    <div class="welcome-icon">
+                        N
+                    </div>
+
+                    <h1>
+                        سلام! من نووی‌ام 👋
+                    </h1>
+
+                    <p>
+                        هر چیزی درباره درس، برنامه‌ریزی یا یادگیری خواستی بپرس.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INPUT -->
+        <div class="input-area">
+
+            <div class="input-wrapper">
+
+                <textarea
+                    id="messageInput"
+                    class="message-input"
+                    placeholder="پیامت رو برای نووی بنویس..."
+                    rows="1"
+                ></textarea>
+
+                <button
+                    id="sendButton"
+                    class="send-button"
+                    aria-label="ارسال پیام"
+                >
+                    ➤
+                </button>
+
+            </div>
+
+            <div class="input-note">
+                نووی ممکن است اشتباه کند؛ اطلاعات مهم را بررسی کن.
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    const input = document.getElementById("messageInput");
+    const sendButton = document.getElementById("sendButton");
+    const messagesInner = document.getElementById("messagesInner");
+    const welcome = document.getElementById("welcome");
+    const newChat = document.getElementById("newChat");
+
+
+    function sendMessage() {
+
+        const text = input.value.trim();
+
+        if (text === "") {
+            return;
+        }
+
+        if (welcome) {
+            welcome.remove();
+        }
+
+        const userMessage = document.createElement("div");
+
+        userMessage.className = "message user";
+
+        userMessage.innerHTML = `
+            <div class="avatar user-avatar">
+                تو
+            </div>
+
+            <div class="message-content">
+                ${escapeHtml(text)}
+            </div>
+        `;
+
+        messagesInner.appendChild(userMessage);
+
+
+        const novyMessage = document.createElement("div");
+
+        novyMessage.className = "message novy";
+
+        novyMessage.innerHTML = `
+            <div class="message-content">
+                سلام! 👋 فعلاً این بخشِ گفت‌وگوی نووی آزمایشی است.
+                <br>
+                به‌زودی مغز واقعی نووی هم بهش وصل می‌شه 🧠
+            </div>
+
+            <div class="avatar novy-avatar">
+                N
+            </div>
+        `;
+
+        messagesInner.appendChild(novyMessage);
+
+        input.value = "";
+        input.style.height = "42px";
+
+        scrollToBottom();
+    }
+
+
+    function escapeHtml(text) {
+
+        const div = document.createElement("div");
+
+        div.textContent = text;
+
+        return div.innerHTML;
+    }
+
+
+    function scrollToBottom() {
+
+        const messages = document.getElementById("messages");
+
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+
+    sendButton.addEventListener("click", sendMessage);
+
+
+    input.addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter" && !event.shiftKey) {
+
+            event.preventDefault();
+
+            sendMessage();
+        }
+
+    });
+
+
+    input.addEventListener("input", function() {
+
+        this.style.height = "42px";
+
+        this.style.height =
+            Math.min(this.scrollHeight, 130) + "px";
+
+    });
+
+
+    newChat.addEventListener("click", function() {
+
+        messagesInner.innerHTML = `
+            <div class="welcome" id="welcome">
+
+                <div class="welcome-icon">
+                    N
+                </div>
+
+                <h1>
+                    سلام! من نووی‌ام 👋
+                </h1>
+
+                <p>
+                    هر چیزی درباره درس، برنامه‌ریزی یا یادگیری خواستی بپرس.
+                </p>
+
+            </div>
+        `;
+
+        input.value = "";
+        input.focus();
+
+    });
+
+</script>
+
+</body>
+</html>
