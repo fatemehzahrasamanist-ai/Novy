@@ -375,3 +375,49 @@ if (
     applyLanguage("fa");
 
 }
+
+} else {
+
+    applyLanguage("fa");
+
+}
+
+
+// ==================== Login Panel ====================
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const loginPanel =
+    document.getElementById("loginPanel");
+
+const closeLogin =
+    document.getElementById("closeLogin");
+
+
+if (loginButton && loginPanel) {
+
+    loginButton.addEventListener(
+        "click",
+        function () {
+
+            loginPanel.style.display = "flex";
+
+        }
+    );
+
+}
+
+
+if (closeLogin && loginPanel) {
+
+    closeLogin.addEventListener(
+        "click",
+        function () {
+
+            loginPanel.style.display = "none";
+
+        }
+    );
+
+}
