@@ -11,14 +11,102 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-main: #061426;
+            --bg-section: #081b30;
+            --bg-card: #0b233d;
+            --bg-message: #102e4a;
+            --text-main: #f4fbff;
+            --text-soft: #a8c7d9;
+            --text-muted: #91b0c2;
+            --accent: #8ee7ff;
+            --border: #1d405d;
+            --border-soft: #163452;
+            --input-bg: #0b233d;
+            --overlay: rgba(0, 0, 0, 0.48);
+        }
+
+        /* =========================
+           THEMES
+        ========================= */
+
+        body.theme-navy {
+            --bg-main: #061426;
+            --bg-section: #081b30;
+            --bg-card: #0b233d;
+            --bg-message: #102e4a;
+            --text-main: #f4fbff;
+            --text-soft: #a8c7d9;
+            --text-muted: #91b0c2;
+            --accent: #8ee7ff;
+            --border: #1d405d;
+            --border-soft: #163452;
+            --input-bg: #0b233d;
+        }
+
+        body.theme-black {
+            --bg-main: #050505;
+            --bg-section: #0b0b0b;
+            --bg-card: #141414;
+            --bg-message: #202020;
+            --text-main: #f5f5f5;
+            --text-soft: #bdbdbd;
+            --text-muted: #8f8f8f;
+            --accent: #ffffff;
+            --border: #303030;
+            --border-soft: #242424;
+            --input-bg: #141414;
+        }
+
+        body.theme-ice {
+            --bg-main: #071923;
+            --bg-section: #0b2634;
+            --bg-card: #10384a;
+            --bg-message: #174b61;
+            --text-main: #f2fcff;
+            --text-soft: #b9e4f2;
+            --text-muted: #8fc2d5;
+            --accent: #a8f0ff;
+            --border: #31718a;
+            --border-soft: #24566b;
+            --input-bg: #10384a;
+        }
+
+        body.theme-custom {
+            --bg-main: #17101f;
+            --bg-section: #21162c;
+            --bg-card: #30203e;
+            --bg-message: #432b55;
+            --text-main: #fff8ff;
+            --text-soft: #ddc9e6;
+            --text-muted: #b59bc2;
+            --accent: #e6a8ff;
+            --border: #68467a;
+            --border-soft: #503562;
+            --input-bg: #30203e;
+        }
+
         body {
             margin: 0;
             font-family: Tahoma, Arial, sans-serif;
-            background: #061426;
-            color: #f4fbff;
+            background: var(--bg-main);
+            color: var(--text-main);
             height: 100vh;
             overflow: hidden;
+
+            transition:
+                background 0.25s ease,
+                color 0.25s ease;
         }
+
+        button,
+        textarea {
+            font-family: inherit;
+        }
+
+        /* =========================
+           CHAT APP
+        ========================= */
 
         .chat-app {
             display: flex;
@@ -32,15 +120,20 @@
         .sidebar {
             width: 270px;
             min-width: 270px;
-            background: #081b30;
-            border-left: 1px solid #163452;
+            background: var(--bg-section);
+            border-left: 1px solid var(--border-soft);
+
             display: flex;
             flex-direction: column;
+
             padding: 18px 14px;
+
             transition:
                 width 0.25s ease,
                 min-width 0.25s ease,
-                padding 0.25s ease;
+                padding 0.25s ease,
+                background 0.25s ease;
+
             position: relative;
             z-index: 20;
         }
@@ -63,8 +156,10 @@
             display: flex;
             align-items: center;
             gap: 10px;
+
             font-size: 21px;
             font-weight: bold;
+
             white-space: nowrap;
             overflow: hidden;
         }
@@ -73,13 +168,17 @@
             width: 38px;
             height: 38px;
             min-width: 38px;
+
             border-radius: 12px;
-            background: #102e4a;
-            border: 1px solid #1d405d;
+
+            background: var(--bg-message);
+            border: 1px solid var(--border);
+
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #8ee7ff;
+
+            color: var(--accent);
             font-weight: bold;
         }
 
@@ -87,19 +186,23 @@
             width: 34px;
             height: 34px;
             min-width: 34px;
-            border: 1px solid #1d405d;
+
+            border: 1px solid var(--border);
             border-radius: 10px;
-            background: #0b233d;
-            color: #8ee7ff;
+
+            background: var(--bg-card);
+            color: var(--accent);
+
             cursor: pointer;
             font-size: 16px;
+
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .collapse-button:hover {
-            background: #102e4a;
+            background: var(--bg-message);
         }
 
         /* =========================
@@ -109,30 +212,35 @@
         .new-chat {
             width: 100%;
             height: 44px;
-            border: 1px solid #1d405d;
-            background: #0b233d;
-            color: #f4fbff;
+
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-main);
+
             border-radius: 12px;
             padding: 12px;
+
             cursor: pointer;
             font-size: 14px;
+
             margin-bottom: 18px;
+
             text-align: right;
             white-space: nowrap;
             overflow: hidden;
-            font-family: inherit;
 
             display: flex;
             align-items: center;
         }
 
         .new-chat:hover {
-            background: #102e4a;
+            background: var(--bg-message);
         }
 
         .new-chat-icon {
             width: 24px;
             min-width: 24px;
+
             text-align: center;
             font-size: 20px;
             line-height: 1;
@@ -156,38 +264,47 @@
         .sidebar-tool {
             width: 100%;
             height: 42px;
+
             border: none;
             background: transparent;
-            color: #a8c7d9;
+
+            color: var(--text-soft);
+
             padding: 10px;
             border-radius: 10px;
+
             cursor: pointer;
-            font-family: inherit;
+
             font-size: 13px;
             text-align: right;
+
             display: flex;
             align-items: center;
             gap: 11px;
+
             white-space: nowrap;
             overflow: hidden;
         }
 
         .sidebar-tool:hover {
-            background: #102e4a;
-            color: #f4fbff;
+            background: var(--bg-message);
+            color: var(--text-main);
         }
 
         .tool-icon {
             width: 24px;
             min-width: 24px;
+
             text-align: center;
             font-size: 16px;
         }
 
         .sidebar-title {
-            color: #91b0c2;
+            color: var(--text-muted);
             font-size: 12px;
+
             margin: 0 8px 8px;
+
             white-space: nowrap;
             overflow: hidden;
         }
@@ -196,15 +313,20 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+
             overflow-y: auto;
         }
 
         .history-item {
             padding: 10px 12px;
+
             border-radius: 10px;
-            color: #a8c7d9;
+
+            color: var(--text-soft);
+
             cursor: pointer;
             font-size: 13px;
+
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -212,13 +334,14 @@
 
         .history-item:hover,
         .history-item.active {
-            background: #102e4a;
-            color: #f4fbff;
+            background: var(--bg-message);
+            color: var(--text-main);
         }
 
         .sidebar-bottom {
             margin-top: auto;
-            border-top: 1px solid #163452;
+
+            border-top: 1px solid var(--border-soft);
             padding-top: 12px;
         }
 
@@ -226,18 +349,23 @@
             display: flex;
             align-items: center;
             gap: 11px;
+
             text-decoration: none;
-            color: #a8c7d9;
+
+            color: var(--text-soft);
+
             padding: 10px;
             border-radius: 10px;
+
             font-size: 13px;
+
             white-space: nowrap;
             overflow: hidden;
         }
 
         .profile-button:hover {
-            background: #102e4a;
-            color: #f4fbff;
+            background: var(--bg-message);
+            color: var(--text-main);
         }
 
         /* =========================
@@ -267,25 +395,32 @@
             width: 44px;
             min-width: 44px;
             height: 44px;
+
             padding: 0;
+
             margin-left: auto;
             margin-right: auto;
+
             justify-content: center;
             text-align: center;
         }
 
         .sidebar.collapsed .new-chat-icon {
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             width: 100%;
             min-width: 100%;
+
             font-size: 22px;
         }
 
         .sidebar.collapsed .sidebar-tool,
         .sidebar.collapsed .profile-button {
             justify-content: center;
+
             padding-left: 0;
             padding-right: 0;
         }
@@ -296,18 +431,23 @@
 
         .chat-main {
             flex: 1;
+
             display: flex;
             flex-direction: column;
+
             min-width: 0;
         }
 
         .chat-header {
             height: 68px;
+
             display: flex;
             align-items: center;
+
             padding: 0 24px;
-            border-bottom: 1px solid #163452;
-            background: #061426;
+
+            border-bottom: 1px solid var(--border-soft);
+            background: var(--bg-main);
         }
 
         .chat-title {
@@ -316,9 +456,14 @@
         }
 
         .chat-status {
-            color: #91b0c2;
+            color: var(--text-muted);
             font-size: 11px;
             margin-right: 10px;
+        }
+
+        html[dir="ltr"] .chat-status {
+            margin-right: 0;
+            margin-left: 10px;
         }
 
         /* =========================
@@ -327,7 +472,9 @@
 
         .messages {
             flex: 1;
+
             overflow-y: auto;
+
             padding: 35px 20px 120px;
         }
 
@@ -338,25 +485,34 @@
 
         .welcome {
             min-height: 55vh;
+
             display: flex;
             flex-direction: column;
+
             align-items: center;
             justify-content: center;
+
             text-align: center;
         }
 
         .welcome-icon {
             width: 68px;
             height: 68px;
+
             border-radius: 22px;
-            background: #0b233d;
-            border: 1px solid #1d405d;
+
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #8ee7ff;
+
+            color: var(--accent);
+
             font-size: 25px;
             font-weight: bold;
+
             margin-bottom: 18px;
         }
 
@@ -367,7 +523,8 @@
 
         .welcome p {
             margin: 0;
-            color: #91b0c2;
+
+            color: var(--text-muted);
             font-size: 14px;
         }
 
@@ -389,41 +546,47 @@
             width: 34px;
             height: 34px;
             min-width: 34px;
+
             border-radius: 11px;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             font-size: 12px;
             font-weight: bold;
         }
 
         .novy-avatar {
-            background: #102e4a;
-            border: 1px solid #1d405d;
-            color: #8ee7ff;
+            background: var(--bg-message);
+            border: 1px solid var(--border);
+            color: var(--accent);
         }
 
         .user-avatar {
-            background: #163452;
-            color: #f4fbff;
+            background: var(--border-soft);
+            color: var(--text-main);
         }
 
         .message-content {
             max-width: 70%;
+
             padding: 12px 15px;
+
             border-radius: 15px;
+
             line-height: 1.8;
             font-size: 14px;
         }
 
         .user .message-content {
-            background: #102e4a;
-            border: 1px solid #1d405d;
+            background: var(--bg-message);
+            border: 1px solid var(--border);
         }
 
         .novy .message-content {
-            background: #0b233d;
-            border: 1px solid #163452;
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
         }
 
         /* =========================
@@ -432,60 +595,88 @@
 
         .input-area {
             position: fixed;
+
             bottom: 0;
             right: 270px;
             left: 0;
+
             padding: 18px 20px 22px;
+
             background: linear-gradient(
                 to top,
-                #061426 70%,
-                rgba(6, 20, 38, 0)
+                var(--bg-main) 70%,
+                transparent
             );
+
             transition: right 0.25s ease;
+        }
+
+        html[dir="ltr"] .input-area {
+            right: 0;
+            left: 270px;
         }
 
         body.sidebar-collapsed .input-area {
             right: 76px;
         }
 
+        html[dir="ltr"] body.sidebar-collapsed .input-area {
+            right: 0;
+            left: 76px;
+        }
+
         .input-wrapper {
             width: min(850px, 100%);
             margin: 0 auto;
+
             display: flex;
             align-items: flex-end;
+
             gap: 8px;
-            background: #0b233d;
-            border: 1px solid #1d405d;
+
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+
             border-radius: 18px;
+
             padding: 8px;
         }
 
         .message-input {
             flex: 1;
+
             min-height: 42px;
             max-height: 130px;
+
             resize: none;
+
             border: none;
             outline: none;
+
             background: transparent;
-            color: #f4fbff;
+            color: var(--text-main);
+
             padding: 10px;
-            font-family: inherit;
+
             font-size: 14px;
         }
 
         .message-input::placeholder {
-            color: #91b0c2;
+            color: var(--text-muted);
         }
 
         .send-button {
             width: 42px;
             height: 42px;
+
             border: none;
             border-radius: 13px;
-            background: #8ee7ff;
-            color: #061426;
+
+            background: var(--accent);
+            color: var(--bg-main);
+
             font-size: 18px;
+
             cursor: pointer;
             font-weight: bold;
         }
@@ -496,8 +687,11 @@
 
         .input-note {
             text-align: center;
-            color: #5f7f92;
+
+            color: var(--text-muted);
+
             font-size: 10px;
+
             margin-top: 7px;
         }
 
@@ -508,11 +702,16 @@
         .settings-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.48);
+
+            background: var(--overlay);
+
             display: none;
+
             align-items: center;
             justify-content: center;
+
             z-index: 100;
+
             padding: 20px;
         }
 
@@ -521,13 +720,19 @@
         }
 
         .settings-panel {
-            width: min(430px, 100%);
+            width: min(470px, 100%);
             max-height: 85vh;
+
             overflow-y: auto;
-            background: #081b30;
-            border: 1px solid #1d405d;
+
+            background: var(--bg-section);
+
+            border: 1px solid var(--border);
+
             border-radius: 22px;
+
             padding: 24px;
+
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
         }
 
@@ -535,6 +740,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             margin-bottom: 24px;
         }
 
@@ -546,23 +752,30 @@
         .close-settings {
             width: 34px;
             height: 34px;
-            border: 1px solid #1d405d;
+
+            border: 1px solid var(--border);
+
             border-radius: 10px;
-            background: #0b233d;
-            color: #8ee7ff;
+
+            background: var(--bg-card);
+
+            color: var(--accent);
+
             cursor: pointer;
+
             font-size: 22px;
+
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .close-settings:hover {
-            background: #102e4a;
+            background: var(--bg-message);
         }
 
         .settings-section {
-            margin-bottom: 24px;
+            margin-bottom: 25px;
         }
 
         .settings-section:last-child {
@@ -571,18 +784,142 @@
 
         .settings-section h3 {
             margin: 0 0 12px;
-            color: #a8c7d9;
+
+            color: var(--text-soft);
+
             font-size: 14px;
         }
 
-        .settings-placeholder {
-            padding: 16px;
-            border: 1px solid #163452;
+        /* =========================
+           THEME OPTIONS
+        ========================= */
+
+        .theme-options {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 10px;
+        }
+
+        .theme-option {
+            border: 1px solid var(--border-soft);
+
+            background: var(--bg-card);
+
+            color: var(--text-main);
+
             border-radius: 14px;
-            background: #0b233d;
-            color: #91b0c2;
+
+            padding: 12px;
+
+            cursor: pointer;
+
+            text-align: right;
+
             font-size: 13px;
-            line-height: 1.8;
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .theme-option:hover {
+            transform: translateY(-1px);
+            border-color: var(--accent);
+        }
+
+        .theme-option.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        .theme-preview {
+            height: 42px;
+
+            border-radius: 9px;
+
+            margin-bottom: 9px;
+
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .theme-preview.navy {
+            background: linear-gradient(
+                135deg,
+                #061426,
+                #0b233d,
+                #8ee7ff
+            );
+        }
+
+        .theme-preview.black {
+            background: linear-gradient(
+                135deg,
+                #050505,
+                #141414,
+                #ffffff
+            );
+        }
+
+        .theme-preview.ice {
+            background: linear-gradient(
+                135deg,
+                #071923,
+                #10384a,
+                #a8f0ff
+            );
+        }
+
+        .theme-preview.custom {
+            background: linear-gradient(
+                135deg,
+                #17101f,
+                #30203e,
+                #e6a8ff
+            );
+        }
+
+        /* =========================
+           LANGUAGE OPTIONS
+        ========================= */
+
+        .language-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .language-option {
+            width: 100%;
+
+            border: 1px solid var(--border-soft);
+
+            background: var(--bg-card);
+
+            color: var(--text-main);
+
+            border-radius: 12px;
+
+            padding: 12px 14px;
+
+            cursor: pointer;
+
+            text-align: right;
+
+            font-size: 13px;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .language-option:hover {
+            background: var(--bg-message);
+        }
+
+        .language-option.active {
+            border-color: var(--accent);
         }
 
         /* =========================
@@ -601,14 +938,26 @@
 
             .sidebar {
                 position: fixed;
+
                 top: 0;
                 right: 0;
+
                 height: 100vh;
+
                 width: 270px;
                 min-width: 270px;
+
                 transform: translateX(100%);
+
                 transition: transform 0.25s ease;
+
                 box-shadow: -15px 0 40px rgba(0, 0, 0, 0.35);
+            }
+
+            html[dir="ltr"] .sidebar {
+                right: auto;
+                left: 0;
+                transform: translateX(-100%);
             }
 
             .sidebar.mobile-open {
@@ -618,6 +967,7 @@
             .sidebar.collapsed {
                 width: 270px;
                 min-width: 270px;
+
                 padding: 18px 14px;
             }
 
@@ -641,45 +991,66 @@
             .sidebar.collapsed .new-chat {
                 width: 100%;
                 min-width: 0;
+
                 height: 44px;
+
                 padding: 12px;
+
                 margin-left: 0;
                 margin-right: 0;
+
                 justify-content: flex-start;
             }
 
             .sidebar.collapsed .new-chat-icon {
                 width: 24px;
                 min-width: 24px;
+
                 display: block;
             }
 
             .sidebar.collapsed .sidebar-tool,
             .sidebar.collapsed .profile-button {
                 justify-content: flex-start;
+
                 padding-left: 10px;
                 padding-right: 10px;
             }
 
             .mobile-menu {
                 display: flex;
+
                 width: 38px;
                 height: 38px;
+
                 align-items: center;
                 justify-content: center;
+
                 margin-left: 10px;
+
                 border-radius: 10px;
-                background: #0b233d;
-                border: 1px solid #1d405d;
-                color: #8ee7ff;
+
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+
+                color: var(--accent);
+
                 cursor: pointer;
+
                 font-size: 18px;
+            }
+
+            html[dir="ltr"] .mobile-menu {
+                margin-left: 0;
+                margin-right: 10px;
             }
 
             .sidebar-overlay {
                 position: fixed;
                 inset: 0;
+
                 background: rgba(0, 0, 0, 0.45);
+
                 z-index: 10;
             }
 
@@ -687,12 +1058,12 @@
                 display: block;
             }
 
-            .input-area {
+            .input-area,
+            html[dir="ltr"] .input-area,
+            body.sidebar-collapsed .input-area,
+            html[dir="ltr"] body.sidebar-collapsed .input-area {
                 right: 0;
-            }
-
-            body.sidebar-collapsed .input-area {
-                right: 0;
+                left: 0;
             }
 
             .chat-header {
@@ -720,11 +1091,15 @@
                 padding: 20px;
                 border-radius: 20px;
             }
+
+            .theme-options {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     </style>
 </head>
 
-<body>
+<body class="theme-navy">
 
 <div class="chat-app">
 
@@ -735,13 +1110,14 @@
 
             <div class="logo">
                 <div class="logo-icon">N</div>
-                <span>نووی</span>
+                <span data-i18n="novy">نووی</span>
             </div>
 
             <button
                 class="collapse-button"
                 id="collapseSidebar"
                 aria-label="باز و بسته کردن نوار کناری"
+                data-i18n-aria="sidebarToggle"
             >
                 ☰
             </button>
@@ -750,45 +1126,50 @@
 
         <button class="new-chat" id="newChat">
             <span class="new-chat-icon">＋</span>
-            <span class="new-chat-text">گفتگوی جدید</span>
+            <span class="new-chat-text" data-i18n="newChat">
+                گفتگوی جدید
+            </span>
         </button>
 
         <div class="sidebar-tools">
 
             <button class="sidebar-tool">
                 <span class="tool-icon">🖼️</span>
-                <span>تصاویر</span>
+                <span data-i18n="images">تصاویر</span>
             </button>
 
             <button class="sidebar-tool">
                 <span class="tool-icon">📚</span>
-                <span>کتابخانه</span>
+                <span data-i18n="library">کتابخانه</span>
             </button>
 
             <button class="sidebar-tool">
                 <span class="tool-icon">📁</span>
-                <span>پروژه‌ها</span>
+                <span data-i18n="projects">پروژه‌ها</span>
             </button>
 
             <button class="sidebar-tool">
                 <span class="tool-icon">&lt;/&gt;</span>
-                <span>کدها</span>
+                <span data-i18n="code">کدها</span>
             </button>
 
-            <button class="sidebar-tool">
+            <button class="sidebar-tool" id="settingsButton">
                 <span class="tool-icon">⚙️</span>
-                <span>تنظیمات</span>
+                <span data-i18n="settings">تنظیمات</span>
             </button>
 
         </div>
 
-        <div class="sidebar-title">
+        <div class="sidebar-title" data-i18n="recentChats">
             گفتگوهای اخیر
         </div>
 
         <div class="chat-history" id="chatHistory">
 
-            <div class="history-item active">
+            <div
+                class="history-item active"
+                data-i18n="newChat"
+            >
                 گفتگوی جدید
             </div>
 
@@ -798,7 +1179,7 @@
 
             <a href="profile.html" class="profile-button">
                 <span class="tool-icon">👤</span>
-                <span>پروفایل</span>
+                <span data-i18n="profile">پروفایل</span>
             </a>
 
         </div>
@@ -816,11 +1197,11 @@
                 ☰
             </button>
 
-            <div class="chat-title">
+            <div class="chat-title" data-i18n="novy">
                 نووی
             </div>
 
-            <div class="chat-status">
+            <div class="chat-status" data-i18n="tagline">
                 همراه دانش‌آموزان
             </div>
 
@@ -836,11 +1217,11 @@
                         N
                     </div>
 
-                    <h1>
+                    <h1 data-i18n="welcomeTitle">
                         سلام! من نووی‌ام 👋
                     </h1>
 
-                    <p>
+                    <p data-i18n="welcomeDescription">
                         هر چیزی درباره درس، برنامه‌ریزی یا یادگیری خواستی بپرس.
                     </p>
 
@@ -858,6 +1239,7 @@
                     id="messageInput"
                     class="message-input"
                     placeholder="پیامت رو برای نووی بنویس..."
+                    data-i18n-placeholder="messagePlaceholder"
                     rows="1"
                 ></textarea>
 
@@ -865,13 +1247,14 @@
                     id="sendButton"
                     class="send-button"
                     aria-label="ارسال پیام"
+                    data-i18n-aria="sendMessage"
                 >
                     ➤
                 </button>
 
             </div>
 
-            <div class="input-note">
+            <div class="input-note" data-i18n="inputNote">
                 نووی ممکن است اشتباه کند؛ اطلاعات مهم را بررسی کن.
             </div>
 
@@ -891,7 +1274,7 @@
 
         <div class="settings-header">
 
-            <h2>
+            <h2 data-i18n="settingsTitle">
                 ⚙️ تنظیمات
             </h2>
 
@@ -899,32 +1282,98 @@
                 class="close-settings"
                 id="closeSettings"
                 aria-label="بستن تنظیمات"
+                data-i18n-aria="closeSettings"
             >
                 ×
             </button>
 
         </div>
 
+        <!-- APPEARANCE -->
+
         <div class="settings-section">
 
-            <h3>
+            <h3 data-i18n="appearance">
                 ظاهر
             </h3>
 
-            <div class="settings-placeholder">
-                تنظیمات ظاهر نووی به‌زودی اینجا قرار می‌گیره 🎨
+            <div class="theme-options">
+
+                <button
+                    class="theme-option"
+                    data-theme="black"
+                >
+                    <div class="theme-preview black"></div>
+                    <span data-i18n="themeBlack">
+                        🖤 مشکی
+                    </span>
+                </button>
+
+                <button
+                    class="theme-option"
+                    data-theme="navy"
+                >
+                    <div class="theme-preview navy"></div>
+                    <span data-i18n="themeNavy">
+                        🌌 سرمه‌ای
+                    </span>
+                </button>
+
+                <button
+                    class="theme-option"
+                    data-theme="ice"
+                >
+                    <div class="theme-preview ice"></div>
+                    <span data-i18n="themeIce">
+                        🧊 آبی یخی
+                    </span>
+                </button>
+
+                <button
+                    class="theme-option"
+                    data-theme="custom"
+                >
+                    <div class="theme-preview custom"></div>
+                    <span data-i18n="themeCustom">
+                        🎨 سفارشی
+                    </span>
+                </button>
+
             </div>
 
         </div>
 
+        <!-- LANGUAGE -->
+
         <div class="settings-section">
 
-            <h3>
+            <h3 data-i18n="language">
                 زبان
             </h3>
 
-            <div class="settings-placeholder">
-                تنظیمات زبان نووی به‌زودی اینجا قرار می‌گیره 🌐
+            <div class="language-options">
+
+                <button
+                    class="language-option"
+                    data-language="fa"
+                >
+                    🇮🇷 فارسی
+                </button>
+
+                <button
+                    class="language-option"
+                    data-language="en"
+                >
+                    🇬🇧 English
+                </button>
+
+                <button
+                    class="language-option"
+                    data-language="ar"
+                >
+                    🇸🇦 العربية
+                </button>
+
             </div>
 
         </div>
@@ -935,52 +1384,496 @@
 
 <script>
 
-    const input = document.getElementById("messageInput");
-    const sendButton = document.getElementById("sendButton");
-    const messagesInner = document.getElementById("messagesInner");
-    const newChat = document.getElementById("newChat");
+    /* =========================
+       BASIC ELEMENTS
+    ========================= */
 
-    const sidebar = document.getElementById("sidebar");
-    const collapseSidebar = document.getElementById("collapseSidebar");
-    const mobileMenu = document.getElementById("mobileMenu");
-    const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const input =
+        document.getElementById("messageInput");
+
+    const sendButton =
+        document.getElementById("sendButton");
+
+    const messagesInner =
+        document.getElementById("messagesInner");
+
+    const newChat =
+        document.getElementById("newChat");
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const collapseSidebar =
+        document.getElementById("collapseSidebar");
+
+    const mobileMenu =
+        document.getElementById("mobileMenu");
+
+    const sidebarOverlay =
+        document.getElementById("sidebarOverlay");
+
+    const settingsButton =
+        document.getElementById("settingsButton");
+
+    const settingsOverlay =
+        document.getElementById("settingsOverlay");
+
+    const closeSettings =
+        document.getElementById("closeSettings");
+
+    /* =========================
+       TRANSLATIONS
+    ========================= */
+
+    const translations = {
+
+        fa: {
+
+            novy: "نووی",
+
+            newChat: "گفتگوی جدید",
+
+            images: "تصاویر",
+
+            library: "کتابخانه",
+
+            projects: "پروژه‌ها",
+
+            code: "کدها",
+
+            settings: "تنظیمات",
+
+            recentChats: "گفتگوهای اخیر",
+
+            profile: "پروفایل",
+
+            tagline: "همراه دانش‌آموزان",
+
+            welcomeTitle: "سلام! من نووی‌ام 👋",
+
+            welcomeDescription:
+                "هر چیزی درباره درس، برنامه‌ریزی یا یادگیری خواستی بپرس.",
+
+            messagePlaceholder:
+                "پیامت رو برای نووی بنویس...",
+
+            inputNote:
+                "نووی ممکن است اشتباه کند؛ اطلاعات مهم را بررسی کن.",
+
+            settingsTitle:
+                "⚙️ تنظیمات",
+
+            appearance:
+                "ظاهر",
+
+            language:
+                "زبان",
+
+            themeBlack:
+                "🖤 مشکی",
+
+            themeNavy:
+                "🌌 سرمه‌ای",
+
+            themeIce:
+                "🧊 آبی یخی",
+
+            themeCustom:
+                "🎨 سفارشی",
+
+            sidebarToggle:
+                "باز و بسته کردن نوار کناری",
+
+            sendMessage:
+                "ارسال پیام",
+
+            closeSettings:
+                "بستن تنظیمات"
+
+        },
+
+        en: {
+
+            novy: "Novy",
+
+            newChat: "New chat",
+
+            images: "Images",
+
+            library: "Library",
+
+            projects: "Projects",
+
+            code: "Code",
+
+            settings: "Settings",
+
+            recentChats: "Recent chats",
+
+            profile: "Profile",
+
+            tagline: "Your student companion",
+
+            welcomeTitle:
+                "Hi! I'm Novy 👋",
+
+            welcomeDescription:
+                "Ask me anything about studying, planning, or learning.",
+
+            messagePlaceholder:
+                "Write your message to Novy...",
+
+            inputNote:
+                "Novy may make mistakes; check important information.",
+
+            settingsTitle:
+                "⚙️ Settings",
+
+            appearance:
+                "Appearance",
+
+            language:
+                "Language",
+
+            themeBlack:
+                "🖤 Black",
+
+            themeNavy:
+                "🌌 Navy",
+
+            themeIce:
+                "🧊 Ice Blue",
+
+            themeCustom:
+                "🎨 Custom",
+
+            sidebarToggle:
+                "Toggle sidebar",
+
+            sendMessage:
+                "Send message",
+
+            closeSettings:
+                "Close settings"
+
+        },
+
+        ar: {
+
+            novy: "نوفي",
+
+            newChat: "محادثة جديدة",
+
+            images: "الصور",
+
+            library: "المكتبة",
+
+            projects: "المشاريع",
+
+            code: "الأكواد",
+
+            settings: "الإعدادات",
+
+            recentChats: "المحادثات الأخيرة",
+
+            profile: "الملف الشخصي",
+
+            tagline: "رفيق الطلاب",
+
+            welcomeTitle:
+                "مرحباً! أنا نوفي 👋",
+
+            welcomeDescription:
+                "اسألني عن الدراسة أو التخطيط أو التعلم.",
+
+            messagePlaceholder:
+                "اكتب رسالتك إلى نوفي...",
+
+            inputNote:
+                "قد يخطئ نوفي؛ تحقق من المعلومات المهمة.",
+
+            settingsTitle:
+                "⚙️ الإعدادات",
+
+            appearance:
+                "المظهر",
+
+            language:
+                "اللغة",
+
+            themeBlack:
+                "🖤 أسود",
+
+            themeNavy:
+                "🌌 كحلي",
+
+            themeIce:
+                "🧊 أزرق جليدي",
+
+            themeCustom:
+                "🎨 مخصص",
+
+            sidebarToggle:
+                "فتح وإغلاق الشريط الجانبي",
+
+            sendMessage:
+                "إرسال الرسالة",
+
+            closeSettings:
+                "إغلاق الإعدادات"
+
+        }
+
+    };
+
+    /* =========================
+       THEME SYSTEM
+    ========================= */
+
+    function applyTheme(theme) {
+
+        const validThemes = [
+            "navy",
+            "black",
+            "ice",
+            "custom"
+        ];
+
+        if (!validThemes.includes(theme)) {
+            theme = "navy";
+        }
+
+        document.body.classList.remove(
+            "theme-navy",
+            "theme-black",
+            "theme-ice",
+            "theme-custom"
+        );
+
+        document.body.classList.add(
+            "theme-" + theme
+        );
+
+        localStorage.setItem(
+            "novyTheme",
+            theme
+        );
+
+        document
+            .querySelectorAll(".theme-option")
+            .forEach(function(option) {
+
+                option.classList.toggle(
+                    "active",
+                    option.dataset.theme === theme
+                );
+
+            });
+    }
+
+    const savedTheme =
+        localStorage.getItem("novyTheme") || "navy";
+
+    applyTheme(savedTheme);
+
+    document
+        .querySelectorAll(".theme-option")
+        .forEach(function(option) {
+
+            option.addEventListener(
+                "click",
+                function() {
+
+                    applyTheme(
+                        option.dataset.theme
+                    );
+
+                }
+            );
+
+        });
+
+    /* =========================
+       LANGUAGE SYSTEM
+    ========================= */
+
+    function applyLanguage(language) {
+
+        if (!translations[language]) {
+            language = "fa";
+        }
+
+        document.documentElement.lang =
+            language;
+
+        document.documentElement.dir =
+            language === "en"
+                ? "ltr"
+                : "rtl";
+
+        document
+            .querySelectorAll("[data-i18n]")
+            .forEach(function(element) {
+
+                const key =
+                    element.dataset.i18n;
+
+                if (
+                    translations[language] &&
+                    translations[language][key]
+                ) {
+
+                    element.textContent =
+                        translations[language][key];
+
+                }
+
+            });
+
+        document
+            .querySelectorAll("[data-i18n-placeholder]")
+            .forEach(function(element) {
+
+                const key =
+                    element.dataset.i18nPlaceholder;
+
+                if (
+                    translations[language] &&
+                    translations[language][key]
+                ) {
+
+                    element.placeholder =
+                        translations[language][key];
+
+                }
+
+            });
+
+        document
+            .querySelectorAll("[data-i18n-aria]")
+            .forEach(function(element) {
+
+                const key =
+                    element.dataset.i18nAria;
+
+                if (
+                    translations[language] &&
+                    translations[language][key]
+                ) {
+
+                    element.setAttribute(
+                        "aria-label",
+                        translations[language][key]
+                    );
+
+                }
+
+            });
+
+        document
+            .querySelectorAll(".language-option")
+            .forEach(function(option) {
+
+                option.classList.toggle(
+                    "active",
+                    option.dataset.language === language
+                );
+
+            });
+
+        localStorage.setItem(
+            "novyLanguage",
+            language
+        );
+
+    }
+
+    const savedLanguage =
+        localStorage.getItem("novyLanguage") || "fa";
+
+    applyLanguage(savedLanguage);
+
+    document
+        .querySelectorAll(".language-option")
+        .forEach(function(option) {
+
+            option.addEventListener(
+                "click",
+                function() {
+
+                    applyLanguage(
+                        option.dataset.language
+                    );
+
+                }
+            );
+
+        });
 
     /* =========================
        SIDEBAR
     ========================= */
 
-    collapseSidebar.addEventListener("click", function () {
+    collapseSidebar.addEventListener(
+        "click",
+        function() {
 
-        if (window.innerWidth <= 750) {
+            if (window.innerWidth <= 750) {
 
-            sidebar.classList.remove("mobile-open");
-            sidebarOverlay.classList.remove("active");
+                sidebar.classList.remove(
+                    "mobile-open"
+                );
 
-            return;
+                sidebarOverlay.classList.remove(
+                    "active"
+                );
+
+                return;
+            }
+
+            sidebar.classList.toggle(
+                "collapsed"
+            );
+
+            document.body.classList.toggle(
+                "sidebar-collapsed",
+                sidebar.classList.contains(
+                    "collapsed"
+                )
+            );
+
         }
+    );
 
-        sidebar.classList.toggle("collapsed");
+    mobileMenu.addEventListener(
+        "click",
+        function() {
 
-        document.body.classList.toggle(
-            "sidebar-collapsed",
-            sidebar.classList.contains("collapsed")
-        );
+            sidebar.classList.add(
+                "mobile-open"
+            );
 
-    });
+            sidebarOverlay.classList.add(
+                "active"
+            );
 
-    mobileMenu.addEventListener("click", function () {
+        }
+    );
 
-        sidebar.classList.add("mobile-open");
-        sidebarOverlay.classList.add("active");
+    sidebarOverlay.addEventListener(
+        "click",
+        function() {
 
-    });
+            sidebar.classList.remove(
+                "mobile-open"
+            );
 
-    sidebarOverlay.addEventListener("click", function () {
+            sidebarOverlay.classList.remove(
+                "active"
+            );
 
-        sidebar.classList.remove("mobile-open");
-        sidebarOverlay.classList.remove("active");
-
-    });
+        }
+    );
 
     /* =========================
        SEND MESSAGE
@@ -988,7 +1881,8 @@
 
     function sendMessage() {
 
-        const text = input.value.trim();
+        const text =
+            input.value.trim();
 
         if (text === "") {
             return;
@@ -1004,11 +1898,12 @@
         const userMessage =
             document.createElement("div");
 
-        userMessage.className = "message user";
+        userMessage.className =
+            "message user";
 
         userMessage.innerHTML = `
             <div class="avatar user-avatar">
-                تو
+                ${getUserAvatarText()}
             </div>
 
             <div class="message-content">
@@ -1016,18 +1911,19 @@
             </div>
         `;
 
-        messagesInner.appendChild(userMessage);
+        messagesInner.appendChild(
+            userMessage
+        );
 
         const novyMessage =
             document.createElement("div");
 
-        novyMessage.className = "message novy";
+        novyMessage.className =
+            "message novy";
 
         novyMessage.innerHTML = `
             <div class="message-content">
-                سلام! 👋 فعلاً این بخشِ گفت‌وگوی نووی آزمایشی است.
-                <br>
-                به‌زودی مغز واقعی نووی هم بهش وصل می‌شه 🧠
+                ${getTestResponse()}
             </div>
 
             <div class="avatar novy-avatar">
@@ -1035,7 +1931,9 @@
             </div>
         `;
 
-        messagesInner.appendChild(novyMessage);
+        messagesInner.appendChild(
+            novyMessage
+        );
 
         input.value = "";
         input.style.height = "42px";
@@ -1043,12 +1941,65 @@
         scrollToBottom();
     }
 
+    function getUserAvatarText() {
+
+        const language =
+            localStorage.getItem(
+                "novyLanguage"
+            ) || "fa";
+
+        if (language === "en") {
+            return "You";
+        }
+
+        if (language === "ar") {
+            return "أنت";
+        }
+
+        return "تو";
+    }
+
+    function getTestResponse() {
+
+        const language =
+            localStorage.getItem(
+                "novyLanguage"
+            ) || "fa";
+
+        if (language === "en") {
+
+            return `
+                Hi! 👋 This part of Novy's chat is currently a test.
+                <br>
+                Novy's real brain will be connected soon 🧠
+            `;
+
+        }
+
+        if (language === "ar") {
+
+            return `
+                مرحباً! 👋 هذا الجزء من محادثة نوفي تجريبي حالياً.
+                <br>
+                سيتم ربط العقل الحقيقي لنوفي قريباً 🧠
+            `;
+
+        }
+
+        return `
+            سلام! 👋 فعلاً این بخشِ گفت‌وگوی نووی آزمایشی است.
+            <br>
+            به‌زودی مغز واقعی نووی هم بهش وصل می‌شه 🧠
+        `;
+    }
+
     function escapeHtml(text) {
 
         const div =
             document.createElement("div");
 
-        div.textContent = text;
+        div.textContent =
+            text;
 
         return div.innerHTML;
     }
@@ -1056,7 +2007,9 @@
     function scrollToBottom() {
 
         const messages =
-            document.getElementById("messages");
+            document.getElementById(
+                "messages"
+            );
 
         messages.scrollTop =
             messages.scrollHeight;
@@ -1079,6 +2032,7 @@
                 event.preventDefault();
 
                 sendMessage();
+
             }
 
         }
@@ -1088,7 +2042,8 @@
         "input",
         function() {
 
-            this.style.height = "42px";
+            this.style.height =
+                "42px";
 
             this.style.height =
                 Math.min(
@@ -1114,12 +2069,16 @@
                         N
                     </div>
 
-                    <h1>
-                        سلام! من نووی‌ام 👋
+                    <h1 data-i18n="welcomeTitle">
+                        ${translations[
+                            localStorage.getItem("novyLanguage") || "fa"
+                        ].welcomeTitle}
                     </h1>
 
-                    <p>
-                        هر چیزی درباره درس، برنامه‌ریزی یا یادگیری خواستی بپرس.
+                    <p data-i18n="welcomeDescription">
+                        ${translations[
+                            localStorage.getItem("novyLanguage") || "fa"
+                        ].welcomeDescription}
                     </p>
 
                 </div>
@@ -1127,6 +2086,7 @@
 
             input.value = "";
             input.style.height = "42px";
+
             input.focus();
 
             if (window.innerWidth <= 750) {
@@ -1145,56 +2105,27 @@
     );
 
     /* =========================
-       SIDEBAR TOOLS
+       SETTINGS
     ========================= */
 
-    const sidebarTools =
-        document.querySelectorAll(".sidebar-tool");
+    settingsButton.addEventListener(
+        "click",
+        function() {
 
-    const settingsOverlay =
-        document.getElementById("settingsOverlay");
+            settingsOverlay.classList.add(
+                "active"
+            );
 
-    const closeSettings =
-        document.getElementById("closeSettings");
-
-    sidebarTools.forEach(function(tool) {
-
-        tool.addEventListener(
-            "click",
-            function() {
-
-                const name =
-                    tool.querySelector(
-                        "span:last-child"
-                    )?.textContent;
-
-                if (name === "تنظیمات") {
-
-                    settingsOverlay.classList.add("active");
-
-                } else {
-
-                    alert(
-                        name +
-                        " به‌زودی فعال می‌شه ✨"
-                    );
-
-                }
-
-            }
-        );
-
-    });
-
-    /* =========================
-       CLOSE SETTINGS
-    ========================= */
+        }
+    );
 
     closeSettings.addEventListener(
         "click",
         function() {
 
-            settingsOverlay.classList.remove("active");
+            settingsOverlay.classList.remove(
+                "active"
+            );
 
         }
     );
@@ -1203,9 +2134,14 @@
         "click",
         function(event) {
 
-            if (event.target === settingsOverlay) {
+            if (
+                event.target ===
+                settingsOverlay
+            ) {
 
-                settingsOverlay.classList.remove("active");
+                settingsOverlay.classList.remove(
+                    "active"
+                );
 
             }
 
