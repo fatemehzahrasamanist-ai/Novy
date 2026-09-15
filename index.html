@@ -20,23 +20,25 @@
 
     <header class="navbar">
 
-        <a href="#home" class="logo">NOVY</a>
+        <a href="#home" class="logo">
+            NOVY
+        </a>
 
         <nav class="menu">
 
-            <a href="#home">
+            <a href="#home" data-i18n="home">
                 خانه
             </a>
 
-            <a href="#learning">
+            <a href="#learning" data-i18n="learning">
                 یادگیری
             </a>
 
-            <a href="#planning">
+            <a href="#planning" data-i18n="planning">
                 برنامه‌ریزی
             </a>
 
-            <a href="#calm">
+            <a href="#calm" data-i18n="calm">
                 آرامش
             </a>
 
@@ -48,6 +50,7 @@
                 class="settings-button"
                 id="themeButton"
                 aria-label="تنظیمات تم"
+                data-i18n-aria="themeSettings"
             >
                 ⚙️
             </button>
@@ -55,6 +58,7 @@
             <a
                 href="login.html"
                 class="login-button"
+                data-i18n="login"
             >
                 ورود
             </a>
@@ -202,17 +206,23 @@
 
             <div class="hero-content">
 
-                <p class="eyebrow">
+                <p
+                    class="eyebrow"
+                    data-i18n="eyebrow"
+                >
                     ✦ همراه دانش‌آموزان
                 </p>
 
-                <h1>
+                <h1 data-i18n="heroTitle">
                     یادگیری،
                     <span>با نووی</span>
                     ساده‌تر میشه.
                 </h1>
 
-                <p class="hero-description">
+                <p
+                    class="hero-description"
+                    data-i18n="heroDescription"
+                >
                     نووی یک همراه هوشمنده برای درس خواندن،
                     برنامه‌ریزی، تمرکز و روزهایی که
                     فقط یک همراه خوب لازم داری.
@@ -220,13 +230,21 @@
 
                 <div class="hero-buttons">
 
-                    <button class="primary-button">
+                    <a
+                        href="login.html"
+                        class="primary-button"
+                        data-i18n="start"
+                    >
                         🚀 شروع کنیم
-                    </button>
+                    </a>
 
-                    <button class="secondary-button">
+                    <a
+                        href="login.html"
+                        class="secondary-button"
+                        data-i18n="aboutNovy"
+                    >
                         بیشتر درباره نووی
-                    </button>
+                    </a>
 
                 </div>
 
@@ -245,11 +263,11 @@
 
                     <div>
 
-                        <h3>
+                        <h3 data-i18n="novy">
                             نووی
                         </h3>
 
-                        <p>
+                        <p data-i18n="studentCompanion">
                             همراه دانش‌آموزان
                         </p>
 
@@ -266,30 +284,39 @@
 
                     <div class="message novy-message">
 
-                        سلام! 👋
+                        <span data-i18n="chatHello">
+                            سلام! 👋
+                        </span>
 
                         <br>
 
-                        امروز دوست داری روی چی کار کنیم؟
+                        <span data-i18n="chatQuestion">
+                            امروز دوست داری روی چی کار کنیم؟
+                        </span>
 
                     </div>
 
 
-                    <div class="message user-message">
-
+                    <div
+                        class="message user-message"
+                        data-i18n="chatUser"
+                    >
                         می‌خوام برای امتحان علوم آماده بشم.
-
                     </div>
 
 
                     <div class="message novy-message">
 
-                        عالیه! 🧠
+                        <span data-i18n="chatGreat">
+                            عالیه! 🧠
+                        </span>
 
                         <br>
 
-                        اول ببینیم چقدر وقت داریم و
-                        بعد یه برنامه‌ی جمع‌وجور می‌چینیم.
+                        <span data-i18n="chatPlan">
+                            اول ببینیم چقدر وقت داریم و
+                            بعد یه برنامه‌ی جمع‌وجور می‌چینیم.
+                        </span>
 
                     </div>
 
@@ -298,7 +325,7 @@
 
                 <div class="fake-input">
 
-                    <span>
+                    <span data-i18n="fakeInput">
                         پیامت رو بنویس...
                     </span>
 
@@ -319,11 +346,11 @@
 
             <div class="section-title">
 
-                <p>
+                <p data-i18n="whatNovyDoes">
                     نووی چه کارهایی بلده؟
                 </p>
 
-                <h2>
+                <h2 data-i18n="threeWays">
                     سه راه برای اینکه
                     <span>
                         بهتر پیش بری.
@@ -347,18 +374,21 @@
                         📚
                     </div>
 
-                    <h3>
+                    <h3 data-i18n="learningTitle">
                         درس و یادگیری
                     </h3>
 
-                    <p>
+                    <p data-i18n="learningDescription">
                         توضیح ساده‌ی درس‌ها، حل مسئله،
                         ساخت تست، مرور و پیدا کردن نقاط ضعف.
                     </p>
 
-                    <button>
+                    <a
+                        href="login.html"
+                        data-i18n="learningButton"
+                    >
                         شروع یادگیری ←
-                    </button>
+                    </a>
 
                 </article>
 
@@ -374,18 +404,21 @@
                         📅
                     </div>
 
-                    <h3>
+                    <h3 data-i18n="planningTitle">
                         برنامه‌ریزی
                     </h3>
 
-                    <p>
+                    <p data-i18n="planningDescription">
                         برنامه‌ای واقعی و منعطف بر اساس
                         زمان، درس‌ها، امتحان‌ها و انرژی تو.
                     </p>
 
-                    <button>
+                    <a
+                        href="login.html"
+                        data-i18n="planningButton"
+                    >
                         برنامه‌ریزی کنیم ←
-                    </button>
+                    </a>
 
                 </article>
 
@@ -401,18 +434,21 @@
                         🌱
                     </div>
 
-                    <h3>
+                    <h3 data-i18n="calmTitle">
                         آرامش و انگیزه
                     </h3>
 
-                    <p>
+                    <p data-i18n="calmDescription">
                         وقتی خسته‌ای، استرس داری یا
                         شروع کردن سخته، نووی کنارت می‌مونه.
                     </p>
 
-                    <button>
+                    <a
+                        href="login.html"
+                        data-i18n="calmButton"
+                    >
                         با نووی حرف بزن ←
-                    </button>
+                    </a>
 
                 </article>
 
@@ -425,21 +461,24 @@
 
         <section class="final-section">
 
-            <p>
+            <p data-i18n="finalDescription">
                 لازم نیست همه‌چیز رو یک‌دفعه انجام بدی.
             </p>
 
-            <h2>
+            <h2 data-i18n="finalTitle">
                 فقط یک قدم.
-
                 <span>
                     همین الان.
                 </span>
             </h2>
 
-            <button class="primary-button">
+            <a
+                href="login.html"
+                class="primary-button"
+                data-i18n="talkToNovy"
+            >
                 صحبت با نووی ✦
-            </button>
+            </a>
 
         </section>
 
@@ -454,7 +493,7 @@
             NOVY
         </div>
 
-        <p>
+        <p data-i18n="footerCompanion">
             همراه دانش‌آموزان 🌱
         </p>
 
