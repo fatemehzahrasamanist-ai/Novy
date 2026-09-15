@@ -317,11 +317,18 @@
 
     <div class="card" id="profileCard">
 
-        <div class="loading" id="loading">
-            Loading...
+        <div
+            class="loading"
+            id="loading"
+            data-i18n="loading"
+        >
+            در حال بارگذاری...
         </div>
 
-        <div id="profileContent" style="display:none;">
+        <div
+            id="profileContent"
+            style="display:none;"
+        >
 
             <div class="profile-header">
 
@@ -331,13 +338,14 @@
                         class="avatar"
                         id="avatar"
                     >
-                        F
+                        N
                     </div>
 
                     <label
                         for="avatarInput"
                         class="edit-photo"
-                        title="Change photo"
+                        id="editPhoto"
+                        title="تغییر عکس"
                     >
                         ✎
                     </label>
@@ -543,10 +551,6 @@ function setTheme(themeName) {
         }
     );
 
-    localStorage.setItem(
-        "novy-theme",
-        themeName
-    );
 }
 
 
@@ -557,76 +561,255 @@ function setTheme(themeName) {
 const translations = {
 
     fa: {
-        photoHint: "برای تغییر عکس روی ✎ بزن",
-        description: "این پروفایل شخصی تو در نووی است.",
-        nameLabel: "نام",
-        usernameLabel: "نام کاربری",
-        emailLabel: "ایمیل",
-        enterNovy: "ورود به نووی ←",
-        logout: "خروج از حساب"
+
+        loading:
+            "در حال بارگذاری...",
+
+        photoHint:
+            "برای تغییر عکس روی ✎ بزن",
+
+        changePhoto:
+            "تغییر عکس",
+
+        description:
+            "این پروفایل شخصی تو در نووی است.",
+
+        nameLabel:
+            "نام",
+
+        usernameLabel:
+            "نام کاربری",
+
+        emailLabel:
+            "ایمیل",
+
+        enterNovy:
+            "ورود به نووی ←",
+
+        logout:
+            "خروج از حساب",
+
+        uploading:
+            "در حال آپلود عکس...",
+
+        uploadSuccess:
+            "عکس پروفایل با موفقیت تغییر کرد. ✓",
+
+        invalidType:
+            "فقط JPG، PNG یا WEBP مجازه.",
+
+        tooLarge:
+            "حجم عکس نباید بیشتر از ۵ مگابایت باشه.",
+
+        loginRequired:
+            "ابتدا وارد حساب شو.",
+
+        uploadError:
+            "آپلود عکس انجام نشد.",
+
+        metadataError:
+            "عکس آپلود شد ولی ذخیره پروفایل انجام نشد.",
+
+        profileAlt:
+            "عکس پروفایل"
+
     },
+
 
     en: {
-        photoHint: "Click ✎ to change your photo",
-        description: "This is your personal Novy profile.",
-        nameLabel: "Name",
-        usernameLabel: "Username",
-        emailLabel: "Email",
-        enterNovy: "Enter Novy →",
-        logout: "Log out"
+
+        loading:
+            "Loading...",
+
+        photoHint:
+            "Click ✎ to change your photo",
+
+        changePhoto:
+            "Change photo",
+
+        description:
+            "This is your personal Novy profile.",
+
+        nameLabel:
+            "Name",
+
+        usernameLabel:
+            "Username",
+
+        emailLabel:
+            "Email",
+
+        enterNovy:
+            "Enter Novy →",
+
+        logout:
+            "Log out",
+
+        uploading:
+            "Uploading photo...",
+
+        uploadSuccess:
+            "Profile photo updated successfully. ✓",
+
+        invalidType:
+            "Only JPG, PNG, or WEBP images are allowed.",
+
+        tooLarge:
+            "The photo must be smaller than 5 MB.",
+
+        loginRequired:
+            "Please log in first.",
+
+        uploadError:
+            "Could not upload the photo.",
+
+        metadataError:
+            "The photo was uploaded, but the profile could not be updated.",
+
+        profileAlt:
+            "Profile photo"
+
     },
 
+
     ar: {
-        photoHint: "اضغط على ✎ لتغيير صورتك",
-        description: "هذا هو ملفك الشخصي في نوفي.",
-        nameLabel: "الاسم",
-        usernameLabel: "اسم المستخدم",
-        emailLabel: "البريد الإلكتروني",
-        enterNovy: "الدخول إلى نوفي ←",
-        logout: "تسجيل الخروج"
+
+        loading:
+            "جارٍ التحميل...",
+
+        photoHint:
+            "اضغط على ✎ لتغيير صورتك",
+
+        changePhoto:
+            "تغيير الصورة",
+
+        description:
+            "هذا هو ملفك الشخصي في نوفي.",
+
+        nameLabel:
+            "الاسم",
+
+        usernameLabel:
+            "اسم المستخدم",
+
+        emailLabel:
+            "البريد الإلكتروني",
+
+        enterNovy:
+            "الدخول إلى نوفي ←",
+
+        logout:
+            "تسجيل الخروج",
+
+        uploading:
+            "جارٍ رفع الصورة...",
+
+        uploadSuccess:
+            "تم تغيير صورة الملف الشخصي بنجاح. ✓",
+
+        invalidType:
+            "يُسمح فقط بصور JPG أو PNG أو WEBP.",
+
+        tooLarge:
+            "يجب ألا يتجاوز حجم الصورة 5 ميغابايت.",
+
+        loginRequired:
+            "يرجى تسجيل الدخول أولاً.",
+
+        uploadError:
+            "تعذر رفع الصورة.",
+
+        metadataError:
+            "تم رفع الصورة، ولكن تعذر تحديث الملف الشخصي.",
+
+        profileAlt:
+            "صورة الملف الشخصي"
+
     }
 
 };
 
 
+let currentLanguage =
+    localStorage.getItem(
+        "novy-language"
+    ) || "fa";
+
+
 function applyLanguage(lang) {
 
+    currentLanguage =
+        translations[lang]
+            ? lang
+            : "fa";
+
     const data =
-        translations[lang] ||
-        translations.fa;
+        translations[currentLanguage];
+
 
     document.documentElement.lang =
-        lang;
+        currentLanguage;
 
     document.documentElement.dir =
-        lang === "en"
+        currentLanguage === "en"
             ? "ltr"
             : "rtl";
+
 
     document
         .querySelectorAll("[data-i18n]")
         .forEach(element => {
 
             const key =
-                element.getAttribute("data-i18n");
+                element.getAttribute(
+                    "data-i18n"
+                );
 
             if (data[key]) {
+
                 element.textContent =
                     data[key];
+
             }
 
         });
 
+
+    const editPhoto =
+        document.getElementById(
+            "editPhoto"
+        );
+
+    if (editPhoto) {
+
+        editPhoto.title =
+            data.changePhoto;
+
+    }
+
+
     localStorage.setItem(
         "novy-language",
-        lang
+        currentLanguage
     );
+
 }
 
 
 /* =========================
    MESSAGE
 ========================= */
+
+function getText(key) {
+
+    return (
+        translations[currentLanguage]?.[key] ||
+        translations.fa[key] ||
+        key
+    );
+
+}
+
 
 function showMessage(
     text,
@@ -638,14 +821,18 @@ function showMessage(
             "photoMessage"
         );
 
-    element.textContent = text;
+    element.textContent =
+        text;
 
-    element.classList.add("show");
+    element.classList.add(
+        "show"
+    );
 
     element.classList.toggle(
         "error",
         error
     );
+
 }
 
 
@@ -662,6 +849,7 @@ async function loadProfile() {
     } =
         await supabaseClient.auth.getSession();
 
+
     if (
         !session ||
         !session.user
@@ -671,13 +859,16 @@ async function loadProfile() {
             "login.html";
 
         return;
+
     }
+
 
     const user =
         session.user;
 
     const metadata =
         user.user_metadata || {};
+
 
     const name =
         metadata.name ||
@@ -687,15 +878,18 @@ async function loadProfile() {
         metadata.username ||
         "";
 
+
     document.getElementById(
         "nameValue"
     ).textContent =
         name || "-";
 
+
     document.getElementById(
         "usernameValue"
     ).textContent =
         username || "-";
+
 
     document.getElementById(
         "emailValue"
@@ -703,10 +897,11 @@ async function loadProfile() {
         user.email || "-";
 
 
-    const lang =
-        localStorage.getItem(
-            "novy-language"
-        ) || "fa";
+    const displayName =
+        name ||
+        username ||
+        user.email ||
+        "Novy";
 
 
     const welcome =
@@ -715,29 +910,35 @@ async function loadProfile() {
         );
 
 
-    if (lang === "en") {
+    if (
+        currentLanguage === "en"
+    ) {
 
         welcome.textContent =
-            `Welcome ${name || username} 👋`;
+            `Welcome ${displayName} 👋`;
 
     }
-    else if (lang === "ar") {
+    else if (
+        currentLanguage === "ar"
+    ) {
 
         welcome.textContent =
-            `مرحباً ${name || username} 👋`;
+            `مرحباً ${displayName} 👋`;
 
     }
     else {
 
         welcome.textContent =
-            `خوش اومدی ${name || username} 👋`;
+            `خوش اومدی ${displayName} 👋`;
 
     }
 
 
     /* Existing avatar */
 
-    if (metadata.avatar_url) {
+    if (
+        metadata.avatar_url
+    ) {
 
         setAvatarImage(
             metadata.avatar_url
@@ -761,10 +962,12 @@ async function loadProfile() {
     ).style.display =
         "none";
 
+
     document.getElementById(
         "profileContent"
     ).style.display =
         "block";
+
 }
 
 
@@ -772,12 +975,15 @@ async function loadProfile() {
    AVATAR
 ========================= */
 
-function setAvatarInitial(text) {
+function setAvatarInitial(
+    text
+) {
 
     const avatar =
         document.getElementById(
             "avatar"
         );
+
 
     const letter =
         text
@@ -786,36 +992,48 @@ function setAvatarInitial(text) {
             .toUpperCase() ||
         "N";
 
+
     avatar.innerHTML =
         "";
 
     avatar.textContent =
         letter;
+
 }
 
 
-function setAvatarImage(url) {
+function setAvatarImage(
+    url
+) {
 
     const avatar =
         document.getElementById(
             "avatar"
         );
 
+
     avatar.innerHTML =
         "";
+
 
     const image =
         document.createElement(
             "img"
         );
 
-    image.src = url;
 
-    image.alt = "Profile photo";
+    image.src =
+        url;
+
+
+    image.alt =
+        getText("profileAlt");
+
 
     avatar.appendChild(
         image
     );
+
 }
 
 
@@ -824,7 +1042,9 @@ function setAvatarImage(url) {
 ========================= */
 
 document
-    .getElementById("avatarInput")
+    .getElementById(
+        "avatarInput"
+    )
     .addEventListener(
         "change",
         async function () {
@@ -832,15 +1052,22 @@ document
             const file =
                 this.files[0];
 
+
             if (!file) {
                 return;
             }
 
+
             const allowedTypes = [
+
                 "image/jpeg",
+
                 "image/png",
+
                 "image/webp"
+
             ];
+
 
             if (
                 !allowedTypes.includes(
@@ -849,13 +1076,18 @@ document
             ) {
 
                 showMessage(
-                    "فقط JPG، PNG یا WEBP مجازه.",
+                    getText(
+                        "invalidType"
+                    ),
                     true
                 );
 
-                this.value = "";
+
+                this.value =
+                    "";
 
                 return;
+
             }
 
 
@@ -865,13 +1097,18 @@ document
             ) {
 
                 showMessage(
-                    "حجم عکس نباید بیشتر از ۵ مگابایت باشه.",
+                    getText(
+                        "tooLarge"
+                    ),
                     true
                 );
 
-                this.value = "";
+
+                this.value =
+                    "";
 
                 return;
+
             }
 
 
@@ -889,11 +1126,14 @@ document
             ) {
 
                 showMessage(
-                    "ابتدا وارد حساب شو.",
+                    getText(
+                        "loginRequired"
+                    ),
                     true
                 );
 
                 return;
+
             }
 
 
@@ -904,10 +1144,14 @@ document
             const extension =
                 file.type ===
                 "image/png"
+
                     ? "png"
+
                     : file.type ===
                       "image/webp"
+
                         ? "webp"
+
                         : "jpg";
 
 
@@ -916,16 +1160,22 @@ document
 
 
             showMessage(
-                "در حال آپلود عکس..."
+                getText(
+                    "uploading"
+                )
             );
 
 
             /* Remove old formats first */
 
             const oldPaths = [
+
                 `${user.id}/avatar.jpg`,
+
                 `${user.id}/avatar.png`,
+
                 `${user.id}/avatar.webp`
+
             ];
 
 
@@ -940,12 +1190,25 @@ document
                 pathsToRemove.length
             ) {
 
-                await supabaseClient
-                    .storage
-                    .from("avatars")
-                    .remove(
-                        pathsToRemove
+                const {
+                    error:
+                        removeError
+                } =
+                    await supabaseClient
+                        .storage
+                        .from("avatars")
+                        .remove(
+                            pathsToRemove
+                        );
+
+
+                if (removeError) {
+
+                    console.error(
+                        removeError
                     );
+
+                }
 
             }
 
@@ -962,26 +1225,40 @@ document
                         path,
                         file,
                         {
-                            cacheControl: "3600",
-                            upsert: true,
+                            cacheControl:
+                                "3600",
+
+                            upsert:
+                                true,
+
                             contentType:
                                 file.type
                         }
                     );
 
 
-            if (uploadError) {
+            if (
+                uploadError
+            ) {
 
                 console.error(
                     uploadError
                 );
 
+
                 showMessage(
-                    "Could not upload the photo.",
+                    getText(
+                        "uploadError"
+                    ),
                     true
                 );
 
+
+                this.value =
+                    "";
+
                 return;
+
             }
 
 
@@ -1008,29 +1285,42 @@ document
                 error:
                     metadataError
             } =
-                await supabaseClient.auth
+                await supabaseClient
+                    .auth
                     .updateUser({
 
                         data: {
+
                             avatar_url:
                                 avatarUrl
+
                         }
 
                     });
 
 
-            if (metadataError) {
+            if (
+                metadataError
+            ) {
 
                 console.error(
                     metadataError
                 );
 
+
                 showMessage(
-                    "عکس آپلود شد ولی ذخیره پروفایل انجام نشد.",
+                    getText(
+                        "metadataError"
+                    ),
                     true
                 );
 
+
+                this.value =
+                    "";
+
                 return;
+
             }
 
 
@@ -1046,11 +1336,14 @@ document
 
 
             showMessage(
-                "عکس پروفایل با موفقیت تغییر کرد. ✓"
+                getText(
+                    "uploadSuccess"
+                )
             );
 
 
-            this.value = "";
+            this.value =
+                "";
 
         }
     );
@@ -1064,6 +1357,7 @@ function enterNovy() {
 
     window.location.href =
         "chat.html";
+
 }
 
 
@@ -1073,19 +1367,25 @@ function enterNovy() {
 
 async function logout() {
 
-    await supabaseClient.auth.signOut();
+    await supabaseClient
+        .auth
+        .signOut();
+
 
     localStorage.removeItem(
         "novyLoggedIn"
     );
 
+
     /*
-      Theme and language are intentionally
-      preserved.
+        Theme and language are
+        intentionally preserved.
     */
+
 
     window.location.href =
         "login.html";
+
 }
 
 
@@ -1098,18 +1398,22 @@ const savedTheme =
         "novy-theme"
     ) || "navy";
 
+
 const savedLanguage =
     localStorage.getItem(
         "novy-language"
     ) || "fa";
 
+
 setTheme(
     savedTheme
 );
 
+
 applyLanguage(
     savedLanguage
 );
+
 
 loadProfile();
 
