@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -12,6 +13,58 @@
     <title>ورود به نووی</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ==================== Login Input Fix ==================== */
+
+        .login-step input {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 14px 16px;
+
+            border: 1px solid #1d405d;
+            border-radius: 14px;
+
+            outline: none;
+
+            background-color: #0a2038 !important;
+            color: #f4fbff !important;
+
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+
+            transition: 0.2s;
+        }
+
+        .login-step input::placeholder {
+            color: #91b0c2 !important;
+            opacity: 1;
+        }
+
+        .login-step input:focus {
+            background-color: #102e4a !important;
+
+            border-color: #8ee7ff;
+
+            box-shadow:
+                0 0 0 3px rgba(142, 231, 255, 0.10);
+        }
+
+        .login-step input:-webkit-autofill,
+        .login-step input:-webkit-autofill:hover,
+        .login-step input:-webkit-autofill:focus {
+            -webkit-text-fill-color: #f4fbff !important;
+
+            -webkit-box-shadow:
+                0 0 0 1000px #0a2038 inset !important;
+
+            box-shadow:
+                0 0 0 1000px #0a2038 inset !important;
+
+            transition: background-color 5000s ease-in-out 0s;
+        }
+    </style>
 </head>
 
 <body>
@@ -225,3 +278,4 @@
 </body>
 
 </html>
+```
