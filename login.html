@@ -124,31 +124,21 @@
         }
 
 
-        /* ==================== کد تأیید ==================== */
+        /* ==================== پیام وضعیت ==================== */
 
-        .verification-inputs {
-            display: flex;
-            direction: ltr;
-            justify-content: center;
+        .login-status {
+            display: none;
 
-            gap: 8px;
+            margin-top: 10px;
 
-            width: 100%;
-            margin: 8px 0 10px;
+            color: var(--text-muted);
+
+            font-size: 13px;
+            line-height: 1.8;
         }
 
-        .verification-digit {
-            width: 48px !important;
-            height: 54px;
-
-            padding: 0 !important;
-
-            text-align: center;
-
-            font-size: 20px !important;
-            font-weight: 600;
-
-            border-radius: 12px !important;
+        .login-status.show {
+            display: block;
         }
 
 
@@ -166,6 +156,14 @@
 
         .password-error.show {
             display: block;
+        }
+
+
+        /* ==================== دکمه در حال پردازش ==================== */
+
+        .login-page-submit.loading {
+            opacity: 0.65;
+            pointer-events: none;
         }
     </style>
 
@@ -218,7 +216,7 @@
                     class="login-page-description"
                     data-i18n="loginDescription"
                 >
-                    اطلاعاتت رو وارد کن تا پروفایلت رو بسازیم.
+                    ایمیلت رو وارد کن تا لینک ورود برات ارسال بشه.
                 </p>
 
 
@@ -226,16 +224,23 @@
                     for="loginContact"
                     data-i18n="contactLabel"
                 >
-                    ایمیل یا شماره تلفن
+                    ایمیل
                 </label>
 
 
                 <input
-                    type="text"
+                    type="email"
                     id="loginContact"
+                    autocomplete="email"
                     data-i18n-placeholder="contactPlaceholder"
-                    placeholder="ایمیل یا شماره تلفن"
+                    placeholder="ایمیل"
                 >
+
+
+                <p
+                    class="login-status"
+                    id="contactError"
+                ></p>
 
 
                 <button
@@ -250,7 +255,7 @@
             </div>
 
 
-            <!-- ==================== مرحله کد تأیید ==================== -->
+            <!-- ==================== مرحله تأیید ایمیل ==================== -->
 
             <div
                 class="login-step"
@@ -262,68 +267,22 @@
                     class="login-page-description"
                     data-i18n="verificationDescription"
                 >
-                    کد تأیید برایت ارسال شد.
+                    لینک ورود برایت ارسال شد. ایمیلت رو بررسی کن و روی لینک بزن.
                 </p>
 
 
-                <label data-i18n="verificationLabel">
-                    کد تأیید
-                </label>
-
-
-                <div class="verification-inputs">
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-                    <input
-                        type="text"
-                        maxlength="1"
-                        inputmode="numeric"
-                        class="verification-digit"
-                    >
-
-                </div>
+                <p
+                    class="login-status show"
+                    id="verificationEmail"
+                ></p>
 
 
                 <button
                     class="login-page-submit"
                     id="verificationButton"
-                    data-i18n="verify"
+                    data-i18n="checkLogin"
                 >
-                    تأیید
+                    بررسی ورود
                     <span>←</span>
                 </button>
 
@@ -386,10 +345,7 @@
                 <p
                     class="password-error"
                     id="passwordError"
-                    data-i18n="passwordMismatch"
-                >
-                    رمزهای عبور یکسان نیستند.
-                </p>
+                ></p>
 
 
                 <button
@@ -423,6 +379,7 @@
                 <input
                     type="text"
                     id="loginUsername"
+                    autocomplete="username"
                     data-i18n-placeholder="usernamePlaceholder"
                     placeholder="مثلاً novy_user"
                 >
@@ -526,6 +483,21 @@
 
     <script>
 
+        /* ==================== Supabase ==================== */
+
+        const SUPABASE_URL =
+            "https://yeqwwxmbgeojjbuzppsm.supabase.co";
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_OS5skv6tIdXNzCqHcRlUug_Qmtuzlmh";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
         /* ==================== ترجمه‌ها ==================== */
 
         const translations = {
@@ -534,96 +506,183 @@
                 pageTitle: "ورود به نووی",
                 back: "← برگشت به نووی",
                 loginTitle: "ورود به نووی",
-                loginDescription: "اطلاعاتت رو وارد کن تا پروفایلت رو بسازیم.",
-                contactLabel: "ایمیل یا شماره تلفن",
-                contactPlaceholder: "ایمیل یا شماره تلفن",
+                loginDescription:
+                    "ایمیلت رو وارد کن تا لینک ورود برات ارسال بشه.",
+                contactLabel: "ایمیل",
+                contactPlaceholder: "ایمیل",
                 continue: "ادامه",
 
-                verificationDescription: "کد تأیید برایت ارسال شد.",
-                verificationLabel: "کد تأیید",
-                verify: "تأیید",
+                verificationDescription:
+                    "لینک ورود برایت ارسال شد. ایمیلت رو بررسی کن و روی لینک بزن.",
+                verificationEmail:
+                    "ایمیل ارسال شد.",
+                checkLogin: "بررسی ورود",
+                loginNotComplete:
+                    "هنوز ورود تأیید نشده. اول روی لینک داخل ایمیلت بزن.",
 
-                passwordDescription: "یک رمز عبور برای حسابت بساز.",
+                passwordDescription:
+                    "یک رمز عبور برای حسابت بساز.",
                 passwordLabel: "رمز عبور",
-                passwordPlaceholder: "رمز عبور خودت را بساز",
-                confirmPasswordLabel: "تکرار رمز عبور",
-                confirmPasswordPlaceholder: "رمز عبور را دوباره وارد کن",
-                passwordMismatch: "رمزهای عبور یکسان نیستند.",
-                passwordRequired: "لطفاً رمز عبور را وارد کن.",
+                passwordPlaceholder:
+                    "رمز عبور خودت را بساز",
+                confirmPasswordLabel:
+                    "تکرار رمز عبور",
+                confirmPasswordPlaceholder:
+                    "رمز عبور را دوباره وارد کن",
+                passwordMismatch:
+                    "رمزهای عبور یکسان نیستند.",
+                passwordRequired:
+                    "لطفاً رمز عبور را وارد کن.",
+                passwordTooShort:
+                    "رمز عبور باید حداقل ۶ کاراکتر باشد.",
 
                 usernameLabel: "نام کاربری",
-                usernamePlaceholder: "مثلاً novy_user",
+                usernamePlaceholder:
+                    "مثلاً novy_user",
 
                 nameLabel: "نام",
-                namePlaceholder: "مثلاً میوا",
+                namePlaceholder:
+                    "مثلاً میوا",
 
-                profileReady: "پروفایلت آماده‌ست!",
-                readyDescription: "حالا می‌تونی وارد نووی بشی و شروع کنی.",
-                enterNovy: "ورود به نووی"
+                profileReady:
+                    "پروفایلت آماده‌ست!",
+                readyDescription:
+                    "حالا می‌تونی وارد نووی بشی و شروع کنی.",
+                enterNovy:
+                    "ورود به نووی",
+
+                invalidEmail:
+                    "لطفاً یک ایمیل معتبر وارد کن.",
+                emailError:
+                    "ارسال لینک ورود انجام نشد. دوباره امتحان کن.",
+                authError:
+                    "احراز هویت انجام نشد. دوباره امتحان کن.",
+                passwordError:
+                    "ساخت رمز عبور انجام نشد.",
+                profileError:
+                    "ذخیره اطلاعات پروفایل انجام نشد."
             },
 
             en: {
                 pageTitle: "Login to Novy",
                 back: "← Back to Novy",
                 loginTitle: "Login to Novy",
-                loginDescription: "Enter your information to create your profile.",
-                contactLabel: "Email or phone number",
-                contactPlaceholder: "Email or phone number",
+                loginDescription:
+                    "Enter your email to receive a login link.",
+                contactLabel: "Email",
+                contactPlaceholder: "Email",
                 continue: "Continue",
 
-                verificationDescription: "A verification code was sent to you.",
-                verificationLabel: "Verification code",
-                verify: "Verify",
+                verificationDescription:
+                    "The login link was sent. Check your email and click the link.",
+                verificationEmail:
+                    "Email sent.",
+                checkLogin: "Check login",
+                loginNotComplete:
+                    "You are not signed in yet. Click the link in your email first.",
 
-                passwordDescription: "Create a password for your account.",
+                passwordDescription:
+                    "Create a password for your account.",
                 passwordLabel: "Password",
-                passwordPlaceholder: "Create your password",
-                confirmPasswordLabel: "Confirm password",
-                confirmPasswordPlaceholder: "Enter your password again",
-                passwordMismatch: "Passwords do not match.",
-                passwordRequired: "Please enter a password.",
+                passwordPlaceholder:
+                    "Create your password",
+                confirmPasswordLabel:
+                    "Confirm password",
+                confirmPasswordPlaceholder:
+                    "Enter your password again",
+                passwordMismatch:
+                    "Passwords do not match.",
+                passwordRequired:
+                    "Please enter a password.",
+                passwordTooShort:
+                    "Password must be at least 6 characters.",
 
                 usernameLabel: "Username",
-                usernamePlaceholder: "e.g. novy_user",
+                usernamePlaceholder:
+                    "e.g. novy_user",
 
                 nameLabel: "Name",
-                namePlaceholder: "e.g. Miwa",
+                namePlaceholder:
+                    "e.g. Miwa",
 
-                profileReady: "Your profile is ready!",
-                readyDescription: "Now you can enter Novy and get started.",
-                enterNovy: "Enter Novy"
+                profileReady:
+                    "Your profile is ready!",
+                readyDescription:
+                    "Now you can enter Novy and get started.",
+                enterNovy:
+                    "Enter Novy",
+
+                invalidEmail:
+                    "Please enter a valid email.",
+                emailError:
+                    "The login link could not be sent. Please try again.",
+                authError:
+                    "Authentication failed. Please try again.",
+                passwordError:
+                    "The password could not be created.",
+                profileError:
+                    "Your profile information could not be saved."
             },
 
             ar: {
                 pageTitle: "تسجيل الدخول إلى نوفي",
                 back: "← العودة إلى نوفي",
                 loginTitle: "تسجيل الدخول إلى نوفي",
-                loginDescription: "أدخل معلوماتك لإنشاء ملفك الشخصي.",
-                contactLabel: "البريد الإلكتروني أو رقم الهاتف",
-                contactPlaceholder: "البريد الإلكتروني أو رقم الهاتف",
+                loginDescription:
+                    "أدخل بريدك الإلكتروني لتلقي رابط تسجيل الدخول.",
+                contactLabel: "البريد الإلكتروني",
+                contactPlaceholder: "البريد الإلكتروني",
                 continue: "متابعة",
 
-                verificationDescription: "تم إرسال رمز التحقق إليك.",
-                verificationLabel: "رمز التحقق",
-                verify: "تأكيد",
+                verificationDescription:
+                    "تم إرسال رابط تسجيل الدخول. تحقق من بريدك واضغط على الرابط.",
+                verificationEmail:
+                    "تم إرسال البريد الإلكتروني.",
+                checkLogin: "تحقق من تسجيل الدخول",
+                loginNotComplete:
+                    "لم يتم تسجيل الدخول بعد. اضغط على الرابط الموجود في بريدك أولاً.",
 
-                passwordDescription: "أنشئ كلمة مرور لحسابك.",
+                passwordDescription:
+                    "أنشئ كلمة مرور لحسابك.",
                 passwordLabel: "كلمة المرور",
-                passwordPlaceholder: "أنشئ كلمة المرور",
-                confirmPasswordLabel: "تأكيد كلمة المرور",
-                confirmPasswordPlaceholder: "أدخل كلمة المرور مرة أخرى",
-                passwordMismatch: "كلمتا المرور غير متطابقتين.",
-                passwordRequired: "يرجى إدخال كلمة المرور.",
+                passwordPlaceholder:
+                    "أنشئ كلمة المرور",
+                confirmPasswordLabel:
+                    "تأكيد كلمة المرور",
+                confirmPasswordPlaceholder:
+                    "أدخل كلمة المرور مرة أخرى",
+                passwordMismatch:
+                    "كلمتا المرور غير متطابقتين.",
+                passwordRequired:
+                    "يرجى إدخال كلمة المرور.",
+                passwordTooShort:
+                    "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.",
 
                 usernameLabel: "اسم المستخدم",
-                usernamePlaceholder: "مثلاً novy_user",
+                usernamePlaceholder:
+                    "مثلاً novy_user",
 
                 nameLabel: "الاسم",
-                namePlaceholder: "مثلاً Miwa",
+                namePlaceholder:
+                    "مثلاً Miwa",
 
-                profileReady: "ملفك الشخصي جاهز!",
-                readyDescription: "يمكنك الآن الدخول إلى نوفي والبدء.",
-                enterNovy: "الدخول إلى نوفي"
+                profileReady:
+                    "ملفك الشخصي جاهز!",
+                readyDescription:
+                    "يمكنك الآن الدخول إلى نوفي والبدء.",
+                enterNovy:
+                    "الدخول إلى نوفي",
+
+                invalidEmail:
+                    "يرجى إدخال بريد إلكتروني صالح.",
+                emailError:
+                    "تعذر إرسال رابط تسجيل الدخول. حاول مرة أخرى.",
+                authError:
+                    "فشلت المصادقة. حاول مرة أخرى.",
+                passwordError:
+                    "تعذر إنشاء كلمة المرور.",
+                profileError:
+                    "تعذر حفظ معلومات ملفك الشخصي."
             }
 
         };
@@ -825,6 +884,9 @@
         const step3Button =
             document.getElementById("step3Button");
 
+        const loginSubmit =
+            document.getElementById("loginSubmit");
+
 
         /* ==================== ورودی‌ها ==================== */
 
@@ -846,48 +908,287 @@
         const passwordError =
             document.getElementById("passwordError");
 
+        const contactError =
+            document.getElementById("contactError");
+
+        const verificationEmail =
+            document.getElementById("verificationEmail");
+
+
+        /* ==================== ابزارهای کمکی ==================== */
+
+        function getCurrentLanguage() {
+
+            return localStorage.getItem("novy-language")
+                || "fa";
+
+        }
+
+
+        function t(key) {
+
+            const lang =
+                getCurrentLanguage();
+
+            return (
+                translations[lang]?.[key]
+                || translations.fa[key]
+                || key
+            );
+
+        }
+
+
+        function showError(element, message) {
+
+            element.textContent =
+                message;
+
+            element.classList.add("show");
+
+        }
+
+
+        function hideError(element) {
+
+            element.textContent = "";
+
+            element.classList.remove("show");
+
+        }
+
+
+        function setLoading(button, loading) {
+
+            if (loading) {
+
+                button.classList.add("loading");
+                button.dataset.originalText =
+                    button.innerHTML;
+
+                button.innerHTML =
+                    "...";
+
+            } else {
+
+                button.classList.remove("loading");
+
+                if (
+                    button.dataset.originalText
+                ) {
+
+                    button.innerHTML =
+                        button.dataset.originalText;
+
+                }
+
+            }
+
+        }
+
+
+        function isValidEmail(email) {
+
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                .test(email);
+
+        }
+
+
+        function showStep(stepToShow) {
+
+            [
+                step1,
+                verificationStep,
+                passwordStep,
+                step2,
+                step3,
+                step4
+            ].forEach(step => {
+
+                step.style.display =
+                    step === stepToShow
+                        ? "flex"
+                        : "none";
+
+            });
+
+        }
+
 
         /* ==================== مرحله ۱ ==================== */
 
         step1Button.addEventListener(
             "click",
-            function (event) {
+            async function (event) {
 
                 event.preventDefault();
 
-                if (
-                    loginContact.value.trim() === ""
-                ) {
+                hideError(contactError);
+
+                const email =
+                    loginContact.value.trim()
+                        .toLowerCase();
+
+
+                if (!isValidEmail(email)) {
+
+                    showError(
+                        contactError,
+                        t("invalidEmail")
+                    );
 
                     loginContact.focus();
+
                     return;
 
                 }
 
-                step1.style.display = "none";
 
-                verificationStep.style.display =
-                    "flex";
+                setLoading(
+                    step1Button,
+                    true
+                );
+
+
+                /*
+                 * Supabase برای این حالت Magic Link
+                 * ارسال می‌کند.
+                 *
+                 * لینک کاربر را به همین صفحه
+                 * برمی‌گرداند.
+                 */
+
+                const redirectUrl =
+                    window.location.origin +
+                    window.location.pathname;
+
+
+                const {
+                    error
+                } =
+                    await supabaseClient.auth
+                        .signInWithOtp({
+
+                            email: email,
+
+                            options: {
+
+                                shouldCreateUser:
+                                    true,
+
+                                emailRedirectTo:
+                                    redirectUrl
+
+                            }
+
+                        });
+
+
+                setLoading(
+                    step1Button,
+                    false
+                );
+
+
+                if (error) {
+
+                    console.error(
+                        "Supabase signInWithOtp error:",
+                        error
+                    );
+
+                    showError(
+                        contactError,
+                        t("emailError")
+                    );
+
+                    return;
+
+                }
+
+
+                localStorage.setItem(
+                    "novyContact",
+                    email
+                );
+
+
+                verificationEmail.textContent =
+                    email;
+
+
+                showStep(
+                    verificationStep
+                );
 
             }
         );
 
 
-        /* ==================== کد تأیید ==================== */
+        /* ==================== بررسی ورود ==================== */
 
         verificationButton.addEventListener(
             "click",
-            function (event) {
+            async function (event) {
 
                 event.preventDefault();
 
-                verificationStep.style.display =
-                    "none";
+                setLoading(
+                    verificationButton,
+                    true
+                );
 
-                passwordStep.style.display =
-                    "flex";
 
-                loginPassword.focus();
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.auth
+                        .getSession();
+
+
+                setLoading(
+                    verificationButton,
+                    false
+                );
+
+
+                if (error) {
+
+                    console.error(
+                        "Supabase session error:",
+                        error
+                    );
+
+                    alert(
+                        t("authError")
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    data &&
+                    data.session
+                ) {
+
+                    showStep(
+                        passwordStep
+                    );
+
+                    loginPassword.focus();
+
+                    return;
+
+                }
+
+
+                alert(
+                    t("loginNotComplete")
+                );
 
             }
         );
@@ -897,28 +1198,28 @@
 
         passwordButton.addEventListener(
             "click",
-            function (event) {
+            async function (event) {
 
                 event.preventDefault();
 
+                hideError(passwordError);
+
+
                 const password =
-                    loginPassword.value.trim();
+                    loginPassword.value;
 
                 const confirmPassword =
-                    loginPasswordConfirm.value.trim();
+                    loginPasswordConfirm.value;
 
 
-                if (password === "") {
+                if (
+                    password.length < 6
+                ) {
 
-                    const currentLanguage =
-                        localStorage.getItem("novy-language")
-                        || "fa";
-
-                    passwordError.textContent =
-                        translations[currentLanguage]
-                            .passwordRequired;
-
-                    passwordError.classList.add("show");
+                    showError(
+                        passwordError,
+                        t("passwordTooShort")
+                    );
 
                     loginPassword.focus();
 
@@ -931,15 +1232,10 @@
                     password !== confirmPassword
                 ) {
 
-                    const currentLanguage =
-                        localStorage.getItem("novy-language")
-                        || "fa";
-
-                    passwordError.textContent =
-                        translations[currentLanguage]
-                            .passwordMismatch;
-
-                    passwordError.classList.add("show");
+                    showError(
+                        passwordError,
+                        t("passwordMismatch")
+                    );
 
                     loginPasswordConfirm.focus();
 
@@ -948,28 +1244,57 @@
                 }
 
 
-                passwordError.classList.remove("show");
-
-
-                /*
-                 * فعلاً برای نسخه‌ی آزمایشی نووی:
-                 * رمز در localStorage ذخیره می‌شود.
-                 *
-                 * در سیستم واقعی نباید رمز عبور
-                 * به صورت متن ساده در localStorage ذخیره شود.
-                 */
-
-                localStorage.setItem(
-                    "novyPassword",
-                    password
+                setLoading(
+                    passwordButton,
+                    true
                 );
 
 
-                passwordStep.style.display =
-                    "none";
+                const {
+                    error
+                } =
+                    await supabaseClient.auth
+                        .updateUser({
 
-                step2.style.display =
-                    "flex";
+                            password:
+                                password
+
+                        });
+
+
+                setLoading(
+                    passwordButton,
+                    false
+                );
+
+
+                if (error) {
+
+                    console.error(
+                        "Supabase password error:",
+                        error
+                    );
+
+                    showError(
+                        passwordError,
+                        t("passwordError")
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * مهم:
+                 * رمز عبور دیگر در localStorage
+                 * ذخیره نمی‌شود.
+                 */
+
+
+                showStep(
+                    step2
+                );
 
                 loginUsername.focus();
 
@@ -981,7 +1306,9 @@
             "input",
             function () {
 
-                passwordError.classList.remove("show");
+                hideError(
+                    passwordError
+                );
 
             }
         );
@@ -991,7 +1318,9 @@
             "input",
             function () {
 
-                passwordError.classList.remove("show");
+                hideError(
+                    passwordError
+                );
 
             }
         );
@@ -1001,24 +1330,75 @@
 
         step2Button.addEventListener(
             "click",
-            function (event) {
+            async function (event) {
 
                 event.preventDefault();
 
+
+                const username =
+                    loginUsername.value.trim();
+
+
                 if (
-                    loginUsername.value.trim() === ""
+                    username === ""
                 ) {
 
                     loginUsername.focus();
+
                     return;
 
                 }
 
-                step2.style.display =
-                    "none";
 
-                step3.style.display =
-                    "flex";
+                setLoading(
+                    step2Button,
+                    true
+                );
+
+
+                const {
+                    error
+                } =
+                    await supabaseClient.auth
+                        .updateUser({
+
+                            data: {
+
+                                username:
+                                    username
+
+                            }
+
+                        });
+
+
+                setLoading(
+                    step2Button,
+                    false
+                );
+
+
+                if (error) {
+
+                    console.error(
+                        "Supabase username error:",
+                        error
+                    );
+
+                    alert(
+                        t("profileError")
+                    );
+
+                    return;
+
+                }
+
+
+                showStep(
+                    step3
+                );
+
+                loginName.focus();
 
             }
         );
@@ -1028,24 +1408,73 @@
 
         step3Button.addEventListener(
             "click",
-            function (event) {
+            async function (event) {
 
                 event.preventDefault();
 
+
+                const name =
+                    loginName.value.trim();
+
+
                 if (
-                    loginName.value.trim() === ""
+                    name === ""
                 ) {
 
                     loginName.focus();
+
                     return;
 
                 }
 
-                step3.style.display =
-                    "none";
 
-                step4.style.display =
-                    "flex";
+                setLoading(
+                    step3Button,
+                    true
+                );
+
+
+                const {
+                    error
+                } =
+                    await supabaseClient.auth
+                        .updateUser({
+
+                            data: {
+
+                                name:
+                                    name
+
+                            }
+
+                        });
+
+
+                setLoading(
+                    step3Button,
+                    false
+                );
+
+
+                if (error) {
+
+                    console.error(
+                        "Supabase name error:",
+                        error
+                    );
+
+                    alert(
+                        t("profileError")
+                    );
+
+                    return;
+
+                }
+
+
+                showStep(
+                    step4
+                );
 
             }
         );
@@ -1053,111 +1482,170 @@
 
         /* ==================== ورود نهایی ==================== */
 
-        document
-            .getElementById("loginSubmit")
-            .addEventListener(
-                "click",
-                function (event) {
+        loginSubmit.addEventListener(
+            "click",
+            async function (event) {
 
-                    event.preventDefault();
-
-                    const contact =
-                        loginContact.value.trim();
-
-                    const password =
-                        loginPassword.value.trim();
-
-                    const username =
-                        loginUsername.value.trim();
-
-                    const name =
-                        loginName.value.trim();
+                event.preventDefault();
 
 
-                    localStorage.setItem(
-                        "novyContact",
-                        contact
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.auth
+                        .getSession();
+
+
+                if (
+                    error ||
+                    !data ||
+                    !data.session
+                ) {
+
+                    alert(
+                        t("authError")
                     );
 
-                    localStorage.setItem(
-                        "novyPassword",
-                        password
-                    );
-
-                    localStorage.setItem(
-                        "novyUsername",
-                        username
-                    );
-
-                    localStorage.setItem(
-                        "novyName",
-                        name
-                    );
-
-                    localStorage.setItem(
-                        "novyLoggedIn",
-                        "true"
-                    );
-
-
-                    window.location.href =
-                        "profile.html";
+                    return;
 
                 }
-            );
 
 
-        /* ==================== حرکت کد تأیید ==================== */
+                /*
+                 * اطلاعات غیرحساس را برای استفاده
+                 * ساده‌تر در بخش‌های فعلی سایت نگه می‌داریم.
+                 *
+                 * رمز عبور هرگز ذخیره نمی‌شود.
+                 */
 
-        const verificationInputs =
-            document.querySelectorAll(
-                ".verification-digit"
-            );
+                localStorage.setItem(
+                    "novyContact",
+                    loginContact.value.trim()
+                );
 
+                localStorage.setItem(
+                    "novyUsername",
+                    loginUsername.value.trim()
+                );
 
-        verificationInputs.forEach(
-            function (input, index) {
+                localStorage.setItem(
+                    "novyName",
+                    loginName.value.trim()
+                );
 
-                input.addEventListener(
-                    "input",
-                    function () {
-
-                        if (
-                            input.value.length === 1 &&
-                            index <
-                            verificationInputs.length - 1
-                        ) {
-
-                            verificationInputs[
-                                index + 1
-                            ].focus();
-
-                        }
-
-                    }
+                localStorage.setItem(
+                    "novyLoggedIn",
+                    "true"
                 );
 
 
-                input.addEventListener(
-                    "keydown",
-                    function (event) {
-
-                        if (
-                            event.key === "Backspace" &&
-                            input.value === "" &&
-                            index > 0
-                        ) {
-
-                            verificationInputs[
-                                index - 1
-                            ].focus();
-
-                        }
-
-                    }
-                );
+                window.location.href =
+                    "profile.html";
 
             }
+        );
+
+
+        /* ==================== تشخیص خودکار ورود ==================== */
+
+        supabaseClient.auth.onAuthStateChange(
+            function (event, session) {
+
+                /*
+                 * وقتی کاربر روی Magic Link کلیک می‌کند،
+                 * Supabase جلسه را ایجاد می‌کند.
+                 */
+
+                if (
+                    event === "SIGNED_IN" &&
+                    session
+                ) {
+
+                    const currentStep =
+                        [
+                            step1,
+                            verificationStep,
+                            passwordStep,
+                            step2,
+                            step3,
+                            step4
+                        ].find(
+                            step =>
+                                step.style.display !== "none"
+                        );
+
+
+                    /*
+                     * اگر کاربر از لینک ایمیل برگشته،
+                     * مستقیماً وارد مرحله ساخت رمز می‌شود.
+                     */
+
+                    if (
+                        currentStep ===
+                        verificationStep
+                    ) {
+
+                        showStep(
+                            passwordStep
+                        );
+
+                        loginPassword.focus();
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /* ==================== بررسی جلسه هنگام باز شدن صفحه ==================== */
+
+        async function checkExistingSession() {
+
+            const {
+                data
+            } =
+                await supabaseClient.auth
+                    .getSession();
+
+
+            if (
+                data &&
+                data.session
+            ) {
+
+                /*
+                 * اگر کاربر از Magic Link برگشته
+                 * و هنوز اطلاعات پروفایل را کامل نکرده،
+                 * مرحله رمز نمایش داده می‌شود.
+                 */
+
+                if (
+                    !loginUsername.value.trim()
+                ) {
+
+                    showStep(
+                        passwordStep
+                    );
+
+                }
+
+            }
+
+        }
+
+
+        /*
+         * اجرای بررسی جلسه با کمی تأخیر تا
+         * Supabase زمان کافی برای تشخیص لینک
+         * موجود در URL داشته باشد.
+         */
+
+        setTimeout(
+            checkExistingSession,
+            300
         );
 
     </script>
