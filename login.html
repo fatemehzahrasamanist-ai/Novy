@@ -293,163 +293,102 @@
 
     <!-- ==================== JavaScript ==================== -->
 
-    <script>
+ <script>
 
-        /* ==================== عناصر مراحل ==================== */
+    const step1 = document.getElementById("step1");
+    const verificationStep = document.getElementById("verificationStep");
+    const step2 = document.getElementById("step2");
+    const step3 = document.getElementById("step3");
+    const step4 = document.getElementById("step4");
 
-        const step1 =
-            document.getElementById("step1");
+    const step1Button = document.getElementById("step1Button");
+    const verificationButton = document.getElementById("verificationButton");
+    const step2Button = document.getElementById("step2Button");
+    const step3Button = document.getElementById("step3Button");
 
-        const verificationStep =
-            document.getElementById("verificationStep");
-
-        const step2 =
-            document.getElementById("step2");
-
-        const step3 =
-            document.getElementById("step3");
-
-        const step4 =
-            document.getElementById("step4");
-
-
-        /* ==================== دکمه‌ها ==================== */
-
-        const step1Button =
-            document.getElementById("step1Button");
-
-        const verificationButton =
-            document.getElementById("verificationButton");
-
-        const step2Button =
-            document.getElementById("step2Button");
-
-        const step3Button =
-            document.getElementById("step3Button");
+    const loginContact = document.getElementById("loginContact");
+    const verificationCode = document.getElementById("verificationCode");
+    const loginUsername = document.getElementById("loginUsername");
+    const loginName = document.getElementById("loginName");
 
 
-        /* ==================== ورودی‌ها ==================== */
+    /* مرحله ۱ */
 
-        const loginContact =
-            document.getElementById("loginContact");
+    step1Button.addEventListener("click", function (event) {
 
-        const verificationCode =
-            document.getElementById("verificationCode");
+        event.preventDefault();
 
-        const loginUsername =
-            document.getElementById("loginUsername");
+        if (loginContact.value.trim() === "") {
+            loginContact.focus();
+            return;
+        }
 
-        const loginName =
-            document.getElementById("loginName");
+        step1.style.display = "none";
+        verificationStep.style.display = "flex";
 
-
-        /* ==================== مرحله ۱ ==================== */
-
-        step1Button.addEventListener(
-            "click",
-            function () {
-
-                if (
-                    loginContact.value.trim() === ""
-                ) {
-                    loginContact.focus();
-                    return;
-                }
-
-                step1.style.display = "none";
-
-                verificationStep.style.display =
-                    "block";
-
-            }
-        );
+    });
 
 
-        /* ==================== مرحله کد تأیید ==================== */
+    /* کد تأیید */
 
-        verificationButton.addEventListener(
-            "click",
-            function (event) {
+    verificationButton.addEventListener("click", function (event) {
 
-                event.preventDefault();
+        event.preventDefault();
 
-                /*
-                    فعلاً کد واقعی بررسی نمی‌شود.
-                    هر کدی وارد شود، مرحله بعد باز می‌شود.
-                */
+        verificationStep.style.display = "none";
+        step2.style.display = "flex";
 
-                verificationStep.style.display =
-                    "none";
-
-                step2.style.display =
-                    "block";
-
-            }
-        );
+    });
 
 
-        /* ==================== مرحله ۲ ==================== */
+    /* نام کاربری */
 
-        step2Button.addEventListener(
-            "click",
-            function () {
+    step2Button.addEventListener("click", function (event) {
 
-                if (
-                    loginUsername.value.trim() === ""
-                ) {
-                    loginUsername.focus();
-                    return;
-                }
+        event.preventDefault();
 
-                step2.style.display =
-                    "none";
+        if (loginUsername.value.trim() === "") {
+            loginUsername.focus();
+            return;
+        }
 
-                step3.style.display =
-                    "block";
+        step2.style.display = "none";
+        step3.style.display = "flex";
 
-            }
-        );
+    });
 
 
-        /* ==================== مرحله ۳ ==================== */
+    /* نام */
 
-        step3Button.addEventListener(
-            "click",
-            function () {
+    step3Button.addEventListener("click", function (event) {
 
-                if (
-                    loginName.value.trim() === ""
-                ) {
-                    loginName.focus();
-                    return;
-                }
+        event.preventDefault();
 
-                step3.style.display =
-                    "none";
+        if (loginName.value.trim() === "") {
+            loginName.focus();
+            return;
+        }
 
-                step4.style.display =
-                    "block";
+        step3.style.display = "none";
+        step4.style.display = "flex";
 
-            }
-        );
+    });
 
 
-        /* ==================== ورود نهایی ==================== */
+    /* ورود به نووی */
 
-        document
-            .getElementById("loginSubmit")
-            .addEventListener(
-                "click",
-                function () {
+    document
+        .getElementById("loginSubmit")
+        .addEventListener("click", function (event) {
 
-                    window.location.href =
-                        "index.html";
+            event.preventDefault();
 
-                }
-            );
+            window.location.href = "index.html";
 
-    </script>
+        });
 
+</script>
+    
 </body>
 
 </html>
