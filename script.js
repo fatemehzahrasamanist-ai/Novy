@@ -47,116 +47,211 @@ const themes = {
     }
 };
 
+
+// ==================== Set Theme ====================
+
 function setTheme(themeName) {
+
     const theme = themes[themeName];
 
     if (!theme) return;
 
     Object.entries(theme).forEach(function ([variable, value]) {
-        document.documentElement.style.setProperty(variable, value);
+
+        document.documentElement.style.setProperty(
+            variable,
+            value
+        );
+
     });
 
-    localStorage.setItem("novy-theme", themeName);
+    localStorage.setItem(
+        "novy-theme",
+        themeName
+    );
 }
 
-const savedTheme = localStorage.getItem("novy-theme");
+
+// ==================== Load Saved Theme ====================
+
+const savedTheme =
+    localStorage.getItem("novy-theme");
 
 if (savedTheme && themes[savedTheme]) {
+
     setTheme(savedTheme);
+
 } else {
+
     setTheme("navy");
+
 }
 
-const themeButton = document.getElementById("themeButton");
-const themePanel = document.getElementById("themePanel");
-const closeThemePanel = document.getElementById("closeThemePanel");
-const themeOptions = document.querySelectorAll(".theme-option");
+
+// ==================== Get Elements ====================
+
+const themeButton =
+    document.getElementById("themeButton");
+
+const themePanel =
+    document.getElementById("themePanel");
+
+const closeThemePanel =
+    document.getElementById("closeThemePanel");
+
+const themeOptions =
+    document.querySelectorAll(".theme-option");
+
+
+// ==================== Open Theme Panel ====================
 
 if (themeButton && themePanel) {
-    themeButton.addEventListener("click", function (event) {
-        event.stopPropagation();
 
-        if (themePanel.style.display === "block") {
-            themePanel.style.display = "none";
-        } else {
-            themePanel.style.display = "block";
+    themeButton.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+            if (
+                themePanel.style.display === "block"
+            ) {
+
+                themePanel.style.display = "none";
+
+            } else {
+
+                themePanel.style.display = "block";
+
+            }
+
         }
-    });
+    );
+
 }
+
+
+// ==================== Close Theme Panel ====================
 
 if (closeThemePanel && themePanel) {
-    closeThemePanel.addEventListener("click", function () {
-        themePanel.style.display = "none";
-    });
+
+    closeThemePanel.addEventListener(
+        "click",
+        function () {
+
+            themePanel.style.display = "none";
+
+        }
+    );
+
 }
 
+
+// ==================== Select Theme ====================
+
 themeOptions.forEach(function (button) {
-    button.addEventListener("click", function () {
-        const selectedTheme = button.getAttribute("data-theme");
 
-        if (!selectedTheme) return;
+    button.addEventListener(
+        "click",
+        function () {
 
-        setTheme(selectedTheme);
+            const selectedTheme =
+                button.getAttribute("data-theme");
 
-        if (themePanel) {
-            themePanel.style.display = "none";
+            if (!selectedTheme) return;
+
+            setTheme(selectedTheme);
+
+            if (themePanel) {
+
+                themePanel.style.display = "none";
+
+            }
+
         }
-    });
+    );
+
 });
 
-document.addEventListener("click", function (event) {
-    if (!themePanel || !themeButton) return;
 
-    const clickedPanel = themePanel.contains(event.target);
-    const clickedButton = themeButton.contains(event.target);
+// ==================== Close When Clicking Outside ====================
 
-    if (!clickedPanel && !clickedButton) {
-        themePanel.style.display = "none";
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (!themePanel || !themeButton) {
+            return;
+        }
+
+        const clickedPanel =
+            themePanel.contains(event.target);
+
+        const clickedButton =
+            themeButton.contains(event.target);
+
+        if (!clickedPanel && !clickedButton) {
+
+            themePanel.style.display = "none";
+
+        }
+
     }
-});
+);
+
+
 // ==================== Language System ====================
 
 const translations = {
- 
+
     fa: {
-    language: "زبان",
-    novyAppearance: "ظاهر نووی",
-    chooseTheme: "تم مورد علاقه‌ات رو انتخاب کن.",
-    black: "مشکی",
-    navy: "سرمه‌ای",
-    ice: "یخی"
-    close: "بستن"
-},
+        language: "زبان",
+        novyAppearance: "ظاهر نووی",
+        chooseTheme: "تم مورد علاقه‌ات رو انتخاب کن.",
+        black: "مشکی",
+        navy: "سرمه‌ای",
+        ice: "یخی",
+        close: "بستن"
+    },
 
     en: {
-    language: "Language",
-    novyAppearance: "Novy Appearance",
-    chooseTheme: "Choose your favorite theme.",
-    black: "Black",
-    navy: "Navy",
-    ice: "Ice"
-    close: "Close"
-},
+        language: "Language",
+        novyAppearance: "Novy Appearance",
+        chooseTheme: "Choose your favorite theme.",
+        black: "Black",
+        navy: "Navy",
+        ice: "Ice",
+        close: "Close"
+    },
 
-   ar: {
-    language: "اللغة",
-    novyAppearance: "مظهر نووي",
-    chooseTheme: "اختر المظهر المفضل لديك.",
-    black: "أسود",
-    navy: "كحلي",
-    ice: "ثلجي"
-    close: "إغلاق"
-}
+    ar: {
+        language: "اللغة",
+        novyAppearance: "مظهر نووي",
+        chooseTheme: "اختر المظهر المفضل لديك.",
+        black: "أسود",
+        navy: "كحلي",
+        ice: "ثلجي",
+        close: "إغلاق"
+    }
+
+};
+
+
+// ==================== Apply Language ====================
 
 function applyLanguage(language) {
 
     const ariaElements =
-        document.querySelectorAll("[data-i18n-aria]");
+        document.querySelectorAll(
+            "[data-i18n-aria]"
+        );
 
     ariaElements.forEach(function (element) {
 
         const key =
-            element.getAttribute("data-i18n-aria");
+            element.getAttribute(
+                "data-i18n-aria"
+            );
 
         if (
             translations[language] &&
@@ -174,12 +269,16 @@ function applyLanguage(language) {
 
 
     const elements =
-        document.querySelectorAll("[data-i18n]");
+        document.querySelectorAll(
+            "[data-i18n]"
+        );
 
     elements.forEach(function (element) {
 
         const key =
-            element.getAttribute("data-i18n");
+            element.getAttribute(
+                "data-i18n"
+            );
 
         if (
             translations[language] &&
@@ -197,64 +296,82 @@ function applyLanguage(language) {
     document.documentElement.lang =
         language;
 
+
     if (language === "en") {
 
-        document.documentElement.dir = "ltr";
+        document.documentElement.dir =
+            "ltr";
 
     } else {
 
-        document.documentElement.dir = "rtl";
+        document.documentElement.dir =
+            "rtl";
 
     }
+
 
     localStorage.setItem(
         "novy-language",
         language
     );
-}
-    });
 
-    document.documentElement.lang =
-        language;
-
-    if (language === "en") {
-
-        document.documentElement.dir = "ltr";
-
-    } else {
-
-        document.documentElement.dir = "rtl";
-
-    }
-
-    localStorage.setItem(
-        "novy-language",
-        language
-    );
 }
 
+
+// ==================== Language Buttons ====================
 
 const languageOptions =
-    document.querySelectorAll(".language-option");
+    document.querySelectorAll(
+        ".language-option"
+    );
 
 
 languageOptions.forEach(function (button) {
 
-    button.addEventListener("click", function () {
+    button.addEventListener(
+        "click",
+        function () {
 
-        const selectedLanguage =
-            button.getAttribute("data-lang");
+            const selectedLanguage =
+                button.getAttribute(
+                    "data-lang"
+                );
 
-        if (!selectedLanguage) {
-            return;
+            if (!selectedLanguage) {
+                return;
+            }
+
+            applyLanguage(
+                selectedLanguage
+            );
+
+            if (themePanel) {
+
+                themePanel.style.display =
+                    "none";
+
+            }
+
         }
-
-        applyLanguage(selectedLanguage);
-
-        if (themePanel) {
-            themePanel.style.display = "none";
-        }
-
-    });
+    );
 
 });
+
+
+// ==================== Load Saved Language ====================
+
+const savedLanguage =
+    localStorage.getItem("novy-language");
+
+if (
+    savedLanguage &&
+    translations[savedLanguage]
+) {
+
+    applyLanguage(savedLanguage);
+
+} else {
+
+    applyLanguage("fa");
+
+}
