@@ -99,6 +99,32 @@
             transition:
                 background-color 5000s ease-in-out 0s;
         }
+
+
+        /* ==================== Verification Code ==================== */
+
+        .verification-inputs {
+            display: flex;
+            direction: ltr;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin: 8px 0 10px;
+        }
+
+        .verification-digit {
+            width: 48px !important;
+            height: 54px;
+
+            padding: 0 !important;
+
+            text-align: center;
+            font-size: 20px !important;
+            font-weight: 600;
+
+            border-radius: 12px !important;
+        }
+
     </style>
 
 </head>
@@ -111,6 +137,7 @@
         <div class="login-page-box">
 
             <!-- برگشت -->
+
             <a
                 href="index.html"
                 class="login-back"
@@ -120,12 +147,14 @@
 
 
             <!-- لوگو -->
+
             <div class="login-page-logo">
                 NOVY
             </div>
 
 
             <!-- عنوان -->
+
             <h1 id="loginTitle">
                 ورود به نووی
             </h1>
@@ -175,17 +204,55 @@
                     کد تأیید برایت ارسال شد.
                 </p>
 
-                <label for="verificationCode">
+                <label>
                     کد تأیید
                 </label>
 
-                <input
-                    type="text"
-                    id="verificationCode"
-                    placeholder="کد ۶ رقمی"
-                    maxlength="6"
-                    inputmode="numeric"
-                >
+                <div class="verification-inputs">
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                    <input
+                        type="text"
+                        maxlength="1"
+                        inputmode="numeric"
+                        class="verification-digit"
+                    >
+
+                </div>
 
                 <button
                     class="login-page-submit"
@@ -293,103 +360,210 @@
 
     <!-- ==================== JavaScript ==================== -->
 
- <script>
+    <script>
 
-    const step1 = document.getElementById("step1");
-    const verificationStep = document.getElementById("verificationStep");
-    const step2 = document.getElementById("step2");
-    const step3 = document.getElementById("step3");
-    const step4 = document.getElementById("step4");
+        const step1 =
+            document.getElementById("step1");
 
-    const step1Button = document.getElementById("step1Button");
-    const verificationButton = document.getElementById("verificationButton");
-    const step2Button = document.getElementById("step2Button");
-    const step3Button = document.getElementById("step3Button");
+        const verificationStep =
+            document.getElementById("verificationStep");
 
-    const loginContact = document.getElementById("loginContact");
-    const verificationCode = document.getElementById("verificationCode");
-    const loginUsername = document.getElementById("loginUsername");
-    const loginName = document.getElementById("loginName");
+        const step2 =
+            document.getElementById("step2");
 
+        const step3 =
+            document.getElementById("step3");
 
-    /* مرحله ۱ */
-
-    step1Button.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        if (loginContact.value.trim() === "") {
-            loginContact.focus();
-            return;
-        }
-
-        step1.style.display = "none";
-        verificationStep.style.display = "flex";
-
-    });
+        const step4 =
+            document.getElementById("step4");
 
 
-    /* کد تأیید */
+        const step1Button =
+            document.getElementById("step1Button");
 
-    verificationButton.addEventListener("click", function (event) {
+        const verificationButton =
+            document.getElementById("verificationButton");
 
-        event.preventDefault();
+        const step2Button =
+            document.getElementById("step2Button");
 
-        verificationStep.style.display = "none";
-        step2.style.display = "flex";
-
-    });
-
-
-    /* نام کاربری */
-
-    step2Button.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        if (loginUsername.value.trim() === "") {
-            loginUsername.focus();
-            return;
-        }
-
-        step2.style.display = "none";
-        step3.style.display = "flex";
-
-    });
+        const step3Button =
+            document.getElementById("step3Button");
 
 
-    /* نام */
+        const loginContact =
+            document.getElementById("loginContact");
 
-    step3Button.addEventListener("click", function (event) {
+        const loginUsername =
+            document.getElementById("loginUsername");
 
-        event.preventDefault();
-
-        if (loginName.value.trim() === "") {
-            loginName.focus();
-            return;
-        }
-
-        step3.style.display = "none";
-        step4.style.display = "flex";
-
-    });
+        const loginName =
+            document.getElementById("loginName");
 
 
-    /* ورود به نووی */
+        /* ==================== مرحله ۱ ==================== */
 
-    document
-        .getElementById("loginSubmit")
-        .addEventListener("click", function (event) {
+        step1Button.addEventListener(
+            "click",
+            function (event) {
 
-            event.preventDefault();
+                event.preventDefault();
 
-            window.location.href = "index.html";
+                if (
+                    loginContact.value.trim() === ""
+                ) {
+                    loginContact.focus();
+                    return;
+                }
 
-        });
+                step1.style.display = "none";
 
-</script>
-    
+                verificationStep.style.display =
+                    "flex";
+
+            }
+        );
+
+
+        /* ==================== کد تأیید ==================== */
+
+        verificationButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                verificationStep.style.display =
+                    "none";
+
+                step2.style.display =
+                    "flex";
+
+            }
+        );
+
+
+        /* ==================== نام کاربری ==================== */
+
+        step2Button.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                if (
+                    loginUsername.value.trim() === ""
+                ) {
+                    loginUsername.focus();
+                    return;
+                }
+
+                step2.style.display =
+                    "none";
+
+                step3.style.display =
+                    "flex";
+
+            }
+        );
+
+
+        /* ==================== نام ==================== */
+
+        step3Button.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                if (
+                    loginName.value.trim() === ""
+                ) {
+                    loginName.focus();
+                    return;
+                }
+
+                step3.style.display =
+                    "none";
+
+                step4.style.display =
+                    "flex";
+
+            }
+        );
+
+
+        /* ==================== ورود به نووی ==================== */
+
+        document
+            .getElementById("loginSubmit")
+            .addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+
+        /* ==================== حرکت بین کادرهای کد ==================== */
+
+        const verificationInputs =
+            document.querySelectorAll(
+                ".verification-digit"
+            );
+
+        verificationInputs.forEach(
+            function (input, index) {
+
+                input.addEventListener(
+                    "input",
+                    function () {
+
+                        if (
+                            input.value.length === 1 &&
+                            index <
+                            verificationInputs.length - 1
+                        ) {
+
+                            verificationInputs[
+                                index + 1
+                            ].focus();
+
+                        }
+
+                    }
+                );
+
+
+                input.addEventListener(
+                    "keydown",
+                    function (event) {
+
+                        if (
+                            event.key === "Backspace" &&
+                            input.value === "" &&
+                            index > 0
+                        ) {
+
+                            verificationInputs[
+                                index - 1
+                            ].focus();
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
 </body>
 
 </html>
-
