@@ -31,25 +31,48 @@
 
         .sidebar {
             width: 270px;
+            min-width: 270px;
             background: #081b30;
             border-left: 1px solid #163452;
             display: flex;
             flex-direction: column;
-            padding: 18px;
+            padding: 18px 14px;
+            transition:
+                width 0.25s ease,
+                min-width 0.25s ease,
+                padding 0.25s ease;
+            position: relative;
+            z-index: 20;
+        }
+
+        .sidebar.collapsed {
+            width: 76px;
+            min-width: 76px;
+            padding: 18px 10px;
+        }
+
+        .sidebar-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 22px;
+            font-size: 21px;
             font-weight: bold;
-            margin-bottom: 22px;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .logo-icon {
             width: 38px;
             height: 38px;
+            min-width: 38px;
             border-radius: 12px;
             background: #102e4a;
             border: 1px solid #1d405d;
@@ -58,6 +81,25 @@
             justify-content: center;
             color: #8ee7ff;
             font-weight: bold;
+        }
+
+        .collapse-button {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            border: 1px solid #1d405d;
+            border-radius: 10px;
+            background: #0b233d;
+            color: #8ee7ff;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collapse-button:hover {
+            background: #102e4a;
         }
 
         .new-chat {
@@ -69,17 +111,59 @@
             padding: 12px;
             cursor: pointer;
             font-size: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .new-chat:hover {
             background: #102e4a;
         }
 
+        .sidebar-tools {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 18px;
+        }
+
+        .sidebar-tool {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: #a8c7d9;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar-tool:hover {
+            background: #102e4a;
+            color: #f4fbff;
+        }
+
+        .tool-icon {
+            width: 24px;
+            min-width: 24px;
+            text-align: center;
+            font-size: 16px;
+        }
+
         .sidebar-title {
             color: #91b0c2;
             font-size: 12px;
-            margin-bottom: 10px;
+            margin: 0 8px 8px;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .chat-history {
@@ -109,21 +193,60 @@
         .sidebar-bottom {
             margin-top: auto;
             border-top: 1px solid #163452;
-            padding-top: 14px;
+            padding-top: 12px;
         }
 
         .profile-button {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 11px;
             text-decoration: none;
             color: #a8c7d9;
             padding: 10px;
             border-radius: 10px;
             font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .profile-button:hover {
             background: #102e4a;
             color: #f4fbff;
+        }
+
+        /* COLLAPSED */
+
+        .sidebar.collapsed .logo span,
+        .sidebar.collapsed .new-chat span,
+        .sidebar.collapsed .sidebar-title,
+        .sidebar.collapsed .sidebar-tool span:not(.tool-icon),
+        .sidebar.collapsed .history-item,
+        .sidebar.collapsed .profile-button span {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-top {
+            justify-content: center;
+        }
+
+        .sidebar.collapsed .collapse-button {
+            position: absolute;
+            top: 18px;
+            right: 21px;
+        }
+
+        .sidebar.collapsed .new-chat {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 0;
+        }
+
+        .sidebar.collapsed .sidebar-tool,
+        .sidebar.collapsed .profile-button {
+            justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
         }
 
         /* =========================
@@ -277,6 +400,11 @@
                 #061426 70%,
                 rgba(6, 20, 38, 0)
             );
+            transition: right 0.25s ease;
+        }
+
+        body.sidebar-collapsed .input-area {
+            right: 76px;
         }
 
         .input-wrapper {
@@ -340,14 +468,61 @@
             display: none;
         }
 
+        .sidebar-overlay {
+            display: none;
+        }
+
         @media (max-width: 750px) {
 
             .sidebar {
-                display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 270px;
+                min-width: 270px;
+                transform: translateX(100%);
+                transition: transform 0.25s ease;
+                box-shadow: -15px 0 40px rgba(0, 0, 0, 0.35);
             }
 
-            .chat-header {
-                padding: 0 16px;
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .sidebar.collapsed {
+                width: 270px;
+                min-width: 270px;
+                padding: 18px 14px;
+            }
+
+            .sidebar.collapsed .logo span,
+            .sidebar.collapsed .new-chat span,
+            .sidebar.collapsed .sidebar-title,
+            .sidebar.collapsed .sidebar-tool span:not(.tool-icon),
+            .sidebar.collapsed .history-item,
+            .sidebar.collapsed .profile-button span {
+                display: inline;
+            }
+
+            .sidebar.collapsed .sidebar-top {
+                justify-content: space-between;
+            }
+
+            .sidebar.collapsed .collapse-button {
+                position: static;
+            }
+
+            .sidebar.collapsed .new-chat {
+                display: block;
+                padding: 12px;
+            }
+
+            .sidebar.collapsed .sidebar-tool,
+            .sidebar.collapsed .profile-button {
+                justify-content: flex-start;
+                padding-left: 10px;
+                padding-right: 10px;
             }
 
             .mobile-menu {
@@ -362,10 +537,30 @@
                 border: 1px solid #1d405d;
                 color: #8ee7ff;
                 cursor: pointer;
+                font-size: 18px;
+            }
+
+            .sidebar-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.45);
+                z-index: 10;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
             }
 
             .input-area {
                 right: 0;
+            }
+
+            body.sidebar-collapsed .input-area {
+                right: 0;
+            }
+
+            .chat-header {
+                padding: 0 16px;
             }
 
             .messages {
@@ -393,34 +588,87 @@
 <div class="chat-app">
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
 
-        <div class="logo">
-            <div class="logo-icon">N</div>
-            <span>نووی</span>
+        <div class="sidebar-top">
+
+            <div class="logo">
+                <div class="logo-icon">N</div>
+                <span>نووی</span>
+            </div>
+
+            <button
+                class="collapse-button"
+                id="collapseSidebar"
+                aria-label="باز و بسته کردن نوار کناری"
+            >
+                ☰
+            </button>
+
         </div>
 
+
         <button class="new-chat" id="newChat">
-            ＋ گفتگوی جدید
+            <span>＋ گفتگوی جدید</span>
         </button>
+
+
+        <div class="sidebar-tools">
+
+            <button class="sidebar-tool">
+                <span class="tool-icon">🖼️</span>
+                <span>تصاویر</span>
+            </button>
+
+            <button class="sidebar-tool">
+                <span class="tool-icon">📚</span>
+                <span>کتابخانه</span>
+            </button>
+
+            <button class="sidebar-tool">
+                <span class="tool-icon">📁</span>
+                <span>پروژه‌ها</span>
+            </button>
+
+            <button class="sidebar-tool">
+                <span class="tool-icon">&lt;/&gt;</span>
+                <span>کدها</span>
+            </button>
+
+            <button class="sidebar-tool">
+                <span class="tool-icon">⚙️</span>
+                <span>تنظیمات</span>
+            </button>
+
+        </div>
+
 
         <div class="sidebar-title">
             گفتگوهای اخیر
         </div>
 
         <div class="chat-history" id="chatHistory">
+
             <div class="history-item active">
                 گفتگوی جدید
             </div>
+
         </div>
 
+
         <div class="sidebar-bottom">
+
             <a href="profile.html" class="profile-button">
-                👤 پروفایل
+                <span class="tool-icon">👤</span>
+                <span>پروفایل</span>
             </a>
+
         </div>
 
     </aside>
+
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 
     <!-- MAIN -->
@@ -443,7 +691,6 @@
         </header>
 
 
-        <!-- MESSAGES -->
         <section class="messages" id="messages">
 
             <div class="messages-inner" id="messagesInner">
@@ -469,7 +716,6 @@
         </section>
 
 
-        <!-- INPUT -->
         <div class="input-area">
 
             <div class="input-wrapper">
@@ -507,9 +753,57 @@
     const input = document.getElementById("messageInput");
     const sendButton = document.getElementById("sendButton");
     const messagesInner = document.getElementById("messagesInner");
-    const welcome = document.getElementById("welcome");
     const newChat = document.getElementById("newChat");
 
+    const sidebar = document.getElementById("sidebar");
+    const collapseSidebar = document.getElementById("collapseSidebar");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    collapseSidebar.addEventListener("click", function () {
+
+        if (window.innerWidth <= 750) {
+
+            sidebar.classList.remove("mobile-open");
+            sidebarOverlay.classList.remove("active");
+
+            return;
+        }
+
+        sidebar.classList.toggle("collapsed");
+
+        document.body.classList.toggle(
+            "sidebar-collapsed",
+            sidebar.classList.contains("collapsed")
+        );
+
+    });
+
+
+    mobileMenu.addEventListener("click", function () {
+
+        sidebar.classList.add("mobile-open");
+        sidebarOverlay.classList.add("active");
+
+    });
+
+
+    sidebarOverlay.addEventListener("click", function () {
+
+        sidebar.classList.remove("mobile-open");
+        sidebarOverlay.classList.remove("active");
+
+    });
+
+
+    /* =========================
+       SEND MESSAGE
+    ========================= */
 
     function sendMessage() {
 
@@ -519,11 +813,15 @@
             return;
         }
 
-        if (welcome) {
-            welcome.remove();
+        const currentWelcome =
+            document.getElementById("welcome");
+
+        if (currentWelcome) {
+            currentWelcome.remove();
         }
 
-        const userMessage = document.createElement("div");
+        const userMessage =
+            document.createElement("div");
 
         userMessage.className = "message user";
 
@@ -540,7 +838,8 @@
         messagesInner.appendChild(userMessage);
 
 
-        const novyMessage = document.createElement("div");
+        const novyMessage =
+            document.createElement("div");
 
         novyMessage.className = "message novy";
 
@@ -567,7 +866,8 @@
 
     function escapeHtml(text) {
 
-        const div = document.createElement("div");
+        const div =
+            document.createElement("div");
 
         div.textContent = text;
 
@@ -577,59 +877,135 @@
 
     function scrollToBottom() {
 
-        const messages = document.getElementById("messages");
+        const messages =
+            document.getElementById("messages");
 
-        messages.scrollTop = messages.scrollHeight;
+        messages.scrollTop =
+            messages.scrollHeight;
     }
 
 
-    sendButton.addEventListener("click", sendMessage);
+    sendButton.addEventListener(
+        "click",
+        sendMessage
+    );
 
 
-    input.addEventListener("keydown", function(event) {
+    input.addEventListener(
+        "keydown",
+        function(event) {
 
-        if (event.key === "Enter" && !event.shiftKey) {
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
 
-            event.preventDefault();
+                event.preventDefault();
 
-            sendMessage();
+                sendMessage();
+            }
+
         }
-
-    });
-
-
-    input.addEventListener("input", function() {
-
-        this.style.height = "42px";
-
-        this.style.height =
-            Math.min(this.scrollHeight, 130) + "px";
-
-    });
+    );
 
 
-    newChat.addEventListener("click", function() {
+    input.addEventListener(
+        "input",
+        function() {
 
-        messagesInner.innerHTML = `
-            <div class="welcome" id="welcome">
+            this.style.height = "42px";
 
-                <div class="welcome-icon">
-                    N
+            this.style.height =
+                Math.min(
+                    this.scrollHeight,
+                    130
+                ) + "px";
+
+        }
+    );
+
+
+    /* =========================
+       NEW CHAT
+    ========================= */
+
+    newChat.addEventListener(
+        "click",
+        function() {
+
+            messagesInner.innerHTML = `
+                <div class="welcome" id="welcome">
+
+                    <div class="welcome-icon">
+                        N
+                    </div>
+
+                    <h1>
+                        سلام! من نووی‌ام 👋
+                    </h1>
+
+                    <p>
+                        هر چیزی درباره درس، برنامه‌ریزی یا یادگیری خواستی بپرس.
+                    </p>
+
                 </div>
+            `;
 
-                <h1>
-                    سلام! من نووی‌ام 👋
-                </h1>
+            input.value = "";
+            input.style.height = "42px";
+            input.focus();
 
-                <p>
-                    هر چیزی درباره درس، برنامه‌ریزی یا یادگیری خواستی بپرس.
-                </p>
+            if (window.innerWidth <= 750) {
 
-            </div>
-        `;
+                sidebar.classList.remove(
+                    "mobile-open"
+                );
 
-        input.value = "";
-        input.focus();
+                sidebarOverlay.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       SIDEBAR TOOLS
+    ========================= */
+
+    const sidebarTools =
+        document.querySelectorAll(".sidebar-tool");
+
+    sidebarTools.forEach(function(tool) {
+
+        tool.addEventListener(
+            "click",
+            function() {
+
+                const name =
+                    tool.querySelector(
+                        "span:last-child"
+                    )?.textContent;
+
+                if (name === "تنظیمات") {
+
+                    alert(
+                        "تنظیمات نووی به‌زودی اینجا قرار می‌گیره ⚙️"
+                    );
+
+                } else {
+
+                    alert(
+                        name +
+                        " به‌زودی فعال می‌شه ✨"
+                    );
+
+                }
+
+            }
+        );
 
     });
 
