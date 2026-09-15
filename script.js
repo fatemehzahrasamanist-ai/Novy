@@ -125,6 +125,7 @@ const translations = {
     black: "مشکی",
     navy: "سرمه‌ای",
     ice: "یخی"
+    close: "بستن"
 },
 
     en: {
@@ -134,6 +135,7 @@ const translations = {
     black: "Black",
     navy: "Navy",
     ice: "Ice"
+    close: "Close"
 },
 
    ar: {
@@ -143,6 +145,7 @@ const translations = {
     black: "أسود",
     navy: "كحلي",
     ice: "ثلجي"
+    close: "إغلاق"
 }
 
 
