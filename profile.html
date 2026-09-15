@@ -15,6 +15,10 @@
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
         html,
         body {
             margin: 0;
@@ -31,7 +35,6 @@
             justify-content: center;
 
             padding: 30px;
-            box-sizing: border-box;
 
             background:
                 radial-gradient(
@@ -44,7 +47,6 @@
 
         .profile-box {
             width: min(500px, 100%);
-            box-sizing: border-box;
 
             padding: 40px 32px;
 
@@ -159,10 +161,35 @@
             font-weight: 700;
 
             cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                filter 0.2s ease;
         }
 
         .profile-button:hover {
             filter: brightness(1.05);
+            transform: translateY(-1px);
+        }
+
+        .profile-button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 600px) {
+
+            .profile-page {
+                padding: 18px;
+            }
+
+            .profile-box {
+                padding: 32px 22px;
+            }
+
+            .profile-box h1 {
+                font-size: 22px;
+            }
+
         }
 
     </style>
@@ -181,12 +208,15 @@
             </div>
 
 
-            <div class="profile-avatar">
+            <div
+                class="profile-avatar"
+                id="profileAvatar"
+            >
                 N
             </div>
 
 
-            <h1>
+            <h1 id="welcomeTitle">
                 خوش اومدی به نووی 👋
             </h1>
 
@@ -204,7 +234,10 @@
                         نام
                     </span>
 
-                    <span class="profile-item-value">
+                    <span
+                        class="profile-item-value"
+                        id="profileName"
+                    >
                         میوا
                     </span>
 
@@ -217,7 +250,10 @@
                         نام کاربری
                     </span>
 
-                    <span class="profile-item-value">
+                    <span
+                        class="profile-item-value"
+                        id="profileUsername"
+                    >
                         novy_user
                     </span>
 
@@ -228,15 +264,78 @@
 
             <button
                 class="profile-button"
-                onclick="window.location.href='index.html'"
+                id="enterNovy"
             >
-                رفتن به نووی
+                ورود به نووی
                 ←
             </button>
 
         </div>
 
     </main>
+
+
+    <script>
+
+        const nameElement =
+            document.getElementById("profileName");
+
+        const usernameElement =
+            document.getElementById("profileUsername");
+
+        const welcomeTitle =
+            document.getElementById("welcomeTitle");
+
+        const profileAvatar =
+            document.getElementById("profileAvatar");
+
+        const enterNovy =
+            document.getElementById("enterNovy");
+
+
+        const savedName =
+            localStorage.getItem("novyName");
+
+        const savedUsername =
+            localStorage.getItem("novyUsername");
+
+
+        if (savedName && savedName.trim() !== "") {
+
+            nameElement.textContent =
+                savedName;
+
+            welcomeTitle.textContent =
+                `خوش اومدی ${savedName} 👋`;
+
+            profileAvatar.textContent =
+                savedName.trim().charAt(0);
+
+        }
+
+
+        if (
+            savedUsername &&
+            savedUsername.trim() !== ""
+        ) {
+
+            usernameElement.textContent =
+                savedUsername;
+
+        }
+
+
+        enterNovy.addEventListener(
+            "click",
+            function () {
+
+                window.location.href =
+                    "chat.html";
+
+            }
+        );
+
+    </script>
 
 </body>
 
