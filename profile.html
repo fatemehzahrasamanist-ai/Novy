@@ -245,6 +245,32 @@
             transform: translateY(-1px);
         }
 
+        .delete-photo {
+            background: transparent;
+
+            color: var(--danger);
+
+            border: 1px solid rgba(
+                255,
+                125,
+                143,
+                0.35
+            );
+        }
+
+        .delete-photo:hover {
+            background: rgba(
+                255,
+                125,
+                143,
+                0.08
+            );
+
+            color: var(--danger);
+
+            border-color: var(--danger);
+        }
+
         .logout {
             background: transparent;
 
@@ -345,6 +371,7 @@
                         for="avatarInput"
                         class="edit-photo"
                         id="editPhoto"
+                        data-i18n-title="changePhoto"
                         title="تغییر عکس"
                     >
                         ✎
@@ -356,6 +383,7 @@
                     type="file"
                     id="avatarInput"
                     accept="image/jpeg,image/png,image/webp"
+                    data-i18n-aria="choosePhoto"
                 >
 
                 <div
@@ -371,6 +399,7 @@
             <h1 id="welcome">
                 خوش اومدی 👋
             </h1>
+
 
             <p
                 class="description"
@@ -444,7 +473,19 @@
             <div
                 id="photoMessage"
                 class="message"
+                role="status"
+                aria-live="polite"
             ></div>
+
+
+            <button
+                class="delete-photo"
+                id="deletePhotoButton"
+                onclick="deleteAvatar()"
+                data-i18n="deletePhoto"
+            >
+                حذف عکس
+            </button>
 
 
             <button
@@ -562,6 +603,9 @@ const translations = {
 
     fa: {
 
+        pageTitle:
+            "NOVY | پروفایل",
+
         loading:
             "در حال بارگذاری...",
 
@@ -570,6 +614,9 @@ const translations = {
 
         changePhoto:
             "تغییر عکس",
+
+        choosePhoto:
+            "انتخاب عکس پروفایل",
 
         description:
             "این پروفایل شخصی تو در نووی است.",
@@ -589,11 +636,23 @@ const translations = {
         logout:
             "خروج از حساب",
 
+        deletePhoto:
+            "حذف عکس",
+
+        confirmDeletePhoto:
+            "مطمئنی می‌خوای عکس پروفایلت رو حذف کنی؟",
+
         uploading:
             "در حال آپلود عکس...",
 
+        deleting:
+            "در حال حذف عکس...",
+
         uploadSuccess:
             "عکس پروفایل با موفقیت تغییر کرد. ✓",
+
+        deleteSuccess:
+            "عکس پروفایل حذف شد. ✓",
 
         invalidType:
             "فقط JPG، PNG یا WEBP مجازه.",
@@ -607,16 +666,25 @@ const translations = {
         uploadError:
             "آپلود عکس انجام نشد.",
 
+        deleteError:
+            "حذف عکس انجام نشد.",
+
         metadataError:
             "عکس آپلود شد ولی ذخیره پروفایل انجام نشد.",
 
         profileAlt:
-            "عکس پروفایل"
+            "عکس پروفایل",
+
+        defaultName:
+            "Novy"
 
     },
 
 
     en: {
+
+        pageTitle:
+            "NOVY | Profile",
 
         loading:
             "Loading...",
@@ -626,6 +694,9 @@ const translations = {
 
         changePhoto:
             "Change photo",
+
+        choosePhoto:
+            "Choose profile photo",
 
         description:
             "This is your personal Novy profile.",
@@ -645,11 +716,23 @@ const translations = {
         logout:
             "Log out",
 
+        deletePhoto:
+            "Delete photo",
+
+        confirmDeletePhoto:
+            "Are you sure you want to delete your profile photo?",
+
         uploading:
             "Uploading photo...",
 
+        deleting:
+            "Deleting photo...",
+
         uploadSuccess:
             "Profile photo updated successfully. ✓",
+
+        deleteSuccess:
+            "Profile photo deleted. ✓",
 
         invalidType:
             "Only JPG, PNG, or WEBP images are allowed.",
@@ -663,16 +746,25 @@ const translations = {
         uploadError:
             "Could not upload the photo.",
 
+        deleteError:
+            "Could not delete the photo.",
+
         metadataError:
             "The photo was uploaded, but the profile could not be updated.",
 
         profileAlt:
-            "Profile photo"
+            "Profile photo",
+
+        defaultName:
+            "Novy"
 
     },
 
 
     ar: {
+
+        pageTitle:
+            "NOVY | الملف الشخصي",
 
         loading:
             "جارٍ التحميل...",
@@ -682,6 +774,9 @@ const translations = {
 
         changePhoto:
             "تغيير الصورة",
+
+        choosePhoto:
+            "اختيار صورة الملف الشخصي",
 
         description:
             "هذا هو ملفك الشخصي في نوفي.",
@@ -701,11 +796,23 @@ const translations = {
         logout:
             "تسجيل الخروج",
 
+        deletePhoto:
+            "حذف الصورة",
+
+        confirmDeletePhoto:
+            "هل أنت متأكد من حذف صورة ملفك الشخصي؟",
+
         uploading:
             "جارٍ رفع الصورة...",
 
+        deleting:
+            "جارٍ حذف الصورة...",
+
         uploadSuccess:
             "تم تغيير صورة الملف الشخصي بنجاح. ✓",
+
+        deleteSuccess:
+            "تم حذف صورة الملف الشخصي. ✓",
 
         invalidType:
             "يُسمح فقط بصور JPG أو PNG أو WEBP.",
@@ -719,11 +826,17 @@ const translations = {
         uploadError:
             "تعذر رفع الصورة.",
 
+        deleteError:
+            "تعذر حذف الصورة.",
+
         metadataError:
             "تم رفع الصورة، ولكن تعذر تحديث الملف الشخصي.",
 
         profileAlt:
-            "صورة الملف الشخصي"
+            "صورة الملف الشخصي",
+
+        defaultName:
+            "نوفي"
 
     }
 
@@ -735,6 +848,10 @@ let currentLanguage =
         "novy-language"
     ) || "fa";
 
+
+/* =========================
+   LANGUAGE
+========================= */
 
 function applyLanguage(lang) {
 
@@ -756,6 +873,10 @@ function applyLanguage(lang) {
             : "rtl";
 
 
+    document.title =
+        data.pageTitle;
+
+
     document
         .querySelectorAll("[data-i18n]")
         .forEach(element => {
@@ -775,15 +896,55 @@ function applyLanguage(lang) {
         });
 
 
-    const editPhoto =
-        document.getElementById(
-            "editPhoto"
+    document
+        .querySelectorAll("[data-i18n-title]")
+        .forEach(element => {
+
+            const key =
+                element.getAttribute(
+                    "data-i18n-title"
+                );
+
+            if (data[key]) {
+
+                element.title =
+                    data[key];
+
+            }
+
+        });
+
+
+    document
+        .querySelectorAll("[data-i18n-aria]")
+        .forEach(element => {
+
+            const key =
+                element.getAttribute(
+                    "data-i18n-aria"
+                );
+
+            if (data[key]) {
+
+                element.setAttribute(
+                    "aria-label",
+                    data[key]
+                );
+
+            }
+
+        });
+
+
+    const avatarImage =
+        document.querySelector(
+            "#avatar img"
         );
 
-    if (editPhoto) {
+    if (avatarImage) {
 
-        editPhoto.title =
-            data.changePhoto;
+        avatarImage.alt =
+            data.profileAlt;
 
     }
 
@@ -793,11 +954,14 @@ function applyLanguage(lang) {
         currentLanguage
     );
 
+
+    updateWelcome();
+
 }
 
 
 /* =========================
-   MESSAGE
+   TEXT HELPER
 ========================= */
 
 function getText(key) {
@@ -810,6 +974,91 @@ function getText(key) {
 
 }
 
+
+/* =========================
+   WELCOME
+========================= */
+
+function updateWelcome() {
+
+    const welcome =
+        document.getElementById(
+            "welcome"
+        );
+
+    if (!welcome) {
+        return;
+    }
+
+
+    const nameElement =
+        document.getElementById(
+            "nameValue"
+        );
+
+    const usernameElement =
+        document.getElementById(
+            "usernameValue"
+        );
+
+    const emailElement =
+        document.getElementById(
+            "emailValue"
+        );
+
+
+    const name =
+        nameElement?.textContent !== "-"
+            ? nameElement?.textContent
+            : "";
+
+    const username =
+        usernameElement?.textContent !== "-"
+            ? usernameElement?.textContent
+            : "";
+
+    const email =
+        emailElement?.textContent !== "-"
+            ? emailElement?.textContent
+            : "";
+
+
+    const displayName =
+        name ||
+        username ||
+        email ||
+        getText("defaultName");
+
+
+    if (
+        currentLanguage === "en"
+    ) {
+
+        welcome.textContent =
+            `Welcome ${displayName} 👋`;
+
+    }
+    else if (
+        currentLanguage === "ar"
+    ) {
+
+        welcome.textContent =
+            `مرحباً ${displayName} 👋`;
+
+    }
+    else {
+
+        welcome.textContent =
+            `خوش اومدی ${displayName} 👋`;
+
+    }
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
 
 function showMessage(
     text,
@@ -897,41 +1146,7 @@ async function loadProfile() {
         user.email || "-";
 
 
-    const displayName =
-        name ||
-        username ||
-        user.email ||
-        "Novy";
-
-
-    const welcome =
-        document.getElementById(
-            "welcome"
-        );
-
-
-    if (
-        currentLanguage === "en"
-    ) {
-
-        welcome.textContent =
-            `Welcome ${displayName} 👋`;
-
-    }
-    else if (
-        currentLanguage === "ar"
-    ) {
-
-        welcome.textContent =
-            `مرحباً ${displayName} 👋`;
-
-    }
-    else {
-
-        welcome.textContent =
-            `خوش اومدی ${displayName} 👋`;
-
-    }
+    updateWelcome();
 
 
     /* Existing avatar */
@@ -1347,6 +1562,151 @@ document
 
         }
     );
+
+
+/* =========================
+   DELETE AVATAR
+========================= */
+
+async function deleteAvatar() {
+
+    const confirmed =
+        window.confirm(
+            getText(
+                "confirmDeletePhoto"
+            )
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabaseClient.auth.getSession();
+
+
+    if (
+        !session ||
+        !session.user
+    ) {
+
+        showMessage(
+            getText(
+                "loginRequired"
+            ),
+            true
+        );
+
+        return;
+    }
+
+
+    const user =
+        session.user;
+
+
+    showMessage(
+        getText(
+            "deleting"
+        )
+    );
+
+
+    const paths = [
+
+        `${user.id}/avatar.jpg`,
+
+        `${user.id}/avatar.png`,
+
+        `${user.id}/avatar.webp`
+
+    ];
+
+
+    const {
+        error: removeError
+    } =
+        await supabaseClient
+            .storage
+            .from("avatars")
+            .remove(paths);
+
+
+    if (removeError) {
+
+        console.error(
+            removeError
+        );
+
+
+        showMessage(
+            getText(
+                "deleteError"
+            ),
+            true
+        );
+
+        return;
+    }
+
+
+    /* Remove avatar URL from metadata */
+
+    const {
+        error: metadataError
+    } =
+        await supabaseClient
+            .auth
+            .updateUser({
+
+                data: {
+                    avatar_url: null
+                }
+
+            });
+
+
+    if (metadataError) {
+
+        console.error(
+            metadataError
+        );
+
+
+        showMessage(
+            getText(
+                "deleteError"
+            ),
+            true
+        );
+
+        return;
+    }
+
+
+    /* Return to initial avatar */
+
+    setAvatarInitial(
+        user.user_metadata?.name ||
+        user.user_metadata?.username ||
+        user.email ||
+        "N"
+    );
+
+
+    showMessage(
+        getText(
+            "deleteSuccess"
+        )
+    );
+
+}
 
 
 /* =========================
