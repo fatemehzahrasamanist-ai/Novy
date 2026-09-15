@@ -28,18 +28,82 @@
                 NOVY
             </div>
 
-            <h1>
+            <h1 id="loginTitle">
                 ورود به نووی
             </h1>
 
-            <p class="login-page-description">
-                برای ساخت پروفایل خودت اطلاعاتت رو وارد کن.
+            <p
+                class="login-page-description"
+                id="loginDescription"
+            >
+                اطلاعاتت رو وارد کن تا پروفایلت رو بسازیم.
             </p>
 
-            <div class="login-form">
+
+            <!-- مرحله ۱ -->
+            <div
+                class="login-step"
+                id="step1"
+            >
+
+                <label for="loginContact">
+                    ایمیل یا شماره تلفن
+                </label>
+
+                <input
+                    type="text"
+                    id="loginContact"
+                    placeholder="ایمیل یا شماره تلفن"
+                >
+
+                <button
+                    class="login-page-submit"
+                    id="step1Button"
+                >
+                    ادامه
+                    <span>←</span>
+                </button>
+
+            </div>
+
+
+            <!-- مرحله ۲ -->
+            <div
+                class="login-step"
+                id="step2"
+                style="display: none;"
+            >
+
+                <label for="loginUsername">
+                    نام کاربری
+                </label>
+
+                <input
+                    type="text"
+                    id="loginUsername"
+                    placeholder="مثلاً novy_user"
+                >
+
+                <button
+                    class="login-page-submit"
+                    id="step2Button"
+                >
+                    ادامه
+                    <span>←</span>
+                </button>
+
+            </div>
+
+
+            <!-- مرحله ۳ -->
+            <div
+                class="login-step"
+                id="step3"
+                style="display: none;"
+            >
 
                 <label for="loginName">
-                    نام نمایشی
+                    نام
                 </label>
 
                 <input
@@ -50,9 +114,39 @@
 
                 <button
                     class="login-page-submit"
-                    id="loginSubmit"
+                    id="step3Button"
                 >
                     ادامه
+                    <span>←</span>
+                </button>
+
+            </div>
+
+
+            <!-- مرحله ۴ -->
+            <div
+                class="login-step"
+                id="step4"
+                style="display: none;"
+            >
+
+                <div class="login-success-icon">
+                    ✓
+                </div>
+
+                <h2>
+                    پروفایلت آماده‌ست!
+                </h2>
+
+                <p class="login-page-description">
+                    حالا می‌تونی وارد نووی بشی و شروع کنی.
+                </p>
+
+                <button
+                    class="login-page-submit"
+                    id="loginSubmit"
+                >
+                    ورود به نووی
                     <span>←</span>
                 </button>
 
@@ -61,6 +155,72 @@
         </div>
 
     </main>
+
+
+    <script>
+
+        const step1 = document.getElementById("step1");
+        const step2 = document.getElementById("step2");
+        const step3 = document.getElementById("step3");
+        const step4 = document.getElementById("step4");
+
+        const step1Button = document.getElementById("step1Button");
+        const step2Button = document.getElementById("step2Button");
+        const step3Button = document.getElementById("step3Button");
+
+        const loginContact = document.getElementById("loginContact");
+        const loginUsername = document.getElementById("loginUsername");
+        const loginName = document.getElementById("loginName");
+
+
+        step1Button.addEventListener("click", function () {
+
+            if (loginContact.value.trim() === "") {
+                loginContact.focus();
+                return;
+            }
+
+            step1.style.display = "none";
+            step2.style.display = "block";
+
+        });
+
+
+        step2Button.addEventListener("click", function () {
+
+            if (loginUsername.value.trim() === "") {
+                loginUsername.focus();
+                return;
+            }
+
+            step2.style.display = "none";
+            step3.style.display = "block";
+
+        });
+
+
+        step3Button.addEventListener("click", function () {
+
+            if (loginName.value.trim() === "") {
+                loginName.focus();
+                return;
+            }
+
+            step3.style.display = "none";
+            step4.style.display = "block";
+
+        });
+
+
+        document
+            .getElementById("loginSubmit")
+            .addEventListener("click", function () {
+
+                window.location.href = "index.html";
+
+            });
+
+    </script>
 
 </body>
 
