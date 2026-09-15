@@ -1164,25 +1164,34 @@ footer p {
     }
 
 }
-/* ==================== دکمه‌های زبان ==================== */
+/* ==================== Language Buttons ==================== */
+
+.language-section {
+    margin-top: 4px;
+}
 
 .language-options {
     display: flex;
     flex-direction: column;
     gap: 9px;
+    margin-top: 10px;
     margin-bottom: 18px;
 }
 
-.language-option {
+.language-options .language-option {
+    display: block;
     width: 100%;
-    padding: 11px 13px;
+    min-height: 44px;
 
-    background: var(--bg-message);
+    padding: 11px 14px;
+    box-sizing: border-box;
 
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background: var(--bg-message) !important;
 
-    color: var(--text-main);
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+
+    color: var(--text-main) !important;
 
     font-family: inherit;
     font-size: 14px;
@@ -1190,25 +1199,37 @@ footer p {
 
     text-align: right;
 
+    appearance: none;
+    -webkit-appearance: none;
+
     cursor: pointer;
 
     transition:
+        background 0.2s ease,
         border-color 0.2s ease,
         color 0.2s ease,
-        background 0.2s ease,
         transform 0.2s ease;
 }
 
-.language-option:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+.language-options .language-option:hover {
+    background: var(--bg-message) !important;
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
 
     transform: translateX(-2px);
 }
 
-.language-option.active {
-    border-color: var(--accent);
-    color: var(--accent);
+.language-options .language-option.active {
+    background: var(--bg-message) !important;
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
+}
 
-    background: var(--bg-message);
+.language-options .language-option:focus {
+    outline: none;
+
+    border-color: var(--accent) !important;
+
+    box-shadow:
+        0 0 0 2px rgba(142, 231, 255, 0.12);
 }
