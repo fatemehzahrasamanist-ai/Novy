@@ -215,6 +215,64 @@
             word-break: break-word;
         }
 
+        .edit-input {
+            width: 100%;
+
+            padding: 9px 10px;
+
+            margin-top: 2px;
+
+            background: var(--bg-input);
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            color: var(--text-main);
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+        .edit-input:focus {
+            border-color: var(--accent);
+        }
+
+        .edit-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .edit-profile,
+        .save-profile,
+        .cancel-edit {
+            margin-top: 10px;
+        }
+
+        .save-profile {
+            display: none;
+        }
+
+        .cancel-edit {
+            display: none;
+
+            background: transparent;
+
+            color: var(--text-muted);
+
+            border: 1px solid var(--border);
+        }
+
+        .cancel-edit:hover {
+            background: var(--bg-message);
+
+            color: var(--text-main);
+
+            border-color: var(--text-muted);
+        }
+
         button {
             width: 100%;
 
@@ -243,6 +301,14 @@
             background: var(--accent-strong);
 
             transform: translateY(-1px);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            transform: none;
         }
 
         .delete-photo {
@@ -379,6 +445,7 @@
             در حال بارگذاری...
         </div>
 
+
         <div
             id="profileContent"
             style="display:none;"
@@ -407,12 +474,14 @@
 
                 </div>
 
+
                 <input
                     type="file"
                     id="avatarInput"
                     accept="image/jpeg,image/png,image/webp"
                     data-i18n-aria="choosePhoto"
                 >
+
 
                 <div
                     class="photo-hint"
@@ -455,6 +524,15 @@
                         -
                     </div>
 
+                    <input
+                        class="edit-input"
+                        id="nameInput"
+                        type="text"
+                        style="display:none;"
+                        maxlength="50"
+                        data-i18n-placeholder="namePlaceholder"
+                    >
+
                 </div>
 
 
@@ -473,6 +551,15 @@
                     >
                         -
                     </div>
+
+                    <input
+                        class="edit-input"
+                        id="usernameInput"
+                        type="text"
+                        style="display:none;"
+                        maxlength="30"
+                        data-i18n-placeholder="usernamePlaceholder"
+                    >
 
                 </div>
 
@@ -496,6 +583,36 @@
                 </div>
 
             </div>
+
+
+            <button
+                class="edit-profile"
+                id="editProfileButton"
+                onclick="startEditing()"
+                data-i18n="editProfile"
+            >
+                ویرایش پروفایل
+            </button>
+
+
+            <button
+                class="save-profile"
+                id="saveProfileButton"
+                onclick="saveProfile()"
+                data-i18n="saveChanges"
+            >
+                ذخیره تغییرات
+            </button>
+
+
+            <button
+                class="cancel-edit"
+                id="cancelEditButton"
+                onclick="cancelEditing()"
+                data-i18n="cancel"
+            >
+                لغو
+            </button>
 
 
             <div
@@ -667,6 +784,21 @@ const translations = {
         emailLabel:
             "ایمیل",
 
+        namePlaceholder:
+            "نامت را وارد کن",
+
+        usernamePlaceholder:
+            "نام کاربری را وارد کن",
+
+        editProfile:
+            "ویرایش پروفایل",
+
+        saveChanges:
+            "ذخیره تغییرات",
+
+        cancel:
+            "لغو",
+
         enterNovy:
             "ورود به نووی ←",
 
@@ -699,6 +831,24 @@ const translations = {
 
         deletingAccount:
             "در حال حذف حساب...",
+
+        savingProfile:
+            "در حال ذخیره تغییرات...",
+
+        profileUpdated:
+            "پروفایل با موفقیت به‌روزرسانی شد. ✓",
+
+        emptyName:
+            "اسم نمی‌تونه خالی باشه.",
+
+        emptyUsername:
+            "نام کاربری نمی‌تونه خالی باشه.",
+
+        invalidUsername:
+            "نام کاربری فقط می‌تونه شامل حروف، عدد، نقطه و زیرخط باشه.",
+
+        profileUpdateError:
+            "ذخیره تغییرات انجام نشد. دوباره تلاش کن.",
 
         uploadSuccess:
             "عکس پروفایل با موفقیت تغییر کرد. ✓",
@@ -774,6 +924,21 @@ const translations = {
         emailLabel:
             "Email",
 
+        namePlaceholder:
+            "Enter your name",
+
+        usernamePlaceholder:
+            "Enter your username",
+
+        editProfile:
+            "Edit profile",
+
+        saveChanges:
+            "Save changes",
+
+        cancel:
+            "Cancel",
+
         enterNovy:
             "Enter Novy →",
 
@@ -806,6 +971,24 @@ const translations = {
 
         deletingAccount:
             "Deleting account...",
+
+        savingProfile:
+            "Saving changes...",
+
+        profileUpdated:
+            "Profile updated successfully. ✓",
+
+        emptyName:
+            "Name cannot be empty.",
+
+        emptyUsername:
+            "Username cannot be empty.",
+
+        invalidUsername:
+            "Username can only contain letters, numbers, dots, and underscores.",
+
+        profileUpdateError:
+            "Could not save the changes. Please try again.",
 
         uploadSuccess:
             "Profile photo updated successfully. ✓",
@@ -881,6 +1064,21 @@ const translations = {
         emailLabel:
             "البريد الإلكتروني",
 
+        namePlaceholder:
+            "أدخل اسمك",
+
+        usernamePlaceholder:
+            "أدخل اسم المستخدم",
+
+        editProfile:
+            "تعديل الملف الشخصي",
+
+        saveChanges:
+            "حفظ التغييرات",
+
+        cancel:
+            "إلغاء",
+
         enterNovy:
             "الدخول إلى نوفي ←",
 
@@ -913,6 +1111,24 @@ const translations = {
 
         deletingAccount:
             "جارٍ حذف الحساب...",
+
+        savingProfile:
+            "جارٍ حفظ التغييرات...",
+
+        profileUpdated:
+            "تم تحديث الملف الشخصي بنجاح. ✓",
+
+        emptyName:
+            "لا يمكن أن يكون الاسم فارغًا.",
+
+        emptyUsername:
+            "لا يمكن أن يكون اسم المستخدم فارغًا.",
+
+        invalidUsername:
+            "يمكن أن يحتوي اسم المستخدم على أحرف وأرقام ونقاط وشرطة سفلية فقط.",
+
+        profileUpdateError:
+            "تعذر حفظ التغييرات. يرجى المحاولة مرة أخرى.",
 
         uploadSuccess:
             "تم تغيير صورة الملف الشخصي بنجاح. ✓",
@@ -965,6 +1181,9 @@ let currentLanguage =
     localStorage.getItem(
         "novy-language"
     ) || "fa";
+
+
+let currentUser = null;
 
 
 /* =========================
@@ -1054,6 +1273,25 @@ function applyLanguage(lang) {
         });
 
 
+    document
+        .querySelectorAll("[data-i18n-placeholder]")
+        .forEach(element => {
+
+            const key =
+                element.getAttribute(
+                    "data-i18n-placeholder"
+                );
+
+            if (data[key]) {
+
+                element.placeholder =
+                    data[key];
+
+            }
+
+        });
+
+
     const avatarImage =
         document.querySelector(
             "#avatar img"
@@ -1109,42 +1347,46 @@ function updateWelcome() {
     }
 
 
-    const nameElement =
+    const name =
         document.getElementById(
             "nameValue"
-        );
+        )?.textContent;
 
-    const usernameElement =
-        document.getElementById(
-            "usernameValue"
-        );
-
-    const emailElement =
-        document.getElementById(
-            "emailValue"
-        );
-
-
-    const name =
-        nameElement?.textContent !== "-"
-            ? nameElement?.textContent
-            : "";
 
     const username =
-        usernameElement?.textContent !== "-"
-            ? usernameElement?.textContent
-            : "";
+        document.getElementById(
+            "usernameValue"
+        )?.textContent;
+
 
     const email =
-        emailElement?.textContent !== "-"
-            ? emailElement?.textContent
+        document.getElementById(
+            "emailValue"
+        )?.textContent;
+
+
+    const validName =
+        name && name !== "-"
+            ? name
+            : "";
+
+
+    const validUsername =
+        username && username !== "-"
+            ? username
+            : "";
+
+
+    const validEmail =
+        email && email !== "-"
+            ? email
             : "";
 
 
     const displayName =
-        name ||
-        username ||
-        email ||
+        validName ||
+        validUsername ||
+        validEmail ||
         getText("defaultName");
 
 
@@ -1230,16 +1472,18 @@ async function loadProfile() {
     }
 
 
-    const user =
+    currentUser =
         session.user;
 
+
     const metadata =
-        user.user_metadata || {};
+        currentUser.user_metadata || {};
 
 
     const name =
         metadata.name ||
         "";
+
 
     const username =
         metadata.username ||
@@ -1261,7 +1505,7 @@ async function loadProfile() {
     document.getElementById(
         "emailValue"
     ).textContent =
-        user.email || "-";
+        currentUser.email || "-";
 
 
     updateWelcome();
@@ -1281,7 +1525,7 @@ async function loadProfile() {
         setAvatarInitial(
             name ||
             username ||
-            user.email ||
+            currentUser.email ||
             "N"
         );
 
@@ -1298,6 +1542,276 @@ async function loadProfile() {
         "profileContent"
     ).style.display =
         "block";
+
+}
+
+
+/* =========================
+   EDIT PROFILE
+========================= */
+
+function startEditing() {
+
+    const name =
+        document.getElementById(
+            "nameValue"
+        ).textContent;
+
+
+    const username =
+        document.getElementById(
+            "usernameValue"
+        ).textContent;
+
+
+    document.getElementById(
+        "nameInput"
+    ).value =
+        name === "-"
+            ? ""
+            : name;
+
+
+    document.getElementById(
+        "usernameInput"
+    ).value =
+        username === "-"
+            ? ""
+            : username;
+
+
+    document.getElementById(
+        "nameValue"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "usernameValue"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "nameInput"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "usernameInput"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "editProfileButton"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "saveProfileButton"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "cancelEditButton"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "nameInput"
+    ).focus();
+
+}
+
+
+function cancelEditing() {
+
+    document.getElementById(
+        "nameValue"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "usernameValue"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "nameInput"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "usernameInput"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "editProfileButton"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "saveProfileButton"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "cancelEditButton"
+    ).style.display =
+        "none";
+
+}
+
+
+async function saveProfile() {
+
+    const name =
+        document.getElementById(
+            "nameInput"
+        ).value.trim();
+
+
+    const username =
+        document.getElementById(
+            "usernameInput"
+        ).value.trim();
+
+
+    if (!name) {
+
+        showMessage(
+            getText("emptyName"),
+            true
+        );
+
+        return;
+
+    }
+
+
+    if (!username) {
+
+        showMessage(
+            getText("emptyUsername"),
+            true
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !/^[a-zA-Z0-9._-]+$/.test(
+            username
+        )
+    ) {
+
+        showMessage(
+            getText("invalidUsername"),
+            true
+        );
+
+        return;
+
+    }
+
+
+    const saveButton =
+        document.getElementById(
+            "saveProfileButton"
+        );
+
+
+    saveButton.disabled =
+        true;
+
+
+    showMessage(
+        getText("savingProfile")
+    );
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient.auth.updateUser({
+
+            data: {
+
+                name:
+                    name,
+
+                username:
+                    username
+
+            }
+
+        });
+
+
+    saveButton.disabled =
+        false;
+
+
+    if (error) {
+
+        console.error(
+            "Profile update error:",
+            error
+        );
+
+
+        showMessage(
+            getText(
+                "profileUpdateError"
+            ),
+            true
+        );
+
+        return;
+
+    }
+
+
+    currentUser =
+        data.user;
+
+
+    document.getElementById(
+        "nameValue"
+    ).textContent =
+        name;
+
+
+    document.getElementById(
+        "usernameValue"
+    ).textContent =
+        username;
+
+
+    cancelEditing();
+
+
+    updateWelcome();
+
+
+    showMessage(
+        getText("profileUpdated")
+    );
 
 }
 
@@ -1881,12 +2395,6 @@ async function logout() {
     );
 
 
-    /*
-        Theme and language
-        are intentionally preserved.
-    */
-
-
     window.location.href =
         "login.html";
 
@@ -2006,19 +2514,6 @@ async function deleteAccount() {
     localStorage.removeItem(
         "novyLoggedIn"
     );
-
-
-    /*
-        Theme and language
-        are intentionally preserved.
-    */
-
-
-    /*
-        The account has already been
-        permanently deleted by the
-        Edge Function.
-    */
 
 
     window.location.href =
