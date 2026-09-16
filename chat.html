@@ -103,7 +103,8 @@
 
             transition:
                 width 0.25s ease,
-                padding 0.25s ease;
+                padding 0.25s ease,
+                transform 0.25s ease;
 
             flex-shrink: 0;
             overflow: hidden;
@@ -167,6 +168,10 @@
             white-space: nowrap;
         }
 
+        /* =========================================================
+           SIDEBAR TOGGLE
+        ========================================================= */
+
         .sidebar-toggle {
             width: 36px;
             height: 36px;
@@ -182,7 +187,10 @@
             align-items: center;
             justify-content: center;
 
-            transition: 0.2s ease;
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
         }
 
         .sidebar-toggle:hover {
@@ -190,9 +198,18 @@
             color: var(--accent);
         }
 
-        .sidebar.collapsed .brand-text,
-        .sidebar.collapsed .sidebar-toggle {
+        .sidebar.collapsed .brand-text {
             display: none;
+        }
+
+        .sidebar.collapsed .sidebar-toggle {
+            display: flex;
+        }
+
+        .sidebar-toggle svg {
+            width: 19px;
+            height: 19px;
+            display: block;
         }
 
         /* =========================================================
@@ -254,8 +271,19 @@
             justify-content: center;
 
             flex-shrink: 0;
+        }
 
-            font-size: 17px;
+        .sidebar-icon svg {
+            width: 18px;
+            height: 18px;
+
+            display: block;
+
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .sidebar-label {
@@ -300,6 +328,20 @@
         .search-icon {
             color: var(--text-muted);
             flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-icon svg {
+            width: 17px;
+            height: 17px;
+
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
         }
 
         .search-input {
@@ -394,6 +436,21 @@
 
         .recent-chat-icon {
             flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recent-chat-icon svg {
+            width: 15px;
+            height: 15px;
+
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .recent-chat-title {
@@ -868,6 +925,17 @@
             color: var(--accent);
         }
 
+        .composer-button svg {
+            width: 18px;
+            height: 18px;
+
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         .send-button {
             width: 38px;
             height: 38px;
@@ -879,7 +947,9 @@
 
             cursor: pointer;
 
-            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             transition: 0.2s ease;
         }
@@ -887,6 +957,17 @@
         .send-button:hover {
             transform: translateY(-1px);
             filter: brightness(1.06);
+        }
+
+        .send-button svg {
+            width: 18px;
+            height: 18px;
+
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .composer-note {
@@ -906,10 +987,7 @@
         ========================================================= */
 
         .dropdown {
-            position: absolute;
-
-            top: calc(100% + 8px);
-            right: 0;
+            position: fixed;
 
             min-width: 190px;
 
@@ -922,14 +1000,9 @@
 
             box-shadow: var(--shadow);
 
-            z-index: 100;
+            z-index: 1000;
 
             display: none;
-        }
-
-        body.ltr .dropdown {
-            right: auto;
-            left: 0;
         }
 
         .dropdown.open {
@@ -953,6 +1026,10 @@
             font-size: 12px;
 
             transition: 0.2s ease;
+        }
+
+        body.ltr .dropdown-button {
+            text-align: left;
         }
 
         .dropdown-button:hover {
@@ -1114,6 +1191,10 @@
             font-size: 12px;
         }
 
+        body.ltr .profile-menu-button {
+            text-align: left;
+        }
+
         .profile-menu-button:hover {
             background: var(--bg-message);
             color: var(--accent);
@@ -1207,6 +1288,10 @@
             text-align: right;
 
             font-size: 12px;
+        }
+
+        body.ltr .language-item {
+            text-align: left;
         }
 
         .language-item:hover {
@@ -1357,6 +1442,7 @@
         ========================================================= */
 
         @media (max-width: 700px) {
+
             :root {
                 --sidebar-width: 250px;
             }
@@ -1367,6 +1453,8 @@
 
                 right: 0;
                 top: 0;
+
+                box-shadow: var(--shadow);
             }
 
             body.ltr .sidebar {
@@ -1375,8 +1463,8 @@
             }
 
             .sidebar.collapsed {
-                transform: translateX(100%);
                 width: var(--sidebar-width);
+                transform: translateX(100%);
             }
 
             body.ltr .sidebar.collapsed {
@@ -1398,6 +1486,10 @@
 
             .topbar {
                 padding: 0 11px;
+            }
+
+            .dropdown {
+                max-width: calc(100vw - 20px);
             }
         }
     </style>
@@ -1428,7 +1520,13 @@
                 id="sidebarToggle"
                 onclick="toggleSidebar()"
                 aria-label="Toggle sidebar">
-                ☰
+
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true">
+                    <path d="M9 6l6 6-6 6"></path>
+                </svg>
+
             </button>
 
         </div>
@@ -1440,7 +1538,12 @@
                 class="sidebar-button active"
                 onclick="openChat()">
 
-                <span class="sidebar-icon">＋</span>
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 5v14"></path>
+                        <path d="M5 12h14"></path>
+                    </svg>
+                </span>
 
                 <span
                     class="sidebar-label"
@@ -1455,7 +1558,13 @@
                 class="sidebar-button"
                 onclick="openImages()">
 
-                <span class="sidebar-icon">▧</span>
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                        <circle cx="9" cy="9" r="1.4"></circle>
+                        <path d="M20 15l-4.5-4.5L8 18"></path>
+                    </svg>
+                </span>
 
                 <span
                     class="sidebar-label"
@@ -1470,7 +1579,14 @@
                 class="sidebar-button"
                 onclick="openLibrary()">
 
-                <span class="sidebar-icon">▤</span>
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v15H6.5A2.5 2.5 0 0 0 4 21z"></path>
+                        <path d="M4 6.5v14"></path>
+                        <path d="M8 8h8"></path>
+                        <path d="M8 12h8"></path>
+                    </svg>
+                </span>
 
                 <span
                     class="sidebar-label"
@@ -1485,7 +1601,11 @@
                 class="sidebar-button"
                 onclick="openProjects()">
 
-                <span class="sidebar-icon">◇</span>
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H10l2 2h5.5A2.5 2.5 0 0 1 20 9.5v7A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5z"></path>
+                    </svg>
+                </span>
 
                 <span
                     class="sidebar-label"
@@ -1500,7 +1620,13 @@
                 class="sidebar-button"
                 onclick="openCode()">
 
-                <span class="sidebar-icon">&lt;/&gt;</span>
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8 8l-4 4 4 4"></path>
+                        <path d="M16 8l4 4-4 4"></path>
+                        <path d="M14 5l-4 14"></path>
+                    </svg>
+                </span>
 
                 <span
                     class="sidebar-label"
@@ -1519,7 +1645,12 @@
 
             <div class="search-wrapper">
 
-                <span class="search-icon">⌕</span>
+                <span class="search-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6.5"></circle>
+                        <path d="M16 16l4 4"></path>
+                    </svg>
+                </span>
 
                 <input
                     id="searchInput"
@@ -1618,7 +1749,8 @@
 
                 <button
                     class="topbar-more"
-                    onclick="toggleChatMenu()">
+                    onclick="toggleChatMenu()"
+                    aria-label="Chat menu">
                     ⋯
                 </button>
 
@@ -1784,29 +1916,61 @@
                         <button
                             class="composer-button"
                             onclick="openFilePicker()"
-                            title="Upload file">
-                            📎
+                            title="Upload file"
+                            data-i18n-title="uploadFile"
+                            aria-label="Upload file">
+
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M21 11.5l-8.6 8.6a5 5 0 0 1-7.1-7.1l9-9a3.5 3.5 0 0 1 5 5l-9 9a2 2 0 0 1-2.8-2.8l8.2-8.2"></path>
+                            </svg>
+
                         </button>
 
                         <button
                             class="composer-button"
                             onclick="openImagePicker()"
-                            title="Upload image">
-                            🖼️
+                            title="Upload image"
+                            data-i18n-title="uploadImage"
+                            aria-label="Upload image">
+
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3.5" y="4" width="17" height="16" rx="2"></rect>
+                                <circle cx="8.5" cy="9" r="1.5"></circle>
+                                <path d="M20.5 15l-5-5-7.5 8"></path>
+                            </svg>
+
                         </button>
 
                         <button
                             class="composer-button"
                             onclick="openLibraryPicker()"
-                            title="Library">
-                            ▤
+                            title="Library"
+                            data-i18n-title="library"
+                            aria-label="Library">
+
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v15H6.5A2.5 2.5 0 0 0 4 21z"></path>
+                                <path d="M4 6.5v14"></path>
+                                <path d="M8 8h8"></path>
+                                <path d="M8 12h8"></path>
+                            </svg>
+
                         </button>
 
                         <button
                             class="composer-button"
                             onclick="startVoiceInput()"
-                            title="Voice">
-                            🎤
+                            title="Voice"
+                            data-i18n-title="voice"
+                            aria-label="Voice">
+
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="9" y="3.5" width="6" height="11" rx="3"></rect>
+                                <path d="M5.5 11a6.5 6.5 0 0 0 13 0"></path>
+                                <path d="M12 17.5V21"></path>
+                                <path d="M8.5 21h7"></path>
+                            </svg>
+
                         </button>
 
                     </div>
@@ -1815,8 +1979,14 @@
                     <button
                         class="send-button"
                         onclick="sendMessage()"
-                        aria-label="Send">
-                        ➤
+                        aria-label="Send"
+                        data-i18n-aria="send">
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 5.5l16 6.5-16 6.5 3-6.5z"></path>
+                            <path d="M7 12h13"></path>
+                        </svg>
+
                     </button>
 
                 </div>
@@ -2313,7 +2483,19 @@ const translations = {
             "لینک گفتگو آماده شد.",
 
         customSaved:
-            "تم اختصاصی ذخیره شد."
+            "تم اختصاصی ذخیره شد.",
+
+        uploadFile:
+            "آپلود فایل",
+
+        uploadImage:
+            "آپلود تصویر",
+
+        voice:
+            "ورودی صوتی",
+
+        send:
+            "ارسال"
 
     },
 
@@ -2469,7 +2651,19 @@ const translations = {
             "Conversation link is ready.",
 
         customSaved:
-            "Custom theme saved."
+            "Custom theme saved.",
+
+        uploadFile:
+            "Upload file",
+
+        uploadImage:
+            "Upload image",
+
+        voice:
+            "Voice input",
+
+        send:
+            "Send"
 
     },
 
@@ -2625,18 +2819,1197 @@ const translations = {
             "رابط المحادثة جاهز.",
 
         customSaved:
-            "تم حفظ المظهر المخصص."
+            "تم حفظ المظهر المخصص.",
+
+        uploadFile:
+            "رفع ملف",
+
+        uploadImage:
+            "رفع صورة",
+
+        voice:
+            "الإدخال الصوتي",
+
+        send:
+            "إرسال"
 
     },
 
 
-    es: {},
-    ko: {},
-    fr: {},
-    de: {},
-    tr: {},
-    ja: {},
-    zh: {}
+    es: {
+
+        newChat: "Nuevo chat",
+        images: "Imágenes",
+        library: "Biblioteca",
+        projects: "Proyectos",
+        code: "Código",
+
+        recentChats: "Chats recientes",
+        searchPlaceholder: "Buscar conversaciones...",
+
+        welcomeTitle: "Hola 👋",
+        welcomeDescription:
+            "Soy Novy, tu compañero de estudio. ¿En qué te gustaría trabajar hoy?",
+
+        suggestionStudy:
+            "📚 Ayúdame a estudiar",
+
+        suggestionIdea:
+            "💡 Dame una idea para un proyecto",
+
+        suggestionScience:
+            "🔬 Explícame un tema científico",
+
+        suggestionCode:
+            "</> Ayúdame con programación",
+
+        messagePlaceholder:
+            "Escribe un mensaje...",
+
+        composerNote:
+            "Novy todavía no está conectado a un modelo de IA.",
+
+        renameChat:
+            "Cambiar nombre del chat",
+
+        moveToProject:
+            "Mover al proyecto",
+
+        shareChat:
+            "Compartir",
+
+        deleteChat:
+            "Eliminar chat",
+
+        openProfile:
+            "Abrir perfil",
+
+        settings:
+            "Configuración",
+
+        appearance:
+            "Apariencia",
+
+        themeNavy:
+            "Tema azul marino",
+
+        themeBlack:
+            "Tema negro",
+
+        themeIce:
+            "Tema hielo",
+
+        themeCustom:
+            "Tema personalizado",
+
+        customBackground:
+            "Fondo",
+
+        customAccent:
+            "Color de acento",
+
+        language:
+            "Idioma",
+
+        imagesTitle:
+            "Imágenes",
+
+        imagesDescription:
+            "Aquí puedes ver tus imágenes generadas y crear nuevas conversaciones con imágenes.",
+
+        newImageChat:
+            "＋ Nuevo chat de imágenes",
+
+        libraryTitle:
+            "Biblioteca",
+
+        libraryDescription:
+            "Aquí aparecerán tus archivos e imágenes.",
+
+        libraryFiles:
+            "Mis archivos",
+
+        libraryImages:
+            "Mis imágenes",
+
+        projectsTitle:
+            "Proyectos",
+
+        projectsDescription:
+            "Organiza tus conversaciones en diferentes proyectos.",
+
+        newProject:
+            "＋ Nuevo proyecto",
+
+        noProjects:
+            "Todavía no hay proyectos.",
+
+        codeTitle:
+            "Código",
+
+        codeDescription:
+            "Habla sobre programación, escribe código o revisa tu código aquí.",
+
+        newCodeChat:
+            "＋ Nuevo chat",
+
+        noChats:
+            "Todavía no hay conversaciones.",
+
+        fileSelected:
+            "Archivo seleccionado",
+
+        imageSelected:
+            "Imagen seleccionada",
+
+        libraryPicker:
+            "Elegir de la biblioteca",
+
+        voiceUnavailable:
+            "La entrada de voz todavía no está disponible.",
+
+        profileRequired:
+            "Inicia sesión para usar esta sección.",
+
+        confirmDeleteChat:
+            "¿Seguro que quieres eliminar este chat?",
+
+        promptRename:
+            "Introduce un nuevo nombre para el chat:",
+
+        promptProject:
+            "Introduce el nombre del proyecto:",
+
+        noChat:
+            "No hay ningún chat seleccionado.",
+
+        copied:
+            "El enlace de la conversación está listo.",
+
+        customSaved:
+            "Tema personalizado guardado.",
+
+        uploadFile:
+            "Subir archivo",
+
+        uploadImage:
+            "Subir imagen",
+
+        voice:
+            "Entrada de voz",
+
+        send:
+            "Enviar"
+
+    },
+
+
+    ko: {
+
+        newChat: "새 채팅",
+        images: "이미지",
+        library: "라이브러리",
+        projects: "프로젝트",
+        code: "코드",
+
+        recentChats: "최근 채팅",
+        searchPlaceholder: "대화 검색...",
+
+        welcomeTitle: "안녕하세요 👋",
+        welcomeDescription:
+            "저는 학생을 위한 동반자 노비입니다. 오늘 무엇을 함께 해볼까요?",
+
+        suggestionStudy:
+            "📚 공부를 도와줘",
+
+        suggestionIdea:
+            "💡 프로젝트 아이디어를 줘",
+
+        suggestionScience:
+            "🔬 과학 주제를 설명해 줘",
+
+        suggestionCode:
+            "</> 코딩을 도와줘",
+
+        messagePlaceholder:
+            "메시지를 입력하세요...",
+
+        composerNote:
+            "노비는 아직 AI 모델에 연결되지 않았습니다.",
+
+        renameChat:
+            "채팅 이름 변경",
+
+        moveToProject:
+            "프로젝트로 이동",
+
+        shareChat:
+            "공유",
+
+        deleteChat:
+            "채팅 삭제",
+
+        openProfile:
+            "프로필 열기",
+
+        settings:
+            "설정",
+
+        appearance:
+            "화면",
+
+        themeNavy:
+            "네이비 테마",
+
+        themeBlack:
+            "블랙 테마",
+
+        themeIce:
+            "아이스 테마",
+
+        themeCustom:
+            "사용자 지정 테마",
+
+        customBackground:
+            "배경",
+
+        customAccent:
+            "강조 색상",
+
+        language:
+            "언어",
+
+        imagesTitle:
+            "이미지",
+
+        imagesDescription:
+            "생성된 이미지를 보고 새로운 이미지 대화를 시작할 수 있습니다.",
+
+        newImageChat:
+            "＋ 새 이미지 채팅",
+
+        libraryTitle:
+            "라이브러리",
+
+        libraryDescription:
+            "업로드한 파일과 이미지가 여기에 표시됩니다.",
+
+        libraryFiles:
+            "내 파일",
+
+        libraryImages:
+            "내 이미지",
+
+        projectsTitle:
+            "프로젝트",
+
+        projectsDescription:
+            "대화를 여러 프로젝트로 정리하세요.",
+
+        newProject:
+            "＋ 새 프로젝트",
+
+        noProjects:
+            "아직 프로젝트가 없습니다.",
+
+        codeTitle:
+            "코드",
+
+        codeDescription:
+            "프로그래밍에 대해 이야기하고 코드를 작성하거나 검토할 수 있습니다.",
+
+        newCodeChat:
+            "＋ 새 채팅",
+
+        noChats:
+            "아직 대화가 없습니다.",
+
+        fileSelected:
+            "파일이 선택되었습니다",
+
+        imageSelected:
+            "이미지가 선택되었습니다",
+
+        libraryPicker:
+            "라이브러리에서 선택",
+
+        voiceUnavailable:
+            "음성 입력은 아직 사용할 수 없습니다.",
+
+        profileRequired:
+            "이 섹션을 사용하려면 로그인하세요.",
+
+        confirmDeleteChat:
+            "이 채팅을 삭제하시겠습니까?",
+
+        promptRename:
+            "새 채팅 이름을 입력하세요:",
+
+        promptProject:
+            "프로젝트 이름을 입력하세요:",
+
+        noChat:
+            "선택된 채팅이 없습니다.",
+
+        copied:
+            "대화 링크가 준비되었습니다.",
+
+        customSaved:
+            "사용자 지정 테마가 저장되었습니다.",
+
+        uploadFile:
+            "파일 업로드",
+
+        uploadImage:
+            "이미지 업로드",
+
+        voice:
+            "음성 입력",
+
+        send:
+            "보내기"
+
+    },
+
+
+    fr: {
+
+        newChat: "Nouveau chat",
+        images: "Images",
+        library: "Bibliothèque",
+        projects: "Projets",
+        code: "Code",
+
+        recentChats: "Conversations récentes",
+        searchPlaceholder: "Rechercher dans les conversations...",
+
+        welcomeTitle: "Bonjour 👋",
+        welcomeDescription:
+            "Je suis Novy, ton compagnon d’étude. Sur quoi veux-tu travailler aujourd’hui ?",
+
+        suggestionStudy:
+            "📚 Aide-moi à étudier",
+
+        suggestionIdea:
+            "💡 Donne-moi une idée de projet",
+
+        suggestionScience:
+            "🔬 Explique-moi un sujet scientifique",
+
+        suggestionCode:
+            "</> Aide-moi à coder",
+
+        messagePlaceholder:
+            "Écris un message...",
+
+        composerNote:
+            "Novy n’est pas encore connecté à un modèle d’IA.",
+
+        renameChat:
+            "Renommer le chat",
+
+        moveToProject:
+            "Déplacer vers un projet",
+
+        shareChat:
+            "Partager",
+
+        deleteChat:
+            "Supprimer le chat",
+
+        openProfile:
+            "Ouvrir le profil",
+
+        settings:
+            "Paramètres",
+
+        appearance:
+            "Apparence",
+
+        themeNavy:
+            "Thème bleu marine",
+
+        themeBlack:
+            "Thème noir",
+
+        themeIce:
+            "Thème glacé",
+
+        themeCustom:
+            "Thème personnalisé",
+
+        customBackground:
+            "Arrière-plan",
+
+        customAccent:
+            "Couleur d’accent",
+
+        language:
+            "Langue",
+
+        imagesTitle:
+            "Images",
+
+        imagesDescription:
+            "Affiche tes images générées et crée de nouvelles conversations avec des images.",
+
+        newImageChat:
+            "＋ Nouveau chat d’images",
+
+        libraryTitle:
+            "Bibliothèque",
+
+        libraryDescription:
+            "Tes fichiers et images importés apparaîtront ici.",
+
+        libraryFiles:
+            "Mes fichiers",
+
+        libraryImages:
+            "Mes images",
+
+        projectsTitle:
+            "Projets",
+
+        projectsDescription:
+            "Organise tes conversations dans différents projets.",
+
+        newProject:
+            "＋ Nouveau projet",
+
+        noProjects:
+            "Aucun projet pour le moment.",
+
+        codeTitle:
+            "Code",
+
+        codeDescription:
+            "Discute de programmation, écris du code ou révise ton code ici.",
+
+        newCodeChat:
+            "＋ Nouveau chat",
+
+        noChats:
+            "Aucune conversation pour le moment.",
+
+        fileSelected:
+            "Fichier sélectionné",
+
+        imageSelected:
+            "Image sélectionnée",
+
+        libraryPicker:
+            "Choisir dans la bibliothèque",
+
+        voiceUnavailable:
+            "La saisie vocale n’est pas encore disponible.",
+
+        profileRequired:
+            "Connecte-toi pour utiliser cette section.",
+
+        confirmDeleteChat:
+            "Voulez-vous vraiment supprimer ce chat ?",
+
+        promptRename:
+            "Entre un nouveau nom pour le chat :",
+
+        promptProject:
+            "Entre le nom du projet :",
+
+        noChat:
+            "Aucun chat sélectionné.",
+
+        copied:
+            "Le lien de la conversation est prêt.",
+
+        customSaved:
+            "Thème personnalisé enregistré.",
+
+        uploadFile:
+            "Importer un fichier",
+
+        uploadImage:
+            "Importer une image",
+
+        voice:
+            "Saisie vocale",
+
+        send:
+            "Envoyer"
+
+    },
+
+
+    de: {
+
+        newChat: "Neuer Chat",
+        images: "Bilder",
+        library: "Bibliothek",
+        projects: "Projekte",
+        code: "Code",
+
+        recentChats: "Letzte Chats",
+        searchPlaceholder: "Unterhaltungen durchsuchen...",
+
+        welcomeTitle: "Hallo 👋",
+        welcomeDescription:
+            "Ich bin Novy, dein Lernbegleiter. Woran möchtest du heute arbeiten?",
+
+        suggestionStudy:
+            "📚 Hilf mir beim Lernen",
+
+        suggestionIdea:
+            "💡 Gib mir eine Projektidee",
+
+        suggestionScience:
+            "🔬 Erkläre mir ein wissenschaftliches Thema",
+
+        suggestionCode:
+            "</> Hilf mir beim Programmieren",
+
+        messagePlaceholder:
+            "Nachricht schreiben...",
+
+        composerNote:
+            "Novy ist noch nicht mit einem KI-Modell verbunden.",
+
+        renameChat:
+            "Chat umbenennen",
+
+        moveToProject:
+            "In Projekt verschieben",
+
+        shareChat:
+            "Teilen",
+
+        deleteChat:
+            "Chat löschen",
+
+        openProfile:
+            "Profil öffnen",
+
+        settings:
+            "Einstellungen",
+
+        appearance:
+            "Darstellung",
+
+        themeNavy:
+            "Marineblaues Design",
+
+        themeBlack:
+            "Schwarzes Design",
+
+        themeIce:
+            "Eis-Design",
+
+        themeCustom:
+            "Benutzerdefiniertes Design",
+
+        customBackground:
+            "Hintergrund",
+
+        customAccent:
+            "Akzentfarbe",
+
+        language:
+            "Sprache",
+
+        imagesTitle:
+            "Bilder",
+
+        imagesDescription:
+            "Hier kannst du deine generierten Bilder ansehen und neue Bild-Chats starten.",
+
+        newImageChat:
+            "＋ Neuer Bild-Chat",
+
+        libraryTitle:
+            "Bibliothek",
+
+        libraryDescription:
+            "Deine hochgeladenen Dateien und Bilder erscheinen hier.",
+
+        libraryFiles:
+            "Meine Dateien",
+
+        libraryImages:
+            "Meine Bilder",
+
+        projectsTitle:
+            "Projekte",
+
+        projectsDescription:
+            "Ordne deine Unterhaltungen verschiedenen Projekten zu.",
+
+        newProject:
+            "＋ Neues Projekt",
+
+        noProjects:
+            "Noch keine Projekte.",
+
+        codeTitle:
+            "Code",
+
+        codeDescription:
+            "Sprich über Programmierung, schreibe Code oder überprüfe deinen Code.",
+
+        newCodeChat:
+            "＋ Neuer Chat",
+
+        noChats:
+            "Noch keine Unterhaltungen.",
+
+        fileSelected:
+            "Datei ausgewählt",
+
+        imageSelected:
+            "Bild ausgewählt",
+
+        libraryPicker:
+            "Aus Bibliothek auswählen",
+
+        voiceUnavailable:
+            "Spracheingabe ist noch nicht verfügbar.",
+
+        profileRequired:
+            "Bitte melde dich an, um diesen Bereich zu verwenden.",
+
+        confirmDeleteChat:
+            "Möchtest du diesen Chat wirklich löschen?",
+
+        promptRename:
+            "Gib einen neuen Chatnamen ein:",
+
+        promptProject:
+            "Gib einen Projektnamen ein:",
+
+        noChat:
+            "Kein Chat ausgewählt.",
+
+        copied:
+            "Der Gesprächslink ist bereit.",
+
+        customSaved:
+            "Benutzerdefiniertes Design gespeichert.",
+
+        uploadFile:
+            "Datei hochladen",
+
+        uploadImage:
+            "Bild hochladen",
+
+        voice:
+            "Spracheingabe",
+
+        send:
+            "Senden"
+
+    },
+
+
+    tr: {
+
+        newChat: "Yeni sohbet",
+        images: "Görseller",
+        library: "Kütüphane",
+        projects: "Projeler",
+        code: "Kod",
+
+        recentChats: "Son sohbetler",
+        searchPlaceholder: "Konuşmalarda ara...",
+
+        welcomeTitle: "Merhaba 👋",
+        welcomeDescription:
+            "Ben Novy, öğrenci arkadaşınım. Bugün ne üzerinde çalışmak istersin?",
+
+        suggestionStudy:
+            "📚 Ders çalışmama yardım et",
+
+        suggestionIdea:
+            "💡 Bana bir proje fikri ver",
+
+        suggestionScience:
+            "🔬 Bir bilim konusunu açıkla",
+
+        suggestionCode:
+            "</> Kodlama konusunda yardım et",
+
+        messagePlaceholder:
+            "Bir mesaj yaz...",
+
+        composerNote:
+            "Novy henüz bir yapay zekâ modeline bağlı değil.",
+
+        renameChat:
+            "Sohbeti yeniden adlandır",
+
+        moveToProject:
+            "Projeye taşı",
+
+        shareChat:
+            "Paylaş",
+
+        deleteChat:
+            "Sohbeti sil",
+
+        openProfile:
+            "Profili aç",
+
+        settings:
+            "Ayarlar",
+
+        appearance:
+            "Görünüm",
+
+        themeNavy:
+            "Lacivert tema",
+
+        themeBlack:
+            "Siyah tema",
+
+        themeIce:
+            "Buz teması",
+
+        themeCustom:
+            "Özel tema",
+
+        customBackground:
+            "Arka plan",
+
+        customAccent:
+            "Vurgu rengi",
+
+        language:
+            "Dil",
+
+        imagesTitle:
+            "Görseller",
+
+        imagesDescription:
+            "Burada oluşturulan görsellerini görebilir ve yeni görsel sohbetleri başlatabilirsin.",
+
+        newImageChat:
+            "＋ Yeni görsel sohbeti",
+
+        libraryTitle:
+            "Kütüphane",
+
+        libraryDescription:
+            "Yüklediğin dosya ve görseller burada görünecek.",
+
+        libraryFiles:
+            "Dosyalarım",
+
+        libraryImages:
+            "Görsellerim",
+
+        projectsTitle:
+            "Projeler",
+
+        projectsDescription:
+            "Sohbetlerini farklı projeler altında düzenle.",
+
+        newProject:
+            "＋ Yeni proje",
+
+        noProjects:
+            "Henüz proje yok.",
+
+        codeTitle:
+            "Kod",
+
+        codeDescription:
+            "Programlama hakkında konuş, kod yaz veya kodlarını incele.",
+
+        newCodeChat:
+            "＋ Yeni sohbet",
+
+        noChats:
+            "Henüz sohbet yok.",
+
+        fileSelected:
+            "Dosya seçildi",
+
+        imageSelected:
+            "Görsel seçildi",
+
+        libraryPicker:
+            "Kütüphaneden seç",
+
+        voiceUnavailable:
+            "Sesli giriş henüz kullanılamıyor.",
+
+        profileRequired:
+            "Bu bölümü kullanmak için giriş yap.",
+
+        confirmDeleteChat:
+            "Bu sohbeti silmek istediğinden emin misin?",
+
+        promptRename:
+            "Yeni sohbet adını gir:",
+
+        promptProject:
+            "Proje adını gir:",
+
+        noChat:
+            "Seçili sohbet yok.",
+
+        copied:
+            "Konuşma bağlantısı hazır.",
+
+        customSaved:
+            "Özel tema kaydedildi.",
+
+        uploadFile:
+            "Dosya yükle",
+
+        uploadImage:
+            "Görsel yükle",
+
+        voice:
+            "Sesli giriş",
+
+        send:
+            "Gönder"
+
+    },
+
+
+    ja: {
+
+        newChat: "新しいチャット",
+        images: "画像",
+        library: "ライブラリ",
+        projects: "プロジェクト",
+        code: "コード",
+
+        recentChats: "最近のチャット",
+        searchPlaceholder: "会話を検索...",
+
+        welcomeTitle: "こんにちは 👋",
+        welcomeDescription:
+            "私は学生のためのパートナー、Novyです。今日は何を一緒にやりましょう？",
+
+        suggestionStudy:
+            "📚 勉強を手伝って",
+
+        suggestionIdea:
+            "💡 プロジェクトのアイデアを出して",
+
+        suggestionScience:
+            "🔬 科学のテーマを説明して",
+
+        suggestionCode:
+            "</> コーディングを手伝って",
+
+        messagePlaceholder:
+            "メッセージを入力...",
+
+        composerNote:
+            "NovyはまだAIモデルに接続されていません。",
+
+        renameChat:
+            "チャット名を変更",
+
+        moveToProject:
+            "プロジェクトへ移動",
+
+        shareChat:
+            "共有",
+
+        deleteChat:
+            "チャットを削除",
+
+        openProfile:
+            "プロフィールを開く",
+
+        settings:
+            "設定",
+
+        appearance:
+            "外観",
+
+        themeNavy:
+            "ネイビーテーマ",
+
+        themeBlack:
+            "ブラックテーマ",
+
+        themeIce:
+            "アイステーマ",
+
+        themeCustom:
+            "カスタムテーマ",
+
+        customBackground:
+            "背景",
+
+        customAccent:
+            "アクセントカラー",
+
+        language:
+            "言語",
+
+        imagesTitle:
+            "画像",
+
+        imagesDescription:
+            "ここで生成した画像を確認したり、新しい画像チャットを開始できます。",
+
+        newImageChat:
+            "＋ 新しい画像チャット",
+
+        libraryTitle:
+            "ライブラリ",
+
+        libraryDescription:
+            "アップロードしたファイルと画像がここに表示されます。",
+
+        libraryFiles:
+            "マイファイル",
+
+        libraryImages:
+            "マイ画像",
+
+        projectsTitle:
+            "プロジェクト",
+
+        projectsDescription:
+            "会話をさまざまなプロジェクトに整理できます。",
+
+        newProject:
+            "＋ 新しいプロジェクト",
+
+        noProjects:
+            "まだプロジェクトはありません。",
+
+        codeTitle:
+            "コード",
+
+        codeDescription:
+            "プログラミングについて話したり、コードを書いたり確認したりできます。",
+
+        newCodeChat:
+            "＋ 新しいチャット",
+
+        noChats:
+            "まだ会話はありません。",
+
+        fileSelected:
+            "ファイルを選択しました",
+
+        imageSelected:
+            "画像を選択しました",
+
+        libraryPicker:
+            "ライブラリから選択",
+
+        voiceUnavailable:
+            "音声入力はまだ利用できません。",
+
+        profileRequired:
+            "このセクションを使うにはログインしてください。",
+
+        confirmDeleteChat:
+            "このチャットを削除しますか？",
+
+        promptRename:
+            "新しいチャット名を入力してください：",
+
+        promptProject:
+            "プロジェクト名を入力してください：",
+
+        noChat:
+            "チャットが選択されていません。",
+
+        copied:
+            "会話リンクの準備ができました。",
+
+        customSaved:
+            "カスタムテーマを保存しました。",
+
+        uploadFile:
+            "ファイルをアップロード",
+
+        uploadImage:
+            "画像をアップロード",
+
+        voice:
+            "音声入力",
+
+        send:
+            "送信"
+
+    },
+
+
+    zh: {
+
+        newChat: "新聊天",
+        images: "图片",
+        library: "资料库",
+        projects: "项目",
+        code: "代码",
+
+        recentChats: "最近的聊天",
+        searchPlaceholder: "搜索对话...",
+
+        welcomeTitle: "你好 👋",
+        welcomeDescription:
+            "我是诺维，你的学习伙伴。今天想一起做什么？",
+
+        suggestionStudy:
+            "📚 帮我学习",
+
+        suggestionIdea:
+            "💡 给我一个项目创意",
+
+        suggestionScience:
+            "🔬 给我讲解一个科学主题",
+
+        suggestionCode:
+            "</> 帮我编程",
+
+        messagePlaceholder:
+            "输入消息...",
+
+        composerNote:
+            "诺维目前还没有连接人工智能模型。",
+
+        renameChat:
+            "重命名聊天",
+
+        moveToProject:
+            "移动到项目",
+
+        shareChat:
+            "分享",
+
+        deleteChat:
+            "删除聊天",
+
+        openProfile:
+            "打开个人资料",
+
+        settings:
+            "设置",
+
+        appearance:
+            "外观",
+
+        themeNavy:
+            "深蓝主题",
+
+        themeBlack:
+            "黑色主题",
+
+        themeIce:
+            "冰蓝主题",
+
+        themeCustom:
+            "自定义主题",
+
+        customBackground:
+            "背景",
+
+        customAccent:
+            "强调色",
+
+        language:
+            "语言",
+
+        imagesTitle:
+            "图片",
+
+        imagesDescription:
+            "你可以在这里查看生成的图片，并开始新的图片对话。",
+
+        newImageChat:
+            "＋ 新图片聊天",
+
+        libraryTitle:
+            "资料库",
+
+        libraryDescription:
+            "你上传的文件和图片会显示在这里。",
+
+        libraryFiles:
+            "我的文件",
+
+        libraryImages:
+            "我的图片",
+
+        projectsTitle:
+            "项目",
+
+        projectsDescription:
+            "将你的对话整理到不同的项目中。",
+
+        newProject:
+            "＋ 新项目",
+
+        noProjects:
+            "还没有项目。",
+
+        codeTitle:
+            "代码",
+
+        codeDescription:
+            "你可以在这里讨论编程、编写代码或检查代码。",
+
+        newCodeChat:
+            "＋ 新聊天",
+
+        noChats:
+            "还没有对话。",
+
+        fileSelected:
+            "已选择文件",
+
+        imageSelected:
+            "已选择图片",
+
+        libraryPicker:
+            "从资料库选择",
+
+        voiceUnavailable:
+            "语音输入暂不可用。",
+
+        profileRequired:
+            "请登录后使用此功能。",
+
+        confirmDeleteChat:
+            "确定要删除此聊天吗？",
+
+        promptRename:
+            "请输入新的聊天名称：",
+
+        promptProject:
+            "请输入项目名称：",
+
+        noChat:
+            "没有选择聊天。",
+
+        copied:
+            "对话链接已准备好。",
+
+        customSaved:
+            "自定义主题已保存。",
+
+        uploadFile:
+            "上传文件",
+
+        uploadImage:
+            "上传图片",
+
+        voice:
+            "语音输入",
+
+        send:
+            "发送"
+
+    }
 
 };
 
@@ -2656,6 +4029,7 @@ function getText(key) {
         translations.fa?.[key] ||
         key
     );
+
 }
 
 
@@ -2665,44 +4039,111 @@ function getText(key) {
 
 function applyLanguage(lang) {
 
-    if (!translations[lang] || Object.keys(translations[lang]).length === 0) {
+    if (
+        !translations[lang] ||
+        Object.keys(translations[lang]).length === 0
+    ) {
         lang = "en";
     }
 
-    localStorage.setItem("novy-language", lang);
+    localStorage.setItem(
+        "novy-language",
+        lang
+    );
 
     const rtlLanguages = ["fa", "ar"];
 
-    const isRTL = rtlLanguages.includes(lang);
+    const isRTL =
+        rtlLanguages.includes(lang);
 
-    document.documentElement.lang = lang;
-    document.documentElement.dir = isRTL ? "rtl" : "ltr";
+    document.documentElement.lang =
+        lang;
 
-    document.body.classList.toggle("ltr", !isRTL);
+    document.documentElement.dir =
+        isRTL ? "rtl" : "ltr";
 
-    document.querySelectorAll("[data-i18n]").forEach(element => {
-
-        const key = element.dataset.i18n;
-
-        if (translations[lang]?.[key]) {
-            element.textContent = translations[lang][key];
-        }
-
-    });
+    document.body.classList.toggle(
+        "ltr",
+        !isRTL
+    );
 
 
-    document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach(element => {
 
-        const key = element.dataset.i18nPlaceholder;
+            const key =
+                element.dataset.i18n;
 
-        if (translations[lang]?.[key]) {
-            element.placeholder = translations[lang][key];
-        }
+            if (translations[lang]?.[key]) {
 
-    });
+                element.textContent =
+                    translations[lang][key];
+
+            }
+
+        });
+
+
+    document
+        .querySelectorAll("[data-i18n-placeholder]")
+        .forEach(element => {
+
+            const key =
+                element.dataset.i18nPlaceholder;
+
+            if (translations[lang]?.[key]) {
+
+                element.placeholder =
+                    translations[lang][key];
+
+            }
+
+        });
+
+
+    document
+        .querySelectorAll("[data-i18n-title]")
+        .forEach(element => {
+
+            const key =
+                element.dataset.i18nTitle;
+
+            if (translations[lang]?.[key]) {
+
+                element.title =
+                    translations[lang][key];
+
+            }
+
+        });
+
+
+    document
+        .querySelectorAll("[data-i18n-aria]")
+        .forEach(element => {
+
+            const key =
+                element.dataset.i18nAria;
+
+            if (translations[lang]?.[key]) {
+
+                element.setAttribute(
+                    "aria-label",
+                    translations[lang][key]
+                );
+
+            }
+
+        });
 
 
     updateLanguageLabel(lang);
+
+    updateSidebarToggleIcon();
+
+    positionChatMenu();
+
 }
 
 
@@ -2728,11 +4169,15 @@ function updateLanguageLabel(lang) {
     };
 
     const element =
-        document.getElementById("currentLanguageLabel");
+        document.getElementById(
+            "currentLanguageLabel"
+        );
 
     if (element) {
+
         element.textContent =
             labels[lang] || labels.en;
+
     }
 
 }
@@ -2764,6 +4209,7 @@ function toggleLanguagePanel() {
         .classList.toggle("open");
 
 }
+
 
 function closeLanguagePanel() {
 
@@ -2845,7 +4291,10 @@ function applyThemeVariables(theme) {
         ([key, value]) => {
 
             const variableName =
-                key.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+                key.replace(
+                    /[A-Z]/g,
+                    m => "-" + m.toLowerCase()
+                );
 
             root.style.setProperty(
                 "--" + variableName,
@@ -2875,7 +4324,10 @@ function setTheme(themeName) {
 
     document
         .querySelectorAll(".settings-option")
-        .forEach(el => el.classList.remove("active"));
+        .forEach(
+            el =>
+                el.classList.remove("active")
+        );
 
     const active =
         document.getElementById(
@@ -2917,10 +4369,14 @@ function toggleCustomTheme() {
 function applyCustomTheme() {
 
     const bg =
-        document.getElementById("customBg").value;
+        document.getElementById(
+            "customBg"
+        ).value;
 
     const accent =
-        document.getElementById("customAccent").value;
+        document.getElementById(
+            "customAccent"
+        ).value;
 
     const root =
         document.documentElement;
@@ -2967,11 +4423,109 @@ function applyCustomTheme() {
    SIDEBAR
 ============================================================ */
 
+function updateSidebarToggleIcon() {
+
+    const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+    const button =
+        document.getElementById(
+            "sidebarToggle"
+        );
+
+    if (!sidebar || !button) {
+        return;
+    }
+
+    const collapsed =
+        sidebar.classList.contains(
+            "collapsed"
+        );
+
+    const icon =
+        collapsed
+            ? `
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15 6l-6 6 6 6"></path>
+                </svg>
+              `
+            : `
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 6l6 6-6 6"></path>
+                </svg>
+              `;
+
+    button.innerHTML = icon;
+
+    const lang =
+        localStorage.getItem(
+            "novy-language"
+        ) || "fa";
+
+    button.setAttribute(
+        "aria-label",
+        collapsed
+            ? (
+                lang === "fa"
+                    ? "باز کردن نوار کناری"
+                    : lang === "ar"
+                    ? "فتح الشريط الجانبي"
+                    : lang === "es"
+                    ? "Abrir barra lateral"
+                    : lang === "ko"
+                    ? "사이드바 열기"
+                    : lang === "fr"
+                    ? "Ouvrir la barre latérale"
+                    : lang === "de"
+                    ? "Seitenleiste öffnen"
+                    : lang === "tr"
+                    ? "Kenar çubuğunu aç"
+                    : lang === "ja"
+                    ? "サイドバーを開く"
+                    : lang === "zh"
+                    ? "打开侧边栏"
+                    : "Open sidebar"
+            )
+            : (
+                lang === "fa"
+                    ? "بستن نوار کناری"
+                    : lang === "ar"
+                    ? "إغلاق الشريط الجانبي"
+                    : lang === "es"
+                    ? "Cerrar barra lateral"
+                    : lang === "ko"
+                    ? "사이드바 닫기"
+                    : lang === "fr"
+                    ? "Fermer la barre latérale"
+                    : lang === "de"
+                    ? "Seitenleiste schließen"
+                    : lang === "tr"
+                    ? "Kenar çubuğunu kapat"
+                    : lang === "ja"
+                    ? "サイドバーを閉じる"
+                    : lang === "zh"
+                    ? "关闭侧边栏"
+                    : "Close sidebar"
+            )
+    );
+
+}
+
+
 function toggleSidebar() {
 
-    document
-        .getElementById("sidebar")
-        .classList.toggle("collapsed");
+    const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+    sidebar.classList.toggle(
+        "collapsed"
+    );
+
+    updateSidebarToggleIcon();
 
 }
 
@@ -2990,8 +4544,12 @@ async function loadUserProfile() {
         await supabaseClient.auth.getSession();
 
     if (!session) {
-        window.location.href = "login.html";
+
+        window.location.href =
+            "login.html";
+
         return;
+
     }
 
     const user =
@@ -3016,7 +4574,8 @@ async function loadUserProfile() {
 
     document.getElementById(
         "sidebarName"
-    ).textContent = name;
+    ).textContent =
+        name;
 
 
     document.getElementById(
@@ -3029,7 +4588,8 @@ async function loadUserProfile() {
 
     document.getElementById(
         "menuName"
-    ).textContent = name;
+    ).textContent =
+        name;
 
 
     document.getElementById(
@@ -3062,7 +4622,9 @@ function setAvatar(
 ) {
 
     const element =
-        document.getElementById(elementId);
+        document.getElementById(
+            elementId
+        );
 
     if (!element) return;
 
@@ -3163,7 +4725,9 @@ function closeModalOnOverlay(
 
 let chats =
     JSON.parse(
-        localStorage.getItem("novy-chats") || "[]"
+        localStorage.getItem(
+            "novy-chats"
+        ) || "[]"
     );
 
 let currentChatId = null;
@@ -3199,7 +4763,8 @@ function openChat() {
 
     document
         .getElementById("pageTitle")
-        .textContent = "NOVY";
+        .textContent =
+        "NOVY";
 
     currentChatId = null;
 
@@ -3265,24 +4830,29 @@ function renderRecentChats(
 ) {
 
     const list =
-        document.getElementById("recentList");
+        document.getElementById(
+            "recentList"
+        );
 
     list.innerHTML = "";
 
     const filtered =
-        chats.filter(chat =>
-            chat.title
-                .toLowerCase()
-                .includes(
-                    filter.toLowerCase()
-                )
+        chats.filter(
+            chat =>
+                chat.title
+                    .toLowerCase()
+                    .includes(
+                        filter.toLowerCase()
+                    )
         );
 
 
     if (!filtered.length) {
 
         const empty =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
         empty.className =
             "section-title";
@@ -3293,34 +4863,51 @@ function renderRecentChats(
         list.appendChild(empty);
 
         return;
+
     }
 
 
-    filtered.slice(0, 30).forEach(chat => {
+    filtered
+        .slice(0, 30)
+        .forEach(chat => {
 
-        const button =
-            document.createElement("button");
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-        button.className =
-            "recent-chat";
+            button.className =
+                "recent-chat";
 
-        button.onclick =
-            () => openStoredChat(chat.id);
+            button.onclick =
+                () =>
+                    openStoredChat(
+                        chat.id
+                    );
 
 
-        button.innerHTML = `
-            <span class="recent-chat-icon">💬</span>
-            <span class="recent-chat-title"></span>
-        `;
+            button.innerHTML = `
+                <span class="recent-chat-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M5 6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5v6A2.5 2.5 0 0 1 16.5 15H11l-4.5 4v-4.2A2.5 2.5 0 0 1 5 12.5z"></path>
+                    </svg>
+                </span>
 
-        button
-            .querySelector(".recent-chat-title")
-            .textContent =
-            chat.title;
+                <span class="recent-chat-title"></span>
+            `;
 
-        list.appendChild(button);
+            button
+                .querySelector(
+                    ".recent-chat-title"
+                )
+                .textContent =
+                chat.title;
 
-    });
+            list.appendChild(
+                button
+            );
+
+        });
 
 }
 
@@ -3333,7 +4920,8 @@ function openStoredChat(id) {
 
     const chat =
         chats.find(
-            item => item.id === id
+            item =>
+                item.id === id
         );
 
     if (!chat) return;
@@ -3375,19 +4963,23 @@ function openStoredChat(id) {
 function renderMessages(messages) {
 
     const container =
-        document.getElementById("messages");
+        document.getElementById(
+            "messages"
+        );
 
     container.innerHTML = "";
 
-    messages.forEach(message => {
+    messages.forEach(
+        message => {
 
-        addMessageToUI(
-            message.role,
-            message.content,
-            false
-        );
+            addMessageToUI(
+                message.role,
+                message.content,
+                false
+            );
 
-    });
+        }
+    );
 
 }
 
@@ -3403,16 +4995,22 @@ function addMessageToUI(
 ) {
 
     const container =
-        document.getElementById("messages");
+        document.getElementById(
+            "messages"
+        );
 
     const message =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     message.className =
         "message " +
-        (role === "user"
-            ? "user"
-            : "novy");
+        (
+            role === "user"
+                ? "user"
+                : "novy"
+        );
 
 
     message.innerHTML = `
@@ -3426,16 +5024,22 @@ function addMessageToUI(
     `;
 
     message
-        .querySelector(".message-body")
+        .querySelector(
+            ".message-body"
+        )
         .textContent =
         content;
 
-    container.appendChild(message);
+    container.appendChild(
+        message
+    );
 
     if (scroll) {
 
         const chatArea =
-            document.getElementById("chatView");
+            document.getElementById(
+                "chatView"
+            );
 
         chatArea.scrollTop =
             chatArea.scrollHeight;
@@ -3452,7 +5056,9 @@ function addMessageToUI(
 function sendMessage() {
 
     const input =
-        document.getElementById("messageInput");
+        document.getElementById(
+            "messageInput"
+        );
 
     const text =
         input.value.trim();
@@ -3469,7 +5075,8 @@ function sendMessage() {
 
     const chat =
         chats.find(
-            item => item.id === currentChatId
+            item =>
+                item.id === currentChatId
         );
 
     if (!chat) return;
@@ -3485,7 +5092,8 @@ function sendMessage() {
 
 
     if (
-        chat.title === getText("newChat")
+        chat.title ===
+        getText("newChat")
     ) {
 
         chat.title =
@@ -3554,7 +5162,8 @@ function handleMessageKey(event) {
 
 function autoResize(element) {
 
-    element.style.height = "auto";
+    element.style.height =
+        "auto";
 
     element.style.height =
         Math.min(
@@ -3574,16 +5183,20 @@ function useSuggestion(type) {
     const suggestions = {
 
         study:
-            "برای درس خوندن کمکم کن",
+            getText("suggestionStudy")
+                .replace(/^📚\s*/, ""),
 
         idea:
-            "برای یک پروژه ایده بده",
+            getText("suggestionIdea")
+                .replace(/^💡\s*/, ""),
 
         science:
-            "یک موضوع علمی رو برام توضیح بده",
+            getText("suggestionScience")
+                .replace(/^🔬\s*/, ""),
 
         code:
-            "در کدنویسی بهم کمک کن"
+            getText("suggestionCode")
+                .replace(/^<\/>\s*/, "")
 
     };
 
@@ -3609,7 +5222,9 @@ function useSuggestion(type) {
 
 function searchChats(value) {
 
-    renderRecentChats(value);
+    renderRecentChats(
+        value
+    );
 
 }
 
@@ -3618,11 +5233,143 @@ function searchChats(value) {
    CHAT MENU
 ============================================================ */
 
+function positionChatMenu() {
+
+    const menu =
+        document.getElementById(
+            "chatMenu"
+        );
+
+    const button =
+        document.querySelector(
+            ".topbar-more"
+        );
+
+    if (
+        !menu ||
+        !button ||
+        !menu.classList.contains("open")
+    ) {
+        return;
+    }
+
+
+    const rect =
+        button.getBoundingClientRect();
+
+    const menuWidth =
+        menu.offsetWidth || 190;
+
+    const menuHeight =
+        menu.offsetHeight || 170;
+
+    const margin =
+        8;
+
+    const viewportWidth =
+        window.innerWidth;
+
+    const viewportHeight =
+        window.innerHeight;
+
+    let left;
+
+    const isRTL =
+        document.documentElement.dir === "rtl";
+
+
+    if (isRTL) {
+
+        left =
+            rect.right -
+            menuWidth;
+
+    } else {
+
+        left =
+            rect.left;
+
+    }
+
+
+    if (
+        left + menuWidth >
+        viewportWidth - margin
+    ) {
+
+        left =
+            viewportWidth -
+            menuWidth -
+            margin;
+
+    }
+
+
+    if (left < margin) {
+        left = margin;
+    }
+
+
+    let top =
+        rect.bottom +
+        margin;
+
+
+    if (
+        top + menuHeight >
+        viewportHeight - margin
+    ) {
+
+        top =
+            rect.top -
+            menuHeight -
+            margin;
+
+    }
+
+
+    if (top < margin) {
+        top = margin;
+    }
+
+
+    menu.style.left =
+        `${left}px`;
+
+    menu.style.top =
+        `${top}px`;
+
+    menu.style.right =
+        "auto";
+
+    menu.style.bottom =
+        "auto";
+
+}
+
+
 function toggleChatMenu() {
 
-    document
-        .getElementById("chatMenu")
-        .classList.toggle("open");
+    const menu =
+        document.getElementById(
+            "chatMenu"
+        );
+
+    menu.classList.toggle(
+        "open"
+    );
+
+    if (
+        menu.classList.contains(
+            "open"
+        )
+    ) {
+
+        requestAnimationFrame(
+            positionChatMenu
+        );
+
+    }
 
 }
 
@@ -3657,7 +5404,8 @@ function renameCurrentChat() {
 
     const chat =
         chats.find(
-            item => item.id === currentChatId
+            item =>
+                item.id === currentChatId
         );
 
     if (!chat) return;
@@ -3707,7 +5455,9 @@ function deleteCurrentChat() {
 
     if (
         !confirm(
-            getText("confirmDeleteChat")
+            getText(
+                "confirmDeleteChat"
+            )
         )
     ) {
 
@@ -3719,7 +5469,8 @@ function deleteCurrentChat() {
     chats =
         chats.filter(
             chat =>
-                chat.id !== currentChatId
+                chat.id !==
+                currentChatId
         );
 
     saveChats();
@@ -3740,7 +5491,9 @@ function moveCurrentChat() {
     closeChatMenu();
 
     alert(
-        getText("promptProject")
+        getText(
+            "promptProject"
+        )
     );
 
 }
@@ -3755,7 +5508,9 @@ function shareCurrentChat() {
     closeChatMenu();
 
     alert(
-        getText("copied")
+        getText(
+            "copied"
+        )
     );
 
 }
@@ -3768,7 +5523,9 @@ function shareCurrentChat() {
 function openFilePicker() {
 
     document
-        .getElementById("fileInput")
+        .getElementById(
+            "fileInput"
+        )
         .click();
 
 }
@@ -3777,14 +5534,18 @@ function openFilePicker() {
 function openImagePicker() {
 
     document
-        .getElementById("imageInput")
+        .getElementById(
+            "imageInput"
+        )
         .click();
 
 }
 
 
 document
-    .getElementById("fileInput")
+    .getElementById(
+        "fileInput"
+    )
     .addEventListener(
         "change",
         function () {
@@ -3794,25 +5555,32 @@ document
             }
 
             const files =
-                Array.from(this.files);
-
-            files.forEach(file => {
-
-                addAttachmentMessage(
-                    file,
-                    false
+                Array.from(
+                    this.files
                 );
 
-            });
+            files.forEach(
+                file => {
 
-            this.value = "";
+                    addAttachmentMessage(
+                        file,
+                        false
+                    );
+
+                }
+            );
+
+            this.value =
+                "";
 
         }
     );
 
 
 document
-    .getElementById("imageInput")
+    .getElementById(
+        "imageInput"
+    )
     .addEventListener(
         "change",
         function () {
@@ -3822,18 +5590,23 @@ document
             }
 
             const files =
-                Array.from(this.files);
-
-            files.forEach(file => {
-
-                addAttachmentMessage(
-                    file,
-                    true
+                Array.from(
+                    this.files
                 );
 
-            });
+            files.forEach(
+                file => {
 
-            this.value = "";
+                    addAttachmentMessage(
+                        file,
+                        true
+                    );
+
+                }
+            );
+
+            this.value =
+                "";
 
         }
     );
@@ -3855,7 +5628,9 @@ function addAttachmentMessage(
 
     const chat =
         chats.find(
-            item => item.id === currentChatId
+            item =>
+                item.id ===
+                currentChatId
         );
 
     if (!chat) return;
@@ -3900,7 +5675,9 @@ function openLibraryPicker() {
 function startVoiceInput() {
 
     alert(
-        getText("voiceUnavailable")
+        getText(
+            "voiceUnavailable"
+        )
     );
 
 }
@@ -3960,9 +5737,13 @@ function openImages() {
 
     showPage(
 
-        getText("imagesTitle"),
+        getText(
+            "imagesTitle"
+        ),
 
-        getText("imagesDescription"),
+        getText(
+            "imagesDescription"
+        ),
 
         `
 
@@ -3981,7 +5762,9 @@ function openImages() {
             <button
                 class="primary-button"
                 onclick="startImageChat()">
+
                 ${getText("newImageChat")}
+
             </button>
 
         </div>
@@ -3998,7 +5781,9 @@ function startImageChat() {
     openChat();
 
     document
-        .getElementById("messageInput")
+        .getElementById(
+            "messageInput"
+        )
         .focus();
 
 }
@@ -4012,9 +5797,13 @@ function openLibrary() {
 
     showPage(
 
-        getText("libraryTitle"),
+        getText(
+            "libraryTitle"
+        ),
 
-        getText("libraryDescription"),
+        getText(
+            "libraryDescription"
+        ),
 
         `
 
@@ -4066,7 +5855,9 @@ function saveProjects() {
 
     localStorage.setItem(
         "novy-projects",
-        JSON.stringify(projects)
+        JSON.stringify(
+            projects
+        )
     );
 
 }
@@ -4076,7 +5867,9 @@ function openProjects() {
 
     const cards =
         projects.length
-            ? projects.map(project => `
+            ? projects
+                .map(
+                    project => `
 
                 <div
                     class="page-card"
@@ -4093,7 +5886,9 @@ function openProjects() {
 
                 </div>
 
-            `).join("")
+            `
+                )
+                .join("")
             : `
 
                 <div class="page-card">
@@ -4109,9 +5904,13 @@ function openProjects() {
 
     showPage(
 
-        getText("projectsTitle"),
+        getText(
+            "projectsTitle"
+        ),
 
-        getText("projectsDescription"),
+        getText(
+            "projectsDescription"
+        ),
 
         `
 
@@ -4138,7 +5937,9 @@ function createProject() {
 
     const name =
         prompt(
-            getText("promptProject")
+            getText(
+                "promptProject"
+            )
         );
 
     if (!name) return;
@@ -4163,7 +5964,9 @@ function createProject() {
     };
 
 
-    projects.unshift(project);
+    projects.unshift(
+        project
+    );
 
     saveProjects();
 
@@ -4176,7 +5979,8 @@ function openProject(id) {
 
     const project =
         projects.find(
-            item => item.id === id
+            item =>
+                item.id === id
         );
 
     if (!project) return;
@@ -4236,9 +6040,13 @@ function openCode() {
 
     showPage(
 
-        getText("codeTitle"),
+        getText(
+            "codeTitle"
+        ),
 
-        getText("codeDescription"),
+        getText(
+            "codeDescription"
+        ),
 
         `
 
@@ -4282,11 +6090,20 @@ function escapeHtml(value) {
             /[&<>"']/g,
             char => ({
 
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#039;"
+                "&":
+                    "&amp;",
+
+                "<":
+                    "&lt;",
+
+                ">":
+                    "&gt;",
+
+                '"':
+                    "&quot;",
+
+                "'":
+                    "&#039;"
 
             }[char])
         );
@@ -4338,7 +6155,10 @@ async function initialize() {
         ) || "navy";
 
 
-    if (savedTheme === "custom") {
+    if (
+        savedTheme ===
+        "custom"
+    ) {
 
         const bg =
             localStorage.getItem(
@@ -4351,12 +6171,18 @@ async function initialize() {
             ) || "#8ee7ff";
 
         document
-            .getElementById("customBg")
-            .value = bg;
+            .getElementById(
+                "customBg"
+            )
+            .value =
+            bg;
 
         document
-            .getElementById("customAccent")
-            .value = accent;
+            .getElementById(
+                "customAccent"
+            )
+            .value =
+            accent;
 
         applyCustomTheme();
 
@@ -4372,6 +6198,8 @@ async function initialize() {
     await loadUserProfile();
 
     renderRecentChats();
+
+    updateSidebarToggleIcon();
 
 }
 
@@ -4395,9 +6223,15 @@ document.addEventListener(
             );
 
         if (
-            profileMenu.classList.contains("open") &&
-            !profileMenu.contains(event.target) &&
-            !profileButton.contains(event.target)
+            profileMenu.classList.contains(
+                "open"
+            ) &&
+            !profileMenu.contains(
+                event.target
+            ) &&
+            !profileButton.contains(
+                event.target
+            )
         ) {
 
             closeProfileMenu();
@@ -4416,9 +6250,15 @@ document.addEventListener(
             );
 
         if (
-            chatMenu.classList.contains("open") &&
-            !chatMenu.contains(event.target) &&
-            !moreButton.contains(event.target)
+            chatMenu.classList.contains(
+                "open"
+            ) &&
+            !chatMenu.contains(
+                event.target
+            ) &&
+            !moreButton.contains(
+                event.target
+            )
         ) {
 
             closeChatMenu();
@@ -4426,6 +6266,22 @@ document.addEventListener(
         }
 
     }
+);
+
+
+/* ============================================================
+   CHAT MENU POSITION
+============================================================ */
+
+window.addEventListener(
+    "resize",
+    positionChatMenu
+);
+
+window.addEventListener(
+    "scroll",
+    positionChatMenu,
+    true
 );
 
 
