@@ -291,7 +291,32 @@ const translations = {
         talkToNovy: "صحبت با نووی ✦",
 
         footerCompanion:
-            "همراه دانش‌آموزان 🌱"
+            "همراه دانش‌آموزان 🌱",
+
+        termsLink: "قوانین و مقررات",
+        termsPageTitle: "قوانین و مقررات | نووی",
+        termsHeading: "قوانین و مقررات استفاده از نووی",
+        termsIntro: "با استفاده از نووی، این شرایط را می‌پذیرید. لطفاً پیش از استفاده، آن‌ها را مطالعه کنید.",
+        termsUpdated: "آخرین به‌روزرسانی: نوامبر ۲۰۲۶",
+        termsS1Title: "۱. هدف نووی",
+        termsS1Text: "نووی با هدف پشتیبانی آموزشی، کمک به برنامه‌ریزی و تقویت مهارت یادگیری طراحی شده است. محتوای آن جایگزین معلم، مشاور، پزشک یا خدمات تخصصی نیست.",
+        termsS2Title: "۲. حساب کاربری",
+        termsS2Text: "برای استفاده از امکانات حساب، اطلاعات درست و به‌روز ارائه کنید و از حساب خود مراقبت کنید. مسئولیت فعالیت‌هایی که از طریق حساب شما انجام می‌شود بر عهده دارنده حساب است. در صورت مشاهده استفاده غیرمجاز، موضوع را به پشتیبانی اطلاع دهید.",
+        termsS3Title: "۳. استفاده ایمن و مجاز",
+        termsS3Text: "از نووی برای فعالیت غیرقانونی، آزار دیگران، انتشار اطلاعات خصوصی دیگران، فریب، تقلب یا آسیب‌رساندن استفاده نکنید. محتوای نامناسب یا مشکل‌دار را گزارش کنید.",
+        termsS4Title: "۴. پاسخ‌های هوشمند و محدودیت‌ها",
+        termsS4Text: "در صورت فعال‌شدن قابلیت هوش مصنوعی، پاسخ‌ها ممکن است ناقص یا نادرست باشند. پاسخ‌ها را بررسی کنید و برای تصمیم‌های مهم، از منابع معتبر و افراد متخصص کمک بگیرید. نووی نباید به‌عنوان مرجع قطعی پزشکی، حقوقی یا ایمنی استفاده شود.",
+        termsS5Title: "۵. مالکیت محتوا و خدمات",
+        termsS5Text: "نام، طراحی و اجزای اختصاصی نووی متعلق به صاحبان پروژه یا دارندگان مجوز آن‌هاست. بدون اجازه، آن‌ها را کپی یا به‌عنوان اثر خود معرفی نکنید. امکانات سایت ممکن است در طول زمان تغییر کنند.",
+        termsS6Title: "۶. حریم خصوصی و امنیت",
+        termsS6Text: "اطلاعات حساب و داده‌های شما مطابق سیاست حریم خصوصی نووی مدیریت می‌شوند. اطلاعات ورود خود را با دیگران به اشتراک نگذارید. قوانین و تنظیمات حریم خصوصی باید پیش از انتشار عمومی محصول نهایی تکمیل و در دسترس قرار گیرند.",
+        termsS7Title: "۷. کاربران کم‌سن",
+        termsS7Text: "نووی برای همراهی دانش‌آموزان طراحی شده است. کاربران کم‌سن باید با آگاهی و راهنمایی والدین یا سرپرست خود از خدمات استفاده کنند. والدین یا سرپرستان می‌توانند درباره استفاده فرزندشان تصمیم‌گیری و نظارت کنند.",
+        termsS8Title: "۸. تغییرات و دسترس‌پذیری",
+        termsS8Text: "ممکن است برای بهبود، نگهداری یا دلایل امنیتی، بخشی از خدمات موقتاً تغییر کند یا در دسترس نباشد. نسخه به‌روز این شرایط از همین صفحه قابل مطالعه خواهد بود.",
+        termsS9Title: "۹. تماس و گزارش مشکل",
+        termsS9Text: "اگر درباره این شرایط یا عملکرد نووی پرسشی دارید یا با مشکلی روبه‌رو شده‌اید، از مسیر پشتیبانی رسمی پروژه که پس از راه‌اندازی اعلام می‌شود استفاده کنید.",
+        termsBack: "بازگشت به صفحه اصلی"
 
     },
 
@@ -376,7 +401,32 @@ const translations = {
         talkToNovy: "Talk to Novy ✦",
 
         footerCompanion:
-            "Your Student Companion 🌱"
+            "Your Student Companion 🌱",
+
+        termsLink: "Terms & Conditions",
+        termsPageTitle: "Terms & Conditions | Novy",
+        termsHeading: "Novy Terms & Conditions",
+        termsIntro: "By using Novy, you agree to these terms. Please read them before using the service.",
+        termsUpdated: "Last updated: November 2026",
+        termsS1Title: "1. Purpose of Novy",
+        termsS1Text: "Novy is designed to support learning, study planning, and the development of learning skills. It does not replace a teacher, counsellor, doctor, or other professional service.",
+        termsS2Title: "2. User accounts",
+        termsS2Text: "Provide accurate and up-to-date information when creating an account and keep your account secure. You are responsible for activity carried out through your account. Report suspected unauthorized use through the project's support channel.",
+        termsS3Title: "3. Safe and permitted use",
+        termsS3Text: "Do not use Novy for unlawful activity, harassment, sharing other people's private information, deception, cheating, or causing harm. Report content that appears unsafe or inappropriate.",
+        termsS4Title: "4. AI responses and limitations",
+        termsS4Text: "If AI features are enabled, their responses may be incomplete or incorrect. Check important information and consult reliable sources or qualified people for important decisions. Novy is not an authoritative medical, legal, or safety resource.",
+        termsS5Title: "5. Content and service ownership",
+        termsS5Text: "Novy's name, design, and original components belong to the project owners or their respective licensors. Do not copy or claim them as your own without permission. Website features may change over time.",
+        termsS6Title: "6. Privacy and security",
+        termsS6Text: "Account information and user data are handled under Novy's privacy policy. Do not share your sign-in details. The privacy policy and related settings must be completed and made available before the final public launch.",
+        termsS7Title: "7. Younger users",
+        termsS7Text: "Novy is designed for students. Younger users should use the service with the awareness and guidance of a parent or guardian. Parents and guardians may decide whether and how their child uses the service.",
+        termsS8Title: "8. Changes and availability",
+        termsS8Text: "For improvements, maintenance, or security reasons, parts of the service may change or become temporarily unavailable. The latest version of these terms will be available on this page.",
+        termsS9Title: "9. Contact and reporting issues",
+        termsS9Text: "For questions about these terms or problems with Novy, use the project's official support channel once it has been announced.",
+        termsBack: "Back to Home"
 
     },
 
@@ -461,7 +511,32 @@ const translations = {
         talkToNovy: "تحدث مع نووي ✦",
 
         footerCompanion:
-            "رفيق الطلاب 🌱"
+            "رفيق الطلاب 🌱",
+
+        termsLink: "الشروط والأحكام",
+        termsPageTitle: "الشروط والأحكام | نووي",
+        termsHeading: "شروط وأحكام استخدام نووي",
+        termsIntro: "باستخدام نووي، فإنك توافق على هذه الشروط. يرجى قراءتها قبل استخدام الخدمة.",
+        termsUpdated: "آخر تحديث: نوفمبر ٢٠٢٦",
+        termsS1Title: "١. هدف نووي",
+        termsS1Text: "صُمم نووي لدعم التعلم والمساعدة في التخطيط الدراسي وتنمية مهارات التعلم. ولا يحل محل المعلم أو المرشد أو الطبيب أو أي خدمة متخصصة أخرى.",
+        termsS2Title: "٢. حساب المستخدم",
+        termsS2Text: "قدّم معلومات صحيحة ومحدثة عند إنشاء الحساب وحافظ على أمانه. أنت مسؤول عن الأنشطة التي تتم من خلال حسابك. أبلغ قناة الدعم الخاصة بالمشروع عن أي استخدام غير مصرح به.",
+        termsS3Title: "٣. الاستخدام الآمن والمسموح",
+        termsS3Text: "لا تستخدم نووي في أنشطة غير قانونية أو مضايقة الآخرين أو نشر معلوماتهم الخاصة أو الخداع أو الغش أو إلحاق الضرر. أبلغ عن المحتوى غير الآمن أو غير المناسب.",
+        termsS4Title: "٤. إجابات الذكاء الاصطناعي وحدودها",
+        termsS4Text: "إذا تم تفعيل ميزات الذكاء الاصطناعي، فقد تكون الإجابات ناقصة أو غير دقيقة. تحقق من المعلومات المهمة واستعن بمصادر موثوقة أو مختصين عند اتخاذ القرارات المهمة. نووي ليس مرجعاً طبياً أو قانونياً أو متعلقاً بالسلامة.",
+        termsS5Title: "٥. ملكية المحتوى والخدمة",
+        termsS5Text: "اسم نووي وتصميمه ومكوناته الأصلية ملك لأصحاب المشروع أو للجهات المرخصة لها. لا تنسخها أو تنسبها إلى نفسك دون إذن. قد تتغير ميزات الموقع بمرور الوقت.",
+        termsS6Title: "٦. الخصوصية والأمان",
+        termsS6Text: "تتم إدارة معلومات الحساب وبيانات المستخدم وفق سياسة الخصوصية الخاصة بنووي. لا تشارك بيانات تسجيل الدخول. يجب استكمال سياسة الخصوصية والإعدادات ذات الصلة وإتاحتها قبل الإطلاق العام النهائي.",
+        termsS7Title: "٧. المستخدمون الأصغر سناً",
+        termsS7Text: "صُمم نووي لمرافقة الطلاب. ينبغي للمستخدمين الأصغر سناً استخدام الخدمة بعلم وتوجيه أحد الوالدين أو الوصي. ويمكن للوالدين أو الأوصياء تحديد ما إذا كان الطفل سيستخدم الخدمة وكيفية ذلك.",
+        termsS8Title: "٨. التغييرات والتوافر",
+        termsS8Text: "قد تتغير أجزاء من الخدمة أو تصبح غير متاحة مؤقتاً لأغراض التحسين أو الصيانة أو الأمان. ستكون أحدث نسخة من هذه الشروط متاحة في هذه الصفحة.",
+        termsS9Title: "٩. التواصل والإبلاغ عن المشكلات",
+        termsS9Text: "للاستفسارات حول هذه الشروط أو مشكلات نووي، استخدم قناة الدعم الرسمية للمشروع عند الإعلان عنها.",
+        termsBack: "العودة إلى الصفحة الرئيسية"
 
     }
 
@@ -547,7 +622,9 @@ function applyLanguage(language) {
     // ---------- Page Title ----------
 
     document.title =
-        currentTranslations.pageTitle;
+        document.body && document.body.dataset.page === "terms"
+            ? currentTranslations.termsPageTitle
+            : currentTranslations.pageTitle;
 
 
     // ---------- Save Language ----------
