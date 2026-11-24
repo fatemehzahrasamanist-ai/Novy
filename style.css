@@ -1233,3 +1233,89 @@ footer p {
     box-shadow:
         0 0 0 2px rgba(142, 231, 255, 0.12);
 }
+
+/* ==================== Terms & Conditions Page ==================== */
+
+.footer-links {
+    margin-top: 12px;
+}
+
+.footer-links a,
+.terms-back-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover,
+.terms-back-link:hover {
+    color: var(--text-main);
+}
+
+.terms-page {
+    min-height: 100vh;
+    padding: 55px 7% 80px;
+    background: var(--bg-main);
+}
+
+.terms-container {
+    width: min(900px, 100%);
+    margin: 0 auto;
+    padding: 38px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+}
+
+.terms-container h1 {
+    color: var(--text-main);
+    font-size: clamp(27px, 4vw, 38px);
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.terms-intro {
+    color: var(--text-soft);
+    margin-bottom: 10px;
+}
+
+.terms-updated {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 28px;
+}
+
+.terms-section {
+    padding: 20px 0;
+    border-top: 1px solid var(--border-soft);
+}
+
+.terms-section h2 {
+    color: var(--accent);
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.terms-section p {
+    color: var(--text-soft);
+    font-size: 15px;
+}
+
+.terms-back-wrap {
+    margin-top: 25px;
+}
+
+.terms-back-link {
+    display: inline-block;
+    padding: 10px 17px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+@media (max-width: 600px) {
+    .terms-page { padding: 28px 4% 50px; }
+    .terms-container { padding: 25px 20px; border-radius: 19px; }
+    .terms-section { padding: 17px 0; }
+}
