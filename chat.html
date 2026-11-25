@@ -5739,85 +5739,164 @@ function closeSubjectPicker() {
     document.getElementById("subjectPickerModal")?.remove();
 }
 
-function openAssessment() {
-    const metadata = window.novyUserMetadata || {};
-    profileGrade = metadata.grade || localStorage.getItem("novy-grade") ||
-        localStorage.getItem("profile-grade") || "پایه در پروفایل ثبت نشده";
-    const subjectOptions = novySubjects.map(s => `<option value="${s}">${s}</option>`).join("");
+async function openAssessment() {
+    // دریافت تازهٔ اطلاعات پروفایل تا پایهٔ ذخیره‌شده در حساب خوانده شود.
+    let metadata = window.novyUserMetadata || {};
+
+    try {
+        const { data: { user }, error } = await supabaseClient.auth.getUser();
+        if (!error && user) {
+            metadata = user.user_metadata || metadata;
+            window.novyUserMetadata = metadata;
+        }
+    } catch (error) {
+        console.warn("Could not refresh profile metadata:", error);
+    }
+
+    // پشتیبانی از نام‌های رایج فیلد پایه در اطلاعات پروفایل
+    const gradeKeys = [
+        "grade", "school_grade", "schoolGrade",
+        "grade_level", "gradeLevel", "class_grade",
+        "education_level", "educationLevel"
+    ];
+
+    let savedGrade = "";
+    for (const key of gradeKeys) {
+        if (metadata[key] !== undefined && metadata[key] !== null &&
+            String(metadata[key]).trim() !== "") {
+            savedGrade = String(metadata[key]).trim();
+            break;
+        }
+    }
+
+    // اگر پایه در metadata نبود، مقدار ذخیره‌شدهٔ مرورگر بررسی شود.
+    if (!savedGrade) {
+        const localGradeKeys = [
+            "novy-grade", "profile-grade", "grade",
+            "school-grade", "schoolGrade", "gradeLevel"
+        ];
+        for (const key of localGradeKeys) {
+            const value = localStorage.getItem(key);
+            if (value && value.trim()) {
+                savedGrade = value.trim();
+                break;
+            }
+        }
+    }
+
+    // بعضی نسخه‌های پروفایل ممکن است پایه را زیر کلید دیگری ذخیره کرده باشند.
+    if (!savedGrade) {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (!key || !/grade|پایه/i.test(key)) continue;
+            const value = localStorage.getItem(key);
+            if (value && value.trim()) {
+                savedGrade = value.trim();
+                break;
+            }
+        }
+    }
+
+    profileGrade = savedGrade || "پایه در پروفایل ثبت نشده";
+
+    if (savedGrade) {
+        localStorage.setItem("novy-grade", savedGrade);
+    }
+
+    const subjectOptions = novySubjects
+        .map(subject => `<option value="${escapeHtml(subject)}">${escapeHtml(subject)}</option>`)
+        .join("");
 
     showPage(
         "آزمون و خودارزیابی",
-        "درس، مبحث و تعداد سؤال را انتخاب کن. پایهٔ تحصیلی از پروفایل خوانده می‌شود.",
+        "درس، مبحث و تعداد سؤال را انتخاب کن. پایهٔ تحصیلی به‌صورت خودکار از پروفایل خوانده می‌شود.",
         `
         <div class="page-card">
             <div><strong>پایهٔ تحصیلی:</strong> ${escapeHtml(profileGrade)}</div>
+
             <label class="novy-form-label" for="assessmentSubject">درس</label>
-            <select id="assessmentSubject" class="novy-form-control" onchange="updateAssessmentTopics()">${subjectOptions}</select>
+            <select id="assessmentSubject" class="novy-form-control">
+                ${subjectOptions}
+            </select>
+
             <label class="novy-form-label" for="assessmentTopic">مبحث</label>
-            <select id="assessmentTopic" class="novy-form-control"></select>
+            <input
+                id="assessmentTopic"
+                class="novy-form-control"
+                type="text"
+                maxlength="120"
+                placeholder="مثلاً: حرکت یکنواخت، معادله، ژنتیک و..."
+                autocomplete="off"
+            >
+
             <label class="novy-form-label" for="assessmentCount">تعداد سؤال</label>
             <select id="assessmentCount" class="novy-form-control">
-                <option value="5">۵ سؤال</option><option value="10">۱۰ سؤال</option>
-                <option value="15">۱۵ سؤال</option><option value="20">۲۰ سؤال</option>
+                <option value="5">۵ سؤال</option>
+                <option value="10">۱۰ سؤال</option>
+                <option value="15">۱۵ سؤال</option>
+                <option value="20">۲۰ سؤال</option>
             </select>
+
             <br><br>
             <button class="primary-button" onclick="beginAssessment()">شروع آزمون</button>
-            <p class="novy-status-note">در این مرحله رابط آزمون و ثبت تنظیمات آماده می‌شود. تولید سؤال، تصحیح هوشمند و سؤال تطبیقی پس از اتصال مدل هوش مصنوعی فعال خواهند شد.</p>
+
+            <p class="novy-status-note">
+                در این مرحله رابط آزمون و ثبت تنظیمات آماده است.
+                تولید سؤال، تصحیح هوشمند و سؤال تطبیقی پس از اتصال مدل هوش مصنوعی فعال خواهند شد.
+            </p>
         </div>
         <div id="assessmentWorkspace"></div>`
     );
-    updateAssessmentTopics();
-}
-
-const assessmentTopics = {
-    "ریاضی": ["جمع و تفریق", "ضرب و تقسیم", "کسرها", "معادله", "رادیکال", "مختصات", "هندسه"],
-    "فیزیک": ["حرکت", "نیرو", "کار و انرژی", "فشار", "الکتریسیته", "نور"],
-    "شیمی": ["اتم و ساختار آن", "جدول تناوبی", "پیوندها", "واکنش‌های شیمیایی", "محلول‌ها"],
-    "زیست‌شناسی": ["سلول", "ژنتیک", "بدن انسان", "گیاهان", "بوم‌شناسی"],
-    "فارسی": ["دستور زبان", "آرایه‌های ادبی", "املا", "درک مطلب", "معنی واژه"],
-    "زبان انگلیسی": ["واژگان", "گرامر", "درک مطلب", "زمان‌ها", "مکالمه"],
-    "عربی": ["ترجمه", "قواعد", "واژگان", "درک مطلب"],
-    "قرآن": ["روخوانی", "ترجمه", "مفاهیم", "پیام آیات"],
-    "دینی": ["معارف", "آیات و احادیث", "اندیشه و تحقیق"],
-    "مطالعات اجتماعی": ["تاریخ", "جغرافیا", "مدنی", "اقتصاد"],
-    "زمین‌شناسی": ["ساختار زمین", "سنگ‌ها و کانی‌ها", "زمین‌ساخت", "منابع طبیعی"],
-    "تفکر و پژوهش": ["مهارت تفکر", "پژوهش", "استدلال", "حل مسئله"]
-};
-
-function updateAssessmentTopics() {
-    const subject = document.getElementById("assessmentSubject");
-    const topic = document.getElementById("assessmentTopic");
-    if (!subject || !topic) return;
-    topic.innerHTML = (assessmentTopics[subject.value] || ["مبحث عمومی"])
-        .map(item => `<option value="${escapeHtml(item)}">${escapeHtml(item)}</option>`).join("");
 }
 
 function beginAssessment() {
     const subject = document.getElementById("assessmentSubject")?.value;
-    const topic = document.getElementById("assessmentTopic")?.value;
+    const topic = document.getElementById("assessmentTopic")?.value.trim();
     const count = document.getElementById("assessmentCount")?.value;
-    if (!subject || !topic || !count) return;
+
+    if (!subject || !topic || !count) {
+        alert("لطفاً درس و مبحث را وارد و تعداد سؤال را انتخاب کن.");
+        return;
+    }
 
     assessmentConfig = {
-        subject, topic, count: Number(count), grade: profileGrade,
-        createdAt: new Date().toISOString(), status: "demo"
+        subject,
+        topic,
+        count: Number(count),
+        grade: profileGrade,
+        createdAt: new Date().toISOString(),
+        status: "demo"
     };
+
     localStorage.setItem("novy-last-assessment", JSON.stringify(assessmentConfig));
 
     const workspace = document.getElementById("assessmentWorkspace");
     if (!workspace) return;
+
     workspace.innerHTML = `
         <div class="page-card">
-            <h3 class="page-card-title">آزمون ${escapeHtml(subject)} | ${escapeHtml(topic)}</h3>
-            <p class="page-card-text">پایه: ${escapeHtml(profileGrade)} · تعداد سؤال: ${count}</p>
+            <h3 class="page-card-title">
+                آزمون ${escapeHtml(subject)} | ${escapeHtml(topic)}
+            </h3>
+            <p class="page-card-text">
+                پایه: ${escapeHtml(profileGrade)} · تعداد سؤال: ${count}
+            </p>
             <div class="novy-assessment-question">
                 <strong>نمونهٔ نمایشی سؤال</strong>
                 <p>قرینهٔ نقطهٔ A(3,-2) نسبت به مبدأ مختصات چیست؟</p>
                 <label class="novy-form-label" for="assessmentAnswer">پاسخ تو</label>
-                <input id="assessmentAnswer" class="novy-form-control" placeholder="پاسخت را وارد کن...">
-                <br><br><button class="primary-button" onclick="submitAssessmentAnswer()">ثبت پاسخ</button>
+                <input
+                    id="assessmentAnswer"
+                    class="novy-form-control"
+                    type="text"
+                    placeholder="پاسخت را وارد کن..."
+                >
+                <br><br>
+                <button class="primary-button" onclick="submitAssessmentAnswer()">ثبت پاسخ</button>
             </div>
-            <p id="assessmentFeedback" class="novy-status-note">این سؤال فقط نمونهٔ رابط کاربری است و هنوز بررسی هوشمند فعال نیست.</p>
+            <p id="assessmentFeedback" class="novy-status-note">
+                این سؤال فقط نمونهٔ رابط کاربری است و هنوز بررسی هوشمند فعال نیست.
+            </p>
         </div>`;
 }
 
