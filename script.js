@@ -77,20 +77,38 @@ function setTheme(themeName) {
 
 // ==================== Load Saved Theme ====================
 
-const savedTheme =
-    localStorage.getItem("novy-theme");
+function applyCustomSavedTheme() {
+    const bg = localStorage.getItem("novy-custom-bg") || "#0b1020";
+    const accent = localStorage.getItem("novy-custom-accent") || "#8ee7ff";
 
-if (
-    savedTheme &&
-    themes[savedTheme]
-) {
+    const customValues = {
+        "--bg-main": bg,
+        "--bg-section": bg,
+        "--bg-card": bg,
+        "--bg-chat": bg,
+        "--bg-message": accent + "20",
+        "--text-main": "#f4f7ff",
+        "--text-soft": "#a8c7d9",
+        "--text-muted": "#91b0c2",
+        "--accent": accent,
+        "--accent-dark": bg,
+        "--border": accent + "55",
+        "--border-soft": accent + "33"
+    };
 
+    Object.entries(customValues).forEach(function ([variable, value]) {
+        document.documentElement.style.setProperty(variable, value);
+    });
+}
+
+const savedTheme = localStorage.getItem("novy-theme");
+
+if (savedTheme === "custom") {
+    applyCustomSavedTheme();
+} else if (savedTheme && themes[savedTheme]) {
     setTheme(savedTheme);
-
 } else {
-
     setTheme("navy");
-
 }
 
 
@@ -692,3 +710,25 @@ if (
     applyLanguage("fa");
 
 }
+
+
+/* ==================== Cross-page preference synchronization ==================== */
+window.addEventListener("storage", function (event) {
+    if (event.key === "novy-language" && event.newValue) {
+        applyLanguage(event.newValue);
+    }
+
+    if (event.key === "novy-theme" && event.newValue) {
+        if (event.newValue === "custom") {
+            applyCustomSavedTheme();
+        } else if (themes[event.newValue]) {
+            setTheme(event.newValue);
+        }
+    }
+
+    if (event.key === "novy-custom-bg" || event.key === "novy-custom-accent") {
+        if (localStorage.getItem("novy-theme") === "custom") {
+            applyCustomSavedTheme();
+        }
+    }
+});
