@@ -380,12 +380,12 @@ document.getElementById("avatarInput").addEventListener("change",async function(
  showMessage(getText("uploading"));
  const oldPaths=["jpg","png","webp"].map(ext=>`${user.id}/avatar.${ext}`).filter(old=>old!==path);
  if(oldPaths.length){
-  const {error:removeError}=await supabaseClient.storage.from("avatars").remove(oldPaths);
+  const {error:removeError}=await supabaseClient.storage.from("profile-avatars").remove(oldPaths);
   if(removeError)console.error(removeError);
  }
- const {error:uploadError}=await supabaseClient.storage.from("avatars").upload(path,file,{cacheControl:"3600",upsert:true,contentType:file.type});
+ const {error:uploadError}=await supabaseClient.storage.from("profile-avatars").upload(path,file,{cacheControl:"3600",upsert:true,contentType:file.type});
  if(uploadError){console.error(uploadError);showMessage(getText("uploadError"),true);this.value="";return;}
- const {data:publicData}=supabaseClient.storage.from("avatars").getPublicUrl(path);
+ const {data:publicData}=supabaseClient.storage.from("profile-avatars").getPublicUrl(path);
  const avatarUrl=publicData.publicUrl;
  const {error:metadataError}=await supabaseClient.auth.updateUser({data:{avatar_url:avatarUrl}});
  if(metadataError){console.error(metadataError);showMessage(getText("metadataError"),true);this.value="";return;}
@@ -398,7 +398,7 @@ async function deleteAvatar(){
  if(!session?.user){showMessage(getText("loginRequired"),true);return;}
  const user=session.user;showMessage(getText("deleting"));
  const paths=["jpg","png","webp"].map(ext=>`${user.id}/avatar.${ext}`);
- const {error:removeError}=await supabaseClient.storage.from("avatars").remove(paths);
+ const {error:removeError}=await supabaseClient.storage.from("profile-avatars").remove(paths);
  if(removeError){console.error(removeError);showMessage(getText("deleteError"),true);return;}
  const {error:metadataError}=await supabaseClient.auth.updateUser({data:{avatar_url:null}});
  if(metadataError){console.error(metadataError);showMessage(getText("deleteError"),true);return;}
