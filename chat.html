@@ -5877,67 +5877,374 @@ async function openAssessment() {
     );
 }
 
-function beginAssessment() {
+
+async function novyAssessmentRequest(systemPrompt, userPrompt) {
+    const response = await fetch(
+        "https://fragrant-sun-3c2anovy-backend.fatemehzahrasamani-st.workers.dev/api/chat",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                messages: [
+                    { role: "system", content: systemPrompt },
+                    { role: "user", content: userPrompt }
+                ]
+            })
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("خطا در ارتباط با سرور هوش مصنوعی");
+    }
+
+    const result = await response.json();
+
+    if (!result.reply) {
+        throw new Error("پاسخی از هوش مصنوعی دریافت نشد.");
+    }
+
+    let content = result.reply.trim();
+    content = content.replace(/^```(?:json)?\s*/i, "");
+    content = content.replace(/\s*```$/, "");
+
+    try {
+        return JSON.parse(content);
+    } catch {
+        const start = content.indexOf("{");
+        const end = content.lastIndexOf("}");
+
+        if (start === -1 || end === -1) {
+            throw new Error("ساختار پاسخ هوش مصنوعی معتبر نیست.");
+        }
+
+        return JSON.parse(content.slice(start, end + 1));
+    }
+}
+
+
+async function beginAssessment() {
     const subject = document.getElementById("assessmentSubject")?.value;
     const topic = document.getElementById("assessmentTopic")?.value.trim();
-    const count = document.getElementById("assessmentCount")?.value;
+    const count = Number(document.getElementById("assessmentCount")?.value);
+    const workspace = document.getElementById("assessmentWorkspace");
 
-    if (!subject || !topic || !count) {
-        alert("لطفاً درس و مبحث را وارد و تعداد سؤال را انتخاب کن.");
+    if (!subject || !topic || !count || !workspace) {
+        alert("لطفاً درس، مبحث و تعداد سؤال را مشخص کن.");
         return;
     }
 
-    assessmentConfig = {
-        subject,
-        topic,
-        count: Number(count),
-        grade: profileGrade,
-        createdAt: new Date().toISOString(),
-        status: "demo"
-    };
+    const startButton = document.querySelector(
+        '#pageContainer button[onclick="beginAssessment()"]'
+    );
 
-    localStorage.setItem("novy-last-assessment", JSON.stringify(assessmentConfig));
-
-    const workspace = document.getElementById("assessmentWorkspace");
-    if (!workspace) return;
+    if (startButton) {
+        startButton.disabled = true;
+        startButton.textContent = "در حال ساخت آزمون...";
+    }
 
     workspace.innerHTML = `
         <div class="page-card">
-            <h3 class="page-card-title">
-                آزمون ${escapeHtml(subject)} | ${escapeHtml(topic)}
-            </h3>
-            <p class="page-card-text">
-                پایه: ${escapeHtml(profileGrade)} · تعداد سؤال: ${count}
+            <p class="novy-status-note">
+                نووی در حال طراحی سؤال‌های اختصاصی توست... ✨
             </p>
-            <div class="novy-assessment-question">
-                <strong>نمونهٔ نمایشی سؤال</strong>
-                <p>قرینهٔ نقطهٔ A(3,-2) نسبت به مبدأ مختصات چیست؟</p>
-                <label class="novy-form-label" for="assessmentAnswer">پاسخ تو</label>
-                <input
-                    id="assessmentAnswer"
-                    class="novy-form-control"
-                    type="text"
-                    placeholder="پاسخت را وارد کن..."
+        </div>
+    `;
+
+    try {
+        const data = await novyAssessmentRequest(
+            `تو طراح آزمون آموزشی برای دانش‌آموزان ۱۰ تا ۱۸ سال هستی.
+فقط JSON معتبر برگردان و هیچ متن اضافه‌ای ننویس.
+سؤال‌ها باید دقیق، متناسب با پایه و مبحث، و دارای چهار گزینه باشند.
+از ساخت سؤال تکراری خودداری کن.
+پاسخ درست باید یکی از گزینه‌های A یا B یا C یا D باشد.
+خروجی دقیقاً با این ساختار باشد:
+{
+  "questions": [
+    {
+      "question": "متن سؤال",
+      "options": ["گزینه اول", "گزینه دوم", "گزینه سوم", "گزینه چهارم"],
+      "correctAnswer": "A",
+      "explanation": "توضیح آموزشی پاسخ"
+    }
+  ]
+}`,
+            `برای دانش‌آموز پایه ${profileGrade} یک آزمون بساز.
+درس: ${subject}
+مبحث: ${topic}
+تعداد سؤال دقیقاً: ${count}
+
+تمام سؤال‌ها باید مرتبط با همین مبحث و متناسب با سطح تحصیلی باشند.`
+        );
+
+        if (!Array.isArray(data.questions) || data.questions.length !== count) {
+            throw new Error("تعداد یا ساختار سؤال‌های دریافتی درست نیست. دوباره تلاش کن.");
+        }
+
+        for (const q of data.questions) {
+            if (
+                !q.question ||
+                !Array.isArray(q.options) ||
+                q.options.length !== 4 ||
+                !["A", "B", "C", "D"].includes(q.correctAnswer)
+            ) {
+                throw new Error("ساختار یکی از سؤال‌ها معتبر نیست.");
+            }
+        }
+
+        assessmentConfig = {
+            subject,
+            topic,
+            count,
+            grade: profileGrade,
+            createdAt: new Date().toISOString(),
+            questions: data.questions,
+            status: "active"
+        };
+
+        localStorage.setItem(
+            "novy-last-assessment",
+            JSON.stringify(assessmentConfig)
+        );
+
+        workspace.innerHTML = `
+            <div class="page-card">
+                <h3 class="page-card-title">
+                    آزمون ${escapeHtml(subject)} | ${escapeHtml(topic)}
+                </h3>
+                <p class="page-card-text">
+                    پایه: ${escapeHtml(profileGrade)}
+                    · تعداد سؤال: ${count}
+                </p>
+
+                <div id="assessmentQuestions">
+                    ${data.questions.map((q, i) => `
+                        <div class="novy-assessment-question">
+                            <strong>سؤال ${i + 1}</strong>
+                            <p>${escapeHtml(q.question)}</p>
+
+                            ${q.options.map((option, j) => `
+                                <label class="novy-form-label">
+                                    <input
+                                        type="radio"
+                                        name="assessment-q-${i}"
+                                        value="${"ABCD"[j]}"
+                                    >
+                                    ${"ABCD"[j]}) ${escapeHtml(option)}
+                                </label>
+                            `).join("")}
+                        </div>
+                    `).join("")}
+                </div>
+
+                <br>
+                <button
+                    class="primary-button"
+                    id="assessmentSubmitButton"
+                    onclick="submitAssessmentAnswer()"
                 >
-                <br><br>
-                <button class="primary-button" onclick="submitAssessmentAnswer()">ثبت پاسخ</button>
+                    ثبت پاسخ‌ها و دریافت نتیجه
+                </button>
+
+                <p id="assessmentFeedback" class="novy-status-note"></p>
             </div>
-            <p id="assessmentFeedback" class="novy-status-note">
-                این سؤال فقط نمونهٔ رابط کاربری است و هنوز بررسی هوشمند فعال نیست.
-            </p>
-        </div>`;
+        `;
+
+    } catch (error) {
+        workspace.innerHTML = `
+            <div class="page-card">
+                <p class="novy-status-note">
+                    ${escapeHtml(error.message || "ساخت آزمون ناموفق بود.")}
+                </p>
+                <button class="primary-button" onclick="beginAssessment()">
+                    تلاش دوباره
+                </button>
+            </div>
+        `;
+    } finally {
+        if (startButton) {
+            startButton.disabled = false;
+            startButton.textContent = "شروع آزمون";
+        }
+    }
 }
 
-function submitAssessmentAnswer() {
-    const answer = document.getElementById("assessmentAnswer")?.value.trim();
+
+async function submitAssessmentAnswer() {
+    if (!assessmentConfig || !assessmentConfig.questions) return;
+
     const feedback = document.getElementById("assessmentFeedback");
-    if (!answer || !feedback) return;
-    const record = {
-        ...(assessmentConfig || {}), answer,
-        submittedAt: new Date().toISOString(), evaluation: "pending-ai"
-    };
-    localStorage.setItem("novy-last-assessment-answer", JSON.stringify(record));
-    feedback.textContent = "پاسخت ثبت شد. بررسی علت اشتباه، آموزش راه‌حل، سؤال تطبیقی و گزارش نهایی پس از اتصال هوش مصنوعی فعال می‌شوند.";
+    const button = document.getElementById("assessmentSubmitButton");
+
+    const answers = assessmentConfig.questions.map((q, i) => {
+        const selected = document.querySelector(
+            `input[name="assessment-q-${i}"]:checked`
+        );
+
+        return selected ? selected.value : null;
+    });
+
+    if (answers.some(answer => answer === null)) {
+        alert("لطفاً به همهٔ سؤال‌ها پاسخ بده.");
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "در حال بررسی پاسخ‌ها...";
+
+    feedback.textContent = "نووی در حال بررسی عملکرد توست...";
+
+    const correctCount = answers.filter(
+        (answer, i) =>
+            answer === assessmentConfig.questions[i].correctAnswer
+    ).length;
+
+    const answerDetails = assessmentConfig.questions.map((q, i) => ({
+        question: q.question,
+        options: q.options,
+        selectedAnswer: answers[i],
+        correctAnswer: q.correctAnswer,
+        explanation: q.explanation
+    }));
+
+    try {
+        const report = await novyAssessmentRequest(
+            `تو یک معلم و ارزیاب آموزشی هستی.
+پاسخ‌های دانش‌آموز را بررسی کن و نقاط قوت و ضعف او را تشخیص بده.
+یک سؤال تطبیقی جدید درباره مبحثی که دانش‌آموز در آن ضعف دارد طراحی کن.
+سؤال جدید باید چهار گزینه داشته باشد.
+فقط JSON معتبر برگردان:
+{
+  "summary": "بازخورد آموزشی و توضیح عملکرد دانش‌آموز",
+  "weaknesses": ["مورد اول"],
+  "adaptiveQuestion": {
+    "question": "متن سؤال جدید",
+    "options": ["گزینه اول", "گزینه دوم", "گزینه سوم", "گزینه چهارم"],
+    "correctAnswer": "A",
+    "explanation": "توضیح پاسخ درست"
+  }
+}`,
+            `درس: ${assessmentConfig.subject}
+مبحث: ${assessmentConfig.topic}
+پایه: ${assessmentConfig.grade}
+تعداد پاسخ درست: ${correctCount} از ${answers.length}
+
+پاسخ‌های دانش‌آموز:
+${JSON.stringify(answerDetails)}
+
+عملکرد را تحلیل کن و سؤال تطبیقی متناسب با نقاط ضعفش بساز.`
+        );
+
+        const adaptive = report.adaptiveQuestion;
+
+        if (
+            !report.summary ||
+            !adaptive ||
+            !adaptive.question ||
+            !Array.isArray(adaptive.options) ||
+            adaptive.options.length !== 4 ||
+            !["A", "B", "C", "D"].includes(adaptive.correctAnswer)
+        ) {
+            throw new Error("گزارش دریافتی معتبر نیست.");
+        }
+
+        assessmentConfig.result = {
+            correctCount,
+            total: answers.length,
+            answers,
+            report,
+            completedAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(
+            "novy-last-assessment-answer",
+            JSON.stringify(assessmentConfig)
+        );
+
+        feedback.innerHTML = `
+            <h3>نتیجه آزمون</h3>
+            <p>
+                پاسخ درست:
+                ${correctCount} از ${answers.length}
+            </p>
+            <p>${escapeHtml(report.summary)}</p>
+
+            <h4>نقاط قابل تقویت</h4>
+            <ul>
+                ${(Array.isArray(report.weaknesses) ? report.weaknesses : [])
+                    .map(item => `<li>${escapeHtml(item)}</li>`)
+                    .join("")}
+            </ul>
+
+            <hr>
+            <h3>سؤال تطبیقی نووی</h3>
+            <p>${escapeHtml(adaptive.question)}</p>
+
+            ${adaptive.options.map((option, i) => `
+                <label class="novy-form-label">
+                    <input
+                        type="radio"
+                        name="adaptive-answer"
+                        value="${"ABCD"[i]}"
+                    >
+                    ${"ABCD"[i]}) ${escapeHtml(option)}
+                </label>
+            `).join("")}
+
+            <br>
+            <button
+                class="primary-button"
+                onclick="submitAdaptiveAnswer()"
+            >
+                بررسی سؤال تطبیقی
+            </button>
+            <p id="adaptiveFeedback"></p>
+        `;
+
+        document.getElementById("assessmentQuestions").style.display = "none";
+        button.style.display = "none";
+
+    } catch (error) {
+        feedback.textContent =
+            error.message || "بررسی پاسخ‌ها با خطا مواجه شد.";
+
+        button.disabled = false;
+        button.textContent = "تلاش دوباره";
+    }
+}
+
+
+function submitAdaptiveAnswer() {
+    const selected = document.querySelector(
+        'input[name="adaptive-answer"]:checked'
+    );
+
+    const feedback = document.getElementById("adaptiveFeedback");
+    const adaptive = assessmentConfig?.result?.report?.adaptiveQuestion;
+
+    if (!selected || !adaptive || !feedback) {
+        alert("لطفاً یک گزینه انتخاب کن.");
+        return;
+    }
+
+    if (selected.value === adaptive.correctAnswer) {
+        feedback.textContent =
+            "آفرین! پاسخ سؤال تطبیقی درست بود. 🌟";
+    } else {
+        feedback.textContent =
+            "این بار پاسخ درست نبود. پاسخ صحیح: " +
+            adaptive.correctAnswer + ") " +
+            adaptive.options["ABCD".indexOf(adaptive.correctAnswer)] +
+            " | " + adaptive.explanation;
+    }
+
+    assessmentConfig.result.adaptiveAnswer = selected.value;
+
+    localStorage.setItem(
+        "novy-last-assessment-answer",
+        JSON.stringify(assessmentConfig)
+    );
 }
 
 
