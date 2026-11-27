@@ -5110,11 +5110,24 @@ async function sendMessage() {
     document.getElementById("messages").appendChild(loading);
 
     try {
-        const messages = [
-            {
-                role: "system",
-                content: "You are Novy, a friendly educational AI assistant for learners aged 10–18. Reply in the user's language. Explain accurately and clearly. Never invent facts. Adapt explanations to the learner's level."
-            },
+     const selectedSubject = chat.subject || activeSubject || null;
+
+const messages = [
+    {
+        role: "system",
+        content: `You are Novy, a friendly educational AI assistant for learners aged 10–18.
+
+Current subject: ${selectedSubject || "General conversation"}.
+
+${selectedSubject
+    ? `The user selected ${selectedSubject}. Keep your explanations, examples, and educational guidance relevant to this subject.`
+    : "No specific subject is selected. Help with the user's general request."}
+
+Reply in the user's language.
+Explain accurately and clearly.
+Never invent facts.
+Adapt explanations to the learner's level.`
+    },
             ...chat.messages
                 .filter(m => ["user", "assistant"].includes(m.role))
                 .slice(-30)
